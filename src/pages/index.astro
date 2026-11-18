@@ -140,6 +140,49 @@ const suppliedPlaces = [
   { name: 'Bangsar', region: 'Kuala Lumpur' },
   { name: 'KL City Centre (KLCC)', region: 'Kuala Lumpur' }
 ];
+
+const ourWorkGallery = [
+  {
+    image: '/images/our-work/work-1.jpg',
+    titleMs: 'Sisa Pembinaan & Kayu Besi di Tapak',
+    titleEn: 'Construction Waste & Steel Scrap Clearance',
+    categoryMs: 'Tapak Projek Selangor',
+    categoryEn: 'Selangor Project Site',
+    wasteTypeMs: 'Sisa Binaan & Besi Scrap'
+  },
+  {
+    image: '/images/our-work/work-2.jpg',
+    titleMs: 'Penghantaran Tong Roro Kediaman',
+    titleEn: 'Residential Tong Roro Bin Delivery',
+    categoryMs: 'Kawasan Perumahan',
+    categoryEn: 'Residential Neighborhood',
+    wasteTypeMs: 'Sisa Rumah & Renovasi'
+  },
+  {
+    image: '/images/our-work/work-3.jpg',
+    titleMs: 'Pembersihan Batu Bata & Konkrit',
+    titleEn: 'Concrete & Masonry Debris Disposal',
+    categoryMs: 'Lorong Kediaman & Komersial',
+    categoryEn: 'Residential & Commercial Lane',
+    wasteTypeMs: 'Batu Bata, Simen & Konkrit'
+  },
+  {
+    image: '/images/our-work/work-4.jpg',
+    titleMs: 'Sisa Pengubahsuaian Penuh Berbatu',
+    titleEn: 'Full Renovation Rubble Collection',
+    categoryMs: 'Projek Renovasi Rumah',
+    categoryEn: 'Home Renovation Project',
+    wasteTypeMs: 'Puing Batu, Jubin & Pasir'
+  },
+  {
+    image: '/images/our-work/work-5.jpg',
+    titleMs: 'Tong Roro Baharu Sedia Dihantar',
+    titleEn: 'Brand New Clean Tong Roro Delivery',
+    categoryMs: 'Kutipan Sisa Domestik & Kebun',
+    categoryEn: 'Domestic & Garden Waste Collection',
+    wasteTypeMs: 'Sisa Domestik & Pukal'
+  }
+];
 ---
 
 <BaseLayout title={seo.title} description={seo.description} currentPath="/" hideFooter={true}>
@@ -377,7 +420,71 @@ const suppliedPlaces = [
     </div>
   </section>
 
-  <!-- 4. Scroll-Driven Dynamic Scaling Free Quotation & Contact Section -->
+  <!-- 4. Our Work / Kerja Lapangan SKL Waste -->
+  <section class="our-work-section" id="our-work">
+    <div class="supply-container">
+      <div class="supply-header-block">
+        <span
+          class="supply-eyebrow"
+          data-ms="KERJA LAPANGAN KAMI"
+          data-en="OUR WORK IN ACTION"
+        >
+          KERJA LAPANGAN KAMI
+        </span>
+        <h2
+          class="supply-title"
+          data-ms="Gambar Kerja Sebenar SKL Waste"
+          data-en="Real On-Site Project Photos"
+        >
+          Gambar Kerja Sebenar SKL Waste
+        </h2>
+        <p
+          class="supply-subtitle"
+          data-ms="Lihat tong roro biru SKL Waste Sdn Bhd beroperasi di tapak projek, perumahan dan premis komersial sekitar Selangor & KL."
+          data-en="Take a look at SKL Waste Sdn Bhd signature blue RORO bins deployed across residential, construction, and commercial locations in Selangor & KL."
+        >
+          Lihat tong roro biru SKL Waste Sdn Bhd beroperasi di tapak projek, perumahan dan premis komersial sekitar Selangor & KL.
+        </p>
+      </div>
+
+      <div class="our-work-grid">
+        {ourWorkGallery.map((item, idx) => (
+          <article class="work-card blur-fade-item" style={`--stagger-delay: ${idx * 80}ms;`}>
+            <div class="work-media">
+              <img
+                src={item.image}
+                alt={item.titleMs}
+                class="work-img"
+                loading="lazy"
+                decoding="async"
+                width="640"
+                height="1138"
+              />
+              <span class="work-tag">{item.wasteTypeMs}</span>
+            </div>
+            <div class="work-body">
+              <span
+                class="work-category"
+                data-ms={item.categoryMs}
+                data-en={item.categoryEn}
+              >
+                {item.categoryMs}
+              </span>
+              <h3
+                class="work-title"
+                data-ms={item.titleMs}
+                data-en={item.titleEn}
+              >
+                {item.titleMs}
+              </h3>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Scroll-Driven Dynamic Scaling Free Quotation & Contact Section -->
   <section class="scroll-quote-section" id="free-quotation-cta">
     <div class="supply-container">
       <div class="scroll-quote-box" id="scroll-scale-card">
@@ -893,7 +1000,112 @@ const suppliedPlaces = [
   }
 
   /* ==========================================================================
-     4. Scroll-Driven Dynamic Scaling Free Quotation & Contact Card
+     4. Our Work / Kerja Lapangan Gallery Section
+     ========================================================================== */
+  .our-work-section {
+    position: relative;
+    background: #ffffff;
+    padding: clamp(3.5rem, 6vw, 5.5rem) 1.5rem clamp(4rem, 6vw, 6rem);
+    border-top: 1px solid rgba(10, 22, 40, 0.08);
+  }
+
+  .our-work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  @media (min-width: 1024px) {
+    .our-work-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .work-card {
+    background: #ffffff;
+    border: 1.5px solid rgba(10, 22, 40, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px -8px rgba(10, 22, 40, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+  }
+
+  .work-card:hover {
+    transform: translateY(-6px);
+    border-color: #15803d;
+    box-shadow: 0 20px 40px -10px rgba(21, 128, 61, 0.22);
+  }
+
+  .work-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    background: #0a1628;
+  }
+
+  .work-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .work-card:hover .work-img {
+    transform: scale(1.05);
+  }
+
+  .work-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(10, 22, 40, 0.85);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.32rem 0.65rem;
+    border-radius: 9999px;
+    letter-spacing: 0.02em;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .work-body {
+    padding: 1.15rem 1.25rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex-grow: 1;
+    background: #ffffff;
+    border-top: 1px solid rgba(10, 22, 40, 0.06);
+  }
+
+  .work-category {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #15803d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .work-title {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: 0.98rem;
+    font-weight: 800;
+    line-height: 1.35;
+    color: #0a1628;
+    margin: 0;
+  }
+
+  /* ==========================================================================
+     5. Scroll-Driven Dynamic Scaling Free Quotation & Contact Card
      ========================================================================== */
   .scroll-quote-section {
     padding: clamp(3.5rem, 7vw, 6rem) 1.5rem clamp(4rem, 7vw, 6.5rem);

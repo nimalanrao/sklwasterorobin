@@ -16,6 +16,14 @@ const industrySectorImages = [
   { file: 'renovation-remodelling.jpg', title: 'Ubah Suai & Renovasi (Renovation & Remodelling) Tong Roro - SKL Waste Sdn Bhd' }
 ];
 
+const ourWorkPhotos = [
+  { file: 'work-1.jpg', title: 'Sisa Pembinaan & Kayu Besi di Tapak - SKL Waste Sdn Bhd' },
+  { file: 'work-2.jpg', title: 'Penghantaran Tong Roro Kediaman - SKL Waste Sdn Bhd' },
+  { file: 'work-3.jpg', title: 'Pembersihan Batu Bata & Konkrit - SKL Waste Sdn Bhd' },
+  { file: 'work-4.jpg', title: 'Sisa Pengubahsuaian Penuh Berbatu - SKL Waste Sdn Bhd' },
+  { file: 'work-5.jpg', title: 'Tong Roro Baharu Sedia Dihantar - SKL Waste Sdn Bhd' }
+];
+
 export const GET: APIRoute = async () => {
   const buildDate = new Date().toISOString();
 
@@ -43,7 +51,19 @@ export const GET: APIRoute = async () => {
       <image:geo_location>Sungai Buloh, Selangor, Malaysia</image:geo_location>
     </image:image>`
               )
-              .join('\n')
+              .join('\n') +
+            (page.path === '/'
+              ? '\n' +
+                ourWorkPhotos
+                  .map(
+                    (photo) => `    <image:image>
+      <image:loc>${SITE_URL}/images/our-work/${photo.file}</image:loc>
+      <image:title>${photo.title.replace(/&/g, '&amp;')}</image:title>
+      <image:geo_location>Selangor &amp; Kuala Lumpur, Malaysia</image:geo_location>
+    </image:image>`
+                  )
+                  .join('\n')
+              : '')
           : '';
 
       return `  <url>
