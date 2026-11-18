@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { pageSEOMap, getCanonicalUrl } from '../data/seo';
+import { pageSEOMap, getCanonicalUrl, SITE_URL } from '../data/seo';
 
 export const GET: APIRoute = async () => {
-  const buildDate = new Date().toISOString().split('T')[0];
+  const buildDate = new Date().toISOString();
 
   const indexablePages = Object.values(pageSEOMap).filter((page) => !page.noindex);
 
@@ -15,19 +15,38 @@ export const GET: APIRoute = async () => {
           : page.path === '/tong-roro-rental' || page.path === '/waste-management-services'
           ? '0.9'
           : '0.8';
-      const changefreq = page.path === '/' ? 'weekly' : 'monthly';
+      const changefreq = page.path === '/' || page.path === '/tong-roro-rental' ? 'daily' : 'weekly';
 
       return `  <url>
     <loc>${canonical}</loc>
     <lastmod>${buildDate}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
+    <xhtml:link rel="alternate" hreflang="ms-MY" href="${canonical}" />
+    <xhtml:link rel="alternate" hreflang="en-MY" href="${canonical}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${canonical}" />
+    <image:image>
+      <image:loc>${SITE_URL}/images/sewa-tong-roro-sungai-buloh-skl-waste.webp</image:loc>
+      <image:title>Sewa Tong Roro Sungai Buloh &amp; Selangor - SKL Waste Sdn Bhd</image:title>
+      <image:caption>Lori Roro dan kontena Tong Roro 2 Kaki dan 4 Kaki SKL Waste Sdn Bhd (200801038953) di Sungai Buloh, Selangor</image:caption>
+      <image:geo_location>Sungai Buloh, Selangor, Malaysia</image:geo_location>
+    </image:image>
+    <image:image>
+      <image:loc>${SITE_URL}/images/logo-skl-waste-sdn-bhd.webp</image:loc>
+      <image:title>Logo Rasmi SKL Waste Sdn Bhd</image:title>
+      <image:caption>SKL Waste Sdn Bhd (200801038953) - Syarikat Sewaan Tong Roro dan Pengurusan Sisa Selangor</image:caption>
+      <image:geo_location>Sungai Buloh, Selangor, Malaysia</image:geo_location>
+    </image:image>
   </url>`;
     })
     .join('\n');
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
 ${xmlUrls}
 </urlset>`;
 
@@ -35,7 +54,8 @@ ${xmlUrls}
     status: 200,
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      'X-Content-Type-Options': 'nosniff',
+      'Access-Control-Allow-Origin': '*',
+      'X-Robots-Tag': 'all',
     },
   });
 };

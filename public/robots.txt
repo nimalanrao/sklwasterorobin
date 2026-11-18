@@ -1,9 +1,148 @@
+# ============================================================================
+# SKL WASTE SDN BHD (Reg No: 200801038953) - Maximum SEO & Crawler Access
+# Zero Bot Blocking / 100% Open Indexing for Search, SEO & AI Engines
+# ============================================================================
+
 User-agent: *
 Allow: /
+Crawl-delay: 0
 
-# Ensure search engine crawlers have access to static styling, images, and scripts
-Allow: /_astro/
-Allow: /images/
+# Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
 
-# XML Sitemap
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+User-agent: Googlebot-Video
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: AdIdxBot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Sogou
+Allow: /
+
+User-agent: Exabot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# AI Search, Answer Engine & LLM Crawlers (GEO / AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookExternalHit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+# SEO Audit & Backlink Indexers
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+User-agent: MJ12bot
+Allow: /
+
+User-agent: DotBot
+Allow: /
+
+User-agent: Rogerbot
+Allow: /
+
+User-agent: Screaming Frog SEO Spider
+Allow: /
+
+# Sitemaps & AI Knowledge Files
 Sitemap: https://www.sklwaste.com.my/sitemap.xml
+Sitemap: https://nimalanrao.github.io/sklwasterorobin/sitemap.xml
+Host: https://www.sklwaste.com.my

@@ -1,31 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProductCatalogue from '../components/ProductCatalogue.astro';
-import PricingTable from '../components/PricingTable.astro';
-import ServiceList from '../components/ServiceList.astro';
-import IndustryGrid from '../components/IndustryGrid.astro';
-import ServiceAreaList from '../components/ServiceAreaList.astro';
-import RentalProcessSteps from '../components/RentalProcessSteps.astro';
-import FAQAccordion from '../components/FAQAccordion.astro';
-import ContactDetailsCard from '../components/ContactDetailsCard.astro';
-import QuotationForm from '../components/QuotationForm.astro';
-import ContactForm from '../components/ContactForm.astro';
-import VerificationNotice from '../components/VerificationNotice.astro';
 import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { productsData } from '../data/products';
+import { secondaryServices } from '../data/services';
+import { serviceAreasData } from '../data/serviceAreas';
+import { industriesData } from '../data/industries';
 import { getPageSEO } from '../data/seo';
 
 const seo = getPageSEO('/');
 ---
 
-<BaseLayout title={seo.title} description={seo.description} currentPath="/">
-  <!-- 1. Hero Section (Full-bleed authentic fleet background hero with WebP optimization) -->
-  <section class="hero-section" id="hero">
+<BaseLayout title={seo.title} description={seo.description} currentPath="/" hideFooter={true}>
+  <!-- Full-Screen Hero Page (Exact Wireframe Layout: Blurred White-Opacity Fade + Info + Order WhatsApp) -->
+  <section class="hero-fullscreen" id="hero">
+    <!-- Background Hero Image -->
     <picture class="hero-bg-picture">
       <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
       <img
         src="/images/skl-hero-roro.jpg"
-        alt="Lori Roro dan Tong Roro biru SKL Waste Sdn Bhd bersedia untuk penghantaran sewaan di Sungai Buloh, Selangor"
-        class="hero-bg-photo"
+        alt="Lori Roro dan Tong Roro SKL Waste Sdn Bhd di Sungai Buloh, Selangor"
+        class="hero-bg-img"
         width="1280"
         height="720"
         loading="eager"
@@ -33,310 +28,101 @@ const seo = getPageSEO('/');
         decoding="sync"
       />
     </picture>
-    <div class="hero-scrim" aria-hidden="true"></div>
 
-    <div class="container hero-container">
-      <div class="hero-content">
-        <div class="hero-badge reveal-on-scroll">
-          <span class="status-pulse" aria-hidden="true"></span>
-          <span>SKL WASTE SDN BHD • REG. NO: 200801038953</span>
-        </div>
+    <!-- Blurred Fade Background with White Opacity -->
+    <div class="hero-white-blur-fade" aria-hidden="true"></div>
 
-        <h1 class="hero-title reveal-on-scroll">
-          SEWA TONG RORO.<br />
-          <span class="hero-title-accent">PENGURUSAN SISA LEBIH MUDAH.</span>
+    <!-- Left Content Container -->
+    <div class="hero-main-container">
+      <div class="hero-info-block">
+        <h1
+          class="hero-main-title"
+          data-html-ms="SEWA TONG RORO.<br />PENGURUSAN SISA LEBIH MUDAH."
+          data-html-en="TONG RORO RENTAL.<br />WASTE MANAGEMENT MADE SIMPLE."
+        >
+          SEWA TONG RORO.<br />PENGURUSAN SISA LEBIH MUDAH.
         </h1>
 
-        <p class="hero-description reveal-on-scroll">
-          Penyelesaian sewaan Tong Roro dan pengurusan sisa untuk keperluan kediaman, komersial, pembinaan dan industri.
+        <p
+          class="hero-sub-info"
+          data-ms="Perkhidmatan sewaan Tong Roro (2 Kaki & 4 Kaki), kutipan sampah, pengangkutan dan pelupusan sisa untuk kediaman, komersial, pembinaan dan industri di Sungai Buloh & Selangor."
+          data-en="Tong Roro bin rental (2 Feet & 4 Feet), waste collection, transport, and disposal services for residential, commercial, construction, and industrial sites in Sungai Buloh & Selangor."
+        >
+          Perkhidmatan sewaan Tong Roro (2 Kaki &amp; 4 Kaki), kutipan sampah, pengangkutan dan pelupusan sisa untuk kediaman, komersial, pembinaan dan industri di Sungai Buloh &amp; Selangor.
         </p>
 
-        <div class="hero-actions reveal-on-scroll">
-          <a href="#quotation-form" class="btn btn-primary hero-btn-primary">Dapatkan Sebut Harga</a>
-          <a href="tel:+60166159365" class="btn hero-btn-secondary">Hubungi Mr Hari</a>
-        </div>
-      </div>
-
-      <!-- 4-item operational trust strip (Frosted-glass metric cards) -->
-      <div class="hero-trust-strip reveal-on-scroll">
-        <div class="trust-item">
-          <span class="trust-stat">10 Days</span>
-          <span class="trust-label">Standard Rental</span>
-        </div>
-        <div class="trust-item">
-          <span class="trust-stat">2 Ft & 4 Ft</span>
-          <span class="trust-label">Bin Sizes</span>
-        </div>
-        <div class="trust-item">
-          <span class="trust-stat">13 Areas</span>
-          <span class="trust-label">Pending Verification</span>
-        </div>
-        <div class="trust-item">
-          <span class="trust-stat">Mr Hari</span>
-          <span class="trust-label">Direct Coordination</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2. Company Introduction -->
-  <section class="section company-intro-section" id="company-intro">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">TENTANG KAMI / ABOUT US</span>
-        <h2 class="section-title">Pengenalan Syarikat (Company Introduction)</h2>
-        <p class="section-desc">
-          Profil rasmi syarikat pengurusan sisa pepejal dan sewaan Tong Roro berdaftar di Sungai Buloh, Selangor.
-        </p>
-      </div>
-
-      <div class="card intro-card reveal-on-scroll">
-        <div class="company-profile-header">
-          <picture>
-            <source srcset="/images/logo-skl-waste-sdn-bhd.webp" type="image/webp" />
-            <img
-              src="/images/skl-logo.png"
-              alt="Logo Rasmi SKL Waste Sdn Bhd Sungai Buloh"
-              class="company-profile-logo"
-              width="56"
-              height="56"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
-          <div class="company-profile-title">
-            <h3 class="company-legal-name">SKL WASTE SDN BHD</h3>
-            <span class="company-reg-pill">No. Pendaftaran Syarikat: <strong>200801038953</strong></span>
-          </div>
-        </div>
-
-        <!-- Standalone BLUF (Bottom Line Up Front) AEO Summary Block -->
-        <div class="bluf-aeo-summary" role="region" aria-label="Ringkasan Pantas Perkhidmatan SKL Waste">
-          <p>
-            <strong>Ringkasan Pantas (Bottom Line Up Front):</strong> <strong>SKL WASTE SDN BHD</strong> (No. Pendaftaran: <strong>200801038953</strong>) menyediakan perkhidmatan <a href="/tong-roro-rental">sewaan Tong Roro 2 Feet & 4 Feet</a> dengan tempoh sewaan standard <strong>10 days</strong> bermula kadar sementara <strong>RM2XX</strong> dan <strong>RM3XX–RM4XX</strong> di Sungai Buloh dan Selangor. Kami turut menawarkan <a href="/waste-management-services">9 perkhidmatan pengurusan sisa pepejal</a> merentasi pelbagai <a href="/industries-we-serve">sektor industri</a> serta <a href="/service-areas">13 kawasan liputan</a> berstatus verifikasi. Untuk penetapan tarikh dan sebut harga rasmi segera, hubungi <a href="/contact-us">Mr Hari (+60 16-615 9365)</a>.
-          </p>
-        </div>
-
-        <p class="intro-tagline-lead">
-          SEWA TONG RORO UNTUK SETIAP KEPERLUAN ANDA.
+        <p
+          class="hero-meta-line"
+          data-ms="SKL WASTE SDN BHD (200801038953) • Tempoh Sewaan 10 Hari • RM2XX (2 Kaki) / RM3XX–RM4XX (4 Kaki) • Mr Hari: +60 16-615 9365"
+          data-en="SKL WASTE SDN BHD (200801038953) • 10-Day Rental • RM2XX (2 Feet) / RM3XX–RM4XX (4 Feet) • Mr Hari: +60 16-615 9365"
+        >
+          SKL WASTE SDN BHD (200801038953) • Tempoh Sewaan 10 Hari • RM2XX (2 Kaki) / RM3XX–RM4XX (4 Kaki) • Mr Hari: +60 16-615 9365
         </p>
 
-        <p>
-          <strong>SKL WASTE SDN BHD</strong> (No. Pendaftaran: <strong>200801038953</strong>) beribu pejabat di <strong>PT 31127 SETOR JALAN KUALA SELANGOR, 47000 SUNGAI BULOH, SELANGOR DARUL EHSAN, MALAYSIA.</strong>
-        </p>
-        <p>
-          SKL Waste Sdn Bhd adalah penyedia perkhidmatan pengurusan sisa yang mengkhususkan diri dalam penyewaan Tong Roro, pengangkutan sisa, dan pelupusan sisa pepejal secara bertanggungjawab.
-        </p>
-        <p>
-          Semua perkhidmatan kami disediakan untuk keperluan kediaman, komersial, pembinaan, dan industri, <strong>tertakluk kepada pengesahan ketersediaan perkhidmatan</strong> mengikut kesesuaian lokasi dan jadual operasi.
-        </p>
-        <VerificationNotice
-          type="provisional"
-          title="Status Ketersediaan Operasi"
-          message={companyData.serviceAvailabilityDisclaimer}
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. Primary Tong Roro Rental Offering -->
-  <section class="section section-surface primary-offering-section" id="primary-offering">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">PERKHIDMATAN TERAS / CORE OFFERING</span>
-        <h2 class="section-title">Perkhidmatan Utama: Sewaan Tong Roro</h2>
-        <p class="section-desc">
-          Penyelesaian pengumpulan dan pelupusan sisa pepejal berkapasiti tinggi untuk tapak projek dan kediaman anda.
-        </p>
-      </div>
-
-      <div class="card core-offering-card reveal-on-scroll">
-        <p>
-          Teras perniagaan utama SKL Waste Sdn Bhd adalah <strong>Sewaan Tong Roro</strong> (Roll-On Roll-Off bin rental). Tong Roro kami direka khas untuk menampung sisa pepejal berat dan pukal secara selamat dan efisien di tapak pelanggan sebelum diangkut ke tapak pelupusan berlesen.
-        </p>
-        <p>
-          Pakej sewaan Tong Roro kami beroperasi pada tempoh sewaan standard <strong>10 days</strong>. Kami menawarkan pilihan saiz <strong>Tong Roro 2 Feet</strong> (sesuai untuk sisa berat dan padat) dan <strong>Tong Roro 4 Feet</strong> (sesuai untuk sisa pukal bervolum tinggi).
-        </p>
-
-        <div class="bluf-service-summary">
-          <p>
-            <strong>Akses Pantas Perkhidmatan:</strong> Ketahui perincian spesifikasi teknikal di <a href="/tong-roro-rental">halaman Sewaan Tong Roro</a>, semak rangkaian <a href="/waste-management-services">pengurusan sisa pembinaan & industri</a>, lihat <a href="/service-areas">13 kawasan perkhidmatan</a> sekitar Selangor, atau rujuk panduan bagi <a href="/industries-we-serve">sektor industri</a> sebelum <a href="/contact-us">menghubungi pegawai operasi kami</a> untuk sebut harga berpatutan.
-          </p>
-        </div>
-
-        <div class="core-actions">
-          <a href="#katalog-tong-roro" class="btn btn-secondary">Pilih Saiz Tong Roro</a>
-          <a href="#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga Segera</a>
+        <!-- Order WhatsApp Framed Pill CTA -->
+        <div class="hero-order-frame">
+          <a
+            href="https://wa.me/60166159365?text=Hai%20Mr%20Hari%20(SKL%20Waste%20Sdn%20Bhd)%2C%20saya%20ingin%20menempah%20Tong%20Roro."
+            class="hero-order-whatsapp-btn"
+            data-track-cta="hero_order_whatsapp"
+            data-ms="ORDER WHATSAPP"
+            data-en="ORDER WHATSAPP"
+          >
+            ORDER WHATSAPP
+          </a>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- 4. Product Catalogue -->
-  <section class="section product-catalogue-section" id="katalog-tong-roro">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">PILIHAN SAIZ / BIN CATALOGUE</span>
-        <h2 class="section-title">Katalog Produk Tong Roro <span class="nowrap">(Product Catalogue)</span></h2>
-        <p class="section-desc">
-          Pilih saiz Tong Roro yang bersesuaian dengan jenis bahan sisa dan had ruang tapak pelupusan anda:
-        </p>
-      </div>
-
-      <div class="reveal-on-scroll">
-        <ProductCatalogue />
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Rental Pricing -->
-  <section class="section section-surface pricing-section" id="kadar-sewaan">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">KADAR SEWAAN / RENTAL PRICING</span>
-        <h2 class="section-title">Kadar Sewaan Tong Roro (Rental Pricing)</h2>
-        <p class="section-desc">
-          Jadual perbandingan harga sementara (provisional) bagi saiz Tong Roro 2 Feet (<strong>RM2XX</strong>) dan Tong Roro 4 Feet (<strong>RM3XX–RM4XX</strong>) untuk tempoh <strong>10 days</strong>:
-        </p>
-      </div>
-
-      <div class="reveal-on-scroll">
-        <PricingTable />
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. Waste Management Services -->
-  <section class="section services-section" id="perkhidmatan-pengurusan-sisa">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">SKOP PENUH / WASTE MANAGEMENT</span>
-        <h2 class="section-title">Perkhidmatan Pengurusan Sisa (Waste Management Services)</h2>
-        <p class="section-desc">
-          Selain perkhidmatan utama Sewaan Tong Roro, SKL Waste Sdn Bhd menyediakan pelbagai kategori pengurusan dan pelupusan sisa pepejal:
-        </p>
-      </div>
-
-      <div class="reveal-on-scroll">
-        <ServiceList includePrimary={true} />
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. Industries Served -->
-  <section class="section section-surface industries-section" id="industri-yang-dilayan">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">SEKTOR INDUSTRI / INDUSTRIES SERVED</span>
-        <h2 class="section-title">Sektor Industri Yang Dilayan (Industries Served)</h2>
-        <p class="section-desc">
-          Penyelesaian pelupusan dan pengurusan sisa kami disesuaikan untuk memenuhi spesifikasi operasi pelbagai sektor industri dan komersial:
-        </p>
-      </div>
-
-      <div class="reveal-on-scroll">
-        <IndustryGrid />
-      </div>
-    </div>
-  </section>
-
-  <!-- 8. Service Areas -->
-  <section class="section service-areas-section" id="kawasan-perkhidmatan">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">LOKASI LIPUTAN / SERVICE COVERAGE</span>
-        <h2 class="section-title">Kawasan Liputan Perkhidmatan (Service Areas)</h2>
-        <p class="section-desc">
-          Senarai kawasan liputan berpotensi di sekitar Selangor. Sila ambil perhatian bahawa kesemua kawasan bertanda <em>Pending Verification</em> dan caj pengangkutan perlu disahkan terus dengan pegawai kami:
-        </p>
-      </div>
-
-      <div class="reveal-on-scroll">
-        <ServiceAreaList />
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. How the Rental Process Works -->
-  <section class="section section-dark rental-process-section" id="cara-sewaan">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow eyebrow-dark">PROSES OPERASI / HOW IT WORKS</span>
-        <h2 class="section-title">Proses Sewaan Tong Roro (How the Rental Process Works)</h2>
-        <p class="section-desc">
-          Panduan langkah demi langkah proses sewaan Tong Roro dari tempahan awal hingga kutipan dan pelupusan sisa:
-        </p>
-      </div>
-
-      <div class="reveal-on-scroll">
-        <RentalProcessSteps />
-      </div>
-    </div>
-  </section>
-
-  <!-- 10. Frequently Asked Questions -->
-  <section class="section section-surface faq-section" id="soalan-lazim">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">SOALAN LAZIM / FREQUENTLY ASKED QUESTIONS</span>
-        <h2 class="section-title">Soalan Lazim (Frequently Asked Questions)</h2>
-        <p class="section-desc">
-          Maklumat telus mengenai tempoh sewaan 10 hari, caj penghantaran, pematuhan jenis sisa dan syarat operasi:
-        </p>
-      </div>
-
-      <div class="reveal-on-scroll">
-        <FAQAccordion />
-      </div>
-    </div>
-  </section>
-
-  <!-- 11. Contact & Quotation Section -->
-  <section class="section contact-quotation-section" id="hubungi-dan-sebut-harga">
-    <div class="container">
-      <div class="section-header reveal-on-scroll">
-        <span class="eyebrow">HUBUNGI KAMI / CONTACT & QUOTATION</span>
-        <h2 class="section-title">Hubungi Kami & Dapatkan Sebut Harga (Contact & Quotation)</h2>
-        <p class="section-desc">
-          Sila hubungi <strong>Mr Hari</strong> di talian <a href="tel:+60166159365">+60 16-615 9365</a> atau hantarkan butiran pesanan anda melalui borang sebut harga di bawah untuk mendapatkan sebut harga rasmi yang disahkan.
-        </p>
-      </div>
-
-      <div class="contact-sections-grid reveal-on-scroll">
-        <div class="contact-details-col">
-          <ContactDetailsCard />
-        </div>
-        <div class="quotation-form-col">
-          <QuotationForm />
-        </div>
-      </div>
-
-      <div class="general-enquiry-wrapper reveal-on-scroll">
-        <ContactForm />
-      </div>
+    <!-- Visually Hidden SEO & Crawler Context (Visible to Robots/Scrapers Only) -->
+    <div class="crawler-seo-content">
+      <h2>{companyData.name} ({companyData.registrationNumber}) - Sewaan Tong Roro Selangor &amp; Sungai Buloh</h2>
+      <p>
+        Ibu Pejabat: {companyData.headquarters.fullAddress}. Pegawai Dihubungi: {contactData.mainContactPerson} ({contactData.telephoneDisplay}, {contactData.email}).
+      </p>
+      <ul>
+        <li><a href="/tong-roro-rental">Tong Roro Rental (Sewa Tong Roro 2 Feet RM2XX &amp; 4 Feet RM3XX–RM4XX - 10 Days)</a></li>
+        <li><a href="/waste-management-services">Waste Management Services (Perkhidmatan Pengurusan &amp; Pelupusan Sisa)</a></li>
+        <li><a href="/industries-we-serve">Industries We Serve (Sektor Industri, Pembinaan &amp; Komersial)</a></li>
+        <li><a href="/service-areas">Service Areas (Kawasan Liputan Sungai Buloh, Rawang, Puncak Alam &amp; Selangor)</a></li>
+        <li><a href="/contact-us">Contact Us (Hubungi Mr Hari +60 16-615 9365)</a></li>
+        <li><a href="/about-us">About Us (Tentang SKL Waste Sdn Bhd)</a></li>
+        <li><a href="/privacy-policy">Privacy Policy (Dasar Privasi)</a></li>
+      </ul>
+      <ul>
+        {productsData.map((p) => (
+          <li>{p.name} ({p.sizeLabel}): {p.priceDisplay} ({p.rentalDuration})</li>
+        ))}
+      </ul>
+      <ul>
+        {secondaryServices.map((s) => (
+          <li>{s.name} ({s.nameEn})</li>
+        ))}
+      </ul>
+      <ul>
+        {serviceAreasData.map((a) => (
+          <li>{a.name} - {a.region} ({a.statusLabel})</li>
+        ))}
+      </ul>
+      <ul>
+        {industriesData.map((ind) => (
+          <li>{ind.name} ({ind.nameMs})</li>
+        ))}
+      </ul>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* ==========================================================================
-     Homepage Scoped Layout & Visual Styling
-     ========================================================================== */
-
-  .nowrap {
-    white-space: nowrap;
-  }
-
-  /* Full-bleed authentic fleet background hero with picture support */
-  .hero-section {
+  .hero-fullscreen {
     position: relative;
-    background-color: #0a1628;
-    color: #ffffff;
-    padding: clamp(3.5rem, 6vw, 5.5rem) 0;
-    overflow: hidden;
-    min-height: 560px;
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    background-color: #f8fafc;
+    padding: 7.5rem 1.5rem 3.5rem;
   }
 
   .hero-bg-picture {
@@ -347,361 +133,151 @@ const seo = getPageSEO('/');
     z-index: 0;
   }
 
-  .hero-bg-photo {
+  .hero-bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 68% center;
+    object-position: 72% center;
     display: block;
   }
 
-  .hero-scrim {
+  /* Blurred Fade Background with White Opacity (Left-to-Right Fade) */
+  .hero-white-blur-fade {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(95deg, rgba(10, 22, 40, 0.94) 0%, rgba(10, 22, 40, 0.80) 48%, rgba(10, 22, 40, 0.32) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0.90) 38%,
+      rgba(255, 255, 255, 0.58) 62%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.92) 50%, rgba(0, 0, 0, 0.15) 88%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.92) 50%, rgba(0, 0, 0, 0.15) 88%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  /* Soft base white veil to keep left text crisp even without mask-image support */
+  .hero-fullscreen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 255, 255, 0.80) 42%,
+      rgba(255, 255, 255, 0.20) 74%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-main-container {
+    position: relative;
+    z-index: 2;
+    width: min(1140px, 100%);
+    margin: 0 auto;
+  }
+
+  .hero-info-block {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+
+  .hero-main-title {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: clamp(2.35rem, 5vw, 3.85rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: #0a1628;
+    margin: 0;
+  }
+
+  .hero-sub-info {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(1.02rem, 1.6vw, 1.22rem);
+    font-weight: 600;
+    line-height: 1.6;
+    color: #1e293b;
+    margin: 0;
+    max-width: 580px;
+  }
+
+  .hero-meta-line {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(0.84rem, 1.2vw, 0.95rem);
+    font-weight: 700;
+    color: #15803d;
+    margin: 0;
+  }
+
+  .hero-order-frame {
+    margin-top: 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.65rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 2px solid #0a1628;
+    border-radius: 14px;
+    width: fit-content;
+    box-shadow: 0 10px 26px rgba(10, 22, 40, 0.12);
+  }
+
+  .hero-order-whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2rem;
+    border-radius: 9999px;
+    background: #15803d;
+    color: #ffffff;
+    border: 2px solid #0a1628;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  }
+
+  .hero-order-whatsapp-btn:hover {
+    background: #0a1628;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(10, 22, 40, 0.22);
+  }
+
+  /* Visually hidden for humans, stays in HTML DOM for search engine crawlers & scrapers */
+  .crawler-seo-content {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   @media (max-width: 768px) {
-    .hero-scrim {
-      background: linear-gradient(180deg, rgba(10, 22, 40, 0.94) 0%, rgba(10, 22, 40, 0.84) 60%, rgba(10, 22, 40, 0.72) 100%);
+    .hero-fullscreen {
+      padding: 6.25rem 1.15rem 2.5rem;
     }
-  }
 
-  .hero-container {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-  }
-
-  .hero-content {
-    max-width: 680px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.4rem 0.95rem;
-    background: rgba(10, 22, 40, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: var(--radius-full, 9999px);
-    width: fit-content;
-    max-width: 100%;
-    font-size: 0.78125rem;
-    font-weight: 700;
-    color: #e2e8f0;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .status-pulse {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.35);
-    flex-shrink: 0;
-  }
-
-  .hero-title {
-    font-size: clamp(2.35rem, 5.5vw, 3.85rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    color: #ffffff;
-    margin: 0;
-  }
-
-  .hero-title-accent {
-    color: #4ade80;
-    display: block;
-  }
-
-  .hero-description {
-    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-    line-height: 1.6;
-    color: #e2e8f0;
-    max-width: 620px;
-    margin: 0;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 0.5rem;
-  }
-
-  .hero-btn-primary {
-    background: var(--accent-green, #15803d);
-    color: #ffffff;
-    border: 1px solid var(--accent-green, #15803d);
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-md, 10px);
-    text-decoration: none;
-    transition: background-color 0.2s ease, transform 0.15s ease;
-  }
-
-  .hero-btn-primary:hover {
-    background: var(--accent-green-hover, #166534);
-    transform: translateY(-1px);
-    color: #ffffff;
-  }
-
-  .hero-btn-secondary {
-    background: #ffffff;
-    color: #0a1628;
-    border: 1px solid #ffffff;
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-md, 10px);
-    text-decoration: none;
-    transition: background-color 0.2s ease, transform 0.15s ease;
-  }
-
-  .hero-btn-secondary:hover {
-    background: #f1f5f9;
-    color: #0a1628;
-    transform: translateY(-1px);
-  }
-
-  /* Frosted-glass Trust Strip */
-  .hero-trust-strip {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: clamp(2.5rem, 5vw, 3.5rem);
-  }
-
-  @media (min-width: 768px) {
-    .hero-trust-strip {
-      grid-template-columns: repeat(4, 1fr);
+    .hero-fullscreen::before {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.94) 0%,
+        rgba(255, 255, 255, 0.88) 65%,
+        rgba(255, 255, 255, 0.72) 100%
+      );
     }
-  }
-
-  .trust-item {
-    display: flex;
-    flex-direction: column;
-    padding: 1.125rem 1.25rem;
-    background: rgba(10, 22, 40, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: var(--radius-md, 12px);
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-
-  .trust-item:hover {
-    transform: translateY(-2px);
-    border-color: rgba(74, 222, 128, 0.5);
-  }
-
-  .trust-stat {
-    font-size: clamp(1.25rem, 2.2vw, 1.55rem);
-    font-weight: 800;
-    color: #4ade80;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-  }
-
-  .trust-label {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: #cbd5e1;
-    margin-top: 0.25rem;
-  }
-
-  /* Company Profile Header */
-  .company-profile-header {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    padding-bottom: 1.25rem;
-    margin-bottom: 1.25rem;
-    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
-  }
-
-  .company-profile-logo {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    border-radius: var(--radius-md, 10px);
-    border: 1px solid var(--border-subtle, #e2e8f0);
-    padding: 4px;
-    background: #ffffff;
-    flex-shrink: 0;
-  }
-
-  .company-profile-title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .company-legal-name {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--text-primary, #0a1628);
-    margin: 0;
-    line-height: 1.2;
-  }
-
-  .company-reg-pill {
-    font-size: 0.85rem;
-    color: var(--text-secondary, #475569);
-  }
-
-  /* BLUF / AEO Summaries */
-  .bluf-aeo-summary {
-    background-color: var(--accent-green-soft, #f0fdf4);
-    border: 1px solid var(--accent-green-border, #bbf7d0);
-    border-radius: var(--radius-md, 12px);
-    padding: 1.125rem 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .bluf-aeo-summary p {
-    font-size: 0.95rem;
-    line-height: 1.65;
-    color: var(--text-primary, #0a1628);
-    margin: 0;
-  }
-
-  .bluf-aeo-summary a {
-    color: var(--accent-green, #15803d);
-    font-weight: 600;
-    text-decoration: underline;
-  }
-
-  .bluf-service-summary {
-    background-color: var(--bg-surface, #f8fafc);
-    border: 1px solid var(--border-subtle, #e2e8f0);
-    border-radius: var(--radius-md, 12px);
-    padding: 1rem 1.25rem;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .bluf-service-summary p {
-    font-size: 0.925rem;
-    line-height: 1.6;
-    color: var(--text-secondary, #475569);
-    margin: 0;
-  }
-
-  .bluf-service-summary a {
-    color: var(--accent-blue, #1d4ed8);
-    font-weight: 600;
-    text-decoration: underline;
-  }
-
-  .intro-tagline-lead {
-    font-size: 1.05rem;
-    color: var(--accent-green, #15803d);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 1rem;
-  }
-
-  /* Section Header Standards */
-  .section-header {
-    margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
-  }
-
-  .eyebrow {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-green, #15803d);
-    background: var(--accent-green-soft, #f0fdf4);
-    border: 1px solid var(--accent-green-border, #bbf7d0);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-full, 9999px);
-    margin-bottom: 0.75rem;
-  }
-
-  .eyebrow-dark {
-    color: #86efac;
-    background: rgba(34, 197, 94, 0.15);
-    border-color: rgba(34, 197, 94, 0.3);
-  }
-
-  .section-title {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 800;
-    color: var(--text-primary, #0a1628);
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .section-dark .section-title {
-    color: #ffffff;
-  }
-
-  .section-desc {
-    font-size: 1rem;
-    color: var(--text-secondary, #475569);
-    max-width: 720px;
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  .section-dark .section-desc {
-    color: #cbd5e1;
-  }
-
-  /* Card enhancements */
-  .intro-card,
-  .core-offering-card {
-    background-color: var(--bg-primary, #ffffff);
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-    border-radius: var(--radius-lg, 16px);
-  }
-
-  .intro-card p,
-  .core-offering-card p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--text-secondary, #334155);
-    margin-bottom: 1.25rem;
-  }
-
-  .core-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 1.5rem;
-  }
-
-  /* Contact layout */
-  .contact-sections-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  @media (min-width: 992px) {
-    .contact-sections-grid {
-      grid-template-columns: 1fr 1fr;
-      align-items: start;
-    }
-  }
-
-  .general-enquiry-wrapper {
-    margin-top: 2rem;
   }
 </style>

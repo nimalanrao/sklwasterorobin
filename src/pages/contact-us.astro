@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import ContactDetailsCard from '../components/ContactDetailsCard.astro';
 import QuotationForm from '../components/QuotationForm.astro';
-import ContactForm from '../components/ContactForm.astro';
 import VerificationNotice from '../components/VerificationNotice.astro';
 import { companyData } from '../data/company';
 import { contactData } from '../data/contact';
@@ -152,19 +151,6 @@ const seo = getPageSEO(currentPath);
         </div>
 
         <QuotationForm />
-      </section>
-
-      <!-- Section 2: General Enquiry Contact Form -->
-      <section id="general-contact-form-section" class="form-block reveal-on-scroll" style="margin-top: clamp(3rem, 5vw, 4.5rem);">
-        <div class="section-header">
-          <div class="eyebrow">PERTANYAAN AM</div>
-          <h2>2. Pertanyaan Am &amp; Maklum Balas (General Enquiry Form)</h2>
-          <p class="section-desc">
-            Gunakan borang ini untuk pertanyaan am mengenai pengurusan sisa, perkhidmatan pelupusan, atau maklum balas umum kepada pihak pengurusan. Sila rujuk juga halaman <a href="/waste-management-services" class="guide-link">perkhidmatan pengurusan sisa</a> kami.
-          </p>
-        </div>
-
-        <ContactForm />
       </section>
     </div>
   </div>

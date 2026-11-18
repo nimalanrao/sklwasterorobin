@@ -4,7 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { companyData } from '../data/company';
 import { contactData } from '../data/contact';
-import { getPageSEO, getCanonicalUrl, analyticsConfig } from '../data/seo';
+import { getPageSEO, getCanonicalUrl, analyticsConfig, SITE_URL } from '../data/seo';
+import { footerNavigation } from '../data/navigation';
 import { buildPageSchemaGraph } from '../utils/schema';
 
 export interface Props {
@@ -12,13 +13,15 @@ export interface Props {
   description?: string;
   currentPath?: string;
   noindex?: boolean;
+  hideFooter?: boolean;
 }
 
 const {
   title,
   description,
   currentPath = '/',
-  noindex
+  noindex,
+  hideFooter = false
 } = Astro.props;
 
 const seo = getPageSEO(currentPath);
@@ -34,6 +37,19 @@ const schemaGraph = buildPageSchemaGraph(
   seo.breadcrumbs
 );
 
+// Append SiteNavigationElement schema so search engines & scrapers index all routes
+const navSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'SKL Waste Sdn Bhd Site Navigation',
+  itemListElement: footerNavigation.map((item, idx) => ({
+    '@type': 'SiteNavigationElement',
+    position: idx + 1,
+    name: item.label,
+    url: `${SITE_URL}${item.href === '/' ? '' : item.href}`
+  }))
+};
+
 const normalizedPath = currentPath === '' ? '/' : currentPath.replace(/\/+$/, '') || '/';
 const gscVerification = analyticsConfig.googleSiteVerification || (analyticsConfig as Record<string, string>)['gscVerification'];
 const ga4Id = analyticsConfig.ga4MeasurementId;
@@ -47,14 +63,37 @@ const googleAdsId = analyticsConfig.googleAdsId;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Technical SEO Metadata -->
+    <!-- Technical SEO & Maximum Crawler Access Metadata -->
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    <meta name="keywords" content={[seo.primaryKeyword, ...(seo.secondaryKeywords || []), 'Sewa Tong Roro Selangor', 'Tong Roro Sungai Buloh', 'SKL Waste Sdn Bhd', 'RoRo Bin Rental Malaysia'].join(', ')} />
+    <meta name="author" content="SKL WASTE SDN BHD (200801038953)" />
     <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang Language Alternates (Malay Default + English) -->
+    <link rel="alternate" hreflang="ms-MY" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-MY" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <!-- Zero-Restriction Robot & AI Crawler Directives -->
     <meta
       name="robots"
+      content={isNoindex ? 'noindex, follow' : 'index, follow, all, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+    <meta
+      name="googlebot"
       content={isNoindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
     />
+    <meta
+      name="bingbot"
+      content={isNoindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+
+    <!-- Local SEO Geographic Metadata (Sungai Buloh, Selangor, Malaysia) -->
+    <meta name="geo.region" content="MY-10" />
+    <meta name="geo.placename" content="Sungai Buloh, Selangor, Malaysia" />
+    <meta name="geo.position" content="3.2105;101.5608" />
+    <meta name="ICBM" content="3.2105, 101.5608" />
 
     <!-- Open Graph Protocol -->
     <meta property="og:type" content="website" />
@@ -64,6 +103,7 @@ const googleAdsId = analyticsConfig.googleAdsId;
     <meta property="og:image" content="https://www.sklwaste.com.my/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" />
     <meta property="og:image:alt" content={seo.ogImageAlt || "SKL Waste Sdn Bhd Tong Roro Lori dan Kontena"} />
     <meta property="og:locale" content="ms_MY" />
+    <meta property="og:locale:alternate" content="en_MY" />
     <meta property="og:site_name" content="SKL WASTE SDN BHD" />
 
     <!-- Twitter Card -->
@@ -96,7 +136,7 @@ const googleAdsId = analyticsConfig.googleAdsId;
       </script>
     )}
 
-    <!-- Google Analytics 4 & Google Ads (Conditional when GA4 or Ads ID present and GTM absent) -->
+    <!-- Google Analytics 4 & Google Ads (Conditional when GA4 or Google Ads ID present and GTM absent) -->
     {!gtmId && (ga4Id || googleAdsId) && (
       <>
         <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id || googleAdsId}`}></script>
@@ -110,8 +150,9 @@ const googleAdsId = analyticsConfig.googleAdsId;
       </>
     )}
 
-    <!-- Schema.org JSON-LD Graph -->
+    <!-- Schema.org JSON-LD Graph + SiteNavigationElement -->
     <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+    <script type="application/ld+json" set:html={JSON.stringify(navSchema)} />
 
     <!-- Google Fonts Preconnect & Stylesheets -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -130,52 +171,67 @@ const googleAdsId = analyticsConfig.googleAdsId;
       document.documentElement.classList.add('js-ready');
     </script>
   </head>
-  <body>
+  <body class={normalizedPath === '/' ? 'is-home-page' : 'is-inner-page'}>
     <!-- Skip Navigation Link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Sticky Glassmorphic Header -->
+    <!-- Floating Pill Header -->
     <Header currentPath={currentPath} />
 
     <!-- Main Content Area -->
-    <main id="main-content">
+    <main id="main-content" class={normalizedPath === '/' ? 'main-home' : 'main-inner'}>
       <slot />
     </main>
 
-    <!-- Executive Dark Corporate Footer -->
-    <Footer />
+    <!-- Footer (Hidden visually on Homepage per clean hero design; kept on inner pages) -->
+    {!hideFooter && normalizedPath !== '/' && <Footer />}
 
-    <!-- Sticky Mobile CTA Bar (< 768px) -->
-    <aside class="mobile-sticky-cta" aria-label="Quick Mobile Actions">
-      <a href={contactData.telephoneHref} class="btn btn-secondary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
-        <span>Hubungi Mr Hari</span>
-      </a>
-      <a href="/#quotation-form" class="btn btn-primary">
-        <span>Dapatkan Sebut Harga</span>
-      </a>
-    </aside>
-
-    <!-- Client-Side Runtime Script: Scroll Reveal, Header Scrolled State & Privacy-Safe Conversion Tracking -->
+    <!-- Client-Side Runtime Script: Language Switcher (MS Default / EN Toggle), Scroll Reveal & Conversion Tracking -->
     <script is:inline>
       (function() {
-        // Header scroll shadow toggle
-        const header = document.getElementById('site-header');
-        if (header) {
-          window.addEventListener('scroll', function() {
-            if (window.scrollY > 20) {
-              header.classList.add('is-scrolled');
-            } else {
-              header.classList.remove('is-scrolled');
+        // 1. Bilingual Language Toggle (Malay Default, Toggle to English via Navbar button)
+        var currentLang = 'ms';
+        var langBtn = document.getElementById('lang-toggle-btn');
+        var langLabel = document.getElementById('lang-toggle-label');
+
+        function applyLanguage(lang) {
+          currentLang = lang === 'en' ? 'en' : 'ms';
+          document.documentElement.lang = currentLang === 'en' ? 'en-MY' : 'ms-MY';
+
+          if (langBtn && langLabel) {
+            langBtn.setAttribute('data-current-lang', currentLang);
+            // When page is in Malay, button shows "English"; when in English, button shows "Bahasa Melayu"
+            langLabel.textContent = currentLang === 'ms' ? 'English' : 'Bahasa Melayu';
+          }
+
+          document.querySelectorAll('[data-ms][data-en]').forEach(function(el) {
+            var targetText = el.getAttribute(currentLang === 'en' ? 'data-en' : 'data-ms');
+            if (targetText !== null) {
+              el.textContent = targetText;
             }
-          }, { passive: true });
+          });
+
+          document.querySelectorAll('[data-html-ms][data-html-en]').forEach(function(el) {
+            var targetHtml = el.getAttribute(currentLang === 'en' ? 'data-html-en' : 'data-html-ms');
+            if (targetHtml !== null) {
+              el.innerHTML = targetHtml;
+            }
+          });
         }
 
-        // IntersectionObserver for progressive scroll reveal
+        // Default to Malay ('ms') on load
+        applyLanguage('ms');
+
+        if (langBtn) {
+          langBtn.addEventListener('click', function() {
+            var nextLang = currentLang === 'ms' ? 'en' : 'ms';
+            applyLanguage(nextLang);
+          });
+        }
+
+        // 2. IntersectionObserver for progressive scroll reveal
         if ('IntersectionObserver' in window) {
-          const observer = new IntersectionObserver(function(entries) {
+          var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
               if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
@@ -196,29 +252,29 @@ const googleAdsId = analyticsConfig.googleAdsId;
           });
         }
 
-        // Privacy-safe conversion event tracking listener with 400ms dedup guard
+        // 3. Privacy-safe conversion event tracking listener with 400ms dedup guard
         var lastTrackKey = '';
         var lastTrackTs = 0;
         var isTestMode = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
-        function emitTrack(eventName, extra, dedupSuffix) {
+        function emitTrack(eventName, extra) {
           var now = Date.now();
-          var key = eventName + ':' + (dedupSuffix || (extra && extra.event_label) || '');
+          var dedupId = (extra && (extra.event_label || extra.cta_id)) ? String(extra.event_label || extra.cta_id) : '';
+          var key = eventName + '::' + dedupId;
           if (now - lastTrackTs < 400 && lastTrackKey === key) return;
           lastTrackKey = key;
           lastTrackTs = now;
 
-          var pageLoc = window.location.pathname;
-          var payload = Object.assign(
-            {
-              event: eventName,
-              event_category: 'engagement',
-              page_location: pageLoc,
-              test_mode: isTestMode
-            },
-            extra || {},
-            { timestamp: new Date().toISOString() }
-          );
+          var payload = Object.assign({
+            event: eventName,
+            event_category: 'engagement',
+            page_location: window.location.pathname,
+            timestamp: new Date().toISOString()
+          }, extra || {});
+
+          if (isTestMode) {
+            payload.test_mode = true;
+          }
 
           if (window.dataLayer && Array.isArray(window.dataLayer)) {
             window.dataLayer.push(payload);
@@ -226,50 +282,57 @@ const googleAdsId = analyticsConfig.googleAdsId;
           if (typeof window.gtag === 'function') {
             window.gtag('event', eventName, payload);
           }
-          window.dispatchEvent(new CustomEvent('skl:conversion', { detail: payload }));
+          try {
+            window.dispatchEvent(new CustomEvent('skl:conversion', { detail: payload }));
+          } catch (err) {}
         }
 
         document.addEventListener('click', function(e) {
           var target = e.target;
           if (!target || !(target instanceof Element)) return;
 
-          // Telephone clicks
           var telLink = target.closest('a[href^="tel:"]');
           if (telLink) {
-            var href = telLink.getAttribute('href') || '';
-            emitTrack('phone_click', { event_label: href }, href);
+            emitTrack('phone_click', { event_label: telLink.getAttribute('href') || '' });
             return;
           }
 
-          // Email clicks (strictly zero customer PII in params)
           var mailtoLink = target.closest('a[href^="mailto:"]');
           if (mailtoLink) {
-            emitTrack('email_click', { event_label: 'email_dispatch' }, 'email_dispatch');
+            emitTrack('email_click', { event_label: 'email_dispatch' });
             return;
           }
 
-          // WhatsApp clicks (strictly zero customer PII in params)
           var waLink = target.closest('a[href*="wa.me"]');
           if (waLink) {
-            emitTrack('whatsapp_click', { event_label: 'whatsapp_dispatch' }, 'whatsapp_dispatch');
+            emitTrack('whatsapp_click', { event_label: 'whatsapp_dispatch' });
             return;
           }
 
-          // CTA button / link clicks
           var ctaEl = target.closest('a[data-track-cta], button[data-track-cta], a.btn-primary');
           if (ctaEl) {
-            if (
-              ctaEl.matches('a[href^="tel:"], a[href^="mailto:"], a[href*="wa.me"], [data-select-product], button[type="submit"]')
-            ) {
+            if (ctaEl.matches('a[href^="tel:"], a[href^="mailto:"], a[href*="wa.me"], [data-select-product], button[type="submit"]')) {
               return;
             }
             var ctaAttr = ctaEl.getAttribute('data-track-cta') || '';
-            var rawText = (ctaEl.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 50);
-            var ctaId = ctaAttr || rawText || 'primary_cta';
-            emitTrack('contact_cta_click', { event_label: ctaId, cta_id: ctaId }, ctaId);
+            var rawText = (ctaEl.textContent || '').trim().slice(0, 50);
+            emitTrack('contact_cta_click', {
+              cta_id: ctaAttr || rawText,
+              event_label: ctaAttr || rawText
+            });
           }
         }, { passive: true });
       })();
     </script>
+
+    <style is:global>
+      /* Offset inner pages so fixed floating pill navbar never overlaps top headings */
+      body.is-inner-page .main-inner {
+        padding-top: 5.5rem;
+      }
+      body.is-home-page {
+        overflow-x: hidden;
+      }
+    </style>
   </body>
 </html>
