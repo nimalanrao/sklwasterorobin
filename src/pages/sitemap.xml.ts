@@ -12,7 +12,8 @@ const industrySectorImages = [
   { file: 'hospital.jpg', title: 'Hospital General Waste Container Supply - SKL Waste Sdn Bhd' },
   { file: 'office.jpg', title: 'Office & Commercial Building RORO Bin - SKL Waste Sdn Bhd' },
   { file: 'food-beverage.jpg', title: 'Food & Beverage Industries Waste Disposal - SKL Waste Sdn Bhd' },
-  { file: 'condominium-apartment.jpg', title: 'Condominium & Apartment Bulk Waste Tong Roro - SKL Waste Sdn Bhd' }
+  { file: 'condominium-apartment.jpg', title: 'Condominium & Apartment Bulk Waste Tong Roro - SKL Waste Sdn Bhd' },
+  { file: 'renovation-remodelling.jpg', title: 'Ubah Suai & Renovasi (Renovation & Remodelling) Tong Roro - SKL Waste Sdn Bhd' }
 ];
 
 export const GET: APIRoute = async () => {

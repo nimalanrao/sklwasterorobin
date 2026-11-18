@@ -101,20 +101,37 @@ const suppliedSectors = [
   },
   {
     id: 'renovation-remodelling',
-    image: '/images/skl-hero-roro.jpg',
+    image: '/images/industries/renovation-remodelling.jpg',
     labelMs: 'UBAH SUAI & RENOVASI',
     labelEn: 'RENOVATION & REMODELLING',
-    subMs: 'Kerja Ubah Suai Rumah, Kedai & Komersial',
-    subEn: 'Home, Retail & Commercial Interior Fit-Out'
+    subMs: 'Kerja Ubah Suai Rumah, Dapur & Komersial',
+    subEn: 'Home, Kitchen & Commercial Interior Fit-Out'
   }
+];
+
+const suppliedPlaces = [
+  'Desa Coalfields',
+  'Bandar Seri Coalfields',
+  'Sungai Buloh',
+  'Paya Jaras',
+  'Bukit Jelutong',
+  'Bukit Beruntung',
+  'Kundang',
+  'Puncak Alam',
+  'Aman Putri',
+  'Tasik Puteri',
+  'Saujana Utama',
+  'Subang',
+  'Rawang'
 ];
 ---
 
 <BaseLayout title={seo.title} description={seo.description} currentPath="/" hideFooter={true}>
-  <!-- 1. Full-Screen Hero Page -->
+  <!-- 1. Full-Screen Hero Page (Desktop: Blurred Left White Fade; Mobile: Dedicated Top-White/Bottom-Truck Image) -->
   <section class="hero-fullscreen" id="hero">
-    <!-- Background Hero Image -->
+    <!-- Background Hero Image (Switches to skl-hero-mobile.jpg on <= 768px) -->
     <picture class="hero-bg-picture">
+      <source media="(max-width: 768px)" srcset="/images/skl-hero-mobile.jpg" />
       <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
       <img
         src="/images/skl-hero-roro.jpg"
@@ -128,7 +145,7 @@ const suppliedSectors = [
       />
     </picture>
 
-    <!-- Blurred Fade Background with White Opacity -->
+    <!-- Blurred Fade Background with White Opacity (Desktop Only so Mobile Bottom Truck Image is 100% Viewable) -->
     <div class="hero-white-blur-fade" aria-hidden="true"></div>
     <div class="hero-bottom-blur-bridge" aria-hidden="true"></div>
 
@@ -229,7 +246,7 @@ const suppliedSectors = [
     </div>
   </section>
 
-  <!-- 2. Where We Supply Section (Scraped Industry Visuals with Blur-Fade Animations) -->
+  <!-- 2. Where We Supply: 12 Industry Sectors Section -->
   <section class="supply-sectors-section" id="where-we-supply">
     <div class="supply-container">
       <div class="supply-header blur-fade-item">
@@ -294,10 +311,158 @@ const suppliedSectors = [
       </div>
     </div>
   </section>
+
+  <!-- 3. Places We Supply: 13 Selangor Service Areas Section -->
+  <section class="places-supply-section" id="places-we-supply">
+    <div class="supply-container">
+      <div class="supply-header blur-fade-item">
+        <span
+          class="supply-eyebrow"
+          data-ms="KAWASAN LIPUTAN"
+          data-en="PLACES WE SUPPLY"
+        >
+          KAWASAN LIPUTAN
+        </span>
+        <h2
+          class="supply-title"
+          data-ms="Kawasan Yang Kami Bekalkan"
+          data-en="Places We Supply Across Selangor"
+        >
+          Kawasan Yang Kami Bekalkan
+        </h2>
+        <p
+          class="supply-subtitle"
+          data-ms="Penghantaran dan kutipan Tong Roro meliputi Sungai Buloh serta kawasan utama di sekitar Selangor."
+          data-en="Fast RORO bin delivery and waste collection covering Sungai Buloh and surrounding townships across Selangor."
+        >
+          Penghantaran dan kutipan Tong Roro meliputi Sungai Buloh serta kawasan utama di sekitar Selangor.
+        </p>
+      </div>
+
+      <div class="places-grid">
+        {suppliedPlaces.map((place, idx) => (
+          <div
+            class="place-pill-card blur-fade-item"
+            style={`--stagger-delay: ${(idx % 5) * 65}ms;`}
+          >
+            <span class="place-pin-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+            <div class="place-pill-text">
+              <span class="place-name">{place}</span>
+              <span class="place-region">Selangor</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Scroll-Driven Dynamic Scaling Free Quotation & Contact Section -->
+  <section class="scroll-quote-section" id="free-quotation-cta">
+    <div class="supply-container">
+      <div class="scroll-quote-box" id="scroll-scale-card">
+        <h2
+          class="quote-big-text"
+          data-ms="INGIN SEBUT HARGA PERCUMA? PM KAMI."
+          data-en="WANT A FREE PRICING QUOTATION? PM US."
+        >
+          INGIN SEBUT HARGA PERCUMA? PM KAMI.
+        </h2>
+
+        <p
+          class="quote-small-text"
+          data-ms="Hubungi Mr Hari (+60 16-615 9365 • tongroroservissklwaste@gmail.com) atau klik butang WhatsApp di bawah untuk sebut harga pantas."
+          data-en="Contact Mr Hari (+60 16-615 9365 • tongroroservissklwaste@gmail.com) or click the WhatsApp button below for a fast free quotation."
+        >
+          Hubungi Mr Hari (+60 16-615 9365 • tongroroservissklwaste@gmail.com) atau klik butang WhatsApp di bawah untuk sebut harga pantas.
+        </p>
+
+        <div class="quote-contact-badges">
+          <a href={contactData.telephoneHref} class="quote-contact-pill">
+            <span>📞 {contactData.mainContactPerson}: {contactData.telephoneDisplay}</span>
+          </a>
+          <a href={contactData.emailHref} class="quote-contact-pill">
+            <span>✉️ {contactData.email}</span>
+          </a>
+        </div>
+
+        <!-- Same Curved Green WhatsApp Button as Hero Page -->
+        <div class="quote-btn-holder">
+          <a
+            href="https://wa.me/60166159365?text=Hai%20Mr%20Hari%20(SKL%20Waste%20Sdn%20Bhd)%2C%20saya%20ingin%20mendapatkan%20sebut%20harga%20percuma%20Tong%20Roro."
+            class="hero-whatsapp-btn"
+            data-track-cta="bottom_quote_whatsapp"
+            aria-label="Minta sebut harga percuma melalui WhatsApp"
+          >
+            <svg
+              class="whatsapp-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413z"/>
+            </svg>
+            <span data-ms="WHATSAPP" data-en="WHATSAPP">WHATSAPP</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Bottom Navigation Bar -->
+  <footer class="bottom-nav-section" aria-label="Bottom Navigation Bar">
+    <div class="bottom-pill-nav">
+      <a href="#hero" class="bottom-brand-link" aria-label="Kembali ke atas">
+        <span class="bottom-logo-box">
+          <picture>
+            <source srcset="/images/logo-skl-waste-sdn-bhd.webp" type="image/webp" />
+            <img
+              src="/images/skl-logo.png"
+              alt="Logo SKL Waste Sdn Bhd"
+              width="34"
+              height="34"
+              class="bottom-logo-img"
+              loading="lazy"
+            />
+          </picture>
+        </span>
+        <div class="bottom-brand-meta">
+          <span class="bottom-brand-name">{companyData.name}</span>
+          <span class="bottom-brand-reg">Reg. No: {companyData.registrationNumber} • Sungai Buloh, Selangor</span>
+        </div>
+      </a>
+
+      <nav class="bottom-quick-links" aria-label="Footer Quick Links">
+        <a href="#hero" data-ms="Utama" data-en="Home">Utama</a>
+        <a href="#where-we-supply" data-ms="Sektor" data-en="Sectors">Sektor</a>
+        <a href="#places-we-supply" data-ms="Kawasan" data-en="Locations">Kawasan</a>
+        <a href="#free-quotation-cta" data-ms="Sebut Harga" data-en="Quotation">Sebut Harga</a>
+      </nav>
+
+      <div class="bottom-nav-cta">
+        <a
+          href="https://wa.me/60166159365?text=Hai%20Mr%20Hari%20(SKL%20Waste%20Sdn%20Bhd)%2C%20saya%20ingin%20menempah%20Tong%20Roro."
+          class="bottom-order-btn"
+          data-track-cta="bottom_nav_order"
+          data-ms="ORDER TONG RORO"
+          data-en="ORDER TONG RORO"
+        >
+          ORDER TONG RORO
+        </a>
+      </div>
+    </div>
+  </footer>
 </BaseLayout>
 
 <script is:inline>
   (function() {
+    // 1. Scroll-triggered blur-fade reveal for cards and location pills
     var blurItems = document.querySelectorAll('.blur-fade-item');
     if ('IntersectionObserver' in window) {
       var blurObserver = new IntersectionObserver(function(entries) {
@@ -308,8 +473,8 @@ const suppliedSectors = [
           }
         });
       }, {
-        threshold: 0.12,
-        rootMargin: '0px 0px -40px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px'
       });
 
       blurItems.forEach(function(item) {
@@ -319,6 +484,39 @@ const suppliedSectors = [
       blurItems.forEach(function(item) {
         item.classList.add('is-in-view');
       });
+    }
+
+    // 2. Continuous scroll-driven scale animation ("THE MORE U SCROLL THE BIGGER/SMALLER IT BECOMES")
+    var scaleCard = document.getElementById('scroll-scale-card');
+    if (scaleCard) {
+      var ticking = false;
+
+      function updateCardScale() {
+        ticking = false;
+        var rect = scaleCard.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var cardCenter = rect.top + rect.height / 2;
+        var viewportCenter = vh / 2;
+
+        // Distance from viewport center normalized (0 at center, 1 at edge/outside)
+        var distance = Math.abs(cardCenter - viewportCenter);
+        var maxDistance = vh * 0.85;
+        var ratio = Math.max(0, Math.min(1, 1 - distance / maxDistance));
+
+        // Smoothly scale between 0.82 (smaller when scrolled away) and 1.04 (bigger as you scroll into focus)
+        var scaleVal = 0.82 + ratio * 0.22;
+        scaleCard.style.transform = 'scale(' + scaleVal.toFixed(4) + ')';
+      }
+
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(updateCardScale);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', updateCardScale, { passive: true });
+      updateCardScale();
     }
   })();
 </script>
@@ -331,7 +529,7 @@ const suppliedSectors = [
     display: flex;
     align-items: center;
     overflow: hidden;
-    background-color: #f8fafc;
+    background-color: #ffffff;
     padding: 7.5rem 1.5rem 4.5rem;
   }
 
@@ -351,7 +549,7 @@ const suppliedSectors = [
     display: block;
   }
 
-  /* Blurred Fade Background with White Opacity (Left-to-Right Fade) */
+  /* Blurred Fade Background with White Opacity (Desktop Left-to-Right Fade) */
   .hero-white-blur-fade {
     position: absolute;
     inset: 0;
@@ -375,15 +573,13 @@ const suppliedSectors = [
     left: 0;
     right: 0;
     bottom: 0;
-    height: 110px;
+    height: 90px;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(248, 250, 252, 0.85) 70%, #f8fafc 100%);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(248, 250, 252, 0.85) 75%, #f8fafc 100%);
     pointer-events: none;
   }
 
-  /* Soft base white veil to keep left text crisp even without mask-image support */
+  /* Soft base white veil on desktop */
   .hero-fullscreen::before {
     content: '';
     position: absolute;
@@ -482,12 +678,12 @@ const suppliedSectors = [
   }
 
   /* ==========================================================================
-     Where We Supply Section (Scraped Industry Grid + Blur-Fade Animations)
+     2. Where We Supply Section (12 Unblurred Cards + Scroll Blur-Fade Reveal)
      ========================================================================== */
   .supply-sectors-section {
     position: relative;
-    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 35%, #f1f5f9 100%);
-    padding: clamp(3.5rem, 7vw, 6rem) 1.5rem clamp(4.5rem, 8vw, 7rem);
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%);
+    padding: clamp(3.5rem, 7vw, 6rem) 1.5rem clamp(3.5rem, 6vw, 5rem);
     overflow: hidden;
   }
 
@@ -499,7 +695,7 @@ const suppliedSectors = [
   .supply-header {
     text-align: center;
     max-width: 720px;
-    margin: 0 auto clamp(2.5rem, 5vw, 3.75rem);
+    margin: 0 auto clamp(2.25rem, 4.5vw, 3.5rem);
   }
 
   .supply-eyebrow {
@@ -545,18 +741,18 @@ const suppliedSectors = [
 
   .supply-card {
     position: relative;
-    border-radius: 22px;
+    border-radius: 20px;
     overflow: hidden;
     background: #ffffff;
     border: 1.5px solid rgba(10, 22, 40, 0.1);
-    box-shadow: 0 14px 32px -8px rgba(10, 22, 40, 0.12);
+    box-shadow: 0 12px 28px -8px rgba(10, 22, 40, 0.1);
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.3s ease;
   }
 
   .supply-card:hover {
     transform: translateY(-6px);
     border-color: rgba(21, 128, 61, 0.45);
-    box-shadow: 0 22px 44px -10px rgba(10, 22, 40, 0.22);
+    box-shadow: 0 20px 40px -10px rgba(10, 22, 40, 0.2);
   }
 
   .supply-card-media {
@@ -571,11 +767,11 @@ const suppliedSectors = [
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .supply-card:hover .supply-card-img {
-    transform: scale(1.07);
+    transform: scale(1.06);
   }
 
   /* Clean Card Footer Below Unblurred Image */
@@ -606,15 +802,280 @@ const suppliedSectors = [
     margin: 0;
   }
 
+  /* ==========================================================================
+     3. Places We Supply Section (13 Selangor Locations)
+     ========================================================================== */
+  .places-supply-section {
+    position: relative;
+    background: #f8fafc;
+    padding: clamp(3rem, 6vw, 5rem) 1.5rem clamp(3.5rem, 6vw, 5.5rem);
+    border-top: 1px solid rgba(10, 22, 40, 0.06);
+  }
+
+  .places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    gap: 1rem;
+  }
+
+  .place-pill-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem 1.2rem;
+    background: #ffffff;
+    border: 1.5px solid rgba(10, 22, 40, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 6px 18px -6px rgba(10, 22, 40, 0.08);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .place-pill-card:hover {
+    transform: translateY(-3px);
+    border-color: #15803d;
+    box-shadow: 0 12px 24px -8px rgba(21, 128, 61, 0.18);
+  }
+
+  .place-pin-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: rgba(21, 128, 61, 0.1);
+    color: #15803d;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .place-pill-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .place-name {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: #0a1628;
+    line-height: 1.25;
+  }
+
+  .place-region {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  /* ==========================================================================
+     4. Scroll-Driven Dynamic Scaling Free Quotation & Contact Card
+     ========================================================================== */
+  .scroll-quote-section {
+    padding: clamp(3.5rem, 7vw, 6rem) 1.5rem clamp(4rem, 7vw, 6.5rem);
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+    overflow: hidden;
+  }
+
+  .scroll-quote-box {
+    max-width: 980px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 2.5px solid #0a1628;
+    border-radius: 28px;
+    padding: clamp(2.5rem, 6vw, 4.75rem) clamp(1.5rem, 5vw, 4rem);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 24px 56px -12px rgba(10, 22, 40, 0.14);
+    transform-origin: center center;
+    transition: transform 0.12s ease-out, box-shadow 0.25s ease;
+    will-change: transform;
+  }
+
+  .quote-big-text {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    color: #0a1628;
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+
+  .quote-small-text {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    font-weight: 600;
+    color: #334155;
+    max-width: 680px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .quote-contact-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .quote-contact-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.48rem 1rem;
+    border-radius: 9999px;
+    background: #f1f5f9;
+    border: 1px solid rgba(10, 22, 40, 0.12);
+    color: #0a1628;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .quote-contact-pill:hover {
+    background: #e2e8f0;
+    border-color: #0a1628;
+  }
+
+  .quote-btn-holder {
+    margin-top: 0.65rem;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  /* ==========================================================================
+     5. Bottom Navigation Bar
+     ========================================================================== */
+  .bottom-nav-section {
+    background: #f8fafc;
+    padding: 1.5rem 1rem 2.25rem;
+    border-top: 1px solid rgba(10, 22, 40, 0.08);
+    display: flex;
+    justify-content: center;
+  }
+
+  .bottom-pill-nav {
+    width: min(1140px, 100%);
+    background: #ffffff;
+    border: 1.5px solid rgba(10, 22, 40, 0.14);
+    border-radius: 9999px;
+    padding: 0.65rem 1rem 0.65rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 10px 28px -6px rgba(10, 22, 40, 0.1);
+    flex-wrap: wrap;
+  }
+
+  .bottom-brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: #0a1628;
+  }
+
+  .bottom-logo-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 1px solid rgba(10, 22, 40, 0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 3px;
+  }
+
+  .bottom-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .bottom-brand-meta {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bottom-brand-name {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0a1628;
+    line-height: 1.2;
+  }
+
+  .bottom-brand-reg {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .bottom-quick-links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .bottom-quick-links a {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #334155;
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+
+  .bottom-quick-links a:hover {
+    color: #15803d;
+  }
+
+  .bottom-order-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.62rem 1.25rem;
+    border-radius: 9999px;
+    background: #0a1628;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .bottom-order-btn:hover {
+    background: #15803d;
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
   /* Scroll-Triggered Blur-Fade Animation */
   :global(html.js-ready) .blur-fade-item {
     opacity: 0;
-    filter: blur(14px);
-    transform: translateY(28px) scale(0.97);
+    filter: blur(12px);
+    transform: translateY(24px) scale(0.98);
     transition:
-      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms),
-      filter 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms),
-      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms);
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms),
+      filter 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms);
     will-change: opacity, filter, transform;
   }
 
@@ -646,23 +1107,74 @@ const suppliedSectors = [
     border: 0;
   }
 
+  /* ==========================================================================
+     Mobile View Layout (<= 768px): Dedicated Top-White / Bottom-Truck Hero Image
+     ========================================================================== */
   @media (max-width: 768px) {
     .hero-fullscreen {
-      padding: 6.25rem 1.15rem 3.5rem;
+      min-height: 100svh;
+      align-items: flex-start;
+      padding: 5.5rem 1.25rem 42vh;
+      background-color: #ffffff;
     }
 
+    .hero-bg-img {
+      object-fit: cover;
+      object-position: center bottom;
+    }
+
+    /* Disable desktop white veil on mobile so the bottom truck photo in skl-hero-mobile.jpg is 100% clear */
+    .hero-white-blur-fade,
     .hero-fullscreen::before {
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.94) 0%,
-        rgba(255, 255, 255, 0.88) 65%,
-        rgba(255, 255, 255, 0.72) 100%
-      );
+      display: none;
+    }
+
+    .hero-bottom-blur-bridge {
+      height: 45px;
+    }
+
+    .hero-info-block {
+      gap: 0.85rem;
+    }
+
+    .hero-main-title {
+      font-size: clamp(1.9rem, 7.5vw, 2.45rem);
+    }
+
+    .hero-sub-info {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .hero-cta-prompt {
+      font-size: 0.88rem;
     }
 
     .supply-grid {
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 1.1rem;
+    }
+
+    .places-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .bottom-pill-nav {
+      border-radius: 24px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.15rem 1rem;
+    }
+
+    .bottom-brand-link {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .bottom-quick-links {
+      justify-content: center;
     }
   }
 </style>
