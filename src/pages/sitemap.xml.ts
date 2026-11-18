@@ -1,6 +1,20 @@
 import type { APIRoute } from 'astro';
 import { pageSEOMap, getCanonicalUrl, SITE_URL } from '../data/seo';
 
+const industrySectorImages = [
+  { file: 'resorts-hotels.jpg', title: 'Resorts & Hotels RORO Bin Supply - SKL Waste Sdn Bhd' },
+  { file: 'kilang-gudang.jpg', title: 'Kilang & Gudang (Factories & Warehouses) Tong Roro - SKL Waste Sdn Bhd' },
+  { file: 'kolej-universiti.jpg', title: 'Kolej & Universiti Waste Management - SKL Waste Sdn Bhd' },
+  { file: 'pusat-beli-belah.jpg', title: 'Pusat Beli Belah (Shopping Centres) Tong Roro - SKL Waste Sdn Bhd' },
+  { file: 'theme-park.jpg', title: 'Theme Park Waste Collection & RORO Bin - SKL Waste Sdn Bhd' },
+  { file: 'building-construction.jpg', title: 'Building Construction Tong Roro Rental - SKL Waste Sdn Bhd' },
+  { file: 'house-construction.jpg', title: 'House Construction & Renovation RORO Bin - SKL Waste Sdn Bhd' },
+  { file: 'hospital.jpg', title: 'Hospital General Waste Container Supply - SKL Waste Sdn Bhd' },
+  { file: 'office.jpg', title: 'Office & Commercial Building RORO Bin - SKL Waste Sdn Bhd' },
+  { file: 'food-beverage.jpg', title: 'Food & Beverage Industries Waste Disposal - SKL Waste Sdn Bhd' },
+  { file: 'condominium-apartment.jpg', title: 'Condominium & Apartment Bulk Waste Tong Roro - SKL Waste Sdn Bhd' }
+];
+
 export const GET: APIRoute = async () => {
   const buildDate = new Date().toISOString();
 
@@ -16,6 +30,20 @@ export const GET: APIRoute = async () => {
           ? '0.9'
           : '0.8';
       const changefreq = page.path === '/' || page.path === '/tong-roro-rental' ? 'daily' : 'weekly';
+
+      const extraSectorImagesXml =
+        page.path === '/' || page.path === '/industries-we-serve'
+          ? '\n' +
+            industrySectorImages
+              .map(
+                (img) => `    <image:image>
+      <image:loc>${SITE_URL}/images/industries/${img.file}</image:loc>
+      <image:title>${img.title.replace(/&/g, '&amp;')}</image:title>
+      <image:geo_location>Sungai Buloh, Selangor, Malaysia</image:geo_location>
+    </image:image>`
+              )
+              .join('\n')
+          : '';
 
       return `  <url>
     <loc>${canonical}</loc>
@@ -36,7 +64,7 @@ export const GET: APIRoute = async () => {
       <image:title>Logo Rasmi SKL Waste Sdn Bhd</image:title>
       <image:caption>SKL Waste Sdn Bhd (200801038953) - Syarikat Sewaan Tong Roro dan Pengurusan Sisa Selangor</image:caption>
       <image:geo_location>Sungai Buloh, Selangor, Malaysia</image:geo_location>
-    </image:image>
+    </image:image>${extraSectorImagesXml}
   </url>`;
     })
     .join('\n');

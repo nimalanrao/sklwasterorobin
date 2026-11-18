@@ -9,10 +9,101 @@ import { industriesData } from '../data/industries';
 import { getPageSEO } from '../data/seo';
 
 const seo = getPageSEO('/');
+
+const suppliedSectors = [
+  {
+    id: 'resorts-hotels',
+    image: '/images/industries/resorts-hotels.jpg',
+    labelMs: 'RESORTS & HOTELS',
+    labelEn: 'RESORTS & HOTELS',
+    subMs: 'Resort & Hotel Peranginan',
+    subEn: 'Hospitality & Resort Complexes'
+  },
+  {
+    id: 'kilang-gudang',
+    image: '/images/industries/kilang-gudang.jpg',
+    labelMs: 'KILANG & GUDANG',
+    labelEn: 'FACTORIES & WAREHOUSES',
+    subMs: 'Kawasan Perindustrian & Logistik',
+    subEn: 'Industrial Manufacturing & Storage'
+  },
+  {
+    id: 'kolej-universiti',
+    image: '/images/industries/kolej-universiti.jpg',
+    labelMs: 'KOLEJ & UNIVERSITI',
+    labelEn: 'COLLEGES & UNIVERSITIES',
+    subMs: 'Kampus Pendidikan & Institusi',
+    subEn: 'Educational Campuses & Institutions'
+  },
+  {
+    id: 'pusat-beli-belah',
+    image: '/images/industries/pusat-beli-belah.jpg',
+    labelMs: 'PUSAT BELI BELAH',
+    labelEn: 'SHOPPING CENTRES',
+    subMs: 'Kompleks Komersial & Runcit',
+    subEn: 'Retail Malls & Commercial Hubs'
+  },
+  {
+    id: 'theme-park',
+    image: '/images/industries/theme-park.jpg',
+    labelMs: 'THEME PARK',
+    labelEn: 'THEME PARK',
+    subMs: 'Taman Tema & Pusat Rekreasi',
+    subEn: 'Theme Parks & Leisure Venues'
+  },
+  {
+    id: 'building-construction',
+    image: '/images/industries/building-construction.jpg',
+    labelMs: 'BUILDING CONSTRUCTION',
+    labelEn: 'BUILDING CONSTRUCTION',
+    subMs: 'Tapak Pembinaan Bangunan Komersial',
+    subEn: 'High-Rise & Structural Construction'
+  },
+  {
+    id: 'house-construction',
+    image: '/images/industries/house-construction.jpg',
+    labelMs: 'HOUSE CONSTRUCTION',
+    labelEn: 'HOUSE CONSTRUCTION',
+    subMs: 'Pembinaan & Ubah Suai Kediaman',
+    subEn: 'Residential Building & Renovation'
+  },
+  {
+    id: 'hospital',
+    image: '/images/industries/hospital.jpg',
+    labelMs: 'HOSPITAL',
+    labelEn: 'HOSPITAL',
+    subMs: 'Pusat Perubatan & Kesihatan',
+    subEn: 'Healthcare Facilities & Medical Centres'
+  },
+  {
+    id: 'office',
+    image: '/images/industries/office.jpg',
+    labelMs: 'OFFICE',
+    labelEn: 'OFFICE',
+    subMs: 'Bangunan Pejabat & Korporat',
+    subEn: 'Corporate Towers & Office Suites'
+  },
+  {
+    id: 'food-beverage',
+    image: '/images/industries/food-beverage.jpg',
+    labelMs: 'FOOD & BEVERAGE INDUSTRIES',
+    labelEn: 'FOOD & BEVERAGE INDUSTRIES',
+    subMs: 'Kilang Pemprosesan Makanan & Restoran',
+    subEn: 'F&B Processing & Commercial Kitchens'
+  },
+  {
+    id: 'condominium-apartment',
+    image: '/images/industries/condominium-apartment.jpg',
+    labelMs: 'CONDOMINIUM & APARTMENT',
+    labelEn: 'CONDOMINIUM & APARTMENT',
+    subMs: 'Kediaman Bertingkat & Pengurusan JMB',
+    subEn: 'High-Rise Residential & Strata Management'
+  }
+];
 ---
 
 <BaseLayout title={seo.title} description={seo.description} currentPath="/" hideFooter={true}>
-  <!-- Full-Screen Hero Page (Exact Wireframe Layout: Blurred White-Opacity Fade + Info + Order WhatsApp) -->
+  <!-- 1. Full-Screen Hero Page -->
   <section class="hero-fullscreen" id="hero">
     <!-- Background Hero Image -->
     <picture class="hero-bg-picture">
@@ -31,6 +122,7 @@ const seo = getPageSEO('/');
 
     <!-- Blurred Fade Background with White Opacity -->
     <div class="hero-white-blur-fade" aria-hidden="true"></div>
+    <div class="hero-bottom-blur-bridge" aria-hidden="true"></div>
 
     <!-- Left Content Container (Human-Visible Copy) -->
     <div class="hero-main-container">
@@ -128,7 +220,101 @@ const seo = getPageSEO('/');
       </ul>
     </div>
   </section>
+
+  <!-- 2. Where We Supply Section (Scraped Industry Visuals with Blur-Fade Animations) -->
+  <section class="supply-sectors-section" id="where-we-supply">
+    <div class="supply-container">
+      <div class="supply-header blur-fade-item">
+        <span
+          class="supply-eyebrow"
+          data-ms="SEKTOR BEKALAN KAMI"
+          data-en="WHERE WE SUPPLY"
+        >
+          SEKTOR BEKALAN KAMI
+        </span>
+        <h2
+          class="supply-title"
+          data-ms="Lokasi & Industri Yang Kami Bekalkan"
+          data-en="Industries & Sectors We Supply"
+        >
+          Lokasi &amp; Industri Yang Kami Bekalkan
+        </h2>
+        <p
+          class="supply-subtitle"
+          data-ms="Kami membekalkan Tong Roro dan perkhidmatan pengurusan sisa merentasi pelbagai sektor komersial, perindustrian, institusi dan kediaman."
+          data-en="We supply RORO bins and reliable waste management solutions across commercial, industrial, institutional and residential sectors."
+        >
+          Kami membekalkan Tong Roro dan perkhidmatan pengurusan sisa merentasi pelbagai sektor komersial, perindustrian, institusi dan kediaman.
+        </p>
+      </div>
+
+      <div class="supply-grid">
+        {suppliedSectors.map((sector, index) => (
+          <article
+            class="supply-card blur-fade-item"
+            style={`--stagger-delay: ${(index % 4) * 90}ms;`}
+          >
+            <div class="supply-card-media">
+              <img
+                src={sector.image}
+                alt={`${sector.labelMs} - SKL Waste Sdn Bhd Tong Roro`}
+                class="supply-card-img"
+                width="640"
+                height="420"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="supply-card-blur-fade" aria-hidden="true"></div>
+              <div class="supply-card-overlay">
+                <h3
+                  class="supply-card-title"
+                  data-ms={sector.labelMs}
+                  data-en={sector.labelEn}
+                >
+                  {sector.labelMs}
+                </h3>
+                <p
+                  class="supply-card-sub"
+                  data-ms={sector.subMs}
+                  data-en={sector.subEn}
+                >
+                  {sector.subMs}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<script is:inline>
+  (function() {
+    var blurItems = document.querySelectorAll('.blur-fade-item');
+    if ('IntersectionObserver' in window) {
+      var blurObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in-view');
+            blurObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      blurItems.forEach(function(item) {
+        blurObserver.observe(item);
+      });
+    } else {
+      blurItems.forEach(function(item) {
+        item.classList.add('is-in-view');
+      });
+    }
+  })();
+</script>
 
 <style>
   .hero-fullscreen {
@@ -139,7 +325,7 @@ const seo = getPageSEO('/');
     align-items: center;
     overflow: hidden;
     background-color: #f8fafc;
-    padding: 7.5rem 1.5rem 3.5rem;
+    padding: 7.5rem 1.5rem 4.5rem;
   }
 
   .hero-bg-picture {
@@ -174,6 +360,20 @@ const seo = getPageSEO('/');
     -webkit-backdrop-filter: blur(6px);
     mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.92) 50%, rgba(0, 0, 0, 0.15) 88%, rgba(0, 0, 0, 0) 100%);
     -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.92) 50%, rgba(0, 0, 0, 0.15) 88%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  /* Bottom blur-fade bridge into the Where We Supply section */
+  .hero-bottom-blur-bridge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 110px;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(248, 250, 252, 0.85) 70%, #f8fafc 100%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    pointer-events: none;
   }
 
   /* Soft base white veil to keep left text crisp even without mask-image support */
@@ -274,6 +474,186 @@ const seo = getPageSEO('/');
     height: 22px;
   }
 
+  /* ==========================================================================
+     Where We Supply Section (Scraped Industry Grid + Blur-Fade Animations)
+     ========================================================================== */
+  .supply-sectors-section {
+    position: relative;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 35%, #f1f5f9 100%);
+    padding: clamp(3.5rem, 7vw, 6rem) 1.5rem clamp(4.5rem, 8vw, 7rem);
+    overflow: hidden;
+  }
+
+  .supply-container {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+  }
+
+  .supply-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto clamp(2.5rem, 5vw, 3.75rem);
+  }
+
+  .supply-eyebrow {
+    display: inline-block;
+    padding: 0.38rem 1rem;
+    border-radius: 9999px;
+    background: rgba(21, 128, 61, 0.1);
+    border: 1px solid rgba(21, 128, 61, 0.25);
+    color: #15803d;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+
+  .supply-title {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: clamp(1.85rem, 3.8vw, 2.85rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: #0a1628;
+    margin: 0 0 0.85rem;
+    line-height: 1.15;
+    border: none;
+    padding: 0;
+  }
+
+  .supply-subtitle {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+    color: #475569;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .supply-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .supply-card {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1.5px solid rgba(10, 22, 40, 0.1);
+    box-shadow: 0 14px 32px -8px rgba(10, 22, 40, 0.12);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+  }
+
+  .supply-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(21, 128, 61, 0.45);
+    box-shadow: 0 22px 44px -10px rgba(10, 22, 40, 0.22);
+  }
+
+  .supply-card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .supply-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
+  }
+
+  .supply-card:hover .supply-card-img {
+    transform: scale(1.07);
+  }
+
+  /* Frosted White-Opacity Blur-Fade Overlay at the bottom of each card */
+  .supply-card-blur-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 58%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.82) 52%,
+      rgba(255, 255, 255, 0.96) 100%
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 1) 100%);
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 1) 100%);
+    pointer-events: none;
+  }
+
+  .supply-card-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.25rem 1.15rem 1.1rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.78) 45%,
+      rgba(255, 255, 255, 0.95) 100%
+    );
+  }
+
+  .supply-card-title {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #0a1628;
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .supply-card-sub {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #15803d;
+    margin: 0;
+  }
+
+  /* Scroll-Triggered Blur-Fade Animation */
+  :global(html.js-ready) .blur-fade-item {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(28px) scale(0.97);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms),
+      filter 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--stagger-delay, 0ms);
+    will-change: opacity, filter, transform;
+  }
+
+  :global(html.js-ready) .blur-fade-item.is-in-view {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js-ready) .blur-fade-item {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      transition: none;
+    }
+  }
+
   /* Visually hidden for humans, stays in HTML DOM for search engine crawlers & scrapers */
   .crawler-seo-content {
     position: absolute;
@@ -289,7 +669,7 @@ const seo = getPageSEO('/');
 
   @media (max-width: 768px) {
     .hero-fullscreen {
-      padding: 6.25rem 1.15rem 2.5rem;
+      padding: 6.25rem 1.15rem 3.5rem;
     }
 
     .hero-fullscreen::before {
@@ -299,6 +679,11 @@ const seo = getPageSEO('/');
         rgba(255, 255, 255, 0.88) 65%,
         rgba(255, 255, 255, 0.72) 100%
       );
+    }
+
+    .supply-grid {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.1rem;
     }
   }
 </style>
