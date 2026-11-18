@@ -1691,9 +1691,10 @@ const ourWorkGallery = [
   @media (max-width: 768px) {
     .hero-fullscreen {
       min-height: 100svh;
-      align-items: flex-start;
-      padding: 5.5rem 1.25rem 3.5rem;
-      background-color: #ffffff;
+      align-items: center;
+      justify-content: center;
+      padding: 6.5rem 1.25rem 4rem;
+      background-color: transparent;
       position: relative;
     }
 
@@ -1702,14 +1703,14 @@ const ourWorkGallery = [
       object-position: center center;
     }
 
-    /* Mobile slight white opacity and slight blur overlay */
+    /* Background picture with slight blur and slight white opacity overlay */
     .hero-white-blur-fade {
       display: block !important;
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
       z-index: 1;
     }
 
@@ -1720,33 +1721,50 @@ const ourWorkGallery = [
     .hero-main-container {
       position: relative;
       z-index: 2;
+      display: flex;
+      justify-content: center;
+      width: 100%;
     }
 
     .hero-bottom-blur-bridge {
       display: none;
     }
 
+    /* Normal background - Card glass background, border, and shadows completely removed */
     .hero-info-block {
-      gap: 0.95rem;
-      background: rgba(255, 255, 255, 0.45);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      padding: 1.25rem;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 10px 30px rgba(10, 22, 40, 0.08);
+      gap: 1.15rem;
+      background: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      text-align: center;
+      align-items: center;
+      max-width: 92%;
     }
 
     .hero-main-title {
-      font-size: clamp(1.8rem, 6.8vw, 2.35rem);
+      font-size: clamp(2rem, 7.5vw, 2.55rem);
       line-height: 1.15;
+      text-align: center;
+      color: #0a1628;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
     }
 
     .hero-sub-info {
-      font-size: 0.98rem;
-      line-height: 1.45;
+      font-size: 1.05rem;
+      line-height: 1.5;
       color: #0a1628;
       font-weight: 700;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+    .hero-cta-wrapper {
+      justify-content: center;
+      margin: 0.5rem auto 0;
     }
 
     .hero-cta-prompt {
