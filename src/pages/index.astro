@@ -32,31 +32,31 @@ const seo = getPageSEO('/');
     <!-- Blurred Fade Background with White Opacity -->
     <div class="hero-white-blur-fade" aria-hidden="true"></div>
 
-    <!-- Left Content Container -->
+    <!-- Left Content Container (Human-Visible Copy) -->
     <div class="hero-main-container">
       <div class="hero-info-block">
         <h1
           class="hero-main-title"
-          data-html-ms="SEWA TONG RORO.<br />PENGURUSAN SISA LEBIH MUDAH."
-          data-html-en="TONG RORO RENTAL.<br />WASTE MANAGEMENT MADE SIMPLE."
+          data-ms="Pengurusan Sisa Lebih Mudah."
+          data-en="Waste Management Made Easy."
         >
-          SEWA TONG RORO.<br />PENGURUSAN SISA LEBIH MUDAH.
+          Pengurusan Sisa Lebih Mudah.
         </h1>
 
         <p
           class="hero-sub-info"
-          data-ms="Perkhidmatan sewaan Tong Roro (2 Kaki & 4 Kaki), kutipan sampah, pengangkutan dan pelupusan sisa untuk kediaman, komersial, pembinaan dan industri di Sungai Buloh & Selangor."
-          data-en="Tong Roro bin rental (2 Feet & 4 Feet), waste collection, transport, and disposal services for residential, commercial, construction, and industrial sites in Sungai Buloh & Selangor."
+          data-ms="Perkhidmatan sewaan Tong Roro, kutipan, pengangkutan dan pelupusan sisa yang dipercayai untuk kediaman, premis perniagaan dan tapak pembinaan di Sungai Buloh serta seluruh Selangor."
+          data-en="Reliable RORO bin rental, waste collection, transportation and disposal services for residential, commercial and construction projects across Sungai Buloh and Selangor."
         >
-          Perkhidmatan sewaan Tong Roro (2 Kaki &amp; 4 Kaki), kutipan sampah, pengangkutan dan pelupusan sisa untuk kediaman, komersial, pembinaan dan industri di Sungai Buloh &amp; Selangor.
+          Perkhidmatan sewaan Tong Roro, kutipan, pengangkutan dan pelupusan sisa yang dipercayai untuk kediaman, premis perniagaan dan tapak pembinaan di Sungai Buloh serta seluruh Selangor.
         </p>
 
         <p
-          class="hero-meta-line"
-          data-ms="SKL WASTE SDN BHD (200801038953) • Tempoh Sewaan 10 Hari • RM2XX (2 Kaki) / RM3XX–RM4XX (4 Kaki) • Mr Hari: +60 16-615 9365"
-          data-en="SKL WASTE SDN BHD (200801038953) • 10-Day Rental • RM2XX (2 Feet) / RM3XX–RM4XX (4 Feet) • Mr Hari: +60 16-615 9365"
+          class="hero-cta-prompt"
+          data-ms="Ingin membuat tempahan? Klik butang di bawah untuk membuat pesanan melalui WhatsApp."
+          data-en="Ready to get started? Click below to place your order via WhatsApp."
         >
-          SKL WASTE SDN BHD (200801038953) • Tempoh Sewaan 10 Hari • RM2XX (2 Kaki) / RM3XX–RM4XX (4 Kaki) • Mr Hari: +60 16-615 9365
+          Ingin membuat tempahan? Klik butang di bawah untuk membuat pesanan melalui WhatsApp.
         </p>
 
         <!-- WhatsApp Pill CTA -->
@@ -85,6 +85,14 @@ const seo = getPageSEO('/');
 
     <!-- Visually Hidden SEO & Crawler Context (Visible to Robots/Scrapers Only) -->
     <div class="crawler-seo-content">
+      <h2>SEWA TONG RORO. PENGURUSAN SISA LEBIH MUDAH. / TONG RORO RENTAL. WASTE MANAGEMENT MADE SIMPLE.</h2>
+      <p>
+        Perkhidmatan sewaan Tong Roro (2 Kaki &amp; 4 Kaki), kutipan sampah, pengangkutan dan pelupusan sisa untuk kediaman, komersial, pembinaan dan industri di Sungai Buloh &amp; Selangor.
+        Tong Roro bin rental (2 Feet &amp; 4 Feet), waste collection, transport, and disposal services for residential, commercial, construction, and industrial sites in Sungai Buloh &amp; Selangor.
+      </p>
+      <p>
+        SKL WASTE SDN BHD (200801038953) • Tempoh Sewaan 10 Hari (10-Day Rental) • RM2XX (2 Kaki / 2 Feet) / RM3XX–RM4XX (4 Kaki / 4 Feet) • Mr Hari: +60 16-615 9365
+      </p>
       <h2>{companyData.name} ({companyData.registrationNumber}) - Sewaan Tong Roro Selangor &amp; Sungai Buloh</h2>
       <p>
         Ibu Pejabat: {companyData.headquarters.fullAddress}. Pegawai Dihubungi: {contactData.mainContactPerson} ({contactData.telephoneDisplay}, {contactData.email}).
@@ -218,12 +226,13 @@ const seo = getPageSEO('/');
     max-width: 580px;
   }
 
-  .hero-meta-line {
+  .hero-cta-prompt {
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: clamp(0.84rem, 1.2vw, 0.95rem);
+    font-size: clamp(0.95rem, 1.35vw, 1.08rem);
     font-weight: 700;
-    color: #15803d;
-    margin: 0;
+    color: #0a1628;
+    margin: 0.25rem 0 0;
+    line-height: 1.5;
   }
 
   .hero-cta-wrapper {
