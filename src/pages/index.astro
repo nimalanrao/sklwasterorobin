@@ -423,7 +423,7 @@ const ourWorkGallery = [
   <!-- 4. Our Work / Kerja Lapangan SKL Waste -->
   <section class="our-work-section" id="our-work">
     <div class="supply-container">
-      <div class="supply-header-block">
+      <div class="supply-header-block our-work-header-centered">
         <span
           class="supply-eyebrow"
           data-ms="KERJA LAPANGAN KAMI"
@@ -438,48 +438,44 @@ const ourWorkGallery = [
         >
           Gambar Kerja Sebenar SKL Waste
         </h2>
-        <p
-          class="supply-subtitle"
-          data-ms="Lihat tong roro biru SKL Waste Sdn Bhd beroperasi di tapak projek, perumahan dan premis komersial sekitar Selangor & KL."
-          data-en="Take a look at SKL Waste Sdn Bhd signature blue RORO bins deployed across residential, construction, and commercial locations in Selangor & KL."
-        >
-          Lihat tong roro biru SKL Waste Sdn Bhd beroperasi di tapak projek, perumahan dan premis komersial sekitar Selangor & KL.
-        </p>
       </div>
 
+      <!-- Human-Visible Image Grid: Pure Clean Images Only -->
       <div class="our-work-grid">
         {ourWorkGallery.map((item, idx) => (
-          <article class="work-card blur-fade-item" style={`--stagger-delay: ${idx * 80}ms;`}>
+          <div class="work-card blur-fade-item" style={`--stagger-delay: ${idx * 80}ms;`}>
             <div class="work-media">
               <img
                 src={item.image}
-                alt={item.titleMs}
+                alt={`${item.titleMs} - ${item.wasteTypeMs} ${item.categoryMs} SKL Waste Sdn Bhd`}
+                title={`${item.titleMs} | ${item.categoryMs}`}
                 class="work-img"
                 loading="lazy"
                 decoding="async"
                 width="640"
                 height="1138"
               />
-              <span class="work-tag">{item.wasteTypeMs}</span>
             </div>
-            <div class="work-body">
-              <span
-                class="work-category"
-                data-ms={item.categoryMs}
-                data-en={item.categoryEn}
-              >
-                {item.categoryMs}
-              </span>
-              <h3
-                class="work-title"
-                data-ms={item.titleMs}
-                data-en={item.titleEn}
-              >
-                {item.titleMs}
-              </h3>
-            </div>
-          </article>
+          </div>
         ))}
+      </div>
+
+      <!-- Maximum SEO Hidden Microdata & Keywords for Robots, Scrapers & AI Crawlers Only -->
+      <div class="crawler-seo-content" aria-hidden="true">
+        <h3>GALERI KERJA LAPANGAN SEWA TONG RORO SKL WASTE SDN BHD (200801038953)</h3>
+        <p>
+          Lihat tong roro biru SKL Waste Sdn Bhd beroperasi di tapak projek, perumahan dan premis komersial sekitar Selangor &amp; KL.
+          Perkhidmatan sewa tong roro 2 kaki dan 4 kaki untuk pelupusan sisa pembinaan, renovasi rumah, sisa kilang, sampah pukal perabot, dan domestik.
+        </p>
+        <ul>
+          {ourWorkGallery.map((item) => (
+            <li>
+              <strong>{item.titleMs}</strong> ({item.titleEn}):
+              Kategori: {item.categoryMs} ({item.categoryEn}) - Jenis Sisa: {item.wasteTypeMs}.
+              Lokasi servis: Sungai Buloh, Kepong, Rawang, Petaling Jaya, Subang, Shah Alam, Selangor &amp; Kuala Lumpur.
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
@@ -1009,10 +1005,16 @@ const ourWorkGallery = [
     border-top: 1px solid rgba(10, 22, 40, 0.08);
   }
 
+  .our-work-header-centered {
+    text-align: center;
+    align-items: center;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+  }
+
   .our-work-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
     align-items: stretch;
   }
 
@@ -1024,12 +1026,10 @@ const ourWorkGallery = [
 
   .work-card {
     background: #ffffff;
-    border: 1.5px solid rgba(10, 22, 40, 0.1);
+    border: 2px solid rgba(10, 22, 40, 0.1);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 24px -8px rgba(10, 22, 40, 0.08);
-    display: flex;
-    flex-direction: column;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
   }
 
@@ -1058,50 +1058,6 @@ const ourWorkGallery = [
 
   .work-card:hover .work-img {
     transform: scale(1.05);
-  }
-
-  .work-tag {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(10, 22, 40, 0.85);
-    backdrop-filter: blur(8px);
-    color: #ffffff;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.32rem 0.65rem;
-    border-radius: 9999px;
-    letter-spacing: 0.02em;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .work-body {
-    padding: 1.15rem 1.25rem 1.35rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    flex-grow: 1;
-    background: #ffffff;
-    border-top: 1px solid rgba(10, 22, 40, 0.06);
-  }
-
-  .work-category {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 0.74rem;
-    font-weight: 700;
-    color: #15803d;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .work-title {
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-    font-size: 0.98rem;
-    font-weight: 800;
-    line-height: 1.35;
-    color: #0a1628;
-    margin: 0;
   }
 
   /* ==========================================================================
