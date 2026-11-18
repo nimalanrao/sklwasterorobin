@@ -41,11 +41,11 @@ export const analyticsConfig: AnalyticsConfig = {
 export const pageSEOMap: Record<string, PageSEOConfig> = {
   '/': {
     path: '/',
-    title: 'Sewa Tong Roro Selangor & Sungai Buloh | SKL Waste',
-    description: 'Sewa Tong Roro 2ft & 4ft di Selangor & Sungai Buloh dengan SKL Waste Sdn Bhd. Tempoh 10 hari, harga telus bermula RM2XX. Hubungi Mr Hari +60 16-615 9365.',
-    h1: 'SEWA TONG RORO. PENGURUSAN SISA LEBIH MUDAH.',
-    primaryKeyword: 'Sewa Tong Roro Selangor & Sungai Buloh',
-    secondaryKeywords: ['Servis Tong Roro', 'Harga Sewa Tong Roro', 'Pengurusan Sisa'],
+    title: 'Sewa Tong RoRo Selangor & KL | SKL Waste Sdn Bhd',
+    description: 'Sewa Tong Roro 2 Kaki & 4 Kaki di Selangor, Kuala Lumpur & Sungai Buloh dengan SKL Waste Sdn Bhd. Tempoh 10 hari bermula RM2XX. Hubungi Mr Hari +60 16-615 9365.',
+    h1: 'SEWA TONG RoRo Selangor/KL!',
+    primaryKeyword: 'Sewa Tong Roro Selangor & KL',
+    secondaryKeywords: ['Sewa Tong Roro Sungai Buloh', 'Tong Roro Kuala Lumpur', 'Harga Sewa Tong Roro', 'Tong Roro 2 Feet 4 Feet', 'SKL Waste Sdn Bhd'],
     searchIntent: 'Commercial',
     ogImage: `${SITE_URL}/images/skl-hero-roro.jpg`,
     ogImageAlt: 'SKL Waste Sdn Bhd lori Tong Roro dan kontena sisa di tapak projek',

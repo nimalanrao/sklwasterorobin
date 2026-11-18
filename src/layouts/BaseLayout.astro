@@ -37,17 +37,73 @@ const schemaGraph = buildPageSchemaGraph(
   seo.breadcrumbs
 );
 
-// Append SiteNavigationElement schema so search engines & scrapers index all routes
+// Sitelinks Searchbox & SiteNavigationElement schema for Google organic sitelinks takeover
+const sitelinksSearchboxSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website-search`,
+  url: SITE_URL,
+  name: 'SKL Waste Sdn Bhd',
+  alternateName: ['SKL Waste', 'Sewa Tong Roro Selangor', 'Sewa Tong Roro KL'],
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE_URL}/tong-roro-rental?q={search_term_string}`
+    },
+    'query-input': 'required name=search_term_string'
+  }
+};
+
 const navSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'SKL Waste Sdn Bhd Site Navigation',
-  itemListElement: footerNavigation.map((item, idx) => ({
-    '@type': 'SiteNavigationElement',
-    position: idx + 1,
-    name: item.label,
-    url: `${SITE_URL}${item.href === '/' ? '' : item.href}`
-  }))
+  name: 'SKL Waste Sdn Bhd Quick Sitelinks',
+  description: 'Semua navigasi rasmi perkhidmatan Sewa Tong Roro SKL Waste Sdn Bhd',
+  itemListElement: [
+    {
+      '@type': 'SiteNavigationElement',
+      position: 1,
+      name: 'Tong Roro Rental (Harga 2ft & 4ft)',
+      description: 'Spesifikasi saiz Tong Roro 2 Kaki & 4 Kaki tempoh 10 hari bermula RM2XX',
+      url: `${SITE_URL}/tong-roro-rental`
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 2,
+      name: 'Waste Management Services',
+      description: 'Kutipan sisa pembinaan, pengubahsuaian rumah, perindustrian & sampah pukal',
+      url: `${SITE_URL}/waste-management-services`
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 3,
+      name: 'Service Areas (Selangor & KL)',
+      description: 'Kawasan liputan Sungai Buloh, Kepong, Rawang, Petaling Jaya, Subang & KL',
+      url: `${SITE_URL}/service-areas`
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 4,
+      name: 'Industries We Serve',
+      description: 'Pembinaan bangunan, perumahan, hotel, kilang, restoran, kediaman berstrata',
+      url: `${SITE_URL}/industries-we-serve`
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 5,
+      name: 'About SKL Waste Sdn Bhd',
+      description: 'Profil syarikat berdaftar SSM 200801038953 beribu pejabat di Sungai Buloh',
+      url: `${SITE_URL}/about-us`
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 6,
+      name: 'Contact Mr Hari / WhatsApp',
+      description: 'Hubungi pengurusan Mr Hari +60 16-615 9365 untuk sebut harga segera',
+      url: `${SITE_URL}/contact-us`
+    }
+  ]
 };
 
 const normalizedPath = currentPath === '' ? '/' : currentPath.replace(/\/+$/, '') || '/';
@@ -150,8 +206,9 @@ const googleAdsId = analyticsConfig.googleAdsId;
       </>
     )}
 
-    <!-- Schema.org JSON-LD Graph + SiteNavigationElement -->
+    <!-- Schema.org JSON-LD Graph + Sitelinks + SiteNavigationElement -->
     <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+    <script type="application/ld+json" set:html={JSON.stringify(sitelinksSearchboxSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(navSchema)} />
 
     <!-- Google Fonts Preconnect & Stylesheets -->
