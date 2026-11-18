@@ -651,27 +651,37 @@ const ourWorkGallery = [
 <script is:inline>
   (function() {
     // 1. Scroll-triggered blur-fade reveal for cards and location pills
-    var blurItems = document.querySelectorAll('.blur-fade-item');
-    if ('IntersectionObserver' in window) {
-      var blurObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-in-view');
-            blurObserver.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -30px 0px'
-      });
+    function initBlurFade() {
+      var blurItems = document.querySelectorAll('.blur-fade-item');
+      if (!blurItems.length) return;
 
-      blurItems.forEach(function(item) {
-        blurObserver.observe(item);
-      });
+      if ('IntersectionObserver' in window) {
+        var blurObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in-view');
+              blurObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.05,
+          rootMargin: '0px 0px -20px 0px'
+        });
+
+        blurItems.forEach(function(item) {
+          blurObserver.observe(item);
+        });
+      } else {
+        blurItems.forEach(function(item) {
+          item.classList.add('is-in-view');
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBlurFade);
     } else {
-      blurItems.forEach(function(item) {
-        item.classList.add('is-in-view');
-      });
+      initBlurFade();
     }
 
     // 2. Continuous scroll-driven scale animation ("THE MORE U SCROLL THE BIGGER/SMALLER IT BECOMES")
@@ -1582,8 +1592,8 @@ const ourWorkGallery = [
     transform: translateY(-1px);
   }
 
-  /* Scroll-Triggered Blur-Fade Animation */
-  :global(html.js-ready) .blur-fade-item {
+  /* Scroll-Triggered Blur-Fade Animation (Works with or without html.js-ready) */
+  .blur-fade-item {
     opacity: 0;
     filter: blur(12px);
     transform: translateY(24px) scale(0.98);
@@ -1594,14 +1604,14 @@ const ourWorkGallery = [
     will-change: opacity, filter, transform;
   }
 
-  :global(html.js-ready) .blur-fade-item.is-in-view {
+  .blur-fade-item.is-in-view {
     opacity: 1;
     filter: blur(0px);
     transform: translateY(0) scale(1);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :global(html.js-ready) .blur-fade-item {
+    .blur-fade-item {
       opacity: 1;
       filter: none;
       transform: none;

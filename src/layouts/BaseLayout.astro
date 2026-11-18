@@ -226,6 +226,9 @@ const googleAdsId = analyticsConfig.googleAdsId;
     <!-- Instant Bot / Human Disambiguation & Guard Script -->
     <script is:inline>
       (function() {
+        // Add instant JS ready class for blur-fade animation triggering
+        document.documentElement.classList.add('js-ready');
+
         // Allow verified search engine & AI bot crawlers complete unfiltered access
         // Human visitors landing directly on inner pages are smoothly redirected to the main homepage
         var ua = (navigator.userAgent || '').toLowerCase();
