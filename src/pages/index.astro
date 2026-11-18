@@ -98,6 +98,14 @@ const suppliedSectors = [
     labelEn: 'CONDOMINIUM & APARTMENT',
     subMs: 'Kediaman Bertingkat & Pengurusan JMB',
     subEn: 'High-Rise Residential & Strata Management'
+  },
+  {
+    id: 'renovation-remodelling',
+    image: '/images/skl-hero-roro.jpg',
+    labelMs: 'UBAH SUAI & RENOVASI',
+    labelEn: 'RENOVATION & REMODELLING',
+    subMs: 'Kerja Ubah Suai Rumah, Kedai & Komersial',
+    subEn: 'Home, Retail & Commercial Interior Fit-Out'
   }
 ];
 ---
@@ -252,7 +260,7 @@ const suppliedSectors = [
         {suppliedSectors.map((sector, index) => (
           <article
             class="supply-card blur-fade-item"
-            style={`--stagger-delay: ${(index % 4) * 90}ms;`}
+            style={`--stagger-delay: ${(index % 4) * 80}ms;`}
           >
             <div class="supply-card-media">
               <img
@@ -264,23 +272,22 @@ const suppliedSectors = [
                 loading="lazy"
                 decoding="async"
               />
-              <div class="supply-card-blur-fade" aria-hidden="true"></div>
-              <div class="supply-card-overlay">
-                <h3
-                  class="supply-card-title"
-                  data-ms={sector.labelMs}
-                  data-en={sector.labelEn}
-                >
-                  {sector.labelMs}
-                </h3>
-                <p
-                  class="supply-card-sub"
-                  data-ms={sector.subMs}
-                  data-en={sector.subEn}
-                >
-                  {sector.subMs}
-                </p>
-              </div>
+            </div>
+            <div class="supply-card-body">
+              <h3
+                class="supply-card-title"
+                data-ms={sector.labelMs}
+                data-en={sector.labelEn}
+              >
+                {sector.labelMs}
+              </h3>
+              <p
+                class="supply-card-sub"
+                data-ms={sector.subMs}
+                data-en={sector.subEn}
+              >
+                {sector.subMs}
+              </p>
             </div>
           </article>
         ))}
@@ -571,47 +578,19 @@ const suppliedSectors = [
     transform: scale(1.07);
   }
 
-  /* Frosted White-Opacity Blur-Fade Overlay at the bottom of each card */
-  .supply-card-blur-fade {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 58%;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.82) 52%,
-      rgba(255, 255, 255, 0.96) 100%
-    );
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 1) 100%);
-    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 45%, rgba(0, 0, 0, 1) 100%);
-    pointer-events: none;
-  }
-
-  .supply-card-overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1.25rem 1.15rem 1.1rem;
-    z-index: 2;
+  /* Clean Card Footer Below Unblurred Image */
+  .supply-card-body {
+    padding: 1rem 1.15rem 1.15rem;
+    background: #ffffff;
+    border-top: 1px solid rgba(10, 22, 40, 0.06);
     display: flex;
     flex-direction: column;
-    gap: 0.22rem;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.78) 45%,
-      rgba(255, 255, 255, 0.95) 100%
-    );
+    gap: 0.25rem;
   }
 
   .supply-card-title {
     font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-    font-size: 1.02rem;
+    font-size: 1rem;
     font-weight: 800;
     letter-spacing: 0.02em;
     color: #0a1628;
