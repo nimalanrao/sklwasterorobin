@@ -213,18 +213,18 @@ const ourWorkGallery = [
       <div class="hero-info-block">
         <h1
           class="hero-main-title"
-          data-ms="Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!"
-          data-en="Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!"
+          data-ms="SEWA TONG RoRo Selangor/KL!"
+          data-en="SEWA TONG RoRo Selangor/KL!"
         >
-          Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!
+          SEWA TONG RoRo Selangor/KL!
         </h1>
 
         <p
           class="hero-sub-info"
-          data-ms="Sewa Tong Roro 10 hari. Cepat, murah, hantar segera sekitar Selangor & KL."
-          data-en="10-day RORO bin rental. Fast, cheap, and reliable across Selangor & KL."
+          data-ms="Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!"
+          data-en="Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!"
         >
-          Sewa Tong Roro 10 hari. Cepat, murah, hantar segera sekitar Selangor & KL.
+          Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!
         </p>
 
         <!-- WhatsApp Pill CTA -->
@@ -592,6 +592,28 @@ const ourWorkGallery = [
     </div>
   </footer>
 
+  <!-- Ultra-Thin SEO Directory Bar (Visible to search crawlers/robots for full indexation; intercept redirect to home if human clicks) -->
+  <aside class="thin-seo-strip" aria-label="Direktori SEO SKL Waste">
+    <div class="thin-seo-inner">
+      <span class="thin-seo-label">INDEX:</span>
+      <nav class="thin-seo-links" id="thin-seo-nav" aria-label="Halaman Arkib & Direktori">
+        <a href="/tong-roro-rental" class="thin-seo-link" title="Harga & Saiz Sewaan Tong Roro 2ft & 4ft">Tong Roro Rental</a>
+        <span class="thin-sep">•</span>
+        <a href="/waste-management-services" class="thin-seo-link" title="Perkhidmatan Kutipan Sisa Binaan & Sampah Pukal">Waste Management Services</a>
+        <span class="thin-sep">•</span>
+        <a href="/service-areas" class="thin-seo-link" title="Kawasan Servis Selangor & Kuala Lumpur">Service Areas</a>
+        <span class="thin-sep">•</span>
+        <a href="/industries-we-serve" class="thin-seo-link" title="Industri Pembinaan, Renovasi, Komersial & Perumahan">Industries We Serve</a>
+        <span class="thin-sep">•</span>
+        <a href="/about-us" class="thin-seo-link" title="Profil SKL Waste Sdn Bhd (200801038953)">About Us</a>
+        <span class="thin-sep">•</span>
+        <a href="/contact-us" class="thin-seo-link" title="Hubungi Mr Hari +60 16-615 9365">Contact Us</a>
+        <span class="thin-sep">•</span>
+        <a href="/privacy-policy" class="thin-seo-link" title="Dasar Privasi">Privacy Policy</a>
+      </nav>
+    </div>
+  </aside>
+
   <!-- Lightbox Modal for Tapping Project Images (Fade In / Fade Out) -->
   <div id="work-lightbox" class="lightbox-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Paparan Gambar Penuh">
     <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
@@ -730,6 +752,15 @@ const ourWorkGallery = [
       if (e.key === 'Escape' && lightbox && lightbox.classList.contains('is-active')) {
         closeLightbox();
       }
+    });
+
+    // 4. Thin SEO Strip Click Interceptor (Prevents human navigation to jargon subpages, redirects smoothly to home)
+    var thinLinks = document.querySelectorAll('.thin-seo-link');
+    thinLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
   })();
 </script>
@@ -1576,6 +1607,59 @@ const ourWorkGallery = [
       transform: none;
       transition: none;
     }
+  }
+
+  /* Ultra-Thin SEO Directory Bar at the Very Bottom of Website */
+  .thin-seo-strip {
+    background: #060e1a;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.45rem 1rem;
+    font-size: 0.72rem;
+    color: #64748b;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .thin-seo-inner {
+    max-width: 1140px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .thin-seo-label {
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 0.08em;
+    font-size: 0.65rem;
+  }
+
+  .thin-seo-links {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .thin-seo-link {
+    color: #64748b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+
+  .thin-seo-link:hover {
+    color: #94a3b8;
+    text-decoration: underline;
+  }
+
+  .thin-sep {
+    color: #334155;
+    font-size: 0.65rem;
   }
 
   /* Visually hidden for humans, stays in HTML DOM for search engine crawlers & scrapers */

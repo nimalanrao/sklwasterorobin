@@ -223,9 +223,23 @@ const googleAdsId = analyticsConfig.googleAdsId;
     <link rel="icon" type="image/png" href="/images/skl-logo.png" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Instant JS Ready Flag for Zero-Flash Progressive Reveal -->
+    <!-- Instant Bot / Human Disambiguation & Guard Script -->
     <script is:inline>
-      document.documentElement.classList.add('js-ready');
+      (function() {
+        // Allow verified search engine & AI bot crawlers complete unfiltered access
+        // Human visitors landing directly on inner pages are smoothly redirected to the main homepage
+        var ua = (navigator.userAgent || '').toLowerCase();
+        var isCrawler = /bot|googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|crawler|spider|mediapartners|adsbot|applebot|facebookexternalhit|whatsapp|telegrambot|twitterbot|pinterest|linkedinbot|petalbot|semrushbot|ahrefsbot|mj12bot|dotbot|rogerbot|screaming frog|gptbot|chatgpt|claudebot|anthropic-ai|perplexitybot|cohere|bytespider/i.test(ua);
+        var path = window.location.pathname.replace(/\/+$/, '') || '/';
+
+        // Check if user is human on an inner page and not requesting via sitemap/searchbot preview
+        if (!isCrawler && path !== '/' && path !== '' && path !== '/404') {
+          // Check query override (e.g. ?view=direct or internal link bypass)
+          if (!window.location.search.includes('nobounce')) {
+            window.location.replace('/?from=' + encodeURIComponent(path));
+          }
+        }
+      })();
     </script>
   </head>
   <body class={normalizedPath === '/' ? 'is-home-page' : 'is-inner-page'}>
