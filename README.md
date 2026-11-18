@@ -17,6 +17,7 @@ The site is built with **Astro 5** and **TypeScript** as a zero-JS-by-default st
 | **Telephone** | [+60 16-615 9365](tel:+60166159365) |
 | **Email** | [tongroroservissklwaste@gmail.com](mailto:tongroroservissklwaste@gmail.com) |
 | **WhatsApp (`https://wa.me/60166159365`)** | Controlled via `contactData.whatsapp.isConfirmed` (`false` until confirmed by owner; no active `wa.me` links render while unconfirmed) |
+| **Live GitHub Pages URL** | [https://nimalanrao.github.io/sklwasterorobin/](https://nimalanrao.github.io/sklwasterorobin/) |
 | **Canonical Production URL** | `https://www.sklwaste.com.my` |
 
 ---
