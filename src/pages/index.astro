@@ -110,19 +110,35 @@ const suppliedSectors = [
 ];
 
 const suppliedPlaces = [
-  'Desa Coalfields',
-  'Bandar Seri Coalfields',
-  'Sungai Buloh',
-  'Paya Jaras',
-  'Bukit Jelutong',
-  'Bukit Beruntung',
-  'Kundang',
-  'Puncak Alam',
-  'Aman Putri',
-  'Tasik Puteri',
-  'Saujana Utama',
-  'Subang',
-  'Rawang'
+  // Selangor Key Areas
+  { name: 'Desa Coalfields', region: 'Selangor' },
+  { name: 'Bandar Seri Coalfields', region: 'Selangor' },
+  { name: 'Sungai Buloh', region: 'Selangor' },
+  { name: 'Paya Jaras', region: 'Selangor' },
+  { name: 'Bukit Jelutong', region: 'Selangor' },
+  { name: 'Bukit Beruntung', region: 'Selangor' },
+  { name: 'Kundang', region: 'Selangor' },
+  { name: 'Puncak Alam', region: 'Selangor' },
+  { name: 'Aman Putri', region: 'Selangor' },
+  { name: 'Tasik Puteri', region: 'Selangor' },
+  { name: 'Saujana Utama', region: 'Selangor' },
+  { name: 'Subang', region: 'Selangor' },
+  { name: 'Rawang', region: 'Selangor' },
+  { name: 'Petaling Jaya', region: 'Selangor' },
+  { name: 'Shah Alam', region: 'Selangor' },
+  { name: 'Damansara', region: 'Selangor' },
+  // Kuala Lumpur Key Areas
+  { name: 'Kepong', region: 'Kuala Lumpur' },
+  { name: 'Segambut', region: 'Kuala Lumpur' },
+  { name: 'Mont Kiara', region: 'Kuala Lumpur' },
+  { name: 'Hartamas', region: 'Kuala Lumpur' },
+  { name: 'Sentul', region: 'Kuala Lumpur' },
+  { name: 'Batu Caves', region: 'KL / Selangor' },
+  { name: 'Wangsa Maju', region: 'Kuala Lumpur' },
+  { name: 'Setapak', region: 'Kuala Lumpur' },
+  { name: 'Cheras', region: 'Kuala Lumpur' },
+  { name: 'Bangsar', region: 'Kuala Lumpur' },
+  { name: 'KL City Centre (KLCC)', region: 'Kuala Lumpur' }
 ];
 ---
 
@@ -325,17 +341,17 @@ const suppliedPlaces = [
         </span>
         <h2
           class="supply-title"
-          data-ms="Kawasan Yang Kami Bekalkan"
-          data-en="Places We Supply Across Selangor"
+          data-ms="Kawasan Yang Kami Bekalkan (Selangor & KL)"
+          data-en="Places We Supply (Selangor & KL)"
         >
-          Kawasan Yang Kami Bekalkan
+          Kawasan Yang Kami Bekalkan (Selangor & KL)
         </h2>
         <p
           class="supply-subtitle"
-          data-ms="Penghantaran dan kutipan Tong Roro meliputi Sungai Buloh serta kawasan utama di sekitar Selangor."
-          data-en="Fast RORO bin delivery and waste collection covering Sungai Buloh and surrounding townships across Selangor."
+          data-ms="Penghantaran dan kutipan Tong Roro meliputi Sungai Buloh, seluruh kawasan utama Selangor dan Kuala Lumpur."
+          data-en="Fast RORO bin delivery and waste collection covering Sungai Buloh, Greater Selangor, and Kuala Lumpur."
         >
-          Penghantaran dan kutipan Tong Roro meliputi Sungai Buloh serta kawasan utama di sekitar Selangor.
+          Penghantaran dan kutipan Tong Roro meliputi Sungai Buloh, seluruh kawasan utama Selangor dan Kuala Lumpur.
         </p>
       </div>
 
@@ -343,7 +359,7 @@ const suppliedPlaces = [
         {suppliedPlaces.map((place, idx) => (
           <div
             class="place-pill-card blur-fade-item"
-            style={`--stagger-delay: ${(idx % 5) * 65}ms;`}
+            style={`--stagger-delay: ${(idx % 6) * 55}ms;`}
           >
             <span class="place-pin-icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -352,8 +368,8 @@ const suppliedPlaces = [
               </svg>
             </span>
             <div class="place-pill-text">
-              <span class="place-name">{place}</span>
-              <span class="place-region">Selangor</span>
+              <span class="place-name">{place.name}</span>
+              <span class="place-region">{place.region}</span>
             </div>
           </div>
         ))}
