@@ -229,6 +229,29 @@ const googleAdsId = analyticsConfig.googleAdsId;
     </script>
   </head>
   <body class={normalizedPath === '/' ? 'is-home-page' : 'is-inner-page'}>
+    <!-- Ultra-Smooth Split-Curtain Entrance Animation (Fake Loader with Split Cut) -->
+    {normalizedPath === '/' && (
+      <div id="site-preloader" class="preloader-curtain" aria-hidden="true">
+        <div class="preloader-door door-left"></div>
+        <div class="preloader-door door-right"></div>
+        <div class="preloader-center-stage">
+          <div class="preloader-logo-wrapper">
+            <!-- Left half of logo -->
+            <div class="logo-split logo-split-left">
+              <img src="/images/skl-logo.png" alt="" class="logo-split-img" width="120" height="120" />
+            </div>
+            <!-- Right half of logo -->
+            <div class="logo-split logo-split-right">
+              <img src="/images/skl-logo.png" alt="" class="logo-split-img" width="120" height="120" />
+            </div>
+            <!-- Center laser slice flash line -->
+            <div class="preloader-cut-line"></div>
+          </div>
+          <div class="preloader-brand-title">SKL WASTE SDN BHD</div>
+        </div>
+      </div>
+    )}
+
     <!-- Skip Navigation Link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -246,6 +269,31 @@ const googleAdsId = analyticsConfig.googleAdsId;
     <!-- Client-Side Runtime Script: Language Switcher (MS Default / EN Toggle), Scroll Reveal & Conversion Tracking -->
     <script is:inline>
       (function() {
+        // 0. Ultra-Smooth Preloader Splitting Curtain Animation
+        var preloader = document.getElementById('site-preloader');
+        if (preloader) {
+          // Prevent scroll while curtain is animating
+          document.body.classList.add('curtain-locked');
+
+          // Sequence:
+          // 1. T = 0ms: Logo appears in center and scales up smoothly.
+          // 2. T = 1100ms: Laser slice line flashes down the middle.
+          // 3. T = 1350ms: Logo cuts in half; left door & left half slide left, right door & right half slide right.
+          // 4. T = 2250ms: Curtains completely off-screen, DOM unlocks smoothly.
+          setTimeout(function() {
+            preloader.classList.add('is-cutting');
+          }, 1100);
+
+          setTimeout(function() {
+            preloader.classList.add('is-opening');
+            document.body.classList.remove('curtain-locked');
+          }, 1350);
+
+          setTimeout(function() {
+            preloader.classList.add('is-done');
+          }, 2300);
+        }
+
         // 1. Bilingual Language Toggle (Malay Default, Toggle to English via Navbar button)
         var currentLang = 'ms';
         var langBtn = document.getElementById('lang-toggle-btn');
@@ -389,6 +437,170 @@ const googleAdsId = analyticsConfig.googleAdsId;
       }
       body.is-home-page {
         overflow-x: hidden;
+      }
+      body.curtain-locked {
+        overflow: hidden !important;
+        height: 100vh !important;
+      }
+
+      /* ==========================================================================
+         Ultra-Smooth Split Curtain Entrance Animation
+         ========================================================================== */
+      .preloader-curtain {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        pointer-events: all;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .preloader-curtain.is-done {
+        display: none !important;
+        pointer-events: none !important;
+      }
+
+      /* Pure White Doors Sliding Left and Right */
+      .preloader-door {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50.5%; /* slight overlap prevents subpixel hairline gap */
+        background: #ffffff;
+        z-index: 1;
+        transition: transform 0.95s cubic-bezier(0.77, 0, 0.175, 1);
+        will-change: transform;
+      }
+
+      .door-left {
+        left: 0;
+        box-shadow: 20px 0 40px rgba(10, 22, 40, 0.12);
+      }
+
+      .door-right {
+        right: 0;
+        box-shadow: -20px 0 40px rgba(10, 22, 40, 0.12);
+      }
+
+      /* Slide Out Action with Ultra-Smooth Easing */
+      .preloader-curtain.is-opening .door-left {
+        transform: translate3d(-100%, 0, 0);
+      }
+
+      .preloader-curtain.is-opening .door-right {
+        transform: translate3d(100%, 0, 0);
+      }
+
+      /* Center Logo & Brand Stage */
+      .preloader-center-stage {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        pointer-events: none;
+      }
+
+      .preloader-logo-wrapper {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Split Halves of the Logo */
+      .logo-split {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        overflow: hidden;
+        transition: transform 0.95s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        will-change: transform, opacity;
+      }
+
+      .logo-split-left {
+        left: 0;
+      }
+
+      .logo-split-left .logo-split-img {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 140px;
+        height: 140px;
+        transform: translateY(-50%);
+        object-fit: contain;
+      }
+
+      .logo-split-right {
+        right: 0;
+      }
+
+      .logo-split-right .logo-split-img {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 140px;
+        height: 140px;
+        transform: translateY(-50%);
+        object-fit: contain;
+      }
+
+      /* Laser Slice Flash Cut Line */
+      .preloader-cut-line {
+        position: absolute;
+        top: -15px;
+        bottom: -15px;
+        left: 50%;
+        width: 3px;
+        background: linear-gradient(180deg, rgba(21, 128, 61, 0) 0%, #15803d 30%, #22c55e 50%, #15803d 70%, rgba(21, 128, 61, 0) 100%);
+        transform: translateX(-50%) scaleY(0);
+        opacity: 0;
+        border-radius: 9999px;
+        box-shadow: 0 0 16px #22c55e, 0 0 30px #15803d;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+        z-index: 5;
+      }
+
+      .preloader-curtain.is-cutting .preloader-cut-line {
+        transform: translateX(-50%) scaleY(1);
+        opacity: 1;
+      }
+
+      /* When Opening: Split Left Slides Left, Split Right Slides Right */
+      .preloader-curtain.is-opening .logo-split-left {
+        transform: translate3d(-180px, 0, 0);
+        opacity: 0;
+      }
+
+      .preloader-curtain.is-opening .logo-split-right {
+        transform: translate3d(180px, 0, 0);
+        opacity: 0;
+      }
+
+      .preloader-curtain.is-opening .preloader-cut-line {
+        opacity: 0;
+        transform: translateX(-50%) scaleY(1.4);
+      }
+
+      .preloader-brand-title {
+        font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        color: #0a1628;
+        opacity: 0.95;
+        transition: transform 0.6s ease, opacity 0.5s ease;
+      }
+
+      .preloader-curtain.is-opening .preloader-brand-title {
+        transform: scale(0.9);
+        opacity: 0;
       }
     </style>
   </body>
