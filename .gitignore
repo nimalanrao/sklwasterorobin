@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.firecrawl/
+.agent/
+.agents/
+skills-lock.json
+.env*
+!.env.example

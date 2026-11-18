@@ -1,0 +1,332 @@
+---
+import { productsData, pricingDisclaimers, type TongRoroProduct } from '../data/products';
+import { contactData } from '../data/contact';
+
+export interface Props {
+  products?: TongRoroProduct[];
+}
+
+const { products = productsData } = Astro.props;
+---
+
+<div class="pricing-table-container reveal-on-scroll">
+  <div class="table-card">
+    <div class="table-scroll-wrapper">
+      <table class="pricing-table">
+        <caption class="sr-only">Tong Roro Rental Comparison & Provisional Pricing</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="th-product">Product Size</th>
+            <th scope="col" class="th-price">Provisional Price</th>
+            <th scope="col" class="th-duration">Rental Duration</th>
+            <th scope="col" class="th-delivery">Delivery & Collection Charges</th>
+            <th scope="col" class="th-quote">Final Quotation</th>
+            <th scope="col" class="th-action">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr class="pricing-row">
+              <td class="td-product">
+                <div class="product-cell">
+                  <span class="product-name">{product.name}</span>
+                  <span class="product-size-label">({product.sizeLabel})</span>
+                </div>
+              </td>
+              <td class="td-price">
+                <div class="price-cell">
+                  <span class="badge-provisional">[Provisional Price]</span>
+                  <span class="price-amount">{product.priceDisplay}</span>
+                </div>
+              </td>
+              <td class="td-duration">
+                <div class="duration-cell">
+                  <span class="duration-badge">{product.rentalDuration}</span>
+                  <small class="duration-bm-label">Tempoh sewaan 10 hari</small>
+                </div>
+              </td>
+              <td class="td-delivery">
+                <div class="delivery-cell">
+                  <span class="badge-pending">Not Confirmed — Not Included</span>
+                  <p class="delivery-note">{product.deliveryCollectionDisclaimer}</p>
+                </div>
+              </td>
+              <td class="td-quote">
+                <div class="quote-cell">
+                  <span>Confirm with</span>
+                  <a href={contactData.telephoneHref} class="contact-link">
+                    {contactData.mainContactPerson} ({contactData.telephoneDisplay})
+                  </a>
+                </div>
+              </td>
+              <td class="td-action">
+                <a href={`/#quotation-form?product=${product.id}`} class="btn btn-secondary table-btn">
+                  <span>Request Quotation</span>
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div role="note" class="pricing-disclaimer-card">
+      <div class="disclaimer-header">
+        <svg class="info-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <h4 class="disclaimer-heading">Important Pricing & Rental Disclaimers</h4>
+      </div>
+      <ul class="disclaimer-list">
+        {pricingDisclaimers.map((disclaimer) => (
+          <li class="disclaimer-item">{disclaimer}</li>
+        ))}
+      </ul>
+      <p class="disclaimer-contact">
+        Final quotation must be confirmed with{' '}
+        <a href={contactData.telephoneHref} class="contact-link">{contactData.mainContactPerson} ({contactData.telephoneDisplay})</a>{' '}
+        or via email at{' '}
+        <a href={contactData.emailHref} class="contact-link">{contactData.email}</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .pricing-table-container {
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+
+  .table-card {
+    background-color: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-lg, 16px);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    overflow: hidden;
+  }
+
+  .table-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pricing-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    margin: 0;
+    border: none;
+    text-align: left;
+  }
+
+  /* Force solid deep-navy header with bright white text, overriding base.css th defaults */
+  .pricing-table th,
+  .pricing-table thead th {
+    background-color: var(--bg-dark, #0a1628) !important;
+    color: #ffffff !important;
+    padding: 0.875rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+    white-space: normal;
+    line-height: 1.35;
+  }
+
+  .pricing-table th:first-child,
+  .pricing-table td:first-child {
+    padding-left: 1rem;
+  }
+
+  .pricing-table th:last-child,
+  .pricing-table td:last-child {
+    padding-right: 1rem;
+  }
+
+  .pricing-table thead tr {
+    background-color: var(--bg-dark, #0a1628) !important;
+  }
+
+  .pricing-table td {
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+    background-color: transparent;
+  }
+
+  .pricing-row:hover td {
+    background-color: var(--bg-surface, #f8fafc);
+  }
+
+  .pricing-row:last-child td {
+    border-bottom: none;
+  }
+
+  .product-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .product-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary, #0a1628);
+    white-space: nowrap;
+  }
+
+  .product-size-label {
+    font-size: 0.8rem;
+    color: var(--text-muted, #64748b);
+    white-space: nowrap;
+  }
+
+  .price-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .pricing-table .badge-provisional,
+  .pricing-table .badge-pending {
+    white-space: nowrap;
+    width: fit-content;
+    display: inline-block;
+  }
+
+  .badge-provisional {
+    font-size: 0.725rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .price-amount {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--accent-green, #15803d);
+    font-family: var(--font-display, inherit);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .duration-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .duration-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-blue, #1d4ed8);
+    background-color: var(--accent-blue-soft, #eff6ff);
+    border: 1px solid rgba(29, 78, 216, 0.2);
+    border-radius: var(--radius-sm, 6px);
+    white-space: nowrap;
+    width: fit-content;
+  }
+
+  .duration-bm-label {
+    font-size: 0.75rem;
+    color: var(--text-muted, #64748b);
+    white-space: nowrap;
+  }
+
+  .delivery-cell {
+    max-width: 205px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .delivery-note {
+    font-size: 0.75rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .quote-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.825rem;
+    color: var(--text-secondary, #475569);
+  }
+
+  .contact-link {
+    color: var(--accent-blue, #1d4ed8);
+    font-weight: 600;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .contact-link:hover {
+    color: #1e40af;
+  }
+
+  .table-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border-radius: var(--radius-md, 8px);
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .pricing-disclaimer-card {
+    background-color: var(--bg-surface, #f8fafc);
+    border-top: 1px solid var(--border-subtle, #e2e8f0);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  .disclaimer-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-icon {
+    color: var(--accent-blue, #1d4ed8);
+    flex-shrink: 0;
+  }
+
+  .disclaimer-heading {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary, #0a1628);
+    margin: 0;
+  }
+
+  .disclaimer-list {
+    margin: 0 0 1rem 0;
+    padding-left: 1.25rem;
+    color: var(--text-secondary, #475569);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .disclaimer-item {
+    margin-bottom: 0.35rem;
+  }
+
+  .disclaimer-contact {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.5;
+  }
+</style>

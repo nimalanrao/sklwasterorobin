@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Ensure search engine crawlers have access to static styling, images, and scripts
+Allow: /_astro/
+Allow: /images/
+
+# XML Sitemap
+Sitemap: https://www.sklwaste.com.my/sitemap.xml

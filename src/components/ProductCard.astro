@@ -1,0 +1,595 @@
+---
+import type { TongRoroProduct } from '../data/products';
+import { contactData } from '../data/contact';
+
+export interface Props {
+  product: TongRoroProduct;
+  showSelectButton?: boolean;
+}
+
+const { product, showSelectButton = true } = Astro.props;
+
+const isTwoFeet = product.id === 'tong-roro-2-feet' || product.slug.includes('2-feet');
+const objectPosition = isTwoFeet ? '78% 60%' : '45% 60%';
+const dimensionBadge = isTwoFeet ? '2 FEET' : '4 FEET';
+const specTagline = isTwoFeet ? '2 FT DEPTH • COMPACT HEAVY LOAD' : '4 FT DEPTH • HIGH VOLUME BULK';
+const capacitySubtitle = isTwoFeet
+  ? 'Sesuai untuk tanah, batu & sisa ubah suai padat'
+  : 'Sesuai untuk sisa pukal, kayu & perindustrian';
+---
+
+<div class="card product-card">
+  <!-- Engineered Architectural Specification Panel -->
+  <div class="product-media-frame">
+    <!-- Background layer with subtle authentic fleet photo texture -->
+    <div class="media-photo-backdrop" aria-hidden="true">
+      <picture>
+        <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
+        <img
+          src="/images/skl-hero-roro.jpg"
+          alt={`Lori Roro dan ${product.name} SKL Waste Sdn Bhd`}
+          width="1280"
+          height="720"
+          loading="lazy"
+          decoding="async"
+          class="media-backdrop-img"
+          style={`object-position: ${objectPosition};`}
+        />
+      </picture>
+      <div class="media-gradient-scrim"></div>
+    </div>
+
+    <!-- Architectural Vector Diagram & Dimension Overlay -->
+    <div class="architectural-overlay">
+      <div class="panel-top-row">
+        <div class="spec-pill">
+          <span class="spec-dot" aria-hidden="true"></span>
+          <span class="spec-tagline">{specTagline}</span>
+        </div>
+        <div class="rental-pill">
+          <span>10 DAYS RENTAL (10 HARI)</span>
+        </div>
+      </div>
+
+      <div class="blueprint-vector-wrap" aria-hidden="true">
+        {isTwoFeet ? (
+          <!-- 2-Feet Low-Profile Heavy-Load Roro Bin Scale Schematic -->
+          <svg viewBox="0 0 340 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="schematic-svg">
+            <line x1="15" y1="20" x2="325" y2="20" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3" />
+            <line x1="15" y1="48" x2="325" y2="48" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3" />
+            <line x1="15" y1="76" x2="325" y2="76" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3" />
+            
+            <!-- Hook mechanism -->
+            <path d="M 40 42 L 32 46 L 32 74 L 42 74" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="32" cy="44" r="3" fill="#4ade80" />
+            
+            <!-- 2-Foot Low-Sided Bin Body (Height: 28px, y:46 to y:74) -->
+            <path d="M 42 46 L 275 46 L 295 74 L 42 74 Z" fill="rgba(74, 222, 128, 0.16)" stroke="#4ade80" stroke-width="2.5" stroke-linejoin="round" />
+            
+            <!-- Stiffener ribs -->
+            <line x1="95" y1="46" x2="95" y2="74" stroke="rgba(74, 222, 128, 0.6)" stroke-width="1.5" />
+            <line x1="150" y1="46" x2="150" y2="74" stroke="rgba(74, 222, 128, 0.6)" stroke-width="1.5" />
+            <line x1="205" y1="46" x2="205" y2="74" stroke="rgba(74, 222, 128, 0.6)" stroke-width="1.5" />
+            <line x1="255" y1="46" x2="255" y2="74" stroke="rgba(74, 222, 128, 0.6)" stroke-width="1.5" />
+            
+            <!-- Rollers -->
+            <circle cx="286" cy="79" r="4.5" fill="#0a1628" stroke="#4ade80" stroke-width="2" />
+            <circle cx="56" cy="79" r="4.5" fill="#0a1628" stroke="#4ade80" stroke-width="2" />
+            
+            <!-- Ground Line -->
+            <line x1="15" y1="84" x2="325" y2="84" stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-dasharray="3 3" />
+            
+            <!-- Dimension callout: 2 FT -->
+            <line x1="310" y1="46" x2="310" y2="74" stroke="#38bdf8" stroke-width="1.5" />
+            <line x1="306" y1="46" x2="314" y2="46" stroke="#38bdf8" stroke-width="1.5" />
+            <line x1="306" y1="74" x2="314" y2="74" stroke="#38bdf8" stroke-width="1.5" />
+            <text x="325" y="63" fill="#38bdf8" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">2 FT</text>
+            
+            <!-- Center profile label -->
+            <text x="165" y="63" fill="#ffffff" font-size="10" font-weight="600" letter-spacing="0.06em" font-family="system-ui, sans-serif" text-anchor="middle">LOW-WALL PROFILE • 2 FEET DEPTH</text>
+          </svg>
+        ) : (
+          <!-- 4-Feet High-Wall High-Volume Roro Bin Scale Schematic -->
+          <svg viewBox="0 0 340 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="schematic-svg">
+            <line x1="15" y1="20" x2="325" y2="20" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3" />
+            <line x1="15" y1="48" x2="325" y2="48" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3" />
+            <line x1="15" y1="76" x2="325" y2="76" stroke="rgba(255,255,255,0.08)" stroke-dasharray="2 3" />
+            
+            <!-- Hook mechanism -->
+            <path d="M 40 20 L 32 25 L 32 74 L 42 74" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="32" cy="23" r="3" fill="#38bdf8" />
+            
+            <!-- 4-Foot High-Sided Bin Body (Height: 52px, y:22 to y:74 - twice the height!) -->
+            <path d="M 42 22 L 275 22 L 295 74 L 42 74 Z" fill="rgba(56, 189, 248, 0.16)" stroke="#38bdf8" stroke-width="2.5" stroke-linejoin="round" />
+            
+            <!-- Stiffener ribs -->
+            <line x1="95" y1="22" x2="95" y2="74" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.5" />
+            <line x1="150" y1="22" x2="150" y2="74" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.5" />
+            <line x1="205" y1="22" x2="205" y2="74" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.5" />
+            <line x1="255" y1="22" x2="255" y2="74" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.5" />
+            
+            <!-- Rollers -->
+            <circle cx="286" cy="79" r="4.5" fill="#0a1628" stroke="#38bdf8" stroke-width="2" />
+            <circle cx="56" cy="79" r="4.5" fill="#0a1628" stroke="#38bdf8" stroke-width="2" />
+            
+            <!-- Ground Line -->
+            <line x1="15" y1="84" x2="325" y2="84" stroke="rgba(255,255,255,0.22)" stroke-width="1" stroke-dasharray="3 3" />
+            
+            <!-- Dimension callout: 4 FT -->
+            <line x1="310" y1="22" x2="310" y2="74" stroke="#4ade80" stroke-width="1.5" />
+            <line x1="306" y1="22" x2="314" y2="22" stroke="#4ade80" stroke-width="1.5" />
+            <line x1="306" y1="74" x2="314" y2="74" stroke="#4ade80" stroke-width="1.5" />
+            <text x="325" y="52" fill="#4ade80" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">4 FT</text>
+            
+            <!-- Center profile label -->
+            <text x="165" y="52" fill="#ffffff" font-size="10" font-weight="600" letter-spacing="0.06em" font-family="system-ui, sans-serif" text-anchor="middle">HIGH-WALL PROFILE • 4 FEET DEPTH</text>
+          </svg>
+        )}
+      </div>
+
+      <div class="panel-bottom-row">
+        <div class="dim-badge">
+          <span>{dimensionBadge}</span>
+        </div>
+        <span class="cap-subtitle">{capacitySubtitle}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-card-content">
+    <div class="product-card-header">
+      <div class="product-meta-row">
+        <span class="badge-provisional">[Provisional Price]</span>
+        <span class="badge-duration">{product.rentalDuration} / Tempoh sewaan 10 hari</span>
+      </div>
+      <h3 class="product-title">{product.name}</h3>
+      <div class="price-display-box">
+        <span class="price-val">{product.priceDisplay}</span>
+        <span class="price-sub">/ {product.rentalDuration} (Tempoh sewaan 10 hari)</span>
+      </div>
+    </div>
+
+    <div class="product-card-body">
+      <p class="product-summary">{product.summary}</p>
+
+      <div class="suitable-for-block">
+        <h4 class="suitable-title">Sesuai Untuk / Suitable For:</h4>
+        <ul class="suitable-list">
+          {product.suitableFor.map((item) => (
+            <li class="suitable-item">
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="guide-link-box">
+          <a href="/tong-roro-rental#panduan-memilih-saiz" class="guide-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <span>Panduan memilih saiz & jenis sisa tong roro</span>
+          </a>
+        </div>
+      </div>
+
+      <div role="note" class="notice notice-provisional product-disclaimer-box">
+        <div class="notice-body">
+          <p class="disclaimer-text">
+            <strong>Provisional Price Disclaimer:</strong> {product.provisionalDisclaimer}
+          </p>
+          <p class="disclaimer-text">
+            <strong>Delivery & Collection:</strong> {product.deliveryCollectionDisclaimer}
+          </p>
+          <p class="disclaimer-text">
+            <strong>Confirmation Notice:</strong> Final quotation must be confirmed with{' '}
+            <a href={contactData.telephoneHref} class="contact-link">{contactData.mainContactPerson} ({contactData.telephoneDisplay})</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card-actions">
+      {showSelectButton && (
+        <button
+          type="button"
+          class="btn btn-primary product-action-btn"
+          data-select-product={product.id}
+          data-product-label={product.name}
+        >
+          <span>Select {product.name}</span>
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      )}
+      <a href={`/#quotation-form?product=${product.id}`} class="btn btn-secondary product-action-btn">
+        <span>Request Quotation</span>
+        <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-lg, 16px);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    height: 100%;
+    margin-bottom: 0;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover, 0 20px 40px -12px rgba(10, 22, 40, 0.12));
+    border-color: var(--border-hover, #cbd5e1);
+  }
+
+  .product-media-frame {
+    position: relative;
+    width: 100%;
+    min-height: 220px;
+    background: linear-gradient(135deg, #0a1628 0%, #152b4d 100%);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .media-photo-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .media-backdrop-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.22;
+    filter: grayscale(20%);
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .product-card:hover .media-backdrop-img {
+    transform: scale(1.04);
+  }
+
+  .media-gradient-scrim {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(10, 22, 40, 0.4) 0%, rgba(10, 22, 40, 0.85) 100%);
+  }
+
+  .architectural-overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .panel-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .spec-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.65rem;
+    background: rgba(10, 22, 40, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-full, 9999px);
+    color: #ffffff;
+    font-size: 0.725rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .spec-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #4ade80;
+    box-shadow: 0 0 8px #4ade80;
+  }
+
+  .rental-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.65rem;
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    border-radius: var(--radius-full, 9999px);
+    color: #38bdf8;
+    font-size: 0.725rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .blueprint-vector-wrap {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0;
+  }
+
+  .schematic-svg {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+  }
+
+  .panel-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.6rem;
+  }
+
+  .dim-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.55rem;
+    background: #ffffff;
+    color: #0a1628;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border-radius: var(--radius-sm, 6px);
+    letter-spacing: 0.04em;
+  }
+
+  .cap-subtitle {
+    font-size: 0.775rem;
+    color: #cbd5e1;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .product-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+
+  .product-card-header {
+    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .product-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .badge-duration {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-blue, #1d4ed8);
+    background-color: var(--accent-blue-soft, #eff6ff);
+    border: 1px solid rgba(29, 78, 216, 0.2);
+    border-radius: var(--radius-sm, 6px);
+  }
+
+  .product-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary, #0a1628);
+    margin: 0.25rem 0 0.75rem 0;
+    line-height: 1.25;
+  }
+
+  .price-display-box {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .price-val {
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: var(--font-display, inherit);
+    color: var(--accent-green, #15803d);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .price-sub {
+    font-size: 0.875rem;
+    color: var(--text-muted, #64748b);
+    font-weight: 500;
+  }
+
+  .product-card-body {
+    flex: 1 1 auto;
+  }
+
+  .product-summary {
+    color: var(--text-secondary, #475569);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .suitable-for-block {
+    margin-bottom: 1.25rem;
+  }
+
+  .suitable-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted, #64748b);
+    margin-bottom: 0.75rem;
+  }
+
+  .suitable-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .suitable-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-primary, #0a1628);
+    line-height: 1.45;
+  }
+
+  .check-icon {
+    flex-shrink: 0;
+    color: var(--accent-green, #15803d);
+    margin-top: 0.15rem;
+  }
+
+  .guide-link-box {
+    margin-top: 0.85rem;
+    padding-top: 0.65rem;
+    border-top: 1px dashed var(--border-subtle, #e2e8f0);
+  }
+
+  .guide-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--accent-blue, #1d4ed8);
+    text-decoration: underline;
+    line-height: 1.4;
+  }
+
+  .guide-link:hover {
+    color: #1e40af;
+  }
+
+  /* Disclaimer Box - strictly stack vertically and avoid squishing on mobile & desktop */
+  .product-disclaimer-box {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.55rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background-color: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-left: 4px solid var(--accent-green, #15803d) !important;
+    border-radius: var(--radius-sm, 6px);
+    padding: 1rem 1.125rem !important;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .notice-body {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.55rem !important;
+    width: 100% !important;
+  }
+
+  .disclaimer-text {
+    margin: 0 !important;
+    color: var(--text-secondary, #475569);
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .contact-link {
+    color: var(--accent-blue, #1d4ed8);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .contact-link:hover {
+    color: #1e40af;
+  }
+
+  .product-card-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-subtle, #e2e8f0);
+  }
+
+  .product-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-md, 10px);
+    text-decoration: none;
+    cursor: pointer;
+    flex: 1 1 180px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .product-action-btn:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .product-card,
+    .media-backdrop-img,
+    .btn-arrow,
+    .product-action-btn {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+</style>

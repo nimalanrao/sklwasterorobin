@@ -1,0 +1,655 @@
+---
+import { contactData } from '../data/contact';
+import { formsConfig } from '../data/formsConfig';
+import VerificationNotice from './VerificationNotice.astro';
+---
+
+<section id="contact-form" class="section contact-form-section reveal-on-scroll">
+  <div class="card form-card">
+    <div class="form-header">
+      <div class="form-eyebrow">
+        <span class="badge-pill">Pertanyaan Am</span>
+        <span class="badge-pill badge-primary">Respon Terus</span>
+      </div>
+      <h2 class="form-title">Send a General Enquiry (Hubungi Kami)</h2>
+      <p class="form-description">
+        Have a question regarding Tong Roro availability, specialized waste disposal, site access, or scheduling? Fill out your details below or contact <strong>{contactData.mainContactPerson}</strong> directly.
+      </p>
+    </div>
+
+    <VerificationNotice
+      title="Backend Integration Status (Phase 1)"
+      message={formsConfig.integrationRequirementNote}
+      type="integration"
+    />
+
+    <form id="skl-contact-form" class="contact-form-element" novalidate>
+      <div class="hp-field" aria-hidden="true">
+        <label for="c-websiteUrl">Leave this field empty</label>
+        <input type="text" id="c-websiteUrl" name="websiteUrl" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div id="contact-error-summary" class="form-error-summary notice notice-pending" role="alert">
+        <span class="notice-title">Please correct the following fields before proceeding:</span>
+        <ul id="contact-error-list" class="error-list"></ul>
+      </div>
+
+      <div class="form-step-group">
+        <div class="form-step-header">
+          <span class="step-number">01</span>
+          <span class="step-title">Maklumat Perhubungan (Contact Details)</span>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="c-name" class="form-label">
+              Your Name <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="text"
+              id="c-name"
+              name="name"
+              class="form-input"
+              required
+              placeholder="e.g. Encik Razak / Cik Siti"
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="c-phone" class="form-label">
+              Phone Number <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="tel"
+              id="c-phone"
+              name="phone"
+              class="form-input"
+              required
+              placeholder="e.g. +60 12-345 6789"
+              autocomplete="tel"
+            />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="c-email" class="form-label">
+              Email Address <span class="optional-label">(Optional)</span>
+            </label>
+            <input
+              type="email"
+              id="c-email"
+              name="email"
+              class="form-input"
+              placeholder="e.g. yourname@example.com"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="c-subject" class="form-label">
+              Subject <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="text"
+              id="c-subject"
+              name="subject"
+              class="form-input"
+              required
+              placeholder="e.g. Site Clearance Enquiry / Tong Roro Availability"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-step-group">
+        <div class="form-step-header">
+          <span class="step-number">02</span>
+          <span class="step-title">Mesej Anda (Your Message)</span>
+        </div>
+        <div class="form-group">
+          <label for="c-message" class="form-label">
+            Message <span class="required-indicator" aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id="c-message"
+            name="message"
+            rows="5"
+            class="form-textarea"
+            required
+            placeholder="Please describe your enquiry, location, waste type, or scheduling requirements..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="contact-submit-btn" class="btn btn-primary btn-submit">
+          <span class="btn-text">Review &amp; Dispatch Message</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+
+    <div id="contact-result-panel" class="form-result-panel" role="region" aria-live="polite">
+      <div class="result-badge">
+        <svg class="result-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+        <span>Message Validated</span>
+      </div>
+      <p id="contact-status-message" class="result-message">
+        Your enquiry details have been successfully validated. Because automated webhook submission is not configured on this Phase 1 static deployment, please dispatch your message directly using one of the actions below:
+      </p>
+
+      <div class="result-actions">
+        <a id="contact-mailto-link" href={`mailto:${contactData.email}`} class="btn btn-primary btn-action">
+          <svg class="action-btn-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+          Send via Email Client ({contactData.email})
+        </a>
+        <button type="button" id="contact-copy-btn" class="btn btn-secondary btn-action">
+          <svg class="action-btn-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+          </svg>
+          Copy Message Details
+        </button>
+        <a href={contactData.telephoneHref} class="btn btn-secondary btn-action">
+          <svg class="action-btn-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          Call Mr Hari ({contactData.telephoneDisplay})
+        </a>
+      </div>
+
+      <div id="contact-copy-feedback" class="copy-feedback" role="status"></div>
+
+      <div class="summary-preview-wrapper">
+        <label for="contact-summary-preview" class="summary-preview-label">
+          Preformatted Message Summary:
+        </label>
+        <pre id="contact-summary-preview" class="summary-preview"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-form-section {
+    padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  }
+
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .form-card {
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  .form-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-full, 9999px);
+    background: var(--bg-surface-alt, #f1f5f9);
+    color: var(--text-secondary, #475569);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+  }
+
+  .badge-primary {
+    background: var(--accent-blue-soft, #eff6ff);
+    color: var(--accent-blue, #1d4ed8);
+    border-color: #bfdbfe;
+  }
+
+  .form-title {
+    font-family: var(--font-display, system-ui, -apple-system, sans-serif);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 800;
+    color: var(--text-primary, #0a1628);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .form-description {
+    color: var(--text-secondary, #475569);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .form-step-group {
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    margin-top: 1.75rem;
+  }
+
+  .form-step-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full, 9999px);
+    background: var(--accent-green, #15803d);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.8125rem;
+    font-family: var(--font-display, monospace);
+  }
+
+  .step-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-primary, #0a1628);
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+    min-width: 0;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary, #0a1628);
+    margin-bottom: 0.45rem;
+  }
+
+  .required-indicator {
+    color: #dc2626;
+    margin-left: 0.2rem;
+  }
+
+  .optional-label {
+    font-weight: 400;
+    color: var(--text-muted, #64748b);
+    font-size: 0.875rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    padding: 0.65rem 0.9rem;
+    font-family: var(--font-body, inherit);
+    font-size: 0.95rem;
+    color: var(--text-primary, #0a1628);
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-sm, 6px);
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent-green, #15803d);
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.18);
+  }
+
+  .form-textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  .form-actions {
+    margin-top: 2rem;
+  }
+
+  .btn-submit {
+    width: 100%;
+    min-height: 52px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(21, 128, 61, 0.3);
+  }
+
+  .btn-spinner {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: btnSpin 0.7s linear infinite;
+  }
+
+  @keyframes btnSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  .form-error-summary {
+    display: none;
+    border-left: 4px solid #dc2626;
+    background: #fef2f2;
+    border-radius: var(--radius-sm, 6px);
+    padding: 1rem 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .error-list {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    padding-left: 1.25rem;
+    color: #991b1b;
+    font-size: 0.9375rem;
+  }
+
+  .form-result-panel {
+    display: none;
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    border-radius: var(--radius-md, 12px);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    margin-top: 2rem;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent-green-soft, #f0fdf4);
+    color: var(--accent-green-hover, #166534);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .result-message {
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    font-size: 0.9375rem;
+  }
+
+  .action-btn-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .copy-feedback {
+    min-height: 1.25rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--accent-green, #15803d);
+    margin-bottom: 1rem;
+  }
+
+  .summary-preview-wrapper {
+    margin-top: 1.25rem;
+  }
+
+  .summary-preview-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--text-primary, #0a1628);
+    margin-bottom: 0.4rem;
+  }
+
+  .summary-preview {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-sm, 6px);
+    padding: 1rem;
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-primary, #0a1628);
+  }
+
+  @media (max-width: 640px) {
+    .result-actions {
+      flex-direction: column;
+    }
+    .btn-action {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  import { validateContactPayload } from '../utils/validators';
+  import type { ContactFormPayload } from '../utils/validators';
+  import { formatContactSummaryText, buildContactMailtoUrl } from '../utils/formatters';
+  import { submitEnquiryForm } from '../utils/formHandler';
+  import { formsConfig } from '../data/formsConfig';
+  import { contactData } from '../data/contact';
+  import { trackConversionEvent } from '../utils/analytics';
+
+  function initContactForm() {
+    const form = document.getElementById('skl-contact-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    const errorSummary = document.getElementById('contact-error-summary') as HTMLElement | null;
+    const errorList = document.getElementById('contact-error-list') as HTMLUListElement | null;
+    const resultPanel = document.getElementById('contact-result-panel') as HTMLElement | null;
+    const mailtoLink = document.getElementById('contact-mailto-link') as HTMLAnchorElement | null;
+    const copyBtn = document.getElementById('contact-copy-btn') as HTMLButtonElement | null;
+    const copyFeedback = document.getElementById('contact-copy-feedback') as HTMLElement | null;
+    const summaryPreview = document.getElementById('contact-summary-preview') as HTMLElement | null;
+    const statusMessage = document.getElementById('contact-status-message') as HTMLElement | null;
+    const submitBtn = document.getElementById('contact-submit-btn') as HTMLButtonElement | null;
+    const spinner = submitBtn?.querySelector('.btn-spinner') as HTMLElement | null;
+
+    let latestFormattedText = '';
+    let isSubmitting = false;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
+
+      if (copyFeedback) copyFeedback.textContent = '';
+
+      const formData = new FormData(form);
+      const rawEmail = ((formData.get('email') as string) || '').trim();
+      const rawWebsiteUrl = ((formData.get('websiteUrl') as string) || '').trim();
+
+      const payload: ContactFormPayload & { websiteUrl?: string } = {
+        name: (formData.get('name') as string) || '',
+        phone: (formData.get('phone') as string) || '',
+        email: rawEmail || undefined,
+        subject: (formData.get('subject') as string) || '',
+        message: (formData.get('message') as string) || '',
+        websiteUrl: rawWebsiteUrl || undefined
+      };
+
+      const validation = validateContactPayload(payload);
+
+      if (!validation.valid) {
+        if (errorSummary && errorList) {
+          errorList.innerHTML = '';
+          validation.errors.forEach((err) => {
+            const li = document.createElement('li');
+            li.textContent = err;
+            errorList.appendChild(li);
+          });
+          errorSummary.style.display = 'block';
+          errorSummary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (resultPanel) {
+          resultPanel.style.display = 'none';
+        }
+        return;
+      }
+
+      // Valid: hide error summary
+      if (errorSummary) {
+        errorSummary.style.display = 'none';
+      }
+
+      isSubmitting = true;
+      if (spinner) spinner.style.display = 'inline-block';
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        // Track privacy-safe conversion event (strictly NO PII)
+        trackConversionEvent('generate_lead', {
+          form_id: 'skl-contact-form',
+          form_type: 'general_contact'
+        });
+
+        // Attempt endpoint dispatch (honest, never fake success)
+        const submissionResult = await submitEnquiryForm(
+          formsConfig.contactEndpointUrl,
+          payload as unknown as Record<string, unknown>
+        );
+
+        latestFormattedText = formatContactSummaryText(payload);
+        const mailtoUrl = buildContactMailtoUrl(formsConfig.recipientEmail || contactData.email, payload);
+
+        if (mailtoLink) {
+          mailtoLink.href = mailtoUrl;
+        }
+
+        if (summaryPreview) {
+          summaryPreview.textContent = latestFormattedText;
+        }
+
+        if (statusMessage) {
+          if (submissionResult.ok) {
+            statusMessage.innerHTML = 'Your enquiry has been received via the configured webhook. A preformatted copy is provided below for your records:';
+          } else {
+            statusMessage.innerHTML =
+              'Your enquiry details have been validated. Because this static deployment operates without an automated submission backend, please choose one of the direct dispatch options below to send your enquiry directly to <strong>' +
+              contactData.mainContactPerson +
+              '</strong>:';
+          }
+        }
+
+        if (resultPanel) {
+          resultPanel.style.display = 'block';
+          resultPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } finally {
+        isSubmitting = false;
+        if (spinner) spinner.style.display = 'none';
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+
+    // Copy button handler
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        if (!latestFormattedText) return;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(latestFormattedText);
+          } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = latestFormattedText;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+          }
+          if (copyFeedback) {
+            copyFeedback.textContent = 'Message details copied to clipboard!';
+          }
+        } catch {
+          if (copyFeedback) {
+            copyFeedback.textContent = 'Please select and copy the formatted summary text below manually.';
+          }
+        }
+      });
+    }
+  }
+
+  // Initialise on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactForm);
+  } else {
+    initContactForm();
+  }
+</script>

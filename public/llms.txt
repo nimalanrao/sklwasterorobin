@@ -1,0 +1,87 @@
+# SKL WASTE SDN BHD (LLMs.txt)
+> Factual site index, operational specifications, and service directory for AI retrieval systems and search engines.
+
+## Corporate Identity & Registration
+- **Company Name:** SKL WASTE SDN BHD
+- **SSM Registration Number:** 200801038953
+- **Headquarters Address:** PT 31127 SETOR JALAN KUALA SELANGOR, 47000 SUNGAI BULOH, SELANGOR DARUL EHSAN, MALAYSIA.
+- **Primary Business:** Sewaan Tong Roro (Roll-On Roll-Off Bin Rental) & Pengurusan Sisa (Waste Management Services).
+- **Official Website:** https://www.sklwaste.com.my
+
+## Operational Contact
+- **Main Contact Person:** Mr Hari
+- **Hotline / Telephone:** +60 16-615 9365 (tel:+60166159365)
+- **Official Email:** tongroroservissklwaste@gmail.com (mailto:tongroroservissklwaste@gmail.com)
+- **WhatsApp Status:** Pending verification on +60 16-615 9365. Direct telephone call or email is recommended.
+- **Operating Hours:** Isnin – Sabtu: 8:00 AM – 6:00 PM (Ahad: Temujanji / Tertakluk kepada ketersediaan)
+
+## Primary Service: Sewaan Tong Roro (RORO Bin Rental)
+SKL Waste Sdn Bhd provides roll-on roll-off (Tong Roro) waste containers for residential, commercial, construction, and industrial waste management.
+
+### Product Specifications & Provisional Pricing
+1. **Tong Roro 2 Feet (Low-Profile Heavy Load Bin)**
+   - **Provisional Rental Rate:** RM2XX
+   - **Standard Rental Duration:** 10 days
+   - **Characteristics:** Dinding rendah (low sidewall) memudahkan pemunggahan manual menggunakan kereta sorong (wheelbarrow). Direka khas bagi sisa berketumpatan tinggi.
+   - **Suitable Waste:** Tanah, batu, konkrit pecah, simen, pasir, jubin, dan sisa berat pembinaan.
+   - **Target Users:** Kontraktor ubah suai rumah, landskap, pembinaan struktur.
+
+2. **Tong Roro 4 Feet (High-Wall Bulk Capacity Bin)**
+   - **Provisional Rental Rate:** RM3XX–RM4XX
+   - **Standard Rental Duration:** 10 days
+   - **Characteristics:** Dinding tinggi (high-volume) memaksimumkan muatan padu bagi sisa berketumpatan rendah dan sederhana.
+   - **Suitable Waste:** Perabot rosak, sisa kayu, sisa pengubahsuaian am, dahan dan batang pokok, kotak, plastik, sisa tapak komersial.
+   - **Target Users:** Pembersihan premis komersial, gudang, kilang, pejabat, pembersihan taman perumahan.
+
+### Standard Rental Terms & Disclaimers
+- **Standard Duration:** Tempoh sewaan standard adalah 10 hari (10 days).
+- **Provisional Pricing Notice:** Semua kadar sewaan (RM2XX dan RM3XX–RM4XX) adalah anggaran provisi.
+- **Delivery & Collection Charges:** Caj penghantaran dan kutipan adalah tidak termasuk dan belum disahkan, tertakluk kepada jarak lokasi sebenar dari setor Sungai Buloh.
+- **Confirmation:** Sebut harga rasmi dan jadual penghantaran perlu disahkan secara terus dengan Mr Hari (+60 16-615 9365).
+- **Prohibited Items:** Sisa toksik/berjadual (scheduled waste bawah Akta Kualiti Alam Sekeliling 1974), bahan kimia mudah terbakar, dan sisa klinikal adalah dilarang sama sekali.
+
+## Secondary Waste Management Services (9 Confirmed Categories)
+1. **Kutipan sampah:** Servis kutipan sisa berkala atau berasaskan panggilan bagi premis kediaman dan perniagaan.
+2. **Pelupusan sisa:** Pelupusan sisa pepejal yang teratur ke tapak pelupusan sah yang mematuhi garis panduan PBT.
+3. **Pengangkutan sampah:** Pengangkutan sisa pukal dan domestik menggunakan lori RORO berlesen.
+4. **Sisa pembinaan:** Pengurusan dan pembuangan sisa tapak projek binaan.
+5. **Sisa pengubahsuaian:** Pengendalian sisa renovasi kediaman, premis pejabat, dan lot kedai.
+6. **Sisa perindustrian:** Pengurusan sisa bukan berbahaya bagi bengkel, kilang, dan pusat logistik.
+7. **Sampah pukal:** Pengambilan sisa bersaiz besar seperti perabot lama dan perkakasan rosak.
+8. **Sisa taman:** Pelupusan dahan pokok, sisa cantasan landskap, dan daun kering.
+9. **Pembersihan tapak:** Perkhidmatan perataan dan pengosongan tapak bagi projek baharu.
+
+## Coverage Areas (13 Selangor Locations — All Pending Verification)
+Semua kawasan perkhidmatan yang disenaraikan adalah tertakluk kepada pengesahan ketersediaan lori semasa:
+1. Desa Coalfields
+2. Bandar Seri Coalfields
+3. Sungai Buloh
+4. Paya Jaras
+5. Bukit Jelutong
+6. Bukit Beruntung
+7. Kundang
+8. Puncak Alam
+9. Aman Putri
+10. Tasik Puteri
+11. Saujana Utama
+12. Subang
+13. Rawang
+
+## Industries Served (10 Confirmed Sectors)
+1. Resorts and hotels
+2. Factories and warehouses
+3. Colleges and universities
+4. Shopping centres
+5. Building construction
+6. House construction
+7. Hospitals (General non-clinical waste)
+8. Offices
+9. Food and beverage industries
+10. Condominiums and apartments
+*(Catatan pematuhan: Tiada hubungan pelanggan terdahulu yang direka atau dituntut).*
+
+## Technical & AI Navigation
+- **Sitemap XML:** https://www.sklwaste.com.my/sitemap.xml
+- **Robots.txt:** https://www.sklwaste.com.my/robots.txt
+- **Primary Inquiry Form:** https://www.sklwaste.com.my/#quotation-form
+- **Telephone Dispatch Link:** tel:+60166159365

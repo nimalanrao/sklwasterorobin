@@ -1,0 +1,848 @@
+---
+import { productsData } from '../data/products';
+import { serviceAreasData } from '../data/serviceAreas';
+import { secondaryServices } from '../data/services';
+import { contactData } from '../data/contact';
+import { formsConfig } from '../data/formsConfig';
+import VerificationNotice from './VerificationNotice.astro';
+---
+
+<section id="quotation-form" class="section quotation-form-section reveal-on-scroll">
+  <div class="card form-card">
+    <div class="form-header">
+      <div class="form-eyebrow">
+        <span class="badge-pill">Sebut Harga Rasmi</span>
+        <span class="badge-pill badge-provisional">Kadar RM2XX / RM3XX–RM4XX</span>
+      </div>
+      <h2 class="form-title">Request a Quotation (Dapatkan Sebut Harga)</h2>
+      <p class="form-description">
+        Complete the form below to receive a formal quotation for your Tong Roro rental. All quotes are prepared based on standard 10-day rentals.
+        Final quotations, delivery logistics, and scheduling must be confirmed directly with <strong>{contactData.mainContactPerson}</strong> ({contactData.telephoneDisplay}).
+      </p>
+    </div>
+
+    <VerificationNotice
+      title="Provisional Pricing & Unconfirmed Delivery Charges Notice"
+      message="All rates displayed on this website (RM2XX for 2 Feet / RM3XX–RM4XX for 4 Feet) are provisional estimates for a 10-day rental period. Delivery and collection charges have not been confirmed and are not claimed to be included in displayed prices. Final quotation must be confirmed directly with Mr Hari (+60 16-615 9365)."
+      type="provisional"
+    />
+
+    <VerificationNotice
+      title="Backend Integration Status (Phase 1)"
+      message={formsConfig.integrationRequirementNote}
+      type="integration"
+    />
+
+    <form id="skl-quotation-form" class="quotation-form-element" novalidate>
+      <div class="hp-field" aria-hidden="true">
+        <label for="q-websiteUrl">Leave this field empty</label>
+        <input type="text" id="q-websiteUrl" name="websiteUrl" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div id="quotation-error-summary" class="form-error-summary notice notice-pending" role="alert">
+        <span class="notice-title">Please correct the following fields before proceeding:</span>
+        <ul id="quotation-error-list" class="error-list"></ul>
+      </div>
+
+      <div class="form-step-group">
+        <div class="form-step-header">
+          <span class="step-number">01</span>
+          <span class="step-title">Maklumat Pelanggan (Customer Details)</span>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="q-customerName" class="form-label">
+              Customer Name <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="text"
+              id="q-customerName"
+              name="customerName"
+              class="form-input"
+              required
+              placeholder="e.g. Encik Ahmad / Syarikat Bina Sdn Bhd"
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="q-phoneNumber" class="form-label">
+              Phone Number <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="tel"
+              id="q-phoneNumber"
+              name="phoneNumber"
+              class="form-input"
+              required
+              placeholder="e.g. +60 12-345 6789"
+              autocomplete="tel"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="q-customerEmail" class="form-label">
+            Email <span class="optional-label">(Pilihan / Optional)</span>
+          </label>
+          <input
+            type="email"
+            id="q-customerEmail"
+            name="customerEmail"
+            class="form-input"
+            placeholder="e.g. projek@syarikat.com.my"
+            autocomplete="email"
+          />
+        </div>
+      </div>
+
+      <div class="form-step-group">
+        <div class="form-step-header">
+          <span class="step-number">02</span>
+          <span class="step-title">Spesifikasi Sewaan (Rental Specifications)</span>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="q-tongRoroSize" class="form-label">
+              Tong Roro Size <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <div class="select-wrapper">
+              <select id="q-tongRoroSize" name="tongRoroSize" class="form-select" required>
+                <option value="">-- Select Tong Roro Size --</option>
+                {productsData.map((product) => (
+                  <option value={product.name} data-product-id={product.id}>
+                    {product.name} ({product.sizeLabel} - {product.priceDisplay} provisional / {product.rentalDuration})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="q-deliveryLocation" class="form-label">
+              Delivery Location <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <div class="select-wrapper">
+              <select id="q-deliveryLocation" name="deliveryLocation" class="form-select" required>
+                <option value="">-- Select Delivery Location --</option>
+                {serviceAreasData.map((area) => (
+                  <option value={`${area.name} (${area.statusLabel})`} data-area-id={area.id}>
+                    {area.name} — {area.region} ({area.statusLabel})
+                  </option>
+                ))}
+                <option value="Other / Specify in notes">Other / Specify in notes (Subject to verification)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="q-preferredDeliveryDate" class="form-label">
+              Preferred Delivery Date <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="date"
+              id="q-preferredDeliveryDate"
+              name="preferredDeliveryDate"
+              class="form-input"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="q-rentalDuration" class="form-label">
+              Rental Duration <span class="required-indicator" aria-hidden="true">*</span>
+            </label>
+            <div class="select-wrapper">
+              <select id="q-rentalDuration" name="rentalDuration" class="form-select" required>
+                <option value="10 days" selected>10 days (Standard rental duration)</option>
+                <option value="10 days + extension request">10 days + Extension requested (Subject to confirmation)</option>
+                <option value="Custom duration (subject to confirmation)">Custom duration (Subject to confirmation with Mr Hari)</option>
+              </select>
+            </div>
+            <small class="form-hint">
+              Standard rental policy is 10 days. Duration adjustments are subject to prior confirmation with Mr Hari.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="q-wasteType" class="form-label">
+            Type of Waste <span class="required-indicator" aria-hidden="true">*</span>
+          </label>
+          <div class="select-wrapper">
+            <select id="q-wasteType" name="wasteType" class="form-select" required>
+              <option value="">-- Select Type of Waste --</option>
+              {secondaryServices.map((service) => (
+                <option value={`${service.name} (${service.nameEn})`}>
+                  {service.name} ({service.nameEn})
+                </option>
+              ))}
+              <option value="Other / Mixed general waste">Other / Mixed general waste</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-step-group">
+        <div class="form-step-header">
+          <span class="step-number">03</span>
+          <span class="step-title">Keperluan Tambahan (Additional Requirements)</span>
+        </div>
+        <div class="form-group">
+          <label for="q-additionalRequirements" class="form-label">
+            Additional Requirements <span class="optional-label">(Optional)</span>
+          </label>
+          <textarea
+            id="q-additionalRequirements"
+            name="additionalRequirements"
+            rows="4"
+            class="form-textarea"
+            placeholder="Specify exact drop-off site instructions, road width/gate clearance constraints, or specific waste handling items..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="quotation-submit-btn" class="btn btn-primary btn-submit">
+          <span class="btn-text">Review &amp; Dispatch Quotation Details</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+
+    <div id="quotation-result-panel" class="form-result-panel" role="region" aria-live="polite">
+      <div class="result-badge">
+        <svg class="result-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+        <span>Quotation Details Validated</span>
+      </div>
+      <p id="quotation-status-message" class="result-message">
+        Your enquiry details have been successfully validated. Because automated webhook submission is not configured on this Phase 1 static deployment, please dispatch your request directly using one of the actions below:
+      </p>
+
+      <div class="result-actions">
+        <a id="quotation-mailto-link" href={`mailto:${contactData.email}`} class="btn btn-primary btn-action">
+          <svg class="action-btn-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+          Send via Email Client ({contactData.email})
+        </a>
+        <button type="button" id="quotation-copy-btn" class="btn btn-secondary btn-action">
+          <svg class="action-btn-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+            <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+          </svg>
+          Copy Quotation Details
+        </button>
+        <a href={contactData.telephoneHref} class="btn btn-secondary btn-action">
+          <svg class="action-btn-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          Call Mr Hari ({contactData.telephoneDisplay})
+        </a>
+        {contactData.whatsapp.isConfirmed && (
+          <a id="quotation-whatsapp-link" href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-action">
+            Send via WhatsApp
+          </a>
+        )}
+      </div>
+
+      {!contactData.whatsapp.isConfirmed && (
+        <p class="whatsapp-pending-note">
+          Status WhatsApp: Belum Disahkan — sila hantar melalui Emel atau hubungi Mr Hari secara terus.
+        </p>
+      )}
+
+      <div id="quotation-copy-feedback" class="copy-feedback" role="status"></div>
+
+      <div class="summary-preview-wrapper">
+        <label for="quotation-summary-preview" class="summary-preview-label">
+          Preformatted Quotation Summary:
+        </label>
+        <pre id="quotation-summary-preview" class="summary-preview"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .quotation-form-section {
+    padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  }
+
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .form-card {
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  .form-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-full, 9999px);
+    background: var(--bg-surface-alt, #f1f5f9);
+    color: var(--text-secondary, #475569);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+  }
+
+  .form-title {
+    font-family: var(--font-display, system-ui, -apple-system, sans-serif);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 800;
+    color: var(--text-primary, #0a1628);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .form-description {
+    color: var(--text-secondary, #475569);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  .form-step-group {
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    margin-top: 1.75rem;
+  }
+
+  .form-step-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full, 9999px);
+    background: var(--accent-green, #15803d);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.8125rem;
+    font-family: var(--font-display, monospace);
+  }
+
+  .step-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-primary, #0a1628);
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+    min-width: 0;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary, #0a1628);
+    margin-bottom: 0.45rem;
+  }
+
+  .required-indicator {
+    color: #dc2626;
+    margin-left: 0.2rem;
+  }
+
+  .optional-label {
+    font-weight: 400;
+    color: var(--text-muted, #64748b);
+    font-size: 0.875rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    padding: 0.65rem 0.9rem;
+    font-family: var(--font-body, inherit);
+    font-size: 0.95rem;
+    color: var(--text-primary, #0a1628);
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-sm, 6px);
+    box-sizing: border-box;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent-green, #15803d);
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.18);
+  }
+
+  .form-textarea {
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  .form-hint {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted, #64748b);
+    line-height: 1.4;
+  }
+
+  .form-actions {
+    margin-top: 2rem;
+  }
+
+  .btn-submit {
+    width: 100%;
+    min-height: 52px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(21, 128, 61, 0.25);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(21, 128, 61, 0.3);
+  }
+
+  .btn-spinner {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: btnSpin 0.7s linear infinite;
+  }
+
+  @keyframes btnSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  .form-error-summary {
+    display: none;
+    border-left: 4px solid #dc2626;
+    background: #fef2f2;
+    border-radius: var(--radius-sm, 6px);
+    padding: 1rem 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .error-list {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    padding-left: 1.25rem;
+    color: #991b1b;
+    font-size: 0.9375rem;
+  }
+
+  .form-result-panel {
+    display: none;
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    border-radius: var(--radius-md, 12px);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    margin-top: 2rem;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent-green-soft, #f0fdf4);
+    color: var(--accent-green-hover, #166534);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-full, 9999px);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .result-message {
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .whatsapp-pending-note {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #64748b);
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-surface-alt, #f1f5f9);
+    border-left: 3px solid #f59e0b;
+    border-radius: 4px;
+  }
+
+  .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    font-size: 0.9375rem;
+  }
+
+  .action-btn-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .copy-feedback {
+    min-height: 1.25rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--accent-green, #15803d);
+    margin-bottom: 1rem;
+  }
+
+  .summary-preview-wrapper {
+    margin-top: 1.25rem;
+  }
+
+  .summary-preview-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--text-primary, #0a1628);
+    margin-bottom: 0.4rem;
+  }
+
+  .summary-preview {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-sm, 6px);
+    padding: 1rem;
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-primary, #0a1628);
+  }
+
+  @media (max-width: 640px) {
+    .result-actions {
+      flex-direction: column;
+    }
+    .btn-action {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  import { validateQuotationPayload } from '../utils/validators';
+  import type { QuotationFormPayload } from '../utils/validators';
+  import { formatQuotationSummaryText, buildQuotationMailtoUrl, buildWhatsAppEnquiryUrl } from '../utils/formatters';
+  import { submitEnquiryForm } from '../utils/formHandler';
+  import { formsConfig } from '../data/formsConfig';
+  import { contactData } from '../data/contact';
+  import { trackConversionEvent } from '../utils/analytics';
+
+  function initQuotationForm() {
+    const form = document.getElementById('skl-quotation-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    const selectSize = document.getElementById('q-tongRoroSize') as HTMLSelectElement | null;
+    const errorSummary = document.getElementById('quotation-error-summary') as HTMLElement | null;
+    const errorList = document.getElementById('quotation-error-list') as HTMLUListElement | null;
+    const resultPanel = document.getElementById('quotation-result-panel') as HTMLElement | null;
+    const mailtoLink = document.getElementById('quotation-mailto-link') as HTMLAnchorElement | null;
+    const whatsappLink = document.getElementById('quotation-whatsapp-link') as HTMLAnchorElement | null;
+    const copyBtn = document.getElementById('quotation-copy-btn') as HTMLButtonElement | null;
+    const copyFeedback = document.getElementById('quotation-copy-feedback') as HTMLElement | null;
+    const summaryPreview = document.getElementById('quotation-summary-preview') as HTMLElement | null;
+    const statusMessage = document.getElementById('quotation-status-message') as HTMLElement | null;
+    const submitBtn = document.getElementById('quotation-submit-btn') as HTMLButtonElement | null;
+    const spinner = submitBtn?.querySelector('.btn-spinner') as HTMLElement | null;
+
+    let latestFormattedText = '';
+    let hasStartedQuoteForm = false;
+    let isSubmitting = false;
+
+    // Track quote_form_start once on first user interaction (excluding honeypot)
+    function handleFormInteraction(event: Event) {
+      if (hasStartedQuoteForm) return;
+      const target = event.target as HTMLElement | null;
+      if (target && target.id === 'q-websiteUrl') return;
+      hasStartedQuoteForm = true;
+      trackConversionEvent('quote_form_start', { form_id: 'skl-quotation-form' });
+    }
+
+    form.addEventListener('focusin', handleFormInteraction);
+    form.addEventListener('input', handleFormInteraction);
+
+    // Function to pre-select product by id or slug
+    function selectProductOption(productId: string) {
+      if (!selectSize || !productId) return;
+      const cleanId = productId.trim().toLowerCase();
+      for (let i = 0; i < selectSize.options.length; i++) {
+        const opt = selectSize.options[i];
+        const dataId = opt.getAttribute('data-product-id')?.toLowerCase();
+        const optVal = opt.value.toLowerCase();
+        if (dataId === cleanId || optVal.includes(cleanId.replace(/-/g, ' '))) {
+          selectSize.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    // Track bin size selection change directly in dropdown
+    if (selectSize) {
+      selectSize.addEventListener('change', () => {
+        if (selectSize.value) {
+          trackConversionEvent('select_tong_roro', { product_name: selectSize.value });
+        }
+      });
+    }
+
+    // 1. Check URL query parameters (?product=...)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const productParam = urlParams.get('product');
+      if (productParam) {
+        selectProductOption(productParam);
+        const section = document.getElementById('quotation-form');
+        if (section && window.location.hash === '#quotation-form') {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+
+    // 2. Global listener for [data-select-product]
+    document.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+      const trigger = target.closest('[data-select-product]') as HTMLElement | null;
+      if (trigger) {
+        const prodId = trigger.getAttribute('data-select-product');
+        if (prodId) {
+          selectProductOption(prodId);
+          trackConversionEvent('select_tong_roro', {
+            product_id: prodId,
+            product_name: selectSize?.value || prodId
+          });
+          const section = document.getElementById('quotation-form');
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    });
+
+    // 3. Form submit handler
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
+
+      if (copyFeedback) copyFeedback.textContent = '';
+
+      const formData = new FormData(form);
+      const rawCustomerEmail = ((formData.get('customerEmail') as string) || '').trim();
+      const rawWebsiteUrl = ((formData.get('websiteUrl') as string) || '').trim();
+
+      const payload: QuotationFormPayload & { customerEmail?: string; websiteUrl?: string } = {
+        customerName: (formData.get('customerName') as string) || '',
+        phoneNumber: (formData.get('phoneNumber') as string) || '',
+        customerEmail: rawCustomerEmail || undefined,
+        tongRoroSize: (formData.get('tongRoroSize') as string) || '',
+        deliveryLocation: (formData.get('deliveryLocation') as string) || '',
+        preferredDeliveryDate: (formData.get('preferredDeliveryDate') as string) || '',
+        rentalDuration: (formData.get('rentalDuration') as string) || '10 days',
+        wasteType: (formData.get('wasteType') as string) || '',
+        additionalRequirements: (formData.get('additionalRequirements') as string) || '',
+        websiteUrl: rawWebsiteUrl || undefined
+      };
+
+      const validation = validateQuotationPayload(payload);
+
+      if (!validation.valid) {
+        if (errorSummary && errorList) {
+          errorList.innerHTML = '';
+          validation.errors.forEach((err) => {
+            const li = document.createElement('li');
+            li.textContent = err;
+            errorList.appendChild(li);
+          });
+          errorSummary.style.display = 'block';
+          errorSummary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (resultPanel) {
+          resultPanel.style.display = 'none';
+        }
+        return;
+      }
+
+      // Valid: hide errors
+      if (errorSummary) {
+        errorSummary.style.display = 'none';
+      }
+
+      isSubmitting = true;
+      if (spinner) spinner.style.display = 'inline-block';
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        // Track privacy-safe conversion event (strictly NO PII)
+        trackConversionEvent('generate_lead', {
+          form_id: 'skl-quotation-form',
+          product_name: payload.tongRoroSize,
+          waste_category: payload.wasteType,
+          rental_duration: payload.rentalDuration
+        });
+
+        // Attempt endpoint dispatch (honest, never fake success)
+        const submissionResult = await submitEnquiryForm(
+          formsConfig.quotationEndpointUrl,
+          payload as unknown as Record<string, unknown>
+        );
+
+        latestFormattedText = formatQuotationSummaryText(payload);
+        const mailtoUrl = buildQuotationMailtoUrl(formsConfig.recipientEmail || contactData.email, payload);
+
+        if (mailtoLink) {
+          mailtoLink.href = mailtoUrl;
+        }
+
+        if (whatsappLink && typeof buildWhatsAppEnquiryUrl === 'function') {
+          whatsappLink.href = buildWhatsAppEnquiryUrl(contactData.whatsapp.rawNumber, payload);
+        }
+
+        if (summaryPreview) {
+          summaryPreview.textContent = latestFormattedText;
+        }
+
+        if (statusMessage) {
+          if (submissionResult.ok) {
+            statusMessage.innerHTML = 'Your enquiry has been received via the configured webhook. A preformatted copy is provided below for your records:';
+          } else {
+            statusMessage.innerHTML =
+              'Your quotation details have been validated. Because this static deployment operates without an automated submission backend, please choose one of the direct dispatch options below to send your quotation directly to <strong>' +
+              contactData.mainContactPerson +
+              '</strong>:';
+          }
+        }
+
+        if (resultPanel) {
+          resultPanel.style.display = 'block';
+          resultPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } finally {
+        isSubmitting = false;
+        if (spinner) spinner.style.display = 'none';
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+
+    // 4. Copy button handler
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        if (!latestFormattedText) return;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(latestFormattedText);
+          } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = latestFormattedText;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+          }
+          if (copyFeedback) {
+            copyFeedback.textContent = 'Quotation details copied to clipboard!';
+          }
+        } catch {
+          if (copyFeedback) {
+            copyFeedback.textContent = 'Please select and copy the formatted summary text below manually.';
+          }
+        }
+      });
+    }
+  }
+
+  // Initialise on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initQuotationForm);
+  } else {
+    initQuotationForm();
+  }
+</script>

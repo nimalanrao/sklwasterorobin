@@ -1,0 +1,275 @@
+---
+import '../styles/base.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { getPageSEO, getCanonicalUrl, analyticsConfig } from '../data/seo';
+import { buildPageSchemaGraph } from '../utils/schema';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  currentPath?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  currentPath = '/',
+  noindex
+} = Astro.props;
+
+const seo = getPageSEO(currentPath);
+const pageTitle = title || seo.title;
+const pageDescription = description || seo.description;
+const canonicalUrl = getCanonicalUrl(currentPath);
+const isNoindex = noindex ?? seo.noindex ?? false;
+
+const schemaGraph = buildPageSchemaGraph(
+  currentPath,
+  pageTitle,
+  pageDescription,
+  seo.breadcrumbs
+);
+
+const normalizedPath = currentPath === '' ? '/' : currentPath.replace(/\/+$/, '') || '/';
+const gscVerification = analyticsConfig.googleSiteVerification || (analyticsConfig as Record<string, string>)['gscVerification'];
+const ga4Id = analyticsConfig.ga4MeasurementId;
+const gtmId = analyticsConfig.gtmId;
+const googleAdsId = analyticsConfig.googleAdsId;
+---
+
+<!DOCTYPE html>
+<html lang="ms-MY">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Technical SEO Metadata -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta
+      name="robots"
+      content={isNoindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+
+    <!-- Open Graph Protocol -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content="https://www.sklwaste.com.my/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" />
+    <meta property="og:image:alt" content={seo.ogImageAlt || "SKL Waste Sdn Bhd Tong Roro Lori dan Kontena"} />
+    <meta property="og:locale" content="ms_MY" />
+    <meta property="og:site_name" content="SKL WASTE SDN BHD" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content="https://www.sklwaste.com.my/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" />
+    <meta name="twitter:image:alt" content={seo.ogImageAlt || "SKL Waste Sdn Bhd Tong Roro Lori dan Kontena"} />
+
+    <!-- Homepage LCP Preload -->
+    {normalizedPath === '/' && (
+      <link
+        rel="preload"
+        as="image"
+        href="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp"
+        type="image/webp"
+        fetchpriority="high"
+      />
+    )}
+
+    <!-- Google Search Console Verification -->
+    {gscVerification && (
+      <meta name="google-site-verification" content={gscVerification} />
+    )}
+
+    <!-- Google Tag Manager (Conditional) -->
+    {gtmId && (
+      <script is:inline define:vars={{ gtmId }}>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',gtmId);
+      </script>
+    )}
+
+    <!-- Google Analytics 4 & Google Ads (Conditional when GA4 or Ads ID present and GTM absent) -->
+    {!gtmId && (ga4Id || googleAdsId) && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id || googleAdsId}`}></script>
+        <script is:inline define:vars={{ ga4Id, googleAdsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          if (ga4Id) gtag('config', ga4Id);
+          if (googleAdsId) gtag('config', googleAdsId);
+        </script>
+      </>
+    )}
+
+    <!-- Schema.org JSON-LD Graph -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+
+    <!-- Google Fonts Preconnect & Stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Authentic Corporate Favicon -->
+    <link rel="icon" type="image/png" href="/images/skl-logo.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Instant JS Ready Flag for Zero-Flash Progressive Reveal -->
+    <script is:inline>
+      document.documentElement.classList.add('js-ready');
+    </script>
+  </head>
+  <body>
+    <!-- Skip Navigation Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Sticky Glassmorphic Header -->
+    <Header currentPath={currentPath} />
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Executive Dark Corporate Footer -->
+    <Footer />
+
+    <!-- Sticky Mobile CTA Bar (< 768px) -->
+    <aside class="mobile-sticky-cta" aria-label="Quick Mobile Actions">
+      <a href={contactData.telephoneHref} class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span>Hubungi Mr Hari</span>
+      </a>
+      <a href="/#quotation-form" class="btn btn-primary">
+        <span>Dapatkan Sebut Harga</span>
+      </a>
+    </aside>
+
+    <!-- Client-Side Runtime Script: Scroll Reveal, Header Scrolled State & Privacy-Safe Conversion Tracking -->
+    <script is:inline>
+      (function() {
+        // Header scroll shadow toggle
+        const header = document.getElementById('site-header');
+        if (header) {
+          window.addEventListener('scroll', function() {
+            if (window.scrollY > 20) {
+              header.classList.add('is-scrolled');
+            } else {
+              header.classList.remove('is-scrolled');
+            }
+          }, { passive: true });
+        }
+
+        // IntersectionObserver for progressive scroll reveal
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -30px 0px'
+          });
+
+          document.querySelectorAll('.reveal-on-scroll').forEach(function(el) {
+            observer.observe(el);
+          });
+        } else {
+          document.querySelectorAll('.reveal-on-scroll').forEach(function(el) {
+            el.classList.add('is-visible');
+          });
+        }
+
+        // Privacy-safe conversion event tracking listener with 400ms dedup guard
+        var lastTrackKey = '';
+        var lastTrackTs = 0;
+        var isTestMode = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+        function emitTrack(eventName, extra, dedupSuffix) {
+          var now = Date.now();
+          var key = eventName + ':' + (dedupSuffix || (extra && extra.event_label) || '');
+          if (now - lastTrackTs < 400 && lastTrackKey === key) return;
+          lastTrackKey = key;
+          lastTrackTs = now;
+
+          var pageLoc = window.location.pathname;
+          var payload = Object.assign(
+            {
+              event: eventName,
+              event_category: 'engagement',
+              page_location: pageLoc,
+              test_mode: isTestMode
+            },
+            extra || {},
+            { timestamp: new Date().toISOString() }
+          );
+
+          if (window.dataLayer && Array.isArray(window.dataLayer)) {
+            window.dataLayer.push(payload);
+          }
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', eventName, payload);
+          }
+          window.dispatchEvent(new CustomEvent('skl:conversion', { detail: payload }));
+        }
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+          if (!target || !(target instanceof Element)) return;
+
+          // Telephone clicks
+          var telLink = target.closest('a[href^="tel:"]');
+          if (telLink) {
+            var href = telLink.getAttribute('href') || '';
+            emitTrack('phone_click', { event_label: href }, href);
+            return;
+          }
+
+          // Email clicks (strictly zero customer PII in params)
+          var mailtoLink = target.closest('a[href^="mailto:"]');
+          if (mailtoLink) {
+            emitTrack('email_click', { event_label: 'email_dispatch' }, 'email_dispatch');
+            return;
+          }
+
+          // WhatsApp clicks (strictly zero customer PII in params)
+          var waLink = target.closest('a[href*="wa.me"]');
+          if (waLink) {
+            emitTrack('whatsapp_click', { event_label: 'whatsapp_dispatch' }, 'whatsapp_dispatch');
+            return;
+          }
+
+          // CTA button / link clicks
+          var ctaEl = target.closest('a[data-track-cta], button[data-track-cta], a.btn-primary');
+          if (ctaEl) {
+            if (
+              ctaEl.matches('a[href^="tel:"], a[href^="mailto:"], a[href*="wa.me"], [data-select-product], button[type="submit"]')
+            ) {
+              return;
+            }
+            var ctaAttr = ctaEl.getAttribute('data-track-cta') || '';
+            var rawText = (ctaEl.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 50);
+            var ctaId = ctaAttr || rawText || 'primary_cta';
+            emitTrack('contact_cta_click', { event_label: ctaId, cta_id: ctaId }, ctaId);
+          }
+        }, { passive: true });
+      })();
+    </script>
+  </body>
+</html>

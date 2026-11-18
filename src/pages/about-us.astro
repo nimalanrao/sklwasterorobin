@@ -1,0 +1,476 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ContactDetailsCard from '../components/ContactDetailsCard.astro';
+import VerificationNotice from '../components/VerificationNotice.astro';
+import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { getPageSEO } from '../data/seo';
+
+const currentPath = '/about-us';
+const seo = getPageSEO(currentPath);
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  currentPath={currentPath}
+>
+  <!-- Executive Page Hero with Breadcrumb -->
+  <section class="about-hero">
+    <div class="container">
+      <Breadcrumb items={seo.breadcrumbs} />
+
+      <div class="about-hero-grid">
+        <div class="about-hero-content">
+          <div class="hero-badge-row">
+            <span class="eyebrow">PROFIL KORPORAT • ABOUT US</span>
+          </div>
+
+          <div class="corporate-id-pill">
+            <picture>
+              <source srcset="/images/logo-skl-waste-sdn-bhd.webp" type="image/webp" />
+              <img
+                src="/images/skl-logo.png"
+                alt="Logo Rasmi SKL Waste Sdn Bhd"
+                class="corp-logo"
+                width="36"
+                height="36"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
+            <div class="corp-text">
+              <span class="corp-name">{companyData.name}</span>
+              <span class="corp-reg">No. Pendaftaran: <strong>{companyData.registrationNumber}</strong></span>
+            </div>
+          </div>
+
+          <h1>Tentang SKL Waste Sdn Bhd</h1>
+
+          <!-- Direct Standalone BLUF Summary for Search & AI Answer Engines -->
+          <div class="bluf-box">
+            <p class="bluf-summary">
+              <strong>Ringkasan Korporat (BLUF):</strong> SKL Waste Sdn Bhd (No. Pendaftaran <strong>200801038953</strong>) beroperasi dari Sungai Buloh, Selangor, menyediakan perkhidmatan sewaan Tong Roro berjadual untuk tempoh standard <strong>10 days</strong> serta pengurusan sisa pepejal kediaman, komersial, pembinaan, dan perindustrian tertakluk kepada pengesahan ketersediaan operasi.
+            </p>
+          </div>
+
+          <p class="lead-text">
+            <strong>SKL WASTE SDN BHD</strong> (No. Pendaftaran: <strong>200801038953</strong>) ialah syarikat pengurusan sisa berdaftar di Malaysia yang beroperasi dari ibu pejabat di <strong>PT 31127 SETOR JALAN KUALA SELANGOR, 47000 SUNGAI BULOH, SELANGOR DARUL EHSAN, MALAYSIA.</strong> Kami komited menyokong keperluan pelupusan sisa secara teratur dan telus.
+          </p>
+
+          <div class="about-hero-actions">
+            <a href="/tong-roro-rental#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga</a>
+            <a href={contactData.telephoneHref} class="btn btn-secondary">Hubungi Mr Hari</a>
+          </div>
+        </div>
+
+        <div class="about-hero-media">
+          <div class="fleet-showcase-frame">
+            <picture>
+              <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
+              <img
+                src="/images/skl-hero-roro.jpg"
+                alt="Lori Roro dan Tong Roro biru SKL Waste Sdn Bhd bersedia di Sungai Buloh, Selangor"
+                class="fleet-img"
+                width="640"
+                height="420"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
+            <div class="fleet-caption">
+              <span class="caption-title">Operasi Logistik & Armada Tong Roro</span>
+              <span class="caption-sub">Penyediaan Tong Roro 2 Kaki & 4 Kaki untuk sektor pembinaan, komersial & kediaman di Selangor.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Profile & Operational Focus Section -->
+  <section class="section section-surface reveal-on-scroll" aria-labelledby="company-profile-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">FOKUS OPERASI</span>
+        <h2 id="company-profile-heading">Profil Syarikat & Keupayaan Operasi</h2>
+        <p class="section-subtitle">
+          Penyelesaian pengurusan sisa bersepadu dan sewaan Tong Roro berjadual di sekitar Selangor dan Lembah Klang.
+        </p>
+      </div>
+
+      <p class="profile-narrative">
+        SKL Waste Sdn Bhd menyediakan perkhidmatan sewaan Tong Roro, kutipan sisa pepejal, pengangkutan sisa, dan penyelesaian pelupusan berkesan. Kami memenuhi keperluan sektor kediaman (residential), komersial (commercial), pembinaan tapak (construction), serta industri perkilangan dan gudang (industrial), tertakluk kepada pengesahan ketersediaan operasi dan akses tapak. Untuk melihat kawasan operasi kami, sila rujuk senarai <a href="/service-areas">kawasan perkhidmatan</a> kami.
+      </p>
+
+      <div class="grid-2 profile-grid">
+        <div class="card card-interactive">
+          <div class="card-icon-tag">PERKHIDMATAN TERAS</div>
+          <h3>Sewaan Tong Roro</h3>
+          <p>
+            Perkhidmatan teras kami ialah penyewaan Tong Roro bersaiz 2 Kaki (provisional price <strong>RM2XX</strong>) dan 4 Kaki (provisional price <strong>RM3XX–RM4XX</strong>) dengan tempoh sewaan standard <strong>10 days</strong>. Tong roro kami direka kukuh untuk memudahkan pengumpulan sisa pembinaan, renovasi, pukal, mahupun pembersihan kebun.
+          </p>
+          <div class="card-action-link">
+            <a href="/tong-roro-rental" class="btn btn-secondary">Ketahui Lebih Lanjut Mengenai Sewaan Tong Roro →</a>
+          </div>
+        </div>
+
+        <div class="card card-interactive">
+          <div class="card-icon-tag">PENGURUSAN SISA</div>
+          <h3>Perkhidmatan Pengurusan Sisa Bersepadu</h3>
+          <p>
+            Selain sewaan tong roro, SKL Waste Sdn Bhd merangkumi pelupusan sisa, pengangkutan sisa binaan, kutipan sisa komersial, sisa industri bukan toksik, dan pembersihan tapak sebelum serta selepas projek dijalankan.
+          </p>
+          <div class="card-action-link">
+            <a href="/waste-management-services" class="btn btn-secondary">Terokai Semua Perkhidmatan Pengurusan Sisa →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compliance & Transparency Section -->
+  <section class="section reveal-on-scroll" aria-labelledby="compliance-transparency-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">KETELUSAN & INTEGRITI</span>
+        <h2 id="compliance-transparency-heading">Kenyataan Pematuhan & Ketelusan</h2>
+        <p class="section-subtitle">
+          Prinsip ketelusan mutlak dalam setiap maklumat perkhidmatan, anggaran harga, dan kawasan operasi.
+        </p>
+      </div>
+
+      <VerificationNotice
+        type="provisional"
+        title="Dasar Ketelusan Maklumat Tapak Web SKL Waste Sdn Bhd"
+        message="SKL Waste Sdn Bhd hanya menerbitkan perkhidmatan yang disahkan beroperasi. Kami tidak menerbitkan perkhidmatan yang tidak disahkan atau testimoni/pelanggan yang tidak wujud. Setiap perkhidmatan tertakluk kepada pengesahan ketersediaan."
+      />
+
+      <div class="compliance-cards-grid grid-2">
+        <div class="card compliance-card">
+          <div class="compliance-badge">DASAR 01</div>
+          <h3>Tiada Perkhidmatan Tidak Disahkan (No Unconfirmed Services)</h3>
+          <p>
+            Kami hanya menerbitkan perkhidmatan yang benar-benar ditawarkan oleh syarikat. Semua perkhidmatan tertakluk kepada pengesahan ketersediaan operasi dan kesesuaian tapak.
+          </p>
+        </div>
+
+        <div class="card compliance-card">
+          <div class="compliance-badge">DASAR 02</div>
+          <h3>Tiada Pelanggan atau Testimoni Rekaan (No Fabricated Clients)</h3>
+          <p>
+            Kami tidak memaparkan sebarang logo syarikat luar, testimoni rekaan, atau tuntutan hubungan pelanggan yang tidak disahkan bagi menjamin ketulenan maklumat korporat kami.
+          </p>
+        </div>
+
+        <div class="card compliance-card">
+          <div class="compliance-badge">DASAR 03</div>
+          <h3>Kawasan Liputan Tertakluk Kepada Pengesahan (Service Areas Pending Verification)</h3>
+          <p>
+            Semua 13 kawasan liputan yang disenaraikan adalah dalam status pending verification. Kesesuaian laluan lori dan ketersediaan tong perlu disahkan terlebih dahulu dengan pegawai operasi kami melalui halaman <a href="/service-areas">kawasan perkhidmatan</a>.
+          </p>
+        </div>
+
+        <div class="card compliance-card">
+          <div class="compliance-badge">DASAR 04</div>
+          <h3>Harga Anggaran Bersyarat (Provisional Prices)</h3>
+          <p>
+            Semua kadar sewaan (<strong>RM2XX</strong> bagi 2 Kaki dan <strong>RM3XX–RM4XX</strong> bagi 4 Kaki untuk tempoh sewaan <strong>10 days</strong>) adalah anggaran sementara. Kos penghantaran dan kutipan belum disahkan dan tidak termasuk dalam harga yang dipaparkan. Sebut harga muktamad disediakan terus oleh Mr Hari.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Personnel Section -->
+  <section class="section section-surface reveal-on-scroll" aria-labelledby="key-personnel-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">HUBUNGI PEGAWAI UTAMA</span>
+        <h2 id="key-personnel-heading">Pegawai Perhubungan Utama (Main Contact Person)</h2>
+        <p class="section-subtitle">
+          Segala urusan sewaan Tong Roro, penempahan jadual kutipan, pengesahan kawasan operasi, dan sebut harga rasmi dikendalikan terus oleh pegawai utama kami. Sila layari <a href="/contact-us">halaman hubungi kami</a> untuk butiran lengkap.
+        </p>
+      </div>
+
+      <div class="contact-card-wrapper">
+        <ContactDetailsCard title="Maklumat Rasmi SKL Waste Sdn Bhd" />
+      </div>
+
+      <div class="cta-actions-bar">
+        <div class="cta-text">
+          <h3>Perlukan Sebut Harga Segera atau Nasihat Saiz Tong?</h3>
+          <p>Bercakap terus dengan Mr Hari di <a href="tel:+60166159365" class="cta-inline-link">+60 16-615 9365</a> atau serahkan butiran projek anda melalui borang sebut harga rasmi.</p>
+        </div>
+        <div class="cta-buttons">
+          <a href="/tong-roro-rental#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga</a>
+          <a href={contactData.telephoneHref} class="btn btn-secondary">Hubungi Mr Hari</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* --- Executive Page Hero --- */
+  .about-hero {
+    padding: clamp(2rem, 4vw, 4rem) 0 clamp(2.5rem, 4vw, 4rem);
+    background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-primary) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .about-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .about-hero-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+
+  .hero-badge-row {
+    margin-bottom: 0.75rem;
+  }
+
+  .corporate-id-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0.85rem 0.35rem 0.4rem;
+    background-color: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full, 9999px);
+    box-shadow: 0 1px 3px rgba(10, 22, 40, 0.04);
+    margin-bottom: 1.25rem;
+    max-width: 100%;
+  }
+
+  .corp-logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    border-radius: var(--radius-full, 9999px);
+    flex-shrink: 0;
+  }
+
+  .corp-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    min-width: 0;
+  }
+
+  .corp-name {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .corp-reg {
+    color: var(--text-muted);
+  }
+
+  .about-hero h1 {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* --- Standalone BLUF Box --- */
+  .bluf-box {
+    background-color: var(--accent-green-soft, #f0fdf4);
+    border-left: 4px solid var(--accent-green, #15803d);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius-md, 12px) var(--radius-md, 12px) 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .bluf-summary {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #14532d;
+    margin-bottom: 0;
+  }
+
+  .lead-text {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+  }
+
+  .about-hero-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  /* --- Fleet Showcase Frame --- */
+  .fleet-showcase-frame {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg, 20px);
+    overflow: hidden;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+
+  .fleet-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16 / 10;
+  }
+
+  .fleet-caption {
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .caption-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .caption-sub {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* --- Narrative & Profile Grid --- */
+  .profile-narrative {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 85ch;
+    margin-bottom: 2rem;
+  }
+
+  .profile-grid {
+    margin-top: 1.5rem;
+  }
+
+  .card-icon-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--accent-green, #15803d);
+    background-color: var(--accent-green-soft, #f0fdf4);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm, 6px);
+    margin-bottom: 0.75rem;
+  }
+
+  .card-action-link {
+    margin-top: 1.25rem;
+  }
+
+  /* --- Compliance Cards Grid --- */
+  .compliance-cards-grid {
+    margin-top: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .compliance-card {
+    position: relative;
+    padding: 1.5rem;
+  }
+
+  .compliance-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .compliance-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .compliance-card p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+  }
+
+  /* --- Contact Wrapper & CTA Bar --- */
+  .contact-card-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .cta-actions-bar {
+    background: var(--bg-dark, #0a1628);
+    color: #ffffff;
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .cta-actions-bar {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .cta-text h3 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .cta-text p {
+    color: #cbd5e1;
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+  }
+
+  .cta-inline-link {
+    color: #93c5fd;
+    text-decoration: underline;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  .cta-buttons .btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border-color: #cbd5e1;
+  }
+
+  .cta-buttons .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+</style>

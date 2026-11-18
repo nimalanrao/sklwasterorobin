@@ -1,0 +1,39 @@
+---
+import ProductCard from './ProductCard.astro';
+import { productsData, type TongRoroProduct } from '../data/products';
+
+export interface Props {
+  products?: TongRoroProduct[];
+  showSelectButton?: boolean;
+}
+
+const { products = productsData, showSelectButton = true } = Astro.props;
+---
+
+<div class="product-catalogue">
+  <div class="grid-2 product-catalogue-grid">
+    {products.map((product) => (
+      <article id={product.slug} class="product-section reveal-on-scroll">
+        <ProductCard product={product} showSelectButton={showSelectButton} />
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .product-catalogue {
+    width: 100%;
+  }
+
+  .product-catalogue-grid {
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: stretch;
+  }
+
+  .product-section {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    scroll-margin-top: 100px;
+  }
+</style>

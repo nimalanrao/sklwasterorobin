@@ -1,0 +1,202 @@
+---
+import { serviceAreasData, serviceAreaDisclaimer, type ServiceAreaItem } from '../data/serviceAreas';
+import VerificationNotice from './VerificationNotice.astro';
+
+export interface Props {
+  areas?: ServiceAreaItem[];
+}
+
+const { areas = serviceAreasData } = Astro.props;
+---
+
+<div class="service-area-list-component">
+  <div class="reveal-on-scroll">
+    <VerificationNotice
+      type="pending"
+      title="Status Liputan Kawasan Perkhidmatan (Service Coverage Status)"
+      message={serviceAreaDisclaimer}
+    />
+  </div>
+
+  <div class="grid-3 areas-grid">
+    {areas.map((area: ServiceAreaItem, idx: number) => (
+      <article 
+        class="card area-card reveal-on-scroll" 
+        id={area.id}
+        style={`--stagger-idx: ${idx % 3}`}
+      >
+        <div class="area-card-header">
+          <div class="area-pin-wrapper">
+            <svg class="map-pin-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <span class="badge-pending">{area.statusLabel}</span>
+        </div>
+
+        <h3 class="area-name">{area.name}</h3>
+        <p class="area-region">
+          <span class="region-label">Wilayah:</span> {area.region}
+        </p>
+
+        <p class="area-notes">{area.notes}</p>
+
+        <div class="area-action">
+          <a href="tel:+60166159365" class="area-verify-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>Sahkan dengan Mr Hari</span>
+          </a>
+          <a href="/contact-us#quotation-form" class="area-quote-link">
+            <span>Semak ketersediaan & sebut harga</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .service-area-list-component {
+    margin: 1.5rem 0;
+  }
+
+  .areas-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .areas-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .areas-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .area-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 14px);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  }
+
+  .area-card:hover {
+    transform: translateY(-4px);
+    border-color: #cbd5e1;
+    box-shadow: var(--shadow-card-hover, 0 20px 40px -12px rgba(10, 22, 40, 0.12));
+  }
+
+  .area-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+  }
+
+  .area-pin-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md, 10px);
+    background: var(--bg-surface-alt, #f1f5f9);
+    color: var(--accent-blue, #1d4ed8);
+  }
+
+  .area-card:hover .area-pin-wrapper {
+    background: var(--accent-blue-soft, #eff6ff);
+  }
+
+  .area-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary, #0a1628);
+    margin: 0 0 0.35rem 0;
+  }
+
+  .area-region {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #475569);
+    margin: 0 0 0.75rem 0;
+  }
+
+  .region-label {
+    font-weight: 600;
+    color: var(--text-muted, #64748b);
+  }
+
+  .area-notes {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .area-action {
+    border-top: 1px solid var(--border-subtle, #f1f5f9);
+    padding-top: 0.85rem;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .area-verify-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-blue, #1d4ed8);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.15s ease;
+  }
+
+  .area-verify-link:hover {
+    color: #1e40af;
+    text-decoration: underline;
+  }
+
+  .area-quote-link {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent-green, #15803d);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.15s ease, color 0.15s ease;
+  }
+
+  .area-quote-link:hover {
+    color: var(--accent-green-hover, #166534);
+    gap: 0.55rem;
+    text-decoration: underline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .area-card {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+</style>

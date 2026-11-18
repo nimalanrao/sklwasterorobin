@@ -1,0 +1,261 @@
+---
+import { industriesData, industriesDisclaimer, type IndustryItem } from '../data/industries';
+import VerificationNotice from './VerificationNotice.astro';
+
+export interface Props {
+  industries?: IndustryItem[];
+}
+
+const { industries = industriesData } = Astro.props;
+
+// Crisp inline SVG icons for all 10 industry sectors
+const getIndustryIcon = (id: string) => {
+  switch (id) {
+    case 'resorts-and-hotels':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 22v-6.57"/><path d="M12 11h.01"/><path d="M12 7h.01"/><path d="M14 15.43V22"/><path d="M15 11h.01"/><path d="M15 7h.01"/><path d="M16 16h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4"/><path d="M18 11h.01"/><path d="M18 7h.01"/><path d="M6 11h.01"/><path d="M6 7h.01"/><path d="M9 11h.01"/><path d="M9 7h.01"/></svg>`;
+    case 'factories-and-warehouses':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><line x1="18" y1="18" x2="18.01" y2="18"/><line x1="12" y1="18" x2="12.01" y2="18"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`;
+    case 'colleges-and-universities':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`;
+    case 'shopping-centres':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`;
+    case 'building-construction':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>`;
+    case 'house-construction':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+    case 'hospitals':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>`;
+    case 'offices':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
+    case 'food-and-beverage-industries':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 11v11"/><path d="M5 2v4a3 3 0 0 0 3 3 3 3 0 0 0 3-3V2"/><path d="M8 9v13"/></svg>`;
+    case 'condominiums-and-apartments':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="2"/><path d="M9 22v-4h6v4"/><line x1="8" y1="6" x2="10" y2="6"/><line x1="14" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/></svg>`;
+    default:
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/></svg>`;
+  }
+};
+---
+
+<div class="industry-grid-component">
+  <div class="reveal-on-scroll">
+    <VerificationNotice
+      type="pending"
+      title="Penyata Pematuhan Sektor Industri (Industry Sector Notice)"
+      message={industriesDisclaimer}
+    />
+  </div>
+
+  <div class="grid-2 industries-bento">
+    {industries.map((item: IndustryItem, idx: number) => (
+      <article 
+        class="card industry-card reveal-on-scroll" 
+        id={item.id}
+        style={`--stagger-idx: ${idx % 2}`}
+      >
+        <div class="card-header">
+          <div class="icon-frame" set:html={getIndustryIcon(item.id)} />
+          <div class="header-text">
+            <h3 class="industry-name">{item.name}</h3>
+            <span class="sector-badge">Sektor Industri</span>
+          </div>
+        </div>
+
+        <p class="industry-description">{item.description}</p>
+        
+        {item.typicalWasteTypes && item.typicalWasteTypes.length > 0 && (
+          <div class="waste-types-block">
+            <h4 class="waste-types-title">Jenis Sisa Lazim / Typical Waste:</h4>
+            <div class="waste-pills-wrap">
+              {item.typicalWasteTypes.map((wasteType: string) => (
+                <span class="waste-pill">{wasteType}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="industry-action-links">
+          <a href="/tong-roro-rental#quotation-form" class="industry-link-primary">
+            <span>Dapatkan sebut harga untuk sektor ini</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="/waste-management-services" class="industry-link-secondary">
+            Kategori pengurusan sisa berkaitan
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .industry-grid-component {
+    margin: 1.5rem 0;
+  }
+
+  .industries-bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .industries-bento {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .industry-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 14px);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  }
+
+  .industry-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover, #cbd5e1);
+    box-shadow: var(--shadow-card-hover, 0 20px 40px -12px rgba(10, 22, 40, 0.12));
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .icon-frame {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md, 12px);
+    background: var(--bg-surface-alt, #f1f5f9);
+    color: var(--text-primary, #0a1628);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .industry-card:hover .icon-frame {
+    background: var(--accent-blue-soft, #eff6ff);
+    color: var(--accent-blue, #1d4ed8);
+  }
+
+  .header-text {
+    min-width: 0;
+  }
+
+  .industry-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 0.25rem 0;
+    color: var(--text-primary, #0a1628);
+  }
+
+  .sector-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted, #64748b);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .industry-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .waste-types-block {
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 10px);
+    padding: 0.85rem 1rem;
+    margin-top: auto;
+    margin-bottom: 1rem;
+  }
+
+  .waste-types-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--text-primary, #0a1628);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .waste-pills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .waste-pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: #ffffff;
+    color: var(--text-secondary, #334155);
+    border: 1px solid var(--border-subtle, #cbd5e1);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full, 9999px);
+    line-height: 1.4;
+  }
+
+  .industry-action-links {
+    border-top: 1px solid var(--border-subtle, #f1f5f9);
+    padding-top: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .industry-link-primary {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-green, #15803d);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.15s ease, color 0.15s ease;
+  }
+
+  .industry-link-primary:hover {
+    color: var(--accent-green-hover, #166534);
+    gap: 0.55rem;
+    text-decoration: underline;
+  }
+
+  .industry-link-secondary {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #64748b);
+    text-decoration: none;
+  }
+
+  .industry-link-secondary:hover {
+    color: var(--text-primary, #0a1628);
+    text-decoration: underline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industry-card {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+</style>

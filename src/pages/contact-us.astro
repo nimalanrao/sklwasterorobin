@@ -1,0 +1,356 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ContactDetailsCard from '../components/ContactDetailsCard.astro';
+import QuotationForm from '../components/QuotationForm.astro';
+import ContactForm from '../components/ContactForm.astro';
+import VerificationNotice from '../components/VerificationNotice.astro';
+import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { getPageSEO } from '../data/seo';
+
+const currentPath = '/contact-us';
+const seo = getPageSEO(currentPath);
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  currentPath={currentPath}
+>
+  <!-- Executive Page Hero -->
+  <section class="page-hero section-surface">
+    <div class="container">
+      <Breadcrumb items={seo.breadcrumbs} />
+
+      <div class="hero-split">
+        <div class="hero-content">
+          <div class="eyebrow">PERHUBUNGAN &amp; SEBUT HARGA OPERASI</div>
+          <h1 class="page-title">Contact Us <span class="title-sub">(Hubungi Kami)</span></h1>
+
+          <!-- Standalone BLUF Summary for AEO / GEO Extraction -->
+          <p class="bluf-text">
+            <strong>Ringkasan Eksekutif:</strong> Hubungi pegawai operasi utama SKL Waste Sdn Bhd, Mr Hari di talian +60 16-615 9365 atau emel tongroroservissklwaste@gmail.com untuk sebut harga segera sewaan Tong Roro 2ft dan 4ft. Berpangkalan di PT 31127 Setor Jalan Kuala Selangor, 47000 Sungai Buloh, perkhidmatan diselaraskan terus secara telus bagi tapak kediaman, komersial, dan pembinaan.
+          </p>
+
+          <p class="lead-text">
+            Hubungi <strong>{companyData.name}</strong> (No. Pendaftaran: {companyData.registrationNumber}) untuk sebarang pertanyaan berkaitan sewaan Tong Roro, perkhidmatan pelupusan sisa, atau permohonan sebut harga rasmi bagi tapak kediaman, komersial mahupun industri anda.
+          </p>
+
+          <div class="hero-contact-chips">
+            <a href={contactData.telephoneHref} class="contact-chip">
+              <span class="chip-label">Telefon / Hotline:</span>
+              <span class="chip-val">{contactData.telephoneDisplay}</span>
+            </a>
+            <a href={contactData.emailHref} class="contact-chip">
+              <span class="chip-label">E-mel Rasmi:</span>
+              <span class="chip-val">{contactData.email}</span>
+            </a>
+            <div class="contact-chip">
+              <span class="chip-label">Pangkalan Ibu Pejabat:</span>
+              <span class="chip-val">{companyData.headquarters.city}, Selangor</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <picture>
+              <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
+              <img
+                src="/images/skl-hero-roro.jpg"
+                alt="Saluran rasmi perhubungan pelanggan dan lori Tong Roro SKL Waste Sdn Bhd Sungai Buloh"
+                class="fleet-img"
+                width="1280"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="visual-caption">
+              <span class="caption-tag">Saluran Rasmi Syarikat</span>
+              <span class="caption-desc">Penyelarasan terus bersama Mr Hari untuk keselamatan tapak</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strict Compliance Notice -->
+  <section class="section" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container">
+      <VerificationNotice
+        type="pending"
+        title="Saluran Perhubungan Rasmi &amp; Pengesahan Perkhidmatan"
+        message="Untuk memastikan ketepatan penghantaran dan keselamatan tapak, semua sewaan Tong Roro dan perkhidmatan pengurusan sisa diselaraskan secara langsung melalui telefon dan e-mel rasmi bersama Encik Hari (Mr Hari). Pengesahan laluan dan caj penghantaran/kutipan tertakluk kepada semakan langsung."
+      />
+    </div>
+  </section>
+
+  <!-- Official Contact Details Section -->
+  <section class="section" id="official-contact-details">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="eyebrow">MAKLUMAT KORPORAT</div>
+        <h2>Maklumat Perhubungan Rasmi (Official Contact Information)</h2>
+        <p class="section-desc">
+          Sila gunakan butiran perhubungan di bawah untuk berhubung terus dengan pegawai operasi kami atau menghantar dokumen tapak:
+        </p>
+      </div>
+
+      <div class="reveal-on-scroll">
+        <ContactDetailsCard title="Ibu Pejabat &amp; Pegawai Dihubungi (SKL Waste Sdn Bhd)" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Operating Hours & Coordination Notes -->
+  <section class="section section-surface" id="coordination-guidance">
+    <div class="container">
+      <div class="grid-2 reveal-on-scroll">
+        <div class="card info-card">
+          <div class="info-card-header">
+            <span class="eyebrow" style="margin-bottom: 0.25rem;">JADUAL OPERASI</span>
+            <h3>Waktu Penyelarasan Operasi</h3>
+          </div>
+          <ul class="info-list">
+            <li><strong>Penyelarasan Telefon:</strong> Isnin – Sabtu (8:00 PG – 6:00 PTG)</li>
+            <li><strong>Panggilan Terus:</strong> <a href={contactData.telephoneHref} class="phone-link">{contactData.telephoneDisplay}</a></li>
+            <li><strong>Pegawai Utama:</strong> {contactData.mainContactPerson}</li>
+            <li><strong>E-mel Rasmi:</strong> <a href={contactData.emailHref} class="email-link">{contactData.email}</a></li>
+          </ul>
+        </div>
+
+        <div class="card info-card">
+          <div class="info-card-header">
+            <span class="eyebrow" style="margin-bottom: 0.25rem;">SYARAT SEWAAN</span>
+            <h3>Maklumat Penting Tempahan</h3>
+          </div>
+          <ul class="info-list">
+            <li><strong>Tempoh Sewaan Standard:</strong> 10 hari (<strong>10 days</strong>) bagi setiap unit Tong Roro.</li>
+            <li><strong>Harga Anggaran Provisianal:</strong> <strong>RM2XX</strong> (2 Feet) dan <strong>RM3XX–RM4XX</strong> (4 Feet).</li>
+            <li><strong>Caj Penghantaran:</strong> Belum disahkan dan tidak termasuk dalam harga asas sewaan.</li>
+            <li><strong>Lokasi:</strong> Semua 13 kawasan perkhidmatan berstatus <strong>Pending Verification</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Sections -->
+  <div class="forms-wrapper section">
+    <div class="container">
+      <!-- Section 1: Quotation Request Form -->
+      <section id="quotation-form-section" class="form-block reveal-on-scroll">
+        <div class="section-header">
+          <div class="eyebrow">SEBUT HARGA SEWAAN</div>
+          <h2>1. Permohonan Sebut Harga Tong Roro (Quotation Form)</h2>
+          <p class="section-desc">
+            Gunakan borang ini jika anda memerlukan sebut harga bagi sewaan Tong Roro (2 Kaki atau 4 Kaki) berserta tarikh penghantaran dan lokasi tapak. Anda juga boleh merujuk <a href="/tong-roro-rental" class="guide-link">spesifikasi dan harga tong roro</a> kami terlebih dahulu.
+          </p>
+        </div>
+
+        <QuotationForm />
+      </section>
+
+      <!-- Section 2: General Enquiry Contact Form -->
+      <section id="general-contact-form-section" class="form-block reveal-on-scroll" style="margin-top: clamp(3rem, 5vw, 4.5rem);">
+        <div class="section-header">
+          <div class="eyebrow">PERTANYAAN AM</div>
+          <h2>2. Pertanyaan Am &amp; Maklum Balas (General Enquiry Form)</h2>
+          <p class="section-desc">
+            Gunakan borang ini untuk pertanyaan am mengenai pengurusan sisa, perkhidmatan pelupusan, atau maklum balas umum kepada pihak pengurusan. Sila rujuk juga halaman <a href="/waste-management-services" class="guide-link">perkhidmatan pengurusan sisa</a> kami.
+          </p>
+        </div>
+
+        <ContactForm />
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(2rem, 3vw, 3rem);
+    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+  }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.15;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary, #0a1628);
+  }
+  .title-sub {
+    display: block;
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    color: var(--text-secondary, #475569);
+    font-weight: 500;
+    margin-top: 0.35rem;
+  }
+  .bluf-text {
+    font-size: 0.95rem;
+    color: var(--text-primary, #0a1628);
+    background: var(--accent-green-soft, #f0fdf4);
+    border-left: 3px solid var(--accent-green, #15803d);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius-sm, 6px) var(--radius-sm, 6px) 0;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+  .lead-text {
+    font-size: clamp(1rem, 1.15vw, 1.15rem);
+    color: var(--text-secondary, #475569);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+  .hero-contact-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    border-top: 1px solid var(--border-subtle, #e2e8f0);
+    padding-top: 1.25rem;
+  }
+  .contact-chip {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .contact-chip:hover {
+    border-color: var(--accent-green, #15803d);
+    transform: translateX(3px);
+  }
+  .chip-label {
+    font-size: 0.8rem;
+    color: var(--text-muted, #64748b);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .chip-val {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary, #0a1628);
+  }
+  .hero-visual {
+    width: 100%;
+  }
+  .visual-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg, 20px);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    overflow: hidden;
+  }
+  .fleet-img {
+    width: 100%;
+    height: clamp(220px, 25vw, 300px);
+    object-fit: cover;
+    display: block;
+  }
+  .visual-caption {
+    padding: 0.85rem 1.25rem;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .caption-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-green, #15803d);
+    letter-spacing: 0.05em;
+  }
+  .caption-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #475569);
+  }
+  .section-header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 2.5rem;
+  }
+  .section-header h2 {
+    font-size: clamp(1.75rem, 2.5vw, 2.35rem);
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .guide-link {
+    color: var(--accent-green, #15803d);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: 1.75rem 1.5rem;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+  .info-card-header h3 {
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-primary, #0a1628);
+    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+    padding-bottom: 0.5rem;
+  }
+  .info-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .info-list li {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+  }
+  .phone-link, .email-link {
+    color: var(--accent-blue, #1d4ed8);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 900px) {
+    .hero-split {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 768px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+    .contact-chip {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>

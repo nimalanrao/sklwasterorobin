@@ -1,0 +1,461 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ServiceAreaList from '../components/ServiceAreaList.astro';
+import QuotationForm from '../components/QuotationForm.astro';
+import VerificationNotice from '../components/VerificationNotice.astro';
+import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { serviceAreasData, serviceAreaDisclaimer } from '../data/serviceAreas';
+import { getPageSEO } from '../data/seo';
+
+const currentPath = '/service-areas';
+const seo = getPageSEO(currentPath);
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  currentPath={currentPath}
+>
+  <!-- Executive Page Hero -->
+  <section class="page-hero section-surface">
+    <div class="container">
+      <Breadcrumb items={seo.breadcrumbs} />
+
+      <div class="hero-split">
+        <div class="hero-content">
+          <div class="eyebrow">LIPUTAN KAWASAN OPERASI SELANGOR</div>
+          <h1 class="page-title">Service Areas <span class="title-sub">(Kawasan Perkhidmatan)</span></h1>
+
+          <!-- Standalone BLUF Summary for AEO / GEO Extraction -->
+          <p class="bluf-text">
+            <strong>Ringkasan Eksekutif:</strong> SKL Waste Sdn Bhd menyediakan perkhidmatan sewaan Tong Roro berpusat di Sungai Buloh bagi 13 lokasi sekitar Selangor. Kesemua lokasi disenaraikan di bawah status Menunggu Pengesahan (Pending Verification) bagi menjamin laluan lori muatan berat, jarak penghantaran, dan caj logistik disahkan terlebih dahulu oleh Mr Hari (+60 16-615 9365).
+          </p>
+
+          <p class="lead-text">
+            <strong>{companyData.name}</strong> (No. Pendaftaran: {companyData.registrationNumber}) beroperasi dari pangkalan ibu pejabat di {companyData.headquarters.city}, Selangor. Rujuk senarai 13 kawasan tumpuan sewaan Tong Roro dan prosedur pengesahan akses tapak di bawah.
+          </p>
+
+          <div class="hero-trust-strip">
+            <div class="trust-item">
+              <span class="trust-metric">13</span>
+              <span class="trust-label">Kawasan Disenarai</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-metric" style="color: #b45309;">Pending</span>
+              <span class="trust-label">Status Pengesahan</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-metric">Sungai Buloh</span>
+              <span class="trust-label">Pangkalan Utama</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-metric">Mr Hari</span>
+              <span class="trust-label">Pegawai Pengesahan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <picture>
+              <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
+              <img
+                src="/images/skl-hero-roro.jpg"
+                alt="Pangkalan lori Roro SKL Waste Sdn Bhd bersedia untuk operasi perkhidmatan sekitar Sungai Buloh dan Selangor"
+                class="fleet-img"
+                width="1280"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="visual-caption">
+              <span class="caption-tag">Hab Operasi Sungai Buloh</span>
+              <span class="caption-desc">Penghantaran Tong Roro ke seluruh kawasan tumpuan Selangor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strict Compliance Notice -->
+  <section class="section" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="container">
+      <VerificationNotice
+        type="pending"
+        title="Status Pengesahan Wajib: Semua Kawasan Menunggu Pengesahan (Pending Verification)"
+        message="PERHATIAN: Kesemua 13 kawasan yang disenaraikan di bawah berstatus Pending Verification dan TIDAK DITERBITKAN sebagai liputan perkhidmatan yang telah disahkan (confirmed service coverage). Ketersediaan penghantaran, akses jalan lori berat, had ketinggian tapak, dan caj penghantaran/kutipan bagi setiap lokasi MESTI disahkan secara langsung bersama Mr Hari (+60 16-615 9365) sebelum sebarang pengesahan pesanan."
+      />
+    </div>
+  </section>
+
+  <!-- Local Search & Logistics Context Section -->
+  <section class="section" id="local-logistics-factors">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="eyebrow">FAKTOR LOGISTIK LOKAL</div>
+        <h2>Bagaimana Jarak &amp; Akses Jalan Mempengaruhi Sebut Harga</h2>
+        <p class="section-desc">
+          Kami mengutamakan keselamatan pemanduan lori hidraulik dan ketepatan masa penghantaran kontena sisa ke lokasi projek anda.
+        </p>
+      </div>
+
+      <div class="factors-grid reveal-on-scroll">
+        <div class="card factor-card">
+          <h3>Pusat Operasi Sungai Buloh</h3>
+          <p>
+            Berpangkalan di Sungai Buloh membolehkan lori kami bergerak pantas ke koridor Kuala Selangor dan Petaling/Gombak seperti <strong>Desa Coalfields</strong>, <strong>Bandar Seri Coalfields</strong>, <strong>Paya Jaras</strong>, dan <strong>Aman Putri</strong>.
+          </p>
+        </div>
+
+        <div class="card factor-card">
+          <h3>Koridor Rawang, Kundang &amp; Puncak Alam</h3>
+          <p>
+            Bagi kawasan <strong>Rawang</strong>, <strong>Kundang</strong>, <strong>Tasik Puteri</strong>, <strong>Bukit Beruntung</strong>, dan <strong>Puncak Alam</strong>, jadual penghantaran diatur mengikut laluan lebuhraya bagi memastikan sewaan <a href="/tong-roro-rental" class="factor-link">Tong Roro 2 Kaki atau 4 Kaki</a> tiba tepat pada masanya.
+          </p>
+        </div>
+
+        <div class="card factor-card">
+          <h3>Zon Bandar Subang &amp; Bukit Jelutong</h3>
+          <p>
+            Penghantaran ke <strong>Subang</strong> dan <strong>Bukit Jelutong</strong> tertakluk kepada kebenaran masuk kawasan perumahan berpagar (guarded community) dan laluan terhad waktu puncak. Sila sahkan kelulusan pengurusan setempat sebelum hari penghantaran.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verification Steps -->
+  <section class="section section-surface" id="how-to-verify">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="eyebrow">PROSEDUR SEMAKAN TAPAK</div>
+        <h2>Cara Membuat Pengesahan Lokasi Tapak (How to Verify Area Availability)</h2>
+        <p class="section-desc">
+          Oleh kerana lori Tong Roro memerlukan kelegaan jalan yang mencukupi serta kapasiti muatan jalan raya yang sesuai, sila ikuti langkah mudah berikut sebelum membuat tempahan:
+        </p>
+      </div>
+
+      <div class="steps-grid reveal-on-scroll">
+        <div class="card step-card">
+          <div class="step-badge">Langkah 01</div>
+          <h3>Semak Senarai Kawasan</h3>
+          <p>Kenal pasti kawasan perumahan, tapak binaan, atau zon perindustrian anda dalam senarai 13 lokasi di bawah.</p>
+        </div>
+
+        <div class="card step-card">
+          <div class="step-badge">Langkah 02</div>
+          <h3>Periksa Keadaan Tapak</h3>
+          <p>Pastikan laluan masuk tidak dihalangi pintu pagar sempit, kabel elektrik rendah, atau permukaan tanah lembut yang tidak mampu menampung lori hidraulik.</p>
+        </div>
+
+        <div class="card step-card">
+          <div class="step-badge">Langkah 03</div>
+          <h3>Hubungi Mr Hari (+60 16-615 9365)</h3>
+          <p>
+            Hubungi terus pegawai utama kami, <strong>{contactData.mainContactPerson}</strong>, di talian <a href={contactData.telephoneHref} class="phone-link"><strong>{contactData.telephoneDisplay}</strong></a> untuk mengesahkan jadual lori serta semakan caj penghantaran dan kutipan ke lokasi anda.
+          </p>
+        </div>
+
+        <div class="card step-card">
+          <div class="step-badge">Langkah 04</div>
+          <h3>Hantar Borang Sebut Harga</h3>
+          <p>
+            Isi <a href="#quotation-section" class="phone-link">borang sebut harga</a> di bahagian bawah halaman ini atau layari <a href="/contact-us#quotation-form" class="phone-link">halaman perhubungan rasmi</a> untuk anggaran pantas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area List Component (All 13 Areas) -->
+  <section class="section" id="areas-list">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="eyebrow">SENARAI LOKASI TERTARIK</div>
+        <h2>Senarai 13 Kawasan Perkhidmatan (Semua Berstatus Pending Verification)</h2>
+        <p class="section-desc">
+          Setiap satu daripada 13 kawasan perkhidmatan berikut ditandakan dengan jelas sebagai <strong>Pending Verification</strong>:
+        </p>
+      </div>
+
+      <div class="reveal-on-scroll">
+        <ServiceAreaList areas={serviceAreasData} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Out of Area Inquiries -->
+  <section class="section" style="padding-top: 1rem; padding-bottom: 3rem;" id="custom-locations">
+    <div class="container">
+      <div class="card custom-location-card reveal-on-scroll">
+        <div class="custom-card-header">
+          <div class="eyebrow" style="margin-bottom: 0.25rem;">LOKASI LAIN DI SELANGOR</div>
+          <h3>Lokasi Anda Tiada Dalam Senarai? (Location Not Listed?)</h3>
+        </div>
+        <p class="custom-desc">
+          Jika tapak projek atau premis anda terletak di luar 13 kawasan yang tertera (contohnya kawasan lain di Selangor atau Lembah Klang), sila hubungi terus <strong>{contactData.mainContactPerson}</strong> di <a href={contactData.telephoneHref} class="phone-link"><strong>{contactData.telephoneDisplay}</strong></a> atau e-mel <a href={contactData.emailHref} class="phone-link"><strong>{contactData.email}</strong></a>. Kami akan menilai jarak pemanduan dari pangkalan Sungai Buloh dan memaklumkan kebolehlaksanaan operasi serta caj logistik berkaitan. Anda juga boleh meneliti <a href="/tong-roro-rental" class="phone-link">spesifikasi kontena tong roro</a> terlebih dahulu.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quotation Form Component -->
+  <section class="section section-surface" id="quotation-section">
+    <div class="container">
+      <div class="section-header reveal-on-scroll">
+        <div class="eyebrow">PERMOHONAN SEBUT HARGA</div>
+        <h2>Borang Permintaan Sebut Harga Tong Roro</h2>
+        <p class="section-desc">
+          Pilih lokasi tapak dan saiz Tong Roro yang diperlukan untuk menerima anggaran rasmi mengikut keperluan projek anda.
+        </p>
+      </div>
+
+      <div class="reveal-on-scroll">
+        <QuotationForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(2rem, 3vw, 3rem);
+    border-bottom: 1px solid var(--border-subtle, #e2e8f0);
+  }
+  .hero-split {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .page-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.15;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary, #0a1628);
+  }
+  .title-sub {
+    display: block;
+    font-size: clamp(1.15rem, 2vw, 1.5rem);
+    color: var(--text-secondary, #475569);
+    font-weight: 500;
+    margin-top: 0.35rem;
+  }
+  .bluf-text {
+    font-size: 0.95rem;
+    color: var(--text-primary, #0a1628);
+    background: var(--accent-green-soft, #f0fdf4);
+    border-left: 3px solid var(--accent-green, #15803d);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius-sm, 6px) var(--radius-sm, 6px) 0;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+  .lead-text {
+    font-size: clamp(1rem, 1.15vw, 1.15rem);
+    color: var(--text-secondary, #475569);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+  .hero-trust-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    border-top: 1px solid var(--border-subtle, #e2e8f0);
+    padding-top: 1.25rem;
+  }
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .trust-metric {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent-green, #15803d);
+  }
+  .trust-label {
+    font-size: 0.75rem;
+    color: var(--text-muted, #64748b);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 0.15rem;
+  }
+  .hero-visual {
+    width: 100%;
+  }
+  .visual-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg, 20px);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    overflow: hidden;
+  }
+  .fleet-img {
+    width: 100%;
+    height: clamp(220px, 25vw, 300px);
+    object-fit: cover;
+    display: block;
+  }
+  .visual-caption {
+    padding: 0.85rem 1.25rem;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .caption-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-green, #15803d);
+    letter-spacing: 0.05em;
+  }
+  .caption-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #475569);
+  }
+  .section-header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 2.5rem;
+  }
+  .section-header h2 {
+    font-size: clamp(1.75rem, 2.5vw, 2.35rem);
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .factors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .factor-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+  .factor-card h3 {
+    margin-top: 0;
+    font-size: 1.15rem;
+    color: var(--text-primary, #0a1628);
+    margin-bottom: 0.5rem;
+  }
+  .factor-card p {
+    font-size: 0.925rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .factor-link {
+    color: var(--accent-green, #15803d);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .step-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: 1.75rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover, 0 10px 25px -5px rgba(10, 22, 40, 0.08));
+  }
+  .step-badge {
+    position: absolute;
+    top: -0.75rem;
+    left: 1.25rem;
+    background: var(--bg-dark, #0a1628);
+    color: #ffffff;
+    font-size: 0.725rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-sm, 6px);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .step-card h3 {
+    margin-top: 0.35rem;
+    font-size: 1.1rem;
+    color: var(--text-primary, #0a1628);
+    margin-bottom: 0.5rem;
+  }
+  .step-card p {
+    font-size: 0.925rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .phone-link {
+    color: var(--accent-blue, #1d4ed8);
+    text-decoration: underline;
+  }
+  .custom-location-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+  .custom-card-header h3 {
+    font-size: 1.35rem;
+    color: var(--text-primary, #0a1628);
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .custom-desc {
+    font-size: 1rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 900px) {
+    .hero-split {
+      grid-template-columns: 1fr;
+    }
+    .hero-trust-strip {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+  @media (max-width: 768px) {
+    .factors-grid {
+      grid-template-columns: 1fr;
+    }
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .hero-trust-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

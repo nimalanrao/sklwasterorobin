@@ -1,0 +1,616 @@
+---
+import { primaryService, secondaryServices, type WasteServiceItem } from '../data/services';
+import VerificationNotice from './VerificationNotice.astro';
+
+export interface Props {
+  includePrimary?: boolean;
+}
+
+const { includePrimary = true } = Astro.props;
+
+// Helper to provide distinctive crisp SVG icons for each category
+const getServiceIcon = (id: string) => {
+  switch (id) {
+    case 'kutipan-sampah':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>`;
+    case 'pelupusan-sisa':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.2a1.8 1.8 0 0 0 1.6-1 1.8 1.8 0 0 0 0-1.8L17.5 10"/><path d="M12 2v4"/><path d="m14 4-2-2-2 2"/></svg>`;
+    case 'pengangkutan-sampah':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`;
+    case 'sisa-pembinaan':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="1"/><path d="M12 6v12"/><path d="M2 12h20"/><path d="M7 6v6"/><path d="M17 12v6"/></svg>`;
+    case 'sisa-pengubahsuaian':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 3.26-4.17 4.17"/><path d="m16.74 7.43-1.41-1.41a2 2 0 0 1 0-2.83l.7-.7a2 2 0 0 1 2.83 0l1.41 1.41"/></svg>`;
+    case 'sisa-perindustrian':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1"/><path d="M12 18h1"/><path d="M7 18h1"/></svg>`;
+    case 'sampah-pukal':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5"/><path d="M2 11h20v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6Z"/><path d="M6 19v2"/><path d="M18 19v2"/></svg>`;
+    case 'sisa-taman':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`;
+    case 'pembersihan-tapak':
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21v-4l9-9 4 4-9 9"/><path d="M13 9 10 6l4-4 3 3-4 4"/></svg>`;
+    default:
+      return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`;
+  }
+};
+
+// Helpful contextual links per category for organic internal navigation
+const getCategoryAction = (id: string) => {
+  switch (id) {
+    case 'sisa-pembinaan':
+    case 'sisa-perindustrian':
+    case 'pembersihan-tapak':
+      return {
+        label: 'Lihat spesifikasi Tong Roro 4 Kaki untuk sisa pukal berat',
+        href: '/tong-roro-rental#tong-roro-4-feet'
+      };
+    case 'sisa-pengubahsuaian':
+    case 'sisa-taman':
+    case 'sampah-pukal':
+      return {
+        label: 'Lihat spesifikasi Tong Roro 2 Kaki untuk sisa am',
+        href: '/tong-roro-rental#tong-roro-2-feet'
+      };
+    case 'kutipan-sampah':
+    case 'pelupusan-sisa':
+    case 'pengangkutan-sampah':
+    default:
+      return {
+        label: 'Semak 13 kawasan liputan perkhidmatan Selangor',
+        href: '/service-areas'
+      };
+  }
+};
+---
+
+<div class="service-list-component">
+  <div class="reveal-on-scroll">
+    <VerificationNotice
+      type="provisional"
+      title="Pemberitahuan Ketersediaan Perkhidmatan (Service Availability Notice)"
+      message="Perkhidmatan pengurusan sisa SKL Waste Sdn Bhd tertakluk kepada pengesahan ketersediaan operasi dan penilaian tapak. Hanya perkhidmatan yang disahkan diterbitkan. Sila hubungi Mr Hari di +60 16-615 9365 untuk pengesahan jadual dan lokasi."
+    />
+  </div>
+
+  {includePrimary && (
+    <div class="primary-service-spotlight reveal-on-scroll">
+      <div class="spotlight-card">
+        <div class="spotlight-badge-row">
+          <span class="spotlight-badge">
+            <svg class="spotlight-badge-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+            Perkhidmatan Utama / Primary Offering
+          </span>
+          <span class="spotlight-pill">Kapasiti 2 & 4 Kaki</span>
+        </div>
+
+        <div class="spotlight-body">
+          <div class="spotlight-content">
+            <h3 class="spotlight-title">
+              {primaryService.name} 
+              <span class="spotlight-en">({primaryService.nameEn})</span>
+            </h3>
+            <p class="spotlight-desc">{primaryService.description}</p>
+            <div class="spotlight-note-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="note-icon" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <span><strong>Nota Ketersediaan:</strong> {primaryService.availabilityNote}</span>
+            </div>
+          </div>
+
+          <div class="spotlight-quick-links">
+            <span class="quick-links-label">Pilihan Saiz Tong:</span>
+            <div class="quick-links-group">
+              <a href="/tong-roro-rental#tong-roro-2-feet" class="spotlight-size-link">
+                Tong Roro 2 Feet (RM2XX)
+              </a>
+              <a href="/tong-roro-rental#tong-roro-4-feet" class="spotlight-size-link">
+                Tong Roro 4 Feet (RM3XX–RM4XX)
+              </a>
+            </div>
+          </div>
+
+          <div class="spotlight-actions">
+            <a href="/tong-roro-rental" class="btn btn-primary spotlight-btn-primary">
+              Lihat Katalog Tong Roro Lengkap
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="/#quotation-form" class="btn btn-secondary spotlight-btn-secondary">
+              Dapatkan Sebut Harga
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <div class="secondary-services-section">
+    <div class="section-title-wrap reveal-on-scroll">
+      <span class="eyebrow-tag">9 Kategori Sisa</span>
+      <h4 class="section-heading">Kategori Perkhidmatan Pengurusan Sisa (Waste Management Categories)</h4>
+      <p class="section-intro">
+        Berikut adalah 9 kategori perkhidmatan pengurusan sisa yang disediakan untuk pelbagai sektor, tertakluk kepada pengesahan ketersediaan:
+      </p>
+    </div>
+
+    <div class="grid-3 services-grid">
+      {secondaryServices.map((service: WasteServiceItem, idx: number) => {
+        const action = getCategoryAction(service.id);
+        return (
+          <article 
+            class="card service-card reveal-on-scroll" 
+            id={service.id}
+            style={`--stagger-idx: ${idx % 3}`}
+          >
+            <div class="card-top">
+              <div class="icon-bubble" set:html={getServiceIcon(service.id)} />
+              <div class="card-titles">
+                <h5 class="service-title">{service.name}</h5>
+                <p class="service-subtitle">{service.nameEn}</p>
+              </div>
+            </div>
+
+            <p class="service-description">{service.description}</p>
+
+            <div class="service-action-link-wrap">
+              <a href={action.href} class="category-context-link">
+                <span>{action.label}</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+
+            <footer class="service-status">
+              <span class="status-indicator" aria-hidden="true"></span>
+              <small class="status-text"><strong>Status:</strong> {service.availabilityNote}</small>
+            </footer>
+          </article>
+        );
+      })}
+    </div>
+
+    <div class="service-nav-strip reveal-on-scroll">
+      <div class="nav-strip-card">
+        <div class="strip-text">
+          <strong class="strip-title">Perlukan panduan pemilihan atau semakan kawasan?</strong>
+          <span class="strip-desc">Rujuk panduan sektor dan liputan rasmi kami:</span>
+        </div>
+        <div class="strip-links">
+          <a href="/industries-we-serve" class="strip-link">
+            Sektor Industri Dilayan
+          </a>
+          <span class="strip-sep" aria-hidden="true">•</span>
+          <a href="/service-areas" class="strip-link">
+            13 Kawasan Liputan Selangor
+          </a>
+          <span class="strip-sep" aria-hidden="true">•</span>
+          <a href="/tong-roro-rental" class="strip-link">
+            Kadar Sewaan 10 Hari
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .service-list-component {
+    margin: 1.5rem 0;
+  }
+
+  /* Spotlight Primary Card */
+  .primary-service-spotlight {
+    margin: 2rem 0 3rem;
+  }
+
+  .spotlight-card {
+    background: linear-gradient(135deg, #0a1628 0%, #11223d 100%);
+    color: #ffffff;
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px -15px rgba(10, 22, 40, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spotlight-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(21, 128, 61, 0.25) 0%, rgba(21, 128, 61, 0) 70%);
+    pointer-events: none;
+  }
+
+  .spotlight-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .spotlight-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(21, 128, 61, 0.2);
+    color: #86efac;
+    border: 1px solid rgba(134, 239, 172, 0.3);
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full, 9999px);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .spotlight-pill {
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full, 9999px);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .spotlight-title {
+    color: #ffffff;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .spotlight-en {
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    font-weight: 400;
+    color: #94a3b8;
+  }
+
+  .spotlight-desc {
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    max-width: 720px;
+  }
+
+  .spotlight-note-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md, 12px);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: #e2e8f0;
+    margin-bottom: 1.25rem;
+    max-width: 720px;
+  }
+
+  .note-icon {
+    flex-shrink: 0;
+    color: #86efac;
+    margin-top: 0.15rem;
+  }
+
+  .spotlight-quick-links {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .quick-links-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .quick-links-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .spotlight-size-link {
+    font-size: 0.8125rem;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full, 9999px);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .spotlight-size-link:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .spotlight-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .spotlight-btn-primary {
+    background: var(--accent-green, #15803d);
+    color: #ffffff;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: var(--radius-md, 12px);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .spotlight-btn-primary:hover {
+    background: var(--accent-green-hover, #166534);
+    transform: translateY(-2px);
+  }
+
+  .spotlight-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.75rem 1.4rem;
+    border-radius: var(--radius-md, 12px);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .spotlight-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  /* Secondary Section */
+  .secondary-services-section {
+    margin-top: 3rem;
+  }
+
+  .eyebrow-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-green, #15803d);
+    background: var(--accent-green-soft, #f0fdf4);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full, 9999px);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-heading {
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    font-weight: 700;
+    color: var(--text-primary, #0a1628);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-intro {
+    color: var(--text-secondary, #475569);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .service-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover, #cbd5e1);
+    box-shadow: var(--shadow-card-hover, 0 20px 40px -12px rgba(10, 22, 40, 0.12));
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .icon-bubble {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md, 10px);
+    background: var(--bg-surface-alt, #f1f5f9);
+    color: var(--text-primary, #0a1628);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .service-card:hover .icon-bubble {
+    background: var(--accent-green-soft, #f0fdf4);
+    color: var(--accent-green, #15803d);
+  }
+
+  .card-titles {
+    min-width: 0;
+  }
+
+  .service-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary, #0a1628);
+    margin: 0 0 0.15rem 0;
+    line-height: 1.3;
+  }
+
+  .service-subtitle {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #64748b);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .service-description {
+    color: var(--text-secondary, #475569);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .service-action-link-wrap {
+    margin-bottom: 0.85rem;
+    padding-top: 0.25rem;
+  }
+
+  .category-context-link {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent-blue, #1d4ed8);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    line-height: 1.4;
+    transition: color 0.15s ease, gap 0.15s ease;
+  }
+
+  .category-context-link:hover {
+    color: #1e40af;
+    gap: 0.5rem;
+    text-decoration: underline;
+  }
+
+  .service-status {
+    border-top: 1px solid var(--border-subtle, #f1f5f9);
+    padding-top: 0.75rem;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #f59e0b;
+    flex-shrink: 0;
+  }
+
+  .status-text {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #64748b);
+    line-height: 1.4;
+  }
+
+  .service-nav-strip {
+    margin-top: 2rem;
+  }
+
+  .nav-strip-card {
+    background: var(--bg-surface, #f8fafc);
+    border: 1px solid var(--border-subtle, #e2e8f0);
+    border-radius: var(--radius-md, 12px);
+    padding: 1rem 1.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .strip-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .strip-title {
+    font-size: 0.9375rem;
+    color: var(--text-primary, #0a1628);
+  }
+
+  .strip-desc {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #64748b);
+  }
+
+  .strip-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .strip-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-blue, #1d4ed8);
+    text-decoration: none;
+  }
+
+  .strip-link:hover {
+    text-decoration: underline;
+  }
+
+  .strip-sep {
+    color: var(--border-hover, #cbd5e1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .spotlight-btn-primary,
+    .spotlight-btn-secondary {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+</style>

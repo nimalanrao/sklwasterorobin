@@ -1,0 +1,607 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ServiceList from '../components/ServiceList.astro';
+import QuotationForm from '../components/QuotationForm.astro';
+import VerificationNotice from '../components/VerificationNotice.astro';
+import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { primaryService, secondaryServices } from '../data/services';
+import { getPageSEO } from '../data/seo';
+
+const currentPath = '/waste-management-services';
+const seo = getPageSEO(currentPath);
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  currentPath={currentPath}
+>
+  <!-- Executive Page Hero with Breadcrumb -->
+  <section class="services-hero">
+    <div class="container">
+      <Breadcrumb items={seo.breadcrumbs} />
+
+      <div class="services-hero-content">
+        <div class="hero-badge-row">
+          <span class="eyebrow">SOLUSI SISA LENGKAP • WASTE MANAGEMENT</span>
+        </div>
+
+        <h1>Perkhidmatan Pengurusan Sisa (Waste Management Services)</h1>
+
+        <!-- Direct Standalone BLUF Summary for Search & AI Answer Engines -->
+        <div class="bluf-box">
+          <p class="bluf-summary">
+            <strong>Ringkasan Perkhidmatan (BLUF):</strong> SKL Waste Sdn Bhd menyediakan perkhidmatan Sewaan Tong Roro (2 Feet & 4 Feet, standard <strong>10 days</strong>) serta 9 kategori pengurusan sisa pepejal termasuk sisa pembinaan, pengubahsuaian, perindustrian, pukal, dan pembersihan tapak di Selangor, tertakluk kepada pengesahan ketersediaan operasi dengan Mr Hari (<a href="tel:+60166159365" class="bluf-link">+60 16-615 9365</a>).
+          </p>
+        </div>
+
+        <p class="lead-text">
+          <strong>SKL WASTE SDN BHD</strong> (No. Pendaftaran: <strong>200801038953</strong>), beroperasi dari ibu pejabat di <strong>PT 31127 SETOR JALAN KUALA SELANGOR, 47000 SUNGAI BULOH, SELANGOR DARUL EHSAN, MALAYSIA.</strong>, komited menyediakan perkhidmatan pengurusan sisa yang bertanggungjawab dan teratur bagi sektor kediaman, tapak pembinaan, komersial, dan perindustrian.
+        </p>
+
+        <div class="services-hero-actions">
+          <a href="#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga</a>
+          <a href={contactData.telephoneHref} class="btn btn-secondary">Hubungi Mr Hari</a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="services-trust-strip">
+          <div class="trust-item">
+            <span class="trust-metric">Sewaan Tong Roro</span>
+            <span class="trust-label">Perniagaan Teras</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-metric">9 Kategori Sisa</span>
+            <span class="trust-label">Pengurusan Khusus</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-metric">Pelupusan Sah</span>
+            <span class="trust-label">Piawaian Alam Sekitar</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-metric">Tertakluk Ketersediaan</span>
+            <span class="trust-label">Pengesahan Operasi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notice Section -->
+  <div class="container notice-wrapper">
+    <VerificationNotice
+      type="provisional"
+      title="Pemberitahuan Pematuhan & Ketersediaan Perkhidmatan (Service Notice)"
+      message="Pihak syarikat hanya menerbitkan perkhidmatan yang benar-benar disediakan (confirmed services). Penyediaan setiap perkhidmatan adalah tertakluk kepada pengesahan ketersediaan operasi (subject to confirmed availability), kesesuaian tapak, dan jadual lori di kawasan anda. Tiada perkhidmatan yang belum disahkan diterbitkan."
+    />
+  </div>
+
+  <!-- Customer-Intent Guide Section: Cara Mengurus Sisa Pembinaan & Pengubahsuaian -->
+  <section class="section section-surface reveal-on-scroll" id="panduan-pengurusan-sisa" aria-labelledby="waste-guide-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">PANDUAN PENGURUSAN • WASTE BEST PRACTICES</span>
+        <h2 id="waste-guide-heading">Cara Mengurus Sisa Pembinaan & Pengubahsuaian Secara Teratur</h2>
+        <p class="section-subtitle">
+          Panduan praktikal mengasingkan dan menguruskan sisa pepejal tapak projek bagi memastikan keselamatan serta kecekapan kos pengangkutan.
+        </p>
+      </div>
+
+      <div class="grid-2 guide-grid">
+        <div class="card guide-card">
+          <div class="guide-tag">PENGASINGAN SISA</div>
+          <h3>Langkah Pengurusan Sisa Projek Yang Efisien</h3>
+          <p>
+            Pengurusan sisa yang baik bermula daripada perancangan awal di tapak pembinaan atau kediaman anda:
+          </p>
+          <ul class="guide-steps-list">
+            <li>
+              <strong>Asingkan Bahan Binaan Berat:</strong> Kumpulkan sisa berat seperti konkrit, batu bata, simen, dan jubin di satu tempat. Bahan berketumpatan tinggi ini paling sesuai dimuatkan ke dalam <a href="/tong-roro-rental#tong-roro-2-feet">Tong Roro 2 Feet</a>.
+            </li>
+            <li>
+              <strong>Urus Sisa Pengubahsuaian & Perabot Pukal:</strong> Bahan seperti kayu, siling kapur, partition dinding, dan perabot usang memerlukan isipadu lebih besar seperti <a href="/tong-roro-rental#tong-roro-4-feet">Tong Roro 4 Feet</a> untuk mengelakkan lambakan sisa.
+            </li>
+            <li>
+              <strong>Kekalkan Paras Muatan Selamat:</strong> Pastikan sisa dimuatkan tidak melebihi paras bibir tong (rim level) bagi memastikan keselamatan semasa proses pengangkutan lori di jalan raya.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card guide-card">
+          <div class="guide-tag">KESESUAIAN SEKTOR</div>
+          <h3>Penyelesaian Mengikut Keperluan Sektor Anda</h3>
+          <p>
+            Setiap projek mempunyai cabaran logistik tersendiri bergantung kepada jenis industri dan keluasan kawasan:
+          </p>
+          <p>
+            Sama ada anda kontraktor yang mengendalikan projek binaan bangunan, pemilik rumah yang menjalankan ubah suai dapur, atau pengurus fasiliti komersial, SKL Waste sedia membantu menyelaraskan saiz tong dan jadual kutipan sisa yang bersesuaian.
+          </p>
+          <p>
+            Untuk maklumat lanjut mengenai sokongan kami bagi pelbagai sektor industri, sila layari halaman <a href="/industries-we-serve">industri yang kami layan</a> atau minta <a href="#quotation-form">sebut harga rasmi</a> sekarang.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Service Overview -->
+  <section class="section reveal-on-scroll" id="gambaran-keseluruhan" aria-labelledby="services-overview-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">RINGKASAN PERKHIDMATAN</span>
+        <h2 id="services-overview-heading">Perniagaan Utama & Kategori Perkhidmatan Sisa</h2>
+        <p class="section-subtitle">
+          SKL Waste Sdn Bhd memfokuskan kepada perkhidmatan perniagaan utama iaitu <strong>Sewaan Tong Roro</strong> bersama 9 kategori pengurusan sisa sokongan bagi memastikan pembersihan sisa dijalankan mengikut piawaian yang betul:
+        </p>
+      </div>
+
+      <ServiceList includePrimary={true} />
+    </div>
+  </section>
+
+  <!-- Detailed Categories Breakdown -->
+  <section class="section section-surface reveal-on-scroll" id="kategori-terperinci" aria-labelledby="detailed-breakdown-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">PERINCIAN KATEGORI</span>
+        <h2 id="detailed-breakdown-heading">Perincian Kategori Sisa yang Diuruskan</h2>
+        <p class="section-subtitle">
+          Berikut adalah perincian bahan dan skop perkhidmatan di bawah 9 kategori pengurusan sisa kami:
+        </p>
+      </div>
+
+      <div class="category-cards-grid grid-3">
+        <div class="card category-detail-card" id="cat-kutipan-sampah">
+          <div class="cat-num">01</div>
+          <h3>Kutipan sampah</h3>
+          <p class="cat-en text-muted">Waste Collection</p>
+          <p class="cat-desc">Kutipan sisa berjadual atau pukal dari tapak kediaman, premis perniagaan, atau fasiliti komersial, tertakluk kepada pengesahan ketersediaan operasi.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-pelupusan-sisa">
+          <div class="cat-num">02</div>
+          <h3>Pelupusan sisa</h3>
+          <p class="cat-en text-muted">Waste Disposal</p>
+          <p class="cat-desc">Pengangkutan dan penghantaran sisa buangan ke tapak pelupusan sah dan berlesen mengikut peraturan pihak berkuasa tempatan.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-pengangkutan-sampah">
+          <div class="cat-num">03</div>
+          <h3>Pengangkutan sampah</h3>
+          <p class="cat-en text-muted">Waste Transportation</p>
+          <p class="cat-desc">Khidmat logistik menggunakan lori bersesuaian untuk memindahkan sisa berat dan sisa pukal dari tapak projek anda.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-sisa-pembinaan">
+          <div class="cat-num">04</div>
+          <h3>Sisa pembinaan</h3>
+          <p class="cat-en text-muted">Construction Waste</p>
+          <p class="cat-desc">Pengurusan sisa bahan binaan seperti serpihan konkrit, batu bata, simen, batu kelikir, dan plasterboard daripada aktiviti pembangunan struktur.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-sisa-pengubahsuaian">
+          <div class="cat-num">05</div>
+          <h3>Sisa pengubahsuaian</h3>
+          <p class="cat-en text-muted">Renovation Waste</p>
+          <p class="cat-desc">Pembersihan serpihan ubah suai rumah atau pejabat termasuk jubin lama, kayu, siling kapur, partition, dan pemasangan terpakai.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-sisa-perindustrian">
+          <div class="cat-num">06</div>
+          <h3>Sisa perindustrian</h3>
+          <p class="cat-en text-muted">Industrial Waste</p>
+          <p class="cat-desc">Pengendalian sisa pepejal bukan toksik dan sisa operasi bukan berjadual bagi kilang dan gudang simpanan barang.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-sampah-pukal">
+          <div class="cat-num">07</div>
+          <h3>Sampah pukal</h3>
+          <p class="cat-en text-muted">Bulky Waste</p>
+          <p class="cat-desc">Pengambilan barangan besar seperti perabot rosak, tilam, almari, meja, dan barangan perkakas rumah tangga terpakai.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-sisa-taman">
+          <div class="cat-num">08</div>
+          <h3>Sisa taman</h3>
+          <p class="cat-en text-muted">Garden Waste</p>
+          <p class="cat-desc">Pengumpulan sisa landskap termasuk dahan cantasan pokok, potongan rumput, daun kering, dan sisa tumbuhan dari kawasan pembersihan tanah.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+
+        <div class="card category-detail-card" id="cat-pembersihan-tapak">
+          <div class="cat-num">09</div>
+          <h3>Pembersihan tapak</h3>
+          <p class="cat-en text-muted">Site Clearance</p>
+          <p class="cat-desc">Khidmat pembersihan keseluruhan sisa di tapak projek bagi memastikan kawasan kerja selamat dan sedia untuk fasa pembinaan seterusnya.</p>
+          <div class="cat-status"><span class="badge-pending">Tertakluk Ketersediaan</span></div>
+        </div>
+      </div>
+
+      <!-- Core Service Spotlight Bar -->
+      <div class="core-spotlight-card">
+        <div class="spotlight-badge">PERKHIDMATAN TERAS UTAMA</div>
+        <h3>Perkhidmatan Teras: Sewaan Tong Roro</h3>
+        <p>
+          Bagi kebanyakan projek pembinaan dan renovasi, kaedah paling efisien ialah menyewa <strong>Tong Roro 2 Feet</strong> (kadar sementara <strong>RM2XX</strong>) atau <strong>Tong Roro 4 Feet</strong> (kadar sementara <strong>RM3XX–RM4XX</strong>) dengan tempoh sewaan <strong>10 days</strong> standard. Sila lawati laman khusus kami untuk perbandingan spesifikasi saiz:
+        </p>
+        <div class="spotlight-actions">
+          <a href="/tong-roro-rental" class="btn btn-secondary">Maklumat Penuh Sewaan Tong Roro →</a>
+          <a href="#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quotation Form Section -->
+  <section class="section reveal-on-scroll" id="borang-sebut-harga" aria-labelledby="form-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">MOHON SEBUT HARGA</span>
+        <h2 id="form-heading">Dapatkan Sebut Harga Perkhidmatan Pengurusan Sisa</h2>
+        <p class="section-subtitle">
+          Sila lengkapkan borang di bawah untuk mendapatkan sebut harga bagi sewaan tong roro atau perkhidmatan kutipan sisa yang diperlukan. Pegawai kami <strong>Mr Hari</strong> akan mengesahkan ketersediaan perkhidmatan dan memberikan sebut harga rasmi mengikut keperluan spesifik anda.
+        </p>
+      </div>
+
+      <QuotationForm />
+    </div>
+  </section>
+
+  <!-- Direct Consultation Section -->
+  <section class="section section-surface reveal-on-scroll" id="rundingan-operasi" aria-labelledby="direct-consultation-heading">
+    <div class="container">
+      <div class="direct-contact-card">
+        <div class="contact-card-content">
+          <span class="eyebrow">PERBINCANGAN TERUS</span>
+          <h2 id="direct-consultation-heading">Perbincangan Terus dengan Pegawai Operasi</h2>
+          <p>
+            Ada sebarang pertanyaan khas mengenai jenis sisa yang dibenarkan atau memerlukan nasihat saiz tong roro yang sesuai? Hubungi pegawai utama kami:
+          </p>
+          <div class="contact-meta-row">
+            <div class="meta-item">
+              <span class="meta-label">Nama Pegawai:</span>
+              <span class="meta-val">{contactData.mainContactPerson}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Nombor Telefon:</span>
+              <span class="meta-val"><a href={contactData.telephoneHref}>{contactData.telephoneDisplay}</a></span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">E-mel Rasmi:</span>
+              <span class="meta-val"><a href={contactData.emailHref}>{contactData.email}</a></span>
+            </div>
+          </div>
+          <p class="hq-address-note">
+            <strong>Ibu Pejabat:</strong> {companyData.headquarters.fullAddress}
+          </p>
+        </div>
+        <div class="contact-card-actions">
+          <a href="#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga</a>
+          <a href={contactData.telephoneHref} class="btn btn-secondary">Hubungi Mr Hari</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* --- Executive Services Hero --- */
+  .services-hero {
+    padding: clamp(2rem, 4vw, 4rem) 0 clamp(2.5rem, 4vw, 4rem);
+    background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-primary) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .services-hero-content {
+    max-width: 900px;
+    margin-top: 1.25rem;
+  }
+
+  .hero-badge-row {
+    margin-bottom: 0.75rem;
+  }
+
+  .services-hero h1 {
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* --- Standalone BLUF Box --- */
+  .bluf-box {
+    background-color: var(--accent-green-soft, #f0fdf4);
+    border-left: 4px solid var(--accent-green, #15803d);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius-md, 12px) var(--radius-md, 12px) 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .bluf-summary {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #14532d;
+    margin-bottom: 0;
+  }
+
+  .bluf-link {
+    color: #15803d;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  .lead-text {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+  }
+
+  .services-hero-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  /* --- Trust Strip --- */
+  .services-trust-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  @media (min-width: 640px) {
+    .services-trust-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .trust-metric {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .trust-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* --- Notice Wrapper --- */
+  .notice-wrapper {
+    margin-top: 2rem;
+  }
+
+  /* --- Customer-Intent Guide Section --- */
+  .guide-grid {
+    margin-top: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .guide-card {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .guide-tag {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--accent-green, #15803d);
+    background-color: var(--accent-green-soft, #f0fdf4);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm, 6px);
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-card p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .guide-steps-list {
+    margin: 1rem 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .guide-steps-list li {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* --- Category Cards Grid --- */
+  .category-cards-grid {
+    margin-top: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .category-detail-card {
+    position: relative;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cat-num {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-detail-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    color: var(--text-primary);
+  }
+
+  .cat-en {
+    font-size: 0.8125rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .cat-desc {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    flex-grow: 1;
+    margin-bottom: 1rem;
+  }
+
+  .cat-status {
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  /* --- Core Service Spotlight Bar --- */
+  .core-spotlight-card {
+    margin-top: 2.5rem;
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+
+  .spotlight-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--accent-green, #15803d);
+    background-color: var(--accent-green-soft, #f0fdf4);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-full, 9999px);
+    margin-bottom: 0.75rem;
+  }
+
+  .core-spotlight-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .core-spotlight-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    max-width: 80ch;
+  }
+
+  .spotlight-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  /* --- Direct Contact Card --- */
+  .direct-contact-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+
+  @media (min-width: 900px) {
+    .direct-contact-card {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .contact-card-content {
+      max-width: 65%;
+    }
+  }
+
+  .contact-card-content h2 {
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-card-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .contact-meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .contact-meta-row {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+  }
+
+  .meta-item {
+    font-size: 0.875rem;
+  }
+
+  .meta-label {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-right: 0.35rem;
+  }
+
+  .hq-address-note {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .contact-card-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+</style>

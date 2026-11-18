@@ -1,0 +1,112 @@
+---
+import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { footerNavigation } from '../data/navigation';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top-grid">
+      <!-- Corporate Identity Column -->
+      <div class="footer-col">
+        <div class="footer-brand-badge">
+          <picture>
+            <source srcset="/images/logo-skl-waste-sdn-bhd.webp" type="image/webp" />
+            <img
+              src="/images/skl-logo.png"
+              alt="Logo Rasmi SKL Waste Sdn Bhd"
+              width="36"
+              height="36"
+              class="footer-logo"
+            />
+          </picture>
+        </div>
+        <h3 class="footer-company-name">{companyData.name}</h3>
+        <p class="footer-reg">No. Pendaftaran Syarikat / Reg. No: <strong>{companyData.registrationNumber}</strong></p>
+        <p class="footer-address">
+          <strong>Alamat Ibu Pejabat / Headquarters:</strong><br />
+          {companyData.headquarters.fullAddress}
+        </p>
+        <p style="font-size: 0.875rem; color: #94a3b8;">
+          {companyData.serviceAvailabilityDisclaimer}
+        </p>
+      </div>
+
+      <!-- Navigation Column -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Navigasi Utama</h4>
+        <nav aria-label="Footer Navigation">
+          <ul class="footer-nav-list">
+            {footerNavigation.map((item) => (
+              <li>
+                <a href={item.href} class="footer-nav-link">{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Direct Contact Column -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Hubungi Pegawai Operasi</h4>
+        <div class="footer-contact-list">
+          <p>
+            <strong>Pegawai Utama / Contact Person:</strong><br />
+            <span>{contactData.mainContactPerson}</span>
+          </p>
+          <p>
+            <strong>Telefon / Hotline:</strong><br />
+            <a href={contactData.telephoneHref} style="font-size: 1.1rem; font-weight: 700;">
+              {contactData.telephoneDisplay}
+            </a>
+          </p>
+          <p>
+            <strong>E-mel Rasmi:</strong><br />
+            <a href={contactData.emailHref}>
+              {contactData.email}
+            </a>
+          </p>
+          <div>
+            <strong>Status WhatsApp:</strong><br />
+            {contactData.whatsapp.isConfirmed ? (
+              <a href={contactData.whatsapp.url} target="_blank" rel="noopener noreferrer">
+                Hubungi {contactData.mainContactPerson} ({contactData.telephoneDisplay})
+              </a>
+            ) : (
+              <div style="margin-top: 0.25rem;">
+                <span class="badge-pending">Pending Verification</span>
+                <p style="font-size: 0.8125rem; color: #94a3b8; margin-top: 0.35rem;">
+                  {contactData.whatsapp.verificationNote}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Compliance, Pricing & Service Area Disclaimer Banner -->
+    <div class="footer-disclaimer-banner" role="note">
+      <h4>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <span>Notis Rasmi: Kadar Sewaan Provisi & Kawasan Liputan Perkhidmatan</span>
+      </h4>
+      <p>
+        Semua kadar sewaan yang dipaparkan (RM2XX bagi Tong Roro 2 Feet, dan RM3XX–RM4XX bagi Tong Roro 4 Feet untuk tempoh standard 10 days) adalah anggaran provisi. Caj penghantaran dan kutipan adalah tidak termasuk dan belum disahkan, bergantung kepada jarak lokasi penghantaran sebenar.
+      </p>
+      <p>
+        Semua 13 kawasan perkhidmatan yang tersenarai berada dalam status <strong>Pending Verification</strong> dan tertakluk kepada pengesahan ketersediaan lori serta jadual semasa. Sila buat pengesahan sebut harga akhir dengan menghubungi Mr Hari secara terus di <a href={contactData.telephoneHref}>{contactData.telephoneDisplay}</a> atau melalui borang permohonan sebut harga rasmi kami.
+      </p>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom-bar">
+      <p>&copy; {new Date().getFullYear()} {companyData.name} (Reg. No: {companyData.registrationNumber}). Hak cipta terpelihara.</p>
+      <p>Penyedia Pengurusan Sisa & Sewaan Tong Roro Selangor & Lembah Klang.</p>
+    </div>
+  </div>
+</footer>

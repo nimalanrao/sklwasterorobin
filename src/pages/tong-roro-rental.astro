@@ -1,0 +1,628 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ProductCatalogue from '../components/ProductCatalogue.astro';
+import PricingTable from '../components/PricingTable.astro';
+import RentalProcessSteps from '../components/RentalProcessSteps.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import QuotationForm from '../components/QuotationForm.astro';
+import VerificationNotice from '../components/VerificationNotice.astro';
+import { companyData } from '../data/company';
+import { contactData } from '../data/contact';
+import { productsData } from '../data/products';
+import { faqData } from '../data/faq';
+import { getPageSEO } from '../data/seo';
+
+const currentPath = '/tong-roro-rental';
+const seo = getPageSEO(currentPath);
+
+// Filter rental-focused FAQs and ensure standard 10 days duration is highlighted cleanly
+const rentalFaqs = faqData.filter((item) => 
+  ['sizes-available', 'rental-duration', 'provisional-pricing', 'delivery-collection-charges', 'quotation-confirmation', 'accepted-waste-types', 'prohibited-materials'].includes(item.id)
+);
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  currentPath={currentPath}
+>
+  <!-- Executive Page Hero with Breadcrumb -->
+  <section class="rental-hero">
+    <div class="container">
+      <Breadcrumb items={seo.breadcrumbs} />
+
+      <div class="rental-hero-grid">
+        <div class="rental-hero-content">
+          <div class="hero-badge-row">
+            <span class="eyebrow">PERKHIDMATAN TERAS • TONG RORO RENTAL</span>
+          </div>
+
+          <h1>Sewaan Tong Roro (Tong Roro Rental)</h1>
+
+          <!-- Direct Standalone BLUF Summary for Search & AI Answer Engines -->
+          <div class="bluf-box">
+            <p class="bluf-summary">
+              <strong>Ringkasan Sewaan (BLUF):</strong> SKL Waste Sdn Bhd menyediakan perkhidmatan sewaan Tong Roro 2 Feet (anggaran sementara <strong>RM2XX</strong>) dan 4 Feet (anggaran sementara <strong>RM3XX–RM4XX</strong>) untuk tempoh sewaan standard <strong>10 days</strong> di kawasan sekitar Sungai Buloh dan Selangor. Semua tempahan dan caj penghantaran disahkan terus bersama Mr Hari (<a href="tel:+60166159365" class="bluf-link">+60 16-615 9365</a>).
+            </p>
+          </div>
+
+          <p class="lead-text">
+            Penyelesaian pelupusan sisa pukal dan sisa pepejal yang mudah dan teratur daripada <strong>SKL WASTE SDN BHD</strong> (No. Pendaftaran: <strong>200801038953</strong>). Kami menyediakan tong roro lasak untuk projek kediaman, tapak pembinaan, pengubahsuaian, dan sektor komersial/industri di sekitar Selangor dan Lembah Klang, tertakluk kepada pengesahan ketersediaan operasi.
+          </p>
+
+          <div class="rental-hero-actions">
+            <a href="#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga</a>
+            <a href={contactData.telephoneHref} class="btn btn-secondary">Hubungi Mr Hari</a>
+          </div>
+
+          <!-- Trust Strip -->
+          <div class="rental-trust-strip">
+            <div class="trust-item">
+              <span class="trust-metric">10 Days</span>
+              <span class="trust-label">Standard Rental</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-metric">2 Ft & 4 Ft</span>
+              <span class="trust-label">Pilihan Saiz Tong</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-metric">13 Kawasan</span>
+              <span class="trust-label">Pending Verification</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-metric">Mr Hari</span>
+              <span class="trust-label">Penyelarasan Terus</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rental-hero-media">
+          <div class="fleet-showcase-frame">
+            <picture>
+              <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
+              <img
+                src="/images/skl-hero-roro.jpg"
+                alt="Tong Roro 2 Kaki dan 4 Kaki SKL Waste bersedia untuk dihantar di Selangor"
+                class="fleet-img"
+                width="640"
+                height="420"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
+            <div class="fleet-caption">
+              <span class="caption-title">Tong Roro 2 Kaki & 4 Kaki SKL Waste</span>
+              <span class="caption-sub">Penghantaran lori roro terus ke tapak anda tertakluk kepada kesesuaian akses jalan.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notice Section -->
+  <div class="container notice-wrapper">
+    <VerificationNotice
+      type="provisional"
+      title="Maklumat Harga & Caj Penghantaran (Pricing & Charges Notice)"
+      message="Kadar sewaan yang dipaparkan adalah anggaran sementara (provisional prices). Kos penghantaran dan kutipan belum disahkan dan tidak termasuk dalam harga yang dipaparkan. Tempoh sewaan standard adalah 10 days. Sebut harga rasmi disediakan terus oleh Mr Hari mengikut lokasi dan jenis sisa."
+    />
+  </div>
+
+  <!-- Customer-Intent Guide Section: Cara Memilih Saiz & Persediaan -->
+  <section class="section section-surface reveal-on-scroll" id="panduan-memilih-saiz" aria-labelledby="guide-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">PANDUAN PENGGUNA • SIZE & PREPARATION GUIDE</span>
+        <h2 id="guide-heading">Panduan Memilih Saiz Tong Roro & Persediaan Tapak</h2>
+        <p class="section-subtitle">
+          Ketahui perbezaan kegunaan antara Tong Roro 2 Feet dan 4 Feet serta perkara penting sebelum lori Roro tiba di lokasi anda.
+        </p>
+      </div>
+
+      <div class="grid-2 guide-grid">
+        <!-- Card 1: Cara Memilih Saiz Tong Roro -->
+        <div class="card guide-card">
+          <div class="guide-tag">PANDUAN SAIZ</div>
+          <h3>Cara Memilih Saiz Tong Roro (2 Feet vs 4 Feet)</h3>
+          <p>
+            Memilih saiz tong roro yang tepat membantu menjimatkan kos dan mengelakkan risiko muatan melebihi had (overloading). Berikut adalah panduan perbandingan spesifikasi saiz kami:
+          </p>
+
+          <div class="size-spec-box">
+            <div class="size-spec-row">
+              <span class="size-badge">2 FEET</span>
+              <div class="size-spec-details">
+                <div class="size-spec-title">Tong Roro 2 Feet | RM2XX | Tempoh sewaan 10 hari</div>
+                <p>
+                  Sesuai untuk sisa berat berketumpatan tinggi seperti konkrit, batu bata, jubin pecah, pasir, serta pembersihan rumah atau kebun kecil. Dinding sisi yang lebih rendah memudahkan kerja pemunggahan sisa berat secara manual. Standard tempoh sewaan: <strong>10 days</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div class="size-spec-row">
+              <span class="size-badge">4 FEET</span>
+              <div class="size-spec-details">
+                <div class="size-spec-title">Tong Roro 4 Feet | RM3XX–RM4XX | Tempoh sewaan 10 hari</div>
+                <p>
+                  Direka khas untuk sisa pembinaan berskala besar, pengubahsuaian menyeluruh, sisa industri bukan toksik, dan barangan pukal seperti perabot serta kayu terpakai. Isipadu lebih tinggi memuatkan sisa pukal dengan cekap. Standard tempoh sewaan: <strong>10 days</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="guide-footer-link">
+            Ketahui pelbagai kategori sisa yang diterima di halaman <a href="/waste-management-services">perkhidmatan pengurusan sisa</a> kami.
+          </p>
+        </div>
+
+        <!-- Card 2: Apa Yang Perlu Disediakan Sebelum Penghantaran -->
+        <div class="card guide-card">
+          <div class="guide-tag">PERSEDIAAN TAPAK</div>
+          <h3>Apa Yang Perlu Disediakan Sebelum Tong Roro Dihantar</h3>
+          <p>
+            Bagi memastikan proses meletakkan tong roro berjalan lancar tanpa halangan, sila pastikan persediaan berikut sebelum tarikh penghantaran:
+          </p>
+
+          <ul class="guide-checklist">
+            <li>
+              <strong>Ruang Akses Lori Roro:</strong> Pastikan laluan masuk dan jalan tapak mempunyai kelebaran sekurang-kurangnya 10 hingga 12 kaki serta bebas dari kenderaan yang diletakkan di tepi jalan.
+            </li>
+            <li>
+              <strong>Pelepasan Ketinggian (Overhead Clearance):</strong> Periksa agar tiada kabel elektrik rendah, dahan pokok rendang, atau bumbung porch yang menghalang lengan hidraulik lori semasa menaikkan atau menurunkan tong.
+            </li>
+            <li>
+              <strong>Permukaan Tanah yang Kukuh:</strong> Tong roro hendaklah diletakkan di atas permukaan rata dan kukuh seperti konkrit atau tar. Elakkan tanah lembut yang boleh mendap apabila tong sarat dengan muatan.
+            </li>
+            <li>
+              <strong>Kebenaran Pihak Pengurusan / Majlis:</strong> Bagi kawasan berpagar (gated & guarded) atau perbandaran tertentu, pastikan permit atau kebenaran masuk telah diperoleh daripada pihak pengurusan perumahan.
+            </li>
+          </ul>
+
+          <p class="guide-footer-link">
+            Sahkan kebolehcapaian lori ke lokasi anda di halaman <a href="/service-areas">kawasan perkhidmatan</a> atau minta bantuan <a href="#quotation-form">sebut harga</a> sekarang.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalogue Section -->
+  <section class="section reveal-on-scroll" id="katalog" aria-labelledby="catalogue-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">PILIHAN PRODUK</span>
+        <h2 id="catalogue-heading">Katalog Produk Tong Roro (Product Catalogue)</h2>
+        <p class="section-subtitle">
+          Pilih saiz tong roro yang bersesuaian dengan kuantiti sisa projek anda. Setiap saiz disediakan untuk tempoh sewaan standard <strong>10 days</strong>:
+        </p>
+      </div>
+
+      <ProductCatalogue products={productsData} showSelectButton={true} />
+    </div>
+  </section>
+
+  <!-- Pricing Table Section -->
+  <section class="section section-surface reveal-on-scroll" id="kadar-sewaan" aria-labelledby="pricing-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">KETELUSAN KADAR</span>
+        <h2 id="pricing-heading">Jadual Kadar Sewaan (Rental Pricing & Terms)</h2>
+        <p class="section-subtitle">
+          Jadual perbandingan harga anggaran dan syarat sewaan bagi Tong Roro 2 Feet (<strong>RM2XX</strong>) dan Tong Roro 4 Feet (<strong>RM3XX–RM4XX</strong>):
+        </p>
+      </div>
+
+      <PricingTable products={productsData} />
+    </div>
+  </section>
+
+  <!-- Rental Process Steps Section -->
+  <section class="section reveal-on-scroll" id="cara-sewaan" aria-labelledby="process-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">PANDUAN LANGKAH DEMI LANGKAH</span>
+        <h2 id="process-heading">Cara Proses Sewaan Berfungsi (How the Rental Process Works)</h2>
+        <p class="section-subtitle">
+          Proses penyewaan Tong Roro dengan SKL Waste Sdn Bhd adalah mudah dan telus dari peringkat pesanan hingga kutipan akhir:
+        </p>
+      </div>
+
+      <RentalProcessSteps />
+    </div>
+  </section>
+
+  <!-- Quotation Form Section -->
+  <section class="section section-surface reveal-on-scroll" id="borang-sebut-harga" aria-labelledby="form-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">TEMPAHAN & SEBUT HARGA</span>
+        <h2 id="form-heading">Borang Permintaan Sebut Harga Tong Roro (Quotation Form)</h2>
+        <p class="section-subtitle">
+          Isi maklumat di bawah untuk mendapatkan sebut harga rasmi bagi sewaan Tong Roro anda. Pegawai kami <strong>Mr Hari</strong> (<a href={contactData.telephoneHref}>{contactData.telephoneDisplay}</a> / <a href={contactData.emailHref}>{contactData.email}</a>) akan menghubungi anda untuk mengesahkan perincian pesanan.
+        </p>
+      </div>
+
+      <QuotationForm />
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section reveal-on-scroll" id="soalan-lazim" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">SOALAN LAZIM</span>
+        <h2 id="faq-heading">Soalan Lazim Mengenai Sewaan Tong Roro (Rental FAQs)</h2>
+        <p class="section-subtitle">
+          Jawapan ringkas kepada pertanyaan kerap mengenai saiz tong, tempoh sewaan <strong>10 days</strong>, caj penghantaran, dan bahan yang dibenarkan:
+        </p>
+      </div>
+
+      <FAQAccordion items={rentalFaqs} />
+    </div>
+  </section>
+
+  <!-- Final Direct Contact Callout -->
+  <section class="section section-surface reveal-on-scroll" id="bantuan-segera" aria-labelledby="direct-contact-heading">
+    <div class="container">
+      <div class="direct-contact-card">
+        <div class="contact-card-content">
+          <span class="eyebrow">BANTUAN SEGERA</span>
+          <h2 id="direct-contact-heading">Bantuan Segera & Pengesahan Tempahan</h2>
+          <p>
+            Perlukan tong roro dengan segera atau ingin mengesahkan kebolehcapaian jalan di tapak anda? Hubungi ibu pejabat kami di <strong>PT 31127 SETOR JALAN KUALA SELANGOR, 47000 SUNGAI BULOH, SELANGOR DARUL EHSAN, MALAYSIA.</strong> atau bercakap terus dengan pegawai operasi:
+          </p>
+          <div class="contact-meta-row">
+            <div class="meta-item">
+              <span class="meta-label">Pegawai Dihubungi:</span>
+              <span class="meta-val">{contactData.mainContactPerson} (<a href={contactData.telephoneHref}>{contactData.telephoneDisplay}</a>)</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">E-mel Rasmi:</span>
+              <span class="meta-val"><a href={contactData.emailHref}>{contactData.email}</a></span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-card-actions">
+          <a href="#quotation-form" class="btn btn-primary">Dapatkan Sebut Harga</a>
+          <a href={contactData.telephoneHref} class="btn btn-secondary">Hubungi Mr Hari</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* --- Executive Rental Hero --- */
+  .rental-hero {
+    padding: clamp(2rem, 4vw, 4rem) 0 clamp(2.5rem, 4vw, 4rem);
+    background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-primary) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .rental-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .rental-hero-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+  }
+
+  .hero-badge-row {
+    margin-bottom: 0.75rem;
+  }
+
+  .rental-hero h1 {
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* --- Standalone BLUF Box --- */
+  .bluf-box {
+    background-color: var(--accent-green-soft, #f0fdf4);
+    border-left: 4px solid var(--accent-green, #15803d);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius-md, 12px) var(--radius-md, 12px) 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .bluf-summary {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #14532d;
+    margin-bottom: 0;
+  }
+
+  .bluf-link {
+    color: #15803d;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  .lead-text {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.75rem;
+  }
+
+  .rental-hero-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  /* --- Trust Strip --- */
+  .rental-trust-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  @media (min-width: 640px) {
+    .rental-trust-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .trust-metric {
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+
+  .trust-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* --- Fleet Showcase Frame --- */
+  .fleet-showcase-frame {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg, 20px);
+    overflow: hidden;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+
+  .fleet-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16 / 10;
+  }
+
+  .fleet-caption {
+    padding: 1rem 1.25rem;
+    background-color: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .caption-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .caption-sub {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* --- Notice Wrapper --- */
+  .notice-wrapper {
+    margin-top: 2rem;
+  }
+
+  /* --- Customer-Intent Guide Section --- */
+  .guide-grid {
+    margin-top: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .guide-card {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .guide-tag {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--accent-green, #15803d);
+    background-color: var(--accent-green-soft, #f0fdf4);
+    border: 1px solid var(--accent-green-border, #bbf7d0);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm, 6px);
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-card p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .size-spec-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1rem 0;
+    background-color: var(--bg-surface, #f8fafc);
+    padding: 1.25rem;
+    border-radius: var(--radius-md, 12px);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .size-spec-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .size-spec-row {
+      flex-direction: row;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+  }
+
+  .size-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.25rem 0.6rem;
+    background-color: var(--bg-dark, #0a1628);
+    color: #ffffff;
+    border-radius: var(--radius-sm, 6px);
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  .size-spec-details {
+    flex-grow: 1;
+  }
+
+  .size-spec-title {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .size-spec-details strong {
+    display: inline;
+    font-weight: 700;
+  }
+
+  .size-spec-details p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .guide-checklist {
+    margin: 1rem 0 1.25rem 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .guide-checklist li {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .guide-footer-link {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 0.85rem;
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+
+  /* --- Direct Contact Card --- */
+  .direct-contact-card {
+    background: #ffffff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg, 20px);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-card, 0 4px 20px -2px rgba(10, 22, 40, 0.05));
+  }
+
+  @media (min-width: 900px) {
+    .direct-contact-card {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .contact-card-content {
+      max-width: 65%;
+    }
+  }
+
+  .contact-card-content h2 {
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-card-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .contact-meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .contact-meta-row {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+  }
+
+  .meta-item {
+    font-size: 0.875rem;
+  }
+
+  .meta-label {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-right: 0.35rem;
+  }
+
+  .contact-card-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+</style>
