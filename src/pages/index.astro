@@ -213,10 +213,10 @@ const ourWorkGallery = [
       <div class="hero-info-block">
         <h1
           class="hero-main-title"
-          data-ms="SEWA TONG RoRo Selangor/KL!"
-          data-en="SEWA TONG RoRo Selangor/KL!"
+          data-ms="Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!"
+          data-en="Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!"
         >
-          SEWA TONG RoRo Selangor/KL!
+          Sewa Tong RoRo untuk 10 Hari!, Cepat, 24/7, Seluruh Selangor & Kuala Lumpur!
         </h1>
 
         <p
@@ -1598,36 +1598,61 @@ const ourWorkGallery = [
     .hero-fullscreen {
       min-height: 100svh;
       align-items: flex-start;
-      padding: 5.5rem 1.25rem 42vh;
+      padding: 5.5rem 1.25rem 3.5rem;
       background-color: #ffffff;
+      position: relative;
     }
 
     .hero-bg-img {
       object-fit: cover;
-      object-position: center bottom;
+      object-position: center center;
     }
 
-    /* Disable desktop white veil on mobile so the bottom truck photo in skl-hero-mobile.jpg is 100% clear */
-    .hero-white-blur-fade,
+    /* Mobile slight white opacity and slight blur overlay */
+    .hero-white-blur-fade {
+      display: block !important;
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1;
+    }
+
     .hero-fullscreen::before {
       display: none;
     }
 
+    .hero-main-container {
+      position: relative;
+      z-index: 2;
+    }
+
     .hero-bottom-blur-bridge {
-      height: 45px;
+      display: none;
     }
 
     .hero-info-block {
-      gap: 0.85rem;
+      gap: 0.95rem;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 1.25rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 10px 30px rgba(10, 22, 40, 0.08);
     }
 
     .hero-main-title {
-      font-size: clamp(1.9rem, 7.5vw, 2.45rem);
+      font-size: clamp(1.8rem, 6.8vw, 2.35rem);
+      line-height: 1.15;
     }
 
     .hero-sub-info {
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      color: #0a1628;
+      font-weight: 700;
     }
 
     .hero-cta-prompt {
