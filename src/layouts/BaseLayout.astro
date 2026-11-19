@@ -246,7 +246,7 @@ const googleAdsId = analyticsConfig.googleAdsId;
     </script>
   </head>
   <body class={normalizedPath === '/' ? 'is-home-page' : 'is-inner-page'}>
-    <!-- Ultra-Smooth Split-Curtain Entrance Animation (Fake Loader with Split Cut) -->
+    <!-- Ultra-Smooth Split-Curtain Entrance Animation (Fast Slide Out) -->
     {normalizedPath === '/' && (
       <div id="site-preloader" class="preloader-curtain" aria-hidden="true">
         <!-- Doors on the EXACT same Z-index with ZERO drop shadows -->
@@ -254,10 +254,7 @@ const googleAdsId = analyticsConfig.googleAdsId;
         <div class="preloader-door door-right"></div>
         <div class="preloader-center-stage">
           <div class="preloader-logo-wrapper">
-            <!-- Single Whole Logo (Fades away when sliced) -->
             <img src="/images/skl-logo.png" alt="" class="preloader-single-logo" width="130" height="130" />
-            <!-- Laser slice flash line -->
-            <div class="preloader-cut-line"></div>
           </div>
           <div class="preloader-brand-title">SKL WASTE SDN BHD</div>
         </div>
@@ -281,34 +278,29 @@ const googleAdsId = analyticsConfig.googleAdsId;
     <!-- Client-Side Runtime Script: Language Switcher (MS Default / EN Toggle), Scroll Reveal & Conversion Tracking -->
     <script is:inline>
       (function() {
-        // 0. Ultra-Smooth Preloader Splitting Curtain Animation
+        // 0. Ultra-Smooth Preloader Splitting Curtain Animation (Snappy & Fast)
         var preloader = document.getElementById('site-preloader');
         if (preloader) {
           // Prevent scroll while curtain is animating
           document.body.classList.add('curtain-locked');
 
           // Sequence:
-          // 1. T = 0ms: Whole single logo shines in center on solid seamless white backdrop.
-          // 2. T = 900ms: Laser slice line flashes down the middle.
-          // 3. T = 1150ms: Logo and title fade away cleanly as the laser slices through.
-          // 4. T = 1350ms: Both left and right seamless white bars slide left & right on the exact same Z plane.
-          // 5. T = 2250ms: Finished, remove curtain completely and unlock scroll.
-          setTimeout(function() {
-            preloader.classList.add('is-cutting');
-          }, 900);
-
+          // 1. T = 0ms: Logo visible in center on solid seamless white backdrop.
+          // 2. T = 450ms: Logo and title fade out smoothly.
+          // 3. T = 550ms: White doors slide left & right ultra-smoothly.
+          // 4. T = 1200ms: Completely finished, remove curtain and unlock scroll.
           setTimeout(function() {
             preloader.classList.add('is-fading-logo');
-          }, 1150);
+          }, 450);
 
           setTimeout(function() {
             preloader.classList.add('is-opening');
             document.body.classList.remove('curtain-locked');
-          }, 1350);
+          }, 550);
 
           setTimeout(function() {
             preloader.classList.add('is-done');
-          }, 2300);
+          }, 1200);
         }
 
         // 1. Bilingual Language Toggle (Malay Default, Toggle to English via Navbar button)
@@ -489,7 +481,7 @@ const googleAdsId = analyticsConfig.googleAdsId;
         box-shadow: none !important;
         border: none !important;
         outline: none !important;
-        transition: transform 0.95s cubic-bezier(0.77, 0, 0.175, 1);
+        transition: transform 0.65s cubic-bezier(0.77, 0, 0.175, 1);
         will-change: transform;
       }
 
@@ -519,7 +511,7 @@ const googleAdsId = analyticsConfig.googleAdsId;
         align-items: center;
         gap: 1.25rem;
         pointer-events: none;
-        transition: opacity 0.45s ease, transform 0.45s ease;
+        transition: opacity 0.28s ease, transform 0.28s ease;
       }
 
       .preloader-curtain.is-fading-logo .preloader-center-stage {
@@ -543,32 +535,6 @@ const googleAdsId = analyticsConfig.googleAdsId;
         object-fit: contain;
         display: block;
         transition: transform 0.3s ease;
-      }
-
-      /* Laser Slice Flash Cut Line */
-      .preloader-cut-line {
-        position: absolute;
-        top: -15px;
-        bottom: -15px;
-        left: 50%;
-        width: 3px;
-        background: linear-gradient(180deg, rgba(21, 128, 61, 0) 0%, #15803d 30%, #22c55e 50%, #15803d 70%, rgba(21, 128, 61, 0) 100%);
-        transform: translateX(-50%) scaleY(0);
-        opacity: 0;
-        border-radius: 9999px;
-        box-shadow: 0 0 16px #22c55e, 0 0 30px #15803d;
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
-        z-index: 25;
-      }
-
-      .preloader-curtain.is-cutting .preloader-cut-line {
-        transform: translateX(-50%) scaleY(1);
-        opacity: 1;
-      }
-
-      .preloader-curtain.is-opening .preloader-cut-line {
-        opacity: 0;
-        transform: translateX(-50%) scaleY(1.4);
       }
 
       .preloader-brand-title {
