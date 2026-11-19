@@ -1110,31 +1110,35 @@ const ourWorkGallery = [
     position: relative;
     border-radius: 18px;
     overflow: hidden;
-    background: #ffffff;
-    border: 1.5px solid rgba(10, 22, 40, 0.12);
-    box-shadow: 0 4px 18px -4px rgba(10, 22, 40, 0.08);
+    background: #0f172a;
+    border: 1.5px solid rgba(10, 22, 40, 0.15);
+    box-shadow: 0 6px 20px -4px rgba(10, 22, 40, 0.1);
+    min-height: 120px;
     transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.28s ease;
   }
 
   .place-card-bg {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.18;
-    filter: saturate(1.15) contrast(1.05);
+    opacity: 0.85;
+    filter: saturate(1.1) contrast(1.05);
     transition: opacity 0.35s ease, transform 0.4s ease;
     z-index: 1;
     pointer-events: none;
   }
 
+  /* Dark gradient overlay so white text and badges pop with maximum contrast */
   .place-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.94) 100%);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.88) 100%);
+    backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(0.5px);
     z-index: 2;
     pointer-events: none;
   }
@@ -1145,20 +1149,20 @@ const ourWorkGallery = [
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 0.95rem;
+    gap: 1.25rem;
     padding: 1.15rem 1.25rem;
     height: 100%;
   }
 
   .place-pill-card:hover {
     transform: translateY(-4px);
-    border-color: #15803d;
-    box-shadow: 0 14px 28px -6px rgba(10, 22, 40, 0.14), 0 0 0 1px #15803d;
+    border-color: #22c55e;
+    box-shadow: 0 16px 32px -6px rgba(10, 22, 40, 0.22), 0 0 0 1.5px #22c55e;
   }
 
   .place-pill-card:hover .place-card-bg {
-    opacity: 0.28;
-    transform: scale(1.04);
+    opacity: 0.95;
+    transform: scale(1.05);
   }
 
   .place-card-top {
@@ -1169,49 +1173,51 @@ const ourWorkGallery = [
   }
 
   .place-pin-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: #f1f5f9;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.92);
     color: #15803d;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   .place-pill-card:hover .place-pin-icon {
-    background: #15803d;
+    background: #22c55e;
     color: #ffffff;
   }
 
   .place-region-badge {
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    padding: 0.25rem 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 0.28rem 0.65rem;
     border-radius: 6px;
     text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .badge-selangor {
-    background: #f0fdf4;
-    color: #166534;
-    border: 1px solid rgba(22, 101, 52, 0.2);
+    background: #15803d;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   .badge-kl {
-    background: #eff6ff;
-    color: #1e40af;
-    border: 1px solid rgba(30, 64, 175, 0.2);
+    background: #1e40af;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   .badge-mixed {
-    background: #f8fafc;
-    color: #334155;
-    border: 1px solid rgba(51, 65, 85, 0.2);
+    background: #334155;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   .place-card-main {
@@ -1222,33 +1228,35 @@ const ourWorkGallery = [
 
   .place-name {
     font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     font-weight: 800;
-    color: #0a1628;
+    color: #ffffff;
     line-height: 1.25;
     letter-spacing: -0.015em;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
   }
 
   .place-status-indicator {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.45rem;
   }
 
   .status-dot {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 9999px;
     background: #22c55e;
     flex-shrink: 0;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.4), 0 0 8px #22c55e;
   }
 
   .status-label {
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: 0.73rem;
-    font-weight: 600;
-    color: #64748b;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   }
 
   /* ==========================================================================
