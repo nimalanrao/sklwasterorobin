@@ -219,63 +219,51 @@ const ourWorkGallery = [
           SEWA TONG RoRo Selangor/KL!
         </h1>
 
-        <!-- Feature Pill Cards: 10 Hari, 24/7, Cepat, Seluruh Selangor & KL -->
+        <!-- Feature Mini Badges: 10 Hari, 24/7, Cepat, Seluruh Selangor & KL -->
         <div class="hero-feature-cards" aria-label="Kelebihan Servis SKL Waste">
           <div class="hero-feature-pill">
             <span class="feature-pill-icon" aria-hidden="true">
               <!-- Calendar / 10 Hari Icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="16" y1="2" x2="16" y2="6"></line>
                 <line x1="8" y1="2" x2="8" y2="6"></line>
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
             </span>
-            <div class="feature-pill-text">
-              <strong class="feature-pill-title" data-ms="10 Hari" data-en="10 Days">10 Hari</strong>
-              <span class="feature-pill-desc" data-ms="Tempoh Sewaan Fleksibel" data-en="Flexible Rental Period">Tempoh Sewaan Fleksibel</span>
-            </div>
+            <span class="feature-pill-title" data-ms="10 Hari" data-en="10 Days">10 Hari</span>
           </div>
 
           <div class="hero-feature-pill">
             <span class="feature-pill-icon" aria-hidden="true">
               <!-- Clock / 24/7 Icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
             </span>
-            <div class="feature-pill-text">
-              <strong class="feature-pill-title">24/7</strong>
-              <span class="feature-pill-desc" data-ms="Khidmat Setiap Hari" data-en="Daily Standby Support">Khidmat Setiap Hari</span>
-            </div>
+            <span class="feature-pill-title">24/7</span>
           </div>
 
           <div class="hero-feature-pill">
             <span class="feature-pill-icon" aria-hidden="true">
               <!-- Bolt / Cepat Icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
               </svg>
             </span>
-            <div class="feature-pill-text">
-              <strong class="feature-pill-title" data-ms="Cepat" data-en="Fast">Cepat</strong>
-              <span class="feature-pill-desc" data-ms="Hantar & Kutip Pantas" data-en="Prompt Drop & Pick-Up">Hantar & Kutip Pantas</span>
-            </div>
+            <span class="feature-pill-title" data-ms="Cepat" data-en="Fast">Cepat</span>
           </div>
 
-          <div class="hero-feature-pill hero-feature-pill-wide">
+          <div class="hero-feature-pill">
             <span class="feature-pill-icon" aria-hidden="true">
               <!-- Map Pin / Seluruh Selangor & KL Icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
             </span>
-            <div class="feature-pill-text">
-              <strong class="feature-pill-title" data-ms="Seluruh Selangor & KL" data-en="All Selangor & KL">Seluruh Selangor & KL</strong>
-              <span class="feature-pill-desc" data-ms="Liputan Semua Daerah Utama" data-en="Coverage Across All Townships">Liputan Semua Daerah Utama</span>
-            </div>
+            <span class="feature-pill-title" data-ms="Seluruh Selangor & KL" data-en="All Selangor & KL">Seluruh Selangor & KL</span>
           </div>
         </div>
 
@@ -943,48 +931,44 @@ const ourWorkGallery = [
     margin: 0;
   }
 
-  /* 4 Small Feature Cards: 10 Hari, 24/7, Cepat, Seluruh Selangor & KL */
+  /* Feature Mini Cards: 10 Hari, 24/7, Cepat, Seluruh Selangor & KL */
   .hero-feature-cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-    max-width: 580px;
-    margin-top: 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+    max-width: 620px;
+    margin-top: 0.15rem;
   }
 
   .hero-feature-pill {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 0.95rem;
+    gap: 0.45rem;
+    padding: 0.42rem 0.8rem;
     background: #ffffff;
     border: 1.5px solid rgba(10, 22, 40, 0.12);
-    border-radius: 14px;
-    box-shadow: 0 4px 14px -4px rgba(10, 22, 40, 0.08);
+    border-radius: 9999px;
+    box-shadow: 0 2px 10px -2px rgba(10, 22, 40, 0.06);
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .hero-feature-pill:hover {
     transform: translateY(-2px);
     border-color: #15803d;
-    box-shadow: 0 8px 18px -4px rgba(21, 128, 61, 0.16);
-  }
-
-  .hero-feature-pill-wide {
-    grid-column: span 2;
+    box-shadow: 0 6px 14px -3px rgba(21, 128, 61, 0.18);
   }
 
   .feature-pill-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+    width: 26px;
+    height: 26px;
+    border-radius: 9999px;
     background: #f0fdf4;
     color: #15803d;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border: 1px solid rgba(21, 128, 61, 0.2);
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
@@ -993,28 +977,14 @@ const ourWorkGallery = [
     color: #ffffff;
   }
 
-  .feature-pill-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    min-width: 0;
-  }
-
   .feature-pill-title {
     font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.84rem;
     font-weight: 800;
     color: #0a1628;
     line-height: 1.2;
     letter-spacing: -0.01em;
-  }
-
-  .feature-pill-desc {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #64748b;
-    line-height: 1.25;
+    white-space: nowrap;
   }
 
   .hero-sub-info {
