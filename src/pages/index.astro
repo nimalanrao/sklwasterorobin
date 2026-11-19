@@ -509,58 +509,74 @@ const ourWorkGallery = [
   <section class="scroll-quote-section" id="free-quotation-cta">
     <div class="supply-container">
       <div class="scroll-quote-box" id="scroll-scale-card">
-        <h2
-          class="quote-big-text"
-          data-ms="SEBUT HARGA PERCUMA? PM KAMI."
-          data-en="FREE PRICING QUOTE? PM US."
-        >
-          SEBUT HARGA PERCUMA? PM KAMI.
-        </h2>
+        <!-- Hero Background Image (Desktop & Mobile Responsive) with Blur and Opacity -->
+        <picture class="quote-card-bg-picture" aria-hidden="true">
+          <source media="(max-width: 768px)" srcset="/images/skl-hero-mobile.jpg" />
+          <source srcset="/images/sewa-tong-roro-sungai-buloh-skl-waste.webp" type="image/webp" />
+          <img
+            src="/images/skl-hero-roro.jpg"
+            alt=""
+            class="quote-card-bg-img"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        <div class="quote-card-overlay" aria-hidden="true"></div>
 
-        <p
-          class="quote-small-text"
-          data-ms="Sewa Tong Roro 10 hari cepat & murah di Selangor & KL. WhatsApp Mr Hari untuk sebut harga segera."
-          data-en="10-day RORO rental fast & cheap in Selangor & KL. WhatsApp Mr Hari for instant quote."
-        >
-          Sewa Tong Roro 10 hari cepat & murah di Selangor & KL. WhatsApp Mr Hari untuk sebut harga segera.
-        </p>
-
-        <div class="quote-contact-badges">
-          <a href={contactData.telephoneHref} class="quote-contact-pill" aria-label={`Telefon ${contactData.mainContactPerson}: ${contactData.telephoneDisplay}`}>
-            <svg class="quote-contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-            <span>{contactData.mainContactPerson}: {contactData.telephoneDisplay}</span>
-          </a>
-          <a href={contactData.emailHref} class="quote-contact-pill" aria-label={`Emel ${contactData.email}`}>
-            <svg class="quote-contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-            </svg>
-            <span>{contactData.email}</span>
-          </a>
-        </div>
-
-        <!-- Same Curved Green WhatsApp Button as Hero Page -->
-        <div class="quote-btn-holder">
-          <a
-            href="https://wa.me/60166159365?text=Hai%20Mr%20Hari%20(SKL%20Waste%20Sdn%20Bhd)%2C%20saya%20nak%20order%20tong%20roro"
-            class="hero-whatsapp-btn"
-            data-track-cta="bottom_quote_whatsapp"
-            aria-label="Minta sebut harga percuma melalui WhatsApp"
+        <div class="quote-card-inner">
+          <h2
+            class="quote-big-text"
+            data-ms="SEBUT HARGA PERCUMA? PM KAMI."
+            data-en="FREE PRICING QUOTE? PM US."
           >
-            <svg
-              class="whatsapp-icon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
+            SEBUT HARGA PERCUMA? PM KAMI.
+          </h2>
+
+          <p
+            class="quote-small-text"
+            data-ms="Sewa Tong Roro 10 hari cepat & murah di Selangor & KL. WhatsApp Mr Hari untuk sebut harga segera."
+            data-en="10-day RORO rental fast & cheap in Selangor & KL. WhatsApp Mr Hari for instant quote."
+          >
+            Sewa Tong Roro 10 hari cepat & murah di Selangor & KL. WhatsApp Mr Hari untuk sebut harga segera.
+          </p>
+
+          <div class="quote-contact-badges">
+            <a href={contactData.telephoneHref} class="quote-contact-pill" aria-label={`Telefon ${contactData.mainContactPerson}: ${contactData.telephoneDisplay}`}>
+              <svg class="quote-contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span>{contactData.mainContactPerson}: {contactData.telephoneDisplay}</span>
+            </a>
+            <a href={contactData.emailHref} class="quote-contact-pill" aria-label={`Emel ${contactData.email}`}>
+              <svg class="quote-contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+              <span>{contactData.email}</span>
+            </a>
+          </div>
+
+          <!-- Same Curved Green WhatsApp Button as Hero Page -->
+          <div class="quote-btn-holder">
+            <a
+              href="https://wa.me/60166159365?text=Hai%20Mr%20Hari%20(SKL%20Waste%20Sdn%20Bhd)%2C%20saya%20nak%20order%20tong%20roro"
+              class="hero-whatsapp-btn"
+              data-track-cta="bottom_quote_whatsapp"
+              aria-label="Minta sebut harga percuma melalui WhatsApp"
             >
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413z"/>
-            </svg>
-            <span data-ms="24/7 WHATSAPP" data-en="24/7 WHATSAPP">24/7 WHATSAPP</span>
-          </a>
+              <svg
+                class="whatsapp-icon"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413z"/>
+              </svg>
+              <span data-ms="24/7 WHATSAPP" data-en="24/7 WHATSAPP">24/7 WHATSAPP</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -1509,21 +1525,60 @@ const ourWorkGallery = [
   }
 
   .scroll-quote-box {
+    position: relative;
     max-width: 980px;
     margin: 0 auto;
     background: #ffffff;
     border: 2.5px solid #0a1628;
     border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 24px 56px -12px rgba(10, 22, 40, 0.14);
+    transform-origin: center center;
+    transition: transform 0.12s ease-out, box-shadow 0.25s ease;
+    will-change: transform;
+  }
+
+  .quote-card-bg-picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .quote-card-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    opacity: 0.18;
+    filter: blur(4px) saturate(1.1);
+    transform: scale(1.05);
+    display: block;
+    pointer-events: none;
+  }
+
+  .quote-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.94) 100%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .quote-card-inner {
+    position: relative;
+    z-index: 3;
     padding: clamp(2.5rem, 6vw, 4.75rem) clamp(1.5rem, 5vw, 4rem);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.25rem;
-    box-shadow: 0 24px 56px -12px rgba(10, 22, 40, 0.14);
-    transform-origin: center center;
-    transition: transform 0.12s ease-out, box-shadow 0.25s ease;
-    will-change: transform;
+    width: 100%;
   }
 
   .quote-big-text {
