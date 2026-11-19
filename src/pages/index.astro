@@ -111,34 +111,34 @@ const suppliedSectors = [
 
 const suppliedPlaces = [
   // Selangor Key Areas
-  { name: 'Desa Coalfields', region: 'Selangor' },
-  { name: 'Bandar Seri Coalfields', region: 'Selangor' },
-  { name: 'Sungai Buloh', region: 'Selangor' },
-  { name: 'Paya Jaras', region: 'Selangor' },
-  { name: 'Bukit Jelutong', region: 'Selangor' },
-  { name: 'Bukit Beruntung', region: 'Selangor' },
-  { name: 'Kundang', region: 'Selangor' },
-  { name: 'Puncak Alam', region: 'Selangor' },
-  { name: 'Aman Putri', region: 'Selangor' },
-  { name: 'Tasik Puteri', region: 'Selangor' },
-  { name: 'Saujana Utama', region: 'Selangor' },
-  { name: 'Subang', region: 'Selangor' },
-  { name: 'Rawang', region: 'Selangor' },
-  { name: 'Petaling Jaya', region: 'Selangor' },
-  { name: 'Shah Alam', region: 'Selangor' },
-  { name: 'Damansara', region: 'Selangor' },
+  { name: 'Desa Coalfields', region: 'Selangor', image: '/images/places/desa-coalfields.jpg' },
+  { name: 'Bandar Seri Coalfields', region: 'Selangor', image: '/images/places/bandar-seri-coalfields.jpg' },
+  { name: 'Sungai Buloh', region: 'Selangor', image: '/images/places/sungai-buloh.jpg' },
+  { name: 'Paya Jaras', region: 'Selangor', image: '/images/places/paya-jaras.jpg' },
+  { name: 'Bukit Jelutong', region: 'Selangor', image: '/images/places/bukit-jelutong.jpg' },
+  { name: 'Bukit Beruntung', region: 'Selangor', image: '/images/places/bukit-beruntung.jpg' },
+  { name: 'Kundang', region: 'Selangor', image: '/images/places/kundang.jpg' },
+  { name: 'Puncak Alam', region: 'Selangor', image: '/images/places/puncak-alam.jpg' },
+  { name: 'Aman Putri', region: 'Selangor', image: '/images/places/aman-putri.jpg' },
+  { name: 'Tasik Puteri', region: 'Selangor', image: '/images/places/tasik-puteri.jpg' },
+  { name: 'Saujana Utama', region: 'Selangor', image: '/images/places/saujana-utama.jpg' },
+  { name: 'Subang', region: 'Selangor', image: '/images/places/subang.jpg' },
+  { name: 'Rawang', region: 'Selangor', image: '/images/places/rawang.jpg' },
+  { name: 'Petaling Jaya', region: 'Selangor', image: '/images/places/petaling-jaya.jpg' },
+  { name: 'Shah Alam', region: 'Selangor', image: '/images/places/shah-alam.jpg' },
+  { name: 'Damansara', region: 'Selangor', image: '/images/places/damansara.jpg' },
   // Kuala Lumpur Key Areas
-  { name: 'Kepong', region: 'Kuala Lumpur' },
-  { name: 'Segambut', region: 'Kuala Lumpur' },
-  { name: 'Mont Kiara', region: 'Kuala Lumpur' },
-  { name: 'Hartamas', region: 'Kuala Lumpur' },
-  { name: 'Sentul', region: 'Kuala Lumpur' },
-  { name: 'Batu Caves', region: 'KL / Selangor' },
-  { name: 'Wangsa Maju', region: 'Kuala Lumpur' },
-  { name: 'Setapak', region: 'Kuala Lumpur' },
-  { name: 'Cheras', region: 'Kuala Lumpur' },
-  { name: 'Bangsar', region: 'Kuala Lumpur' },
-  { name: 'KL City Centre (KLCC)', region: 'Kuala Lumpur' }
+  { name: 'Kepong', region: 'Kuala Lumpur', image: '/images/places/kepong.jpg' },
+  { name: 'Segambut', region: 'Kuala Lumpur', image: '/images/places/segambut.jpg' },
+  { name: 'Mont Kiara', region: 'Kuala Lumpur', image: '/images/places/mont-kiara.jpg' },
+  { name: 'Hartamas', region: 'Kuala Lumpur', image: '/images/places/hartamas.jpg' },
+  { name: 'Sentul', region: 'Kuala Lumpur', image: '/images/places/sentul.jpg' },
+  { name: 'Batu Caves', region: 'KL / Selangor', image: '/images/places/batu-caves.jpg' },
+  { name: 'Wangsa Maju', region: 'Kuala Lumpur', image: '/images/places/wangsa-maju.jpg' },
+  { name: 'Setapak', region: 'Kuala Lumpur', image: '/images/places/setapak.jpg' },
+  { name: 'Cheras', region: 'Kuala Lumpur', image: '/images/places/cheras.jpg' },
+  { name: 'Bangsar', region: 'Kuala Lumpur', image: '/images/places/bangsar.jpg' },
+  { name: 'KL City Centre (KLCC)', region: 'Kuala Lumpur', image: '/images/places/klcc.jpg' }
 ];
 
 const ourWorkGallery = [
@@ -396,23 +396,33 @@ const ourWorkGallery = [
             class="place-pill-card blur-fade-item"
             style={`--stagger-delay: ${(idx % 6) * 45}ms;`}
           >
-            <div class="place-card-top">
-              <span class="place-pin-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-              </span>
-              <span class={`place-region-badge ${place.region === 'Kuala Lumpur' ? 'badge-kl' : place.region.includes('KL') ? 'badge-mixed' : 'badge-selangor'}`}>
-                {place.region}
-              </span>
-            </div>
-            <div class="place-card-main">
-              <span class="place-name">{place.name}</span>
-              <span class="place-status-indicator">
-                <span class="status-dot" aria-hidden="true"></span>
-                <span class="status-label">Liputan Aktif 24/7</span>
-              </span>
+            {place.image && (
+              <div
+                class="place-card-bg"
+                style={`background-image: url('${place.image}');`}
+                aria-hidden="true"
+              ></div>
+            )}
+            <div class="place-card-overlay" aria-hidden="true"></div>
+            <div class="place-card-content">
+              <div class="place-card-top">
+                <span class="place-pin-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </span>
+                <span class={`place-region-badge ${place.region === 'Kuala Lumpur' ? 'badge-kl' : place.region.includes('KL') ? 'badge-mixed' : 'badge-selangor'}`}>
+                  {place.region}
+                </span>
+              </div>
+              <div class="place-card-main">
+                <span class="place-name">{place.name}</span>
+                <span class="place-status-indicator">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  <span class="status-label">Liputan Aktif 24/7</span>
+                </span>
+              </div>
             </div>
           </div>
         ))}
@@ -1081,22 +1091,58 @@ const ourWorkGallery = [
   }
 
   .place-pill-card {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1.5px solid rgba(10, 22, 40, 0.12);
+    box-shadow: 0 4px 18px -4px rgba(10, 22, 40, 0.08);
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.28s ease;
+  }
+
+  .place-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.18;
+    filter: saturate(1.15) contrast(1.05);
+    transition: opacity 0.35s ease, transform 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .place-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.94) 100%);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .place-card-content {
+    position: relative;
+    z-index: 3;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 0.95rem;
     padding: 1.15rem 1.25rem;
-    background: #ffffff;
-    border: 1.5px solid rgba(10, 22, 40, 0.11);
-    border-radius: 18px;
-    box-shadow: 0 4px 16px -4px rgba(10, 22, 40, 0.06);
-    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.28s ease;
+    height: 100%;
   }
 
   .place-pill-card:hover {
     transform: translateY(-4px);
     border-color: #15803d;
-    box-shadow: 0 14px 28px -6px rgba(10, 22, 40, 0.12), 0 0 0 1px #15803d;
+    box-shadow: 0 14px 28px -6px rgba(10, 22, 40, 0.14), 0 0 0 1px #15803d;
+  }
+
+  .place-pill-card:hover .place-card-bg {
+    opacity: 0.28;
+    transform: scale(1.04);
   }
 
   .place-card-top {
