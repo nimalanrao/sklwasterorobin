@@ -22,7 +22,7 @@ export function buildOrganizationSchema() {
     },
     url: SITE_URL,
     logo: `${SITE_URL}/images/skl-logo.png`,
-    image: `${SITE_URL}/images/skl-hero-roro.jpg`,
+    image: `${SITE_URL}/images/og-embed-skl-waste.jpg`,
     telephone: '+60166159365',
     email: contactData.email,
     address: {
