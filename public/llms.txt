@@ -80,6 +80,11 @@ Semua kawasan perkhidmatan yang disenaraikan adalah tertakluk kepada pengesahan 
 10. Condominiums and apartments
 *(Catatan pematuhan: Tiada hubungan pelanggan terdahulu yang direka atau dituntut).*
 
+## Multilingual & AI Synonyms (Bahasa Melayu, English, 中文)
+- **Malay:** Sewa Tong Roro Selangor, Sewa Tong Sampah Besar Sungai Buloh, Pelupusan Sisa Binaan, Buang Sampah Pukal.
+- **English:** RoRo Bin Rental Selangor, Roll-On Roll-Off Bin Kuala Lumpur, Construction Waste Disposal, Bulk Waste Removal Malaysia.
+- **Chinese (中文):** 雪兰莪租借大型垃圾槽, 吉隆坡RORO垃圾斗出租, 双溪毛糯垃圾车, 建筑装修废料清运, 搬家丢旧家具, 工业废料处理, 泥槽出租, SKL Waste 垃圾箱.
+
 ## Technical & AI Navigation
 - **Sitemap XML:** https://www.sklwaste.com.my/sitemap.xml
 - **Robots.txt:** https://www.sklwaste.com.my/robots.txt
