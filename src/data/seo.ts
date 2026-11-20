@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://www.sklwaste.com.my';
+export const SITE_URL = 'https://www.tongrorosklwaste.my';
 
 export interface BreadcrumbItem {
   label: string;

@@ -143,6 +143,6 @@ User-agent: Screaming Frog SEO Spider
 Allow: /
 
 # Sitemaps & AI Knowledge Files
-Sitemap: https://www.sklwaste.com.my/sitemap.xml
+Sitemap: https://www.tongrorosklwaste.my/sitemap.xml
 Sitemap: https://nimalanrao.github.io/sklwasterorobin/sitemap.xml
-Host: https://www.sklwaste.com.my
+Host: https://www.tongrorosklwaste.my

@@ -6,7 +6,7 @@
 - **SSM Registration Number:** 200801038953
 - **Headquarters Address:** PT 31127 SETOR JALAN KUALA SELANGOR, 47000 SUNGAI BULOH, SELANGOR DARUL EHSAN, MALAYSIA.
 - **Primary Business:** Sewaan Tong Roro (Roll-On Roll-Off Bin Rental) & Pengurusan Sisa (Waste Management Services).
-- **Official Website:** https://www.sklwaste.com.my
+- **Official Website:** https://www.tongrorosklwaste.my
 
 ## Operational Contact
 - **Main Contact Person:** Mr Hari
@@ -86,7 +86,7 @@ Semua kawasan perkhidmatan yang disenaraikan adalah tertakluk kepada pengesahan 
 - **Chinese (中文):** 雪兰莪租借大型垃圾槽, 吉隆坡RORO垃圾斗出租, 双溪毛糯垃圾车, 建筑装修废料清运, 搬家丢旧家具, 工业废料处理, 泥槽出租, SKL Waste 垃圾箱.
 
 ## Technical & AI Navigation
-- **Sitemap XML:** https://www.sklwaste.com.my/sitemap.xml
-- **Robots.txt:** https://www.sklwaste.com.my/robots.txt
-- **Primary Inquiry Form:** https://www.sklwaste.com.my/#quotation-form
+- **Sitemap XML:** https://www.tongrorosklwaste.my/sitemap.xml
+- **Robots.txt:** https://www.tongrorosklwaste.my/robots.txt
+- **Primary Inquiry Form:** https://www.tongrorosklwaste.my/#quotation-form
 - **Telephone Dispatch Link:** tel:+60166159365

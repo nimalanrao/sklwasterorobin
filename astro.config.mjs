@@ -3,6 +3,6 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: 'https://www.sklwaste.com.my',
+  site: 'https://www.tongrorosklwaste.my',
   trailingSlash: 'never'
 });
