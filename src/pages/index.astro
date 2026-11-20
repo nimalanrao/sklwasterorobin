@@ -321,7 +321,82 @@ const ourWorkGallery = [
     </div>
   </section>
 
-  <!-- 2. Where We Supply: 12 Industry Sectors Section -->
+  <!-- 2. Our Work / Kerja Lapangan SKL Waste (Positioned directly below Hero) -->
+  <section class="our-work-section" id="our-work">
+    <div class="supply-container">
+      <div class="supply-header-block our-work-header-centered">
+        <span
+          class="supply-eyebrow"
+          data-ms="KERJA LAPANGAN KAMI"
+          data-en="OUR WORK IN ACTION"
+        >
+          KERJA LAPANGAN KAMI
+        </span>
+        <h2
+          class="supply-title"
+          data-ms="Gambar Kerja Sebenar SKL Waste"
+          data-en="Real On-Site Project Photos"
+        >
+          Gambar Kerja Sebenar SKL Waste
+        </h2>
+      </div>
+
+      <!-- Human-Visible Image Grid: Pure Clean Images with Tap-to-Zoom Lightbox -->
+      <div class="our-work-grid">
+        {ourWorkGallery.map((item, idx) => (
+          <button
+            type="button"
+            class="work-card blur-fade-item work-card-trigger"
+            style={`--stagger-delay: ${idx * 80}ms;`}
+            data-full-img={item.image}
+            data-caption={`${item.titleMs} (${item.wasteTypeMs})`}
+            aria-label={`Buka gambar besar: ${item.titleMs}`}
+          >
+            <div class="work-media">
+              <img
+                src={item.image}
+                alt={`${item.titleMs} - ${item.wasteTypeMs} ${item.categoryMs} SKL Waste Sdn Bhd`}
+                title={`${item.titleMs} | ${item.categoryMs} (Ketik untuk besarkan)`}
+                class="work-img"
+                loading="lazy"
+                decoding="async"
+                width="640"
+                height="1138"
+              />
+              <span class="work-tap-hint" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 3h6v6"></path>
+                  <path d="M9 21H3v-6"></path>
+                  <path d="M21 3l-7 7"></path>
+                  <path d="M3 21l7-7"></path>
+                </svg>
+              </span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <!-- Maximum SEO Hidden Microdata & Keywords for Robots, Scrapers & AI Crawlers Only -->
+      <div class="crawler-seo-content" aria-hidden="true">
+        <h3>GALERI KERJA LAPANGAN SEWA TONG RORO SKL WASTE SDN BHD (200801038953)</h3>
+        <p>
+          Lihat tong roro biru SKL Waste Sdn Bhd beroperasi di tapak projek, perumahan dan premis komersial sekitar Selangor &amp; KL.
+          Perkhidmatan sewa tong roro 2 kaki dan 4 kaki untuk pelupusan sisa pembinaan, renovasi rumah, sisa kilang, sampah pukal perabot, dan domestik.
+        </p>
+        <ul>
+          {ourWorkGallery.map((item) => (
+            <li>
+              <strong>{item.titleMs}</strong> ({item.titleEn}):
+              Kategori: {item.categoryMs} ({item.categoryEn}) - Jenis Sisa: {item.wasteTypeMs}.
+              Lokasi servis: Sungai Buloh, Kepong, Rawang, Petaling Jaya, Subang, Shah Alam, Selangor &amp; Kuala Lumpur.
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Where We Supply: 12 Industry Sectors Section -->
   <section class="supply-sectors-section" id="where-we-supply">
     <div class="supply-container">
       <div class="supply-header blur-fade-item">
@@ -443,81 +518,6 @@ const ourWorkGallery = [
     </div>
   </section>
 
-  <!-- 4. Our Work / Kerja Lapangan SKL Waste -->
-  <section class="our-work-section" id="our-work">
-    <div class="supply-container">
-      <div class="supply-header-block our-work-header-centered">
-        <span
-          class="supply-eyebrow"
-          data-ms="KERJA LAPANGAN KAMI"
-          data-en="OUR WORK IN ACTION"
-        >
-          KERJA LAPANGAN KAMI
-        </span>
-        <h2
-          class="supply-title"
-          data-ms="Gambar Kerja Sebenar SKL Waste"
-          data-en="Real On-Site Project Photos"
-        >
-          Gambar Kerja Sebenar SKL Waste
-        </h2>
-      </div>
-
-      <!-- Human-Visible Image Grid: Pure Clean Images with Tap-to-Zoom Lightbox -->
-      <div class="our-work-grid">
-        {ourWorkGallery.map((item, idx) => (
-          <button
-            type="button"
-            class="work-card blur-fade-item work-card-trigger"
-            style={`--stagger-delay: ${idx * 80}ms;`}
-            data-full-img={item.image}
-            data-caption={`${item.titleMs} (${item.wasteTypeMs})`}
-            aria-label={`Buka gambar besar: ${item.titleMs}`}
-          >
-            <div class="work-media">
-              <img
-                src={item.image}
-                alt={`${item.titleMs} - ${item.wasteTypeMs} ${item.categoryMs} SKL Waste Sdn Bhd`}
-                title={`${item.titleMs} | ${item.categoryMs} (Ketik untuk besarkan)`}
-                class="work-img"
-                loading="lazy"
-                decoding="async"
-                width="640"
-                height="1138"
-              />
-              <span class="work-tap-hint" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M15 3h6v6"></path>
-                  <path d="M9 21H3v-6"></path>
-                  <path d="M21 3l-7 7"></path>
-                  <path d="M3 21l7-7"></path>
-                </svg>
-              </span>
-            </div>
-          </button>
-        ))}
-      </div>
-
-      <!-- Maximum SEO Hidden Microdata & Keywords for Robots, Scrapers & AI Crawlers Only -->
-      <div class="crawler-seo-content" aria-hidden="true">
-        <h3>GALERI KERJA LAPANGAN SEWA TONG RORO SKL WASTE SDN BHD (200801038953)</h3>
-        <p>
-          Lihat tong roro biru SKL Waste Sdn Bhd beroperasi di tapak projek, perumahan dan premis komersial sekitar Selangor &amp; KL.
-          Perkhidmatan sewa tong roro 2 kaki dan 4 kaki untuk pelupusan sisa pembinaan, renovasi rumah, sisa kilang, sampah pukal perabot, dan domestik.
-        </p>
-        <ul>
-          {ourWorkGallery.map((item) => (
-            <li>
-              <strong>{item.titleMs}</strong> ({item.titleEn}):
-              Kategori: {item.categoryMs} ({item.categoryEn}) - Jenis Sisa: {item.wasteTypeMs}.
-              Lokasi servis: Sungai Buloh, Kepong, Rawang, Petaling Jaya, Subang, Shah Alam, Selangor &amp; Kuala Lumpur.
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <!-- 5. Scroll-Driven Dynamic Scaling Free Quotation & Contact Section -->
   <section class="scroll-quote-section" id="free-quotation-cta">
     <div class="supply-container">
@@ -613,6 +613,7 @@ const ourWorkGallery = [
 
       <nav class="bottom-quick-links" aria-label="Footer Quick Links">
         <a href="#hero" data-ms="Utama" data-en="Home">Utama</a>
+        <a href="#our-work" data-ms="Gambar Kerja" data-en="Our Work">Gambar Kerja</a>
         <a href="#where-we-supply" data-ms="Sektor" data-en="Sectors">Sektor</a>
         <a href="#places-we-supply" data-ms="Kawasan" data-en="Locations">Kawasan</a>
         <a href="#free-quotation-cta" data-ms="Sebut Harga" data-en="Quotation">Sebut Harga</a>
