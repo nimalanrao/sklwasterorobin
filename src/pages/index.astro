@@ -481,74 +481,78 @@ const ourWorkGallery = [
       </div>
 
       <div class="supply-carousel-track">
-        <div class="supply-grid supply-ticker">
+        <div class="places-grid supply-ticker">
           {suppliedSectors.map((sector, index) => (
-            <article
-              class="supply-card blur-fade-item"
+            <div
+              class="place-pill-card blur-fade-item"
               style={`--stagger-delay: ${(index % 4) * 80}ms;`}
             >
-              <div class="supply-card-media">
-                <img
-                  src={sector.image}
-                  alt={`${sector.labelMs} - SKL Waste Sdn Bhd Tong Roro`}
-                  class="supply-card-img"
-                  width="640"
-                  height="420"
-                  loading="lazy"
-                  decoding="async"
-                />
+              {sector.image && (
+                <div
+                  class="place-card-bg"
+                  style={`background-image: url('${sector.image}');`}
+                  aria-hidden="true"
+                ></div>
+              )}
+              <div class="place-sheer-overlay" aria-hidden="true"></div>
+              <div class="place-card-content">
+                <div class="place-card-main">
+                  <span
+                    class="place-name"
+                    data-ms={sector.labelMs}
+                    data-en={sector.labelEn}
+                  >
+                    {sector.labelMs}
+                  </span>
+                  <span class="place-status-indicator">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <span
+                      class="status-label"
+                      data-ms={sector.subMs}
+                      data-en={sector.subEn}
+                    >
+                      {sector.subMs}
+                    </span>
+                  </span>
+                </div>
               </div>
-              <div class="supply-card-body">
-                <h3
-                  class="supply-card-title"
-                  data-ms={sector.labelMs}
-                  data-en={sector.labelEn}
-                >
-                  {sector.labelMs}
-                </h3>
-                <p
-                  class="supply-card-sub"
-                  data-ms={sector.subMs}
-                  data-en={sector.subEn}
-                >
-                  {sector.subMs}
-                </p>
-              </div>
-            </article>
+            </div>
           ))}
           {suppliedSectors.map((sector, index) => (
-            <article
-              class="supply-card blur-fade-item supply-card-duplicate"
+            <div
+              class="place-pill-card blur-fade-item supply-card-duplicate"
               style={`--stagger-delay: ${(index % 4) * 80}ms;`}
             >
-              <div class="supply-card-media">
-                <img
-                  src={sector.image}
-                  alt={`${sector.labelMs} - SKL Waste Sdn Bhd Tong Roro`}
-                  class="supply-card-img"
-                  width="640"
-                  height="420"
-                  loading="lazy"
-                  decoding="async"
-                />
+              {sector.image && (
+                <div
+                  class="place-card-bg"
+                  style={`background-image: url('${sector.image}');`}
+                  aria-hidden="true"
+                ></div>
+              )}
+              <div class="place-sheer-overlay" aria-hidden="true"></div>
+              <div class="place-card-content">
+                <div class="place-card-main">
+                  <span
+                    class="place-name"
+                    data-ms={sector.labelMs}
+                    data-en={sector.labelEn}
+                  >
+                    {sector.labelMs}
+                  </span>
+                  <span class="place-status-indicator">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <span
+                      class="status-label"
+                      data-ms={sector.subMs}
+                      data-en={sector.subEn}
+                    >
+                      {sector.subMs}
+                    </span>
+                  </span>
+                </div>
               </div>
-              <div class="supply-card-body">
-                <h3
-                  class="supply-card-title"
-                  data-ms={sector.labelMs}
-                  data-en={sector.labelEn}
-                >
-                  {sector.labelMs}
-                </h3>
-                <p
-                  class="supply-card-sub"
-                  data-ms={sector.subMs}
-                  data-en={sector.subEn}
-                >
-                  {sector.subMs}
-                </p>
-              </div>
-            </article>
+            </div>
           ))}
         </div>
       </div>
@@ -957,7 +961,7 @@ const ourWorkGallery = [
     function initTouchPausableCarousels() {
       var tracks = [
         { track: document.querySelector('.our-work-carousel-track'), speed: 1.2 },
-        { track: document.querySelector('.supply-carousel-track'), speed: 1.0 },
+        { track: document.querySelector('.supply-carousel-track'), speed: 2.2 },
         { track: document.querySelector('.places-carousel-track'), speed: 2.2 }
       ];
 
@@ -2131,16 +2135,17 @@ const ourWorkGallery = [
     }
   }
 
-  /* Ultra-Thin SEO Directory Bar at the Very Bottom of Website */
+  /* SEO Directory Bar: visually hidden from human view (sr-only), but 100% accessible to Google, Bing & AI crawlers in the HTML DOM */
   .thin-seo-strip {
-    background: #060e1a;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 0.45rem 1rem;
-    font-size: 0.72rem;
-    color: #64748b;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .thin-seo-inner {
@@ -2466,10 +2471,43 @@ const ourWorkGallery = [
     }
 
     .supply-card {
-      flex: 0 0 230px;
-      border-radius: 18px;
-      box-shadow: 0 8px 20px -4px rgba(10, 22, 40, 0.1);
+      flex: 0 0 240px;
+      width: 240px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px -4px rgba(10, 22, 40, 0.12);
       border: 1.5px solid rgba(10, 22, 40, 0.1);
+      background: #ffffff;
+    }
+
+    .supply-card-media {
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .supply-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .supply-card-body {
+      padding: 1rem 1.15rem 1.15rem;
+    }
+
+    .supply-card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #07101e;
+      margin: 0 0 0.25rem;
+    }
+
+    .supply-card-sub {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #15803d;
+      margin: 0;
     }
 
     /* Mobile Carousel for Kawasan Liputan / Places */
