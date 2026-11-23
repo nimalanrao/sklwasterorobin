@@ -211,8 +211,15 @@ const ourWorkGallery = [
     <!-- Left Content Container (Human-Visible Copy) -->
     <div class="hero-main-container">
       <div class="hero-info-block">
+        <!-- Social Proof Live Badge (FOMO & Authority Psychology) -->
+        <div class="hero-urgency-badge" data-reveal="badge">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span data-ms="Lori Beroperasi Hari Ini di Selangor & KL" data-en="Trucks Operating Today in Selangor & KL">Lori Beroperasi Hari Ini di Selangor & KL</span>
+        </div>
+
         <h1
           class="hero-main-title"
+          data-reveal="title"
           data-ms="Sewa Tong RoRo Pantas di Selangor & KL"
           data-en="Fast RoRo Bin Rental in Selangor & KL"
         >
@@ -222,20 +229,22 @@ const ourWorkGallery = [
         <!-- High-Conversion Psychological Value Description in Malay & English -->
         <p
           class="hero-psychological-desc"
-          data-ms="Jimat masa dan kos pelupusan sisa anda tanpa pening kepala. Dapatkan tong roro terus ke tapak anda seawal hari ini dengan tempoh sewaan selesa 10 hari, sokongan 24/7 dan harga telus tanpa caj tersembunyi."
-          data-en="Save time, energy and waste disposal costs without any hassle. Get premium RoRo bins dispatched directly to your site today with a generous 10-day rental period, 24/7 priority support, and transparent upfront pricing."
+          data-reveal="desc"
+          data-ms="Hantar terus ke tapak hari ini. Sewaan 10 hari & harga terus tanpa caj tersembunyi."
+          data-en="Direct site delivery today. 10-day rental & transparent pricing with zero hidden fees."
         >
-          Jimat masa dan kos pelupusan sisa anda tanpa pening kepala. Dapatkan tong roro terus ke tapak anda seawal hari ini dengan tempoh sewaan selesa 10 hari, sokongan 24/7 dan harga telus tanpa caj tersembunyi.
+          Hantar terus ke tapak hari ini. Sewaan 10 hari & harga terus tanpa caj tersembunyi.
         </p>
 
-        <!-- WhatsApp Pill CTA -->
-        <div class="hero-cta-wrapper">
+        <!-- WhatsApp High-Impact Pulse CTA -->
+        <div class="hero-cta-wrapper" data-reveal="cta">
           <a
             href="https://wa.me/60166159365?text=Hai%20Mr%20Hari%20(SKL%20Waste%20Sdn%20Bhd)%2C%20saya%20nak%20order%20tong%20roro"
             class="hero-whatsapp-btn"
             data-track-cta="hero_whatsapp"
             aria-label="Hubungi melalui WhatsApp"
           >
+            <span class="btn-glow-pulse" aria-hidden="true"></span>
             <svg
               class="whatsapp-icon"
               width="24"
@@ -248,6 +257,19 @@ const ourWorkGallery = [
             </svg>
             <span data-ms="24/7 WHATSAPP SEKARANG" data-en="24/7 WHATSAPP SEKARANG">24/7 WHATSAPP SEKARANG</span>
           </a>
+        </div>
+
+        <!-- Micro Social Proof & Security Line (Risk Reversal) -->
+        <div class="hero-trust-row" data-reveal="trust">
+          <span class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-ms="Syarikat Berdaftar SSM" data-en="SSM Registered Entity">Syarikat Berdaftar SSM</span>
+          </span>
+          <span class="trust-dot">•</span>
+          <span class="trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span data-ms="Respon < 5 Minit" data-en="Fast <5 Min Reply">Respon &lt; 5 Minit</span>
+          </span>
         </div>
       </div>
     </div>
@@ -341,39 +363,74 @@ const ourWorkGallery = [
         </h2>
       </div>
 
-      <!-- Human-Visible Image Grid: Pure Clean Images with Tap-to-Zoom Lightbox -->
-      <div class="our-work-grid">
-        {ourWorkGallery.map((item, idx) => (
-          <button
-            type="button"
-            class="work-card blur-fade-item work-card-trigger"
-            style={`--stagger-delay: ${idx * 80}ms;`}
-            data-full-img={item.image}
-            data-caption={`${item.titleMs} (${item.wasteTypeMs})`}
-            aria-label={`Buka gambar besar: ${item.titleMs}`}
-          >
-            <div class="work-media">
-              <img
-                src={item.image}
-                alt={`${item.titleMs} - ${item.wasteTypeMs} ${item.categoryMs} SKL Waste Sdn Bhd`}
-                title={`${item.titleMs} | ${item.categoryMs} (Ketik untuk besarkan)`}
-                class="work-img"
-                loading="lazy"
-                decoding="async"
-                width="640"
-                height="1138"
-              />
-              <span class="work-tap-hint" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M15 3h6v6"></path>
-                  <path d="M9 21H3v-6"></path>
-                  <path d="M21 3l-7 7"></path>
-                  <path d="M3 21l7-7"></path>
-                </svg>
-              </span>
-            </div>
-          </button>
-        ))}
+      <!-- Mobile Moving Carousel / Desktop Grid with Lightbox -->
+      <div class="our-work-carousel-track">
+        <div class="our-work-grid our-work-ticker">
+          <!-- First set of 5 images -->
+          {ourWorkGallery.map((item, idx) => (
+            <button
+              type="button"
+              class="work-card blur-fade-item work-card-trigger"
+              style={`--stagger-delay: ${idx * 80}ms;`}
+              data-full-img={item.image}
+              data-caption={`${item.titleMs} (${item.wasteTypeMs})`}
+              aria-label={`Buka gambar besar: ${item.titleMs}`}
+            >
+              <div class="work-media">
+                <img
+                  src={item.image}
+                  alt={`${item.titleMs} - ${item.wasteTypeMs} ${item.categoryMs} SKL Waste Sdn Bhd`}
+                  title={`${item.titleMs} | ${item.categoryMs} (Ketik untuk besarkan)`}
+                  class="work-img"
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="1138"
+                />
+                <span class="work-tap-hint" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h6v6"></path>
+                    <path d="M9 21H3v-6"></path>
+                    <path d="M21 3l-7 7"></path>
+                    <path d="M3 21l7-7"></path>
+                  </svg>
+                </span>
+              </div>
+            </button>
+          ))}
+          <!-- Second duplicated set for seamless infinite loop -->
+          {ourWorkGallery.map((item, idx) => (
+            <button
+              type="button"
+              class="work-card blur-fade-item work-card-trigger work-card-duplicate"
+              style={`--stagger-delay: ${idx * 80}ms;`}
+              data-full-img={item.image}
+              data-caption={`${item.titleMs} (${item.wasteTypeMs})`}
+              aria-label={`Buka gambar besar: ${item.titleMs}`}
+            >
+              <div class="work-media">
+                <img
+                  src={item.image}
+                  alt={`${item.titleMs} - ${item.wasteTypeMs} ${item.categoryMs} SKL Waste Sdn Bhd`}
+                  title={`${item.titleMs} | ${item.categoryMs} (Ketik untuk besarkan)`}
+                  class="work-img"
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="1138"
+                />
+                <span class="work-tap-hint" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h6v6"></path>
+                    <path d="M9 21H3v-6"></path>
+                    <path d="M21 3l-7 7"></path>
+                    <path d="M3 21l7-7"></path>
+                  </svg>
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
 
       <!-- Maximum SEO Hidden Microdata & Keywords for Robots, Scrapers & AI Crawlers Only -->
@@ -423,41 +480,77 @@ const ourWorkGallery = [
         </p>
       </div>
 
-      <div class="supply-grid">
-        {suppliedSectors.map((sector, index) => (
-          <article
-            class="supply-card blur-fade-item"
-            style={`--stagger-delay: ${(index % 4) * 80}ms;`}
-          >
-            <div class="supply-card-media">
-              <img
-                src={sector.image}
-                alt={`${sector.labelMs} - SKL Waste Sdn Bhd Tong Roro`}
-                class="supply-card-img"
-                width="640"
-                height="420"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="supply-card-body">
-              <h3
-                class="supply-card-title"
-                data-ms={sector.labelMs}
-                data-en={sector.labelEn}
-              >
-                {sector.labelMs}
-              </h3>
-              <p
-                class="supply-card-sub"
-                data-ms={sector.subMs}
-                data-en={sector.subEn}
-              >
-                {sector.subMs}
-              </p>
-            </div>
-          </article>
-        ))}
+      <div class="supply-carousel-track">
+        <div class="supply-grid supply-ticker">
+          {suppliedSectors.map((sector, index) => (
+            <article
+              class="supply-card blur-fade-item"
+              style={`--stagger-delay: ${(index % 4) * 80}ms;`}
+            >
+              <div class="supply-card-media">
+                <img
+                  src={sector.image}
+                  alt={`${sector.labelMs} - SKL Waste Sdn Bhd Tong Roro`}
+                  class="supply-card-img"
+                  width="640"
+                  height="420"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="supply-card-body">
+                <h3
+                  class="supply-card-title"
+                  data-ms={sector.labelMs}
+                  data-en={sector.labelEn}
+                >
+                  {sector.labelMs}
+                </h3>
+                <p
+                  class="supply-card-sub"
+                  data-ms={sector.subMs}
+                  data-en={sector.subEn}
+                >
+                  {sector.subMs}
+                </p>
+              </div>
+            </article>
+          ))}
+          {suppliedSectors.map((sector, index) => (
+            <article
+              class="supply-card blur-fade-item supply-card-duplicate"
+              style={`--stagger-delay: ${(index % 4) * 80}ms;`}
+            >
+              <div class="supply-card-media">
+                <img
+                  src={sector.image}
+                  alt={`${sector.labelMs} - SKL Waste Sdn Bhd Tong Roro`}
+                  class="supply-card-img"
+                  width="640"
+                  height="420"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="supply-card-body">
+                <h3
+                  class="supply-card-title"
+                  data-ms={sector.labelMs}
+                  data-en={sector.labelEn}
+                >
+                  {sector.labelMs}
+                </h3>
+                <p
+                  class="supply-card-sub"
+                  data-ms={sector.subMs}
+                  data-en={sector.subEn}
+                >
+                  {sector.subMs}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -489,31 +582,57 @@ const ourWorkGallery = [
         </p>
       </div>
 
-      <div class="places-grid">
-        {suppliedPlaces.map((place, idx) => (
-          <div
-            class="place-pill-card blur-fade-item"
-            style={`--stagger-delay: ${(idx % 6) * 45}ms;`}
-          >
-            {place.image && (
-              <div
-                class="place-card-bg"
-                style={`background-image: url('${place.image}');`}
-                aria-hidden="true"
-              ></div>
-            )}
-            <div class="place-sheer-overlay" aria-hidden="true"></div>
-            <div class="place-card-content">
-              <div class="place-card-main">
-                <span class="place-name">{place.name}</span>
-                <span class="place-status-indicator">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  <span class="status-label">{place.status}</span>
-                </span>
+      <div class="places-carousel-track">
+        <div class="places-grid places-ticker">
+          {suppliedPlaces.map((place, idx) => (
+            <div
+              class="place-pill-card blur-fade-item"
+              style={`--stagger-delay: ${(idx % 6) * 45}ms;`}
+            >
+              {place.image && (
+                <div
+                  class="place-card-bg"
+                  style={`background-image: url('${place.image}');`}
+                  aria-hidden="true"
+                ></div>
+              )}
+              <div class="place-sheer-overlay" aria-hidden="true"></div>
+              <div class="place-card-content">
+                <div class="place-card-main">
+                  <span class="place-name">{place.name}</span>
+                  <span class="place-status-indicator">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <span class="status-label">{place.status}</span>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+          {suppliedPlaces.map((place, idx) => (
+            <div
+              class="place-pill-card blur-fade-item place-card-duplicate"
+              style={`--stagger-delay: ${(idx % 6) * 45}ms;`}
+            >
+              {place.image && (
+                <div
+                  class="place-card-bg"
+                  style={`background-image: url('${place.image}');`}
+                  aria-hidden="true"
+                ></div>
+              )}
+              <div class="place-sheer-overlay" aria-hidden="true"></div>
+              <div class="place-card-content">
+                <div class="place-card-main">
+                  <span class="place-name">{place.name}</span>
+                  <span class="place-status-indicator">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <span class="status-label">{place.status}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -537,6 +656,12 @@ const ourWorkGallery = [
         <div class="quote-card-overlay" aria-hidden="true"></div>
 
         <div class="quote-card-inner">
+          <!-- Live Urgent Signal -->
+          <div class="quote-urgency-pill">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span data-ms="Tawaran Terhad: Lori Standby Hari Ini" data-en="Limited Slots: Trucks Standby Today">Tawaran Terhad: Lori Standby Hari Ini</span>
+          </div>
+
           <h2
             class="quote-big-text"
             data-ms="SEBUT HARGA PERCUMA? PM KAMI."
@@ -555,21 +680,24 @@ const ourWorkGallery = [
 
           <div class="quote-contact-badges">
             <a href={contactData.telephoneHref} class="quote-contact-pill" aria-label={`Telefon ${contactData.mainContactPerson}: ${contactData.telephoneDisplay}`}>
-              <svg class="quote-contact-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-              <span>{contactData.mainContactPerson}: {contactData.telephoneDisplay}</span>
+              <div class="quote-pill-call-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <span class="quote-pill-text"><strong>{contactData.mainContactPerson}:</strong> {contactData.telephoneDisplay}</span>
             </a>
           </div>
 
-          <!-- Same Curved Green WhatsApp Button as Hero Page -->
+          <!-- Pulsing High-Impact WhatsApp Button -->
           <div class="quote-btn-holder">
             <a
               href="https://wa.me/60166159365?text=Hai%20Mr%20Hari%20(SKL%20Waste%20Sdn%20Bhd)%2C%20saya%20nak%20order%20tong%20roro"
-              class="hero-whatsapp-btn"
+              class="hero-whatsapp-btn quote-primary-wa-btn"
               data-track-cta="bottom_quote_whatsapp"
               aria-label="Minta sebut harga percuma melalui WhatsApp"
             >
+              <span class="btn-glow-pulse" aria-hidden="true"></span>
               <svg
                 class="whatsapp-icon"
                 width="24"
@@ -580,8 +708,26 @@ const ourWorkGallery = [
               >
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413z"/>
               </svg>
-              <span data-ms="24/7 WHATSAPP" data-en="24/7 WHATSAPP">24/7 WHATSAPP</span>
+              <span data-ms="24/7 WHATSAPP SEKARANG" data-en="24/7 WHATSAPP NOW">24/7 WHATSAPP SEKARANG</span>
             </a>
+          </div>
+
+          <!-- Micro Guarantees Beneath Button -->
+          <div class="quote-trust-strip">
+            <span class="trust-pill-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Respon Pantas</span>
+            </span>
+            <span class="trust-sep">•</span>
+            <span class="trust-pill-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Tanpa Komitmen</span>
+            </span>
+            <span class="trust-sep">•</span>
+            <span class="trust-pill-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Sebut Harga Segera</span>
+            </span>
           </div>
         </div>
       </div>
@@ -807,7 +953,76 @@ const ourWorkGallery = [
       }
     });
 
-    // 4. Thin SEO Strip Click Interceptor (Prevents human navigation to jargon subpages, redirects smoothly to home)
+    // 4. Interactive Auto-Scrolling + Swipeable Carousel
+    function initTouchPausableCarousels() {
+      var tracks = [
+        { track: document.querySelector('.our-work-carousel-track'), speed: 1.2 },
+        { track: document.querySelector('.supply-carousel-track'), speed: 1.0 },
+        { track: document.querySelector('.places-carousel-track'), speed: 2.2 }
+      ];
+
+      tracks.forEach(function(item) {
+        var el = item.track;
+        if (!el) return;
+
+        var isUserInteracting = false;
+        var resumeTimeout = null;
+        var animId = null;
+
+        function startAutoScroll() {
+          if (animId) cancelAnimationFrame(animId);
+
+          function step() {
+            if (!isUserInteracting && window.innerWidth <= 768) {
+              var maxScroll = el.scrollWidth / 2;
+              el.scrollLeft += item.speed;
+              if (el.scrollLeft >= maxScroll) {
+                el.scrollLeft -= maxScroll;
+              }
+            }
+            animId = requestAnimationFrame(step);
+          }
+          animId = requestAnimationFrame(step);
+        }
+
+        function onTouchStart() {
+          isUserInteracting = true;
+          if (resumeTimeout) clearTimeout(resumeTimeout);
+        }
+
+        function onTouchEnd() {
+          if (resumeTimeout) clearTimeout(resumeTimeout);
+          resumeTimeout = setTimeout(function() {
+            isUserInteracting = false;
+          }, 2000);
+        }
+
+        el.addEventListener('touchstart', onTouchStart, { passive: true });
+        el.addEventListener('touchmove', onTouchStart, { passive: true });
+        el.addEventListener('touchend', onTouchEnd, { passive: true });
+        el.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
+        el.addEventListener('pointerdown', onTouchStart, { passive: true });
+        el.addEventListener('pointerup', onTouchEnd, { passive: true });
+
+        // Loop seamlessly if manually swiped past midway
+        el.addEventListener('scroll', function() {
+          if (window.innerWidth <= 768) {
+            var maxScroll = el.scrollWidth / 2;
+            if (el.scrollLeft >= maxScroll * 1.8) {
+              el.scrollLeft -= maxScroll;
+            } else if (el.scrollLeft <= 0 && isUserInteracting) {
+              el.scrollLeft += maxScroll;
+            }
+          }
+        }, { passive: true });
+
+        startAutoScroll();
+      });
+    }
+    initTouchPausableCarousels();
+
+    // 5. Thin SEO Strip Click Interceptor (Prevents human navigation to jargon subpages, redirects smoothly to home)
     var thinLinks = document.querySelectorAll('.thin-seo-link');
     thinLinks.forEach(function(link) {
       link.addEventListener('click', function(e) {
@@ -916,6 +1131,95 @@ const ourWorkGallery = [
     margin: 0;
   }
 
+  /* Urgency Live Badge */
+  .hero-urgency-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    background: rgba(21, 128, 61, 0.12);
+    border: 1px solid rgba(21, 128, 61, 0.28);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #14532d;
+    letter-spacing: 0.02em;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #16a34a;
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+    animation: livePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes livePulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 7px rgba(22, 163, 74, 0);
+    }
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+    }
+  }
+
+  /* Micro Social Proof & Security Row */
+  .hero-trust-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  .trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #1e293b;
+  }
+
+  .trust-item svg {
+    color: #15803d;
+  }
+
+  .trust-dot {
+    color: #cbd5e1;
+    font-size: 0.8rem;
+  }
+
+  .btn-glow-pulse {
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.6), rgba(21, 128, 61, 0.2));
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0.7;
+    animation: glowBreath 2.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowBreath {
+    0% {
+      opacity: 0.4;
+      transform: scale(0.98);
+    }
+    100% {
+      opacity: 0.9;
+      transform: scale(1.03);
+    }
+  }
+
   .hero-psychological-desc {
     font-family: 'Inter', system-ui, sans-serif;
     font-size: clamp(1rem, 1.45vw, 1.16rem);
@@ -943,6 +1247,7 @@ const ourWorkGallery = [
   }
 
   .hero-whatsapp-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1240,6 +1545,13 @@ const ourWorkGallery = [
     align-items: stretch;
   }
 
+  /* Desktop styles: hide duplicates */
+  .work-card-duplicate,
+  .supply-card-duplicate,
+  .place-card-duplicate {
+    display: none;
+  }
+
   @media (min-width: 1024px) {
     .our-work-grid {
       grid-template-columns: repeat(5, 1fr);
@@ -1492,16 +1804,76 @@ const ourWorkGallery = [
 
   .scroll-quote-box {
     position: relative;
-    max-width: 980px;
+    max-width: 780px;
     margin: 0 auto;
     background: #ffffff;
-    border: 2.5px solid #0a1628;
-    border-radius: 28px;
+    border: 2px solid rgba(10, 22, 40, 0.12);
+    border-radius: 36px;
     overflow: hidden;
-    box-shadow: 0 24px 56px -12px rgba(10, 22, 40, 0.14);
+    box-shadow: 0 30px 70px -15px rgba(10, 22, 40, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
     transform-origin: center center;
     transition: transform 0.12s ease-out, box-shadow 0.25s ease;
     will-change: transform;
+  }
+
+  .quote-urgency-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.95rem;
+    border-radius: 9999px;
+    background: rgba(21, 128, 61, 0.1);
+    border: 1px solid rgba(21, 128, 61, 0.25);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #14532d;
+    margin-bottom: 0.2rem;
+  }
+
+  .quote-trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    margin-top: 0.35rem;
+  }
+
+  .trust-pill-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #334155;
+  }
+
+  .trust-pill-item svg {
+    color: #15803d;
+    flex-shrink: 0;
+  }
+
+  .trust-sep {
+    color: #cbd5e1;
+    font-size: 0.75rem;
+  }
+
+  .quote-primary-wa-btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.05rem;
+  }
+
+  .quote-pill-call-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(21, 128, 61, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #15803d;
+    flex-shrink: 0;
   }
 
   .quote-card-bg-picture {
@@ -1580,28 +1952,26 @@ const ourWorkGallery = [
   .quote-contact-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.48rem 1rem;
+    gap: 0.65rem;
+    padding: 0.55rem 1.25rem;
     border-radius: 9999px;
-    background: #f1f5f9;
-    border: 1px solid rgba(10, 22, 40, 0.12);
-    color: #0a1628;
+    background: #f8fafc;
+    border: 1.5px solid rgba(10, 22, 40, 0.1);
+    color: #0f172a;
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: 0.86rem;
-    font-weight: 700;
+    font-size: 0.92rem;
+    font-weight: 600;
     text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-  }
-
-  .quote-contact-icon {
-    flex-shrink: 0;
-    color: #15803d;
+    box-shadow: 0 4px 12px rgba(10, 22, 40, 0.04);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .quote-contact-pill:hover {
-    background: #e2e8f0;
-    border-color: #0a1628;
-    color: #0a1628;
+    background: #ffffff;
+    border-color: #15803d;
+    color: #15803d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(21, 128, 61, 0.12);
   }
 
   .quote-btn-holder {
@@ -1845,14 +2215,20 @@ const ourWorkGallery = [
       object-position: center center;
     }
 
-    /* Background picture with slight blur and slight white opacity overlay */
+    /* Background picture with high contrast protective gradient for optimal text visibility */
     .hero-white-blur-fade {
       display: block !important;
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.98) 0%,
+        rgba(255, 255, 255, 0.92) 50%,
+        rgba(255, 255, 255, 0.85) 75%,
+        rgba(255, 255, 255, 0.40) 100%
+      );
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 1;
     }
 
@@ -1874,7 +2250,7 @@ const ourWorkGallery = [
 
     /* Normal background - Card glass background, border, and shadows completely removed */
     .hero-info-block {
-      gap: 1.15rem;
+      gap: 0.85rem;
       background: none !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
@@ -1887,26 +2263,115 @@ const ourWorkGallery = [
       max-width: 92%;
     }
 
-    .hero-main-title {
-      font-size: clamp(2rem, 7.5vw, 2.55rem);
-      line-height: 1.15;
-      text-align: center;
-      color: #0a1628;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+    .hero-urgency-badge {
+      font-size: 0.76rem;
+      padding: 0.28rem 0.75rem;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(22, 163, 74, 0.35);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      animation: badgeSlideDown 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
-    .hero-sub-info {
-      font-size: 1.05rem;
-      line-height: 1.5;
-      color: #0a1628;
-      font-weight: 700;
+    .hero-main-title {
+      font-size: clamp(2rem, 7.2vw, 2.45rem);
+      line-height: 1.15;
       text-align: center;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      color: #07101e;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 1);
+      animation: titleFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }
+
+    .hero-psychological-desc {
+      font-size: 0.98rem;
+      line-height: 1.5;
+      text-align: center;
+      max-width: 320px;
+      margin: 0 auto;
+      color: #0f172a;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+      animation: titleFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
     }
 
     .hero-cta-wrapper {
       justify-content: center;
-      margin: 0.5rem auto 0;
+      margin: 0.4rem auto 0;
+      animation: ctaPop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    .hero-whatsapp-btn {
+      width: 100%;
+      max-width: 330px;
+      padding: 0.95rem 1.8rem;
+      font-size: 0.96rem;
+      box-shadow: 0 8px 24px rgba(21, 128, 61, 0.35);
+    }
+
+    .hero-trust-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.4rem 0.95rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(10, 22, 40, 0.12);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #07101e;
+      margin-top: 0.35rem;
+      animation: titleFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+
+    .hero-trust-row .trust-item {
+      color: #07101e;
+    }
+
+    .hero-trust-row .trust-item svg {
+      color: #16a34a;
+    }
+
+    @keyframes badgeSlideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes titleFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes ctaPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(12px);
+      }
+      70% {
+        transform: scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .hero-cta-prompt {
@@ -1918,9 +2383,128 @@ const ourWorkGallery = [
       gap: 1.1rem;
     }
 
-    .places-grid {
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 0.75rem;
+    /* Mobile Carousel for 5 Proof Pictures (Automatic Smooth Infinite Loop) */
+    .our-work-section {
+      padding: 3rem 0 3.5rem;
+      overflow: hidden;
+    }
+
+    .our-work-header-centered {
+      padding: 0 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .our-work-carousel-track {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.5rem 1rem 1.5rem;
+      scrollbar-width: none;
+    }
+
+    .our-work-carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .work-card-duplicate,
+    .supply-card-duplicate,
+    .place-card-duplicate {
+      display: block;
+    }
+
+    .our-work-ticker {
+      display: flex !important;
+      flex-direction: row;
+      gap: 14px;
+      width: max-content;
+    }
+
+    .work-card {
+      /* Full screen width on mobile minus clean horizontal gutters */
+      flex: 0 0 calc(100vw - 32px);
+      width: calc(100vw - 32px);
+      margin: 0;
+      border-radius: 20px;
+      box-shadow: 0 12px 28px -6px rgba(10, 22, 40, 0.16);
+      border: 2px solid rgba(10, 22, 40, 0.1);
+    }
+
+    .work-media {
+      aspect-ratio: 4 / 5;
+    }
+
+    /* Mobile Carousel for Sektor / Industri */
+    .supply-sectors-section {
+      padding: 3rem 0 3.5rem;
+      overflow: hidden;
+    }
+
+    .supply-header {
+      padding: 0 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .supply-carousel-track {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.5rem 1rem 1.5rem;
+      scrollbar-width: none;
+    }
+
+    .supply-carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .supply-ticker {
+      display: flex !important;
+      flex-direction: row;
+      gap: 1rem;
+      width: max-content;
+    }
+
+    .supply-card {
+      flex: 0 0 230px;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px -4px rgba(10, 22, 40, 0.1);
+      border: 1.5px solid rgba(10, 22, 40, 0.1);
+    }
+
+    /* Mobile Carousel for Kawasan Liputan / Places */
+    .places-supply-section {
+      padding: 3rem 0 3.5rem;
+      overflow: hidden;
+    }
+
+    .places-carousel-track {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding: 0.5rem 1rem 1.5rem;
+      scrollbar-width: none;
+    }
+
+    .places-carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .places-ticker {
+      display: flex !important;
+      flex-direction: row;
+      gap: 1rem;
+      width: max-content;
+    }
+
+    .place-pill-card {
+      flex: 0 0 240px;
+      width: 240px;
+      aspect-ratio: 4 / 5;
+      border-radius: 20px;
+      box-shadow: 0 10px 24px -4px rgba(10, 22, 40, 0.12);
+      border: 1.5px solid rgba(10, 22, 40, 0.1);
     }
 
     .bottom-pill-nav {
