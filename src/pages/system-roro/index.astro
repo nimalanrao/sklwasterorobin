@@ -957,6 +957,29 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       </div>
     </div>
 
+    <!-- MODAL: CONFIRM DISCARD / BACK FROM ADD-EDIT FORM -->
+    <div id="confirm-discard-modal" class="modal-overlay confirm-discard-overlay" hidden>
+      <div class="modal-dialog confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-discard-title">
+        <div class="confirm-badge danger">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </div>
+        <h3 class="confirm-title" id="confirm-discard-title" data-i18n="confirm_discard_title">Are you sure?</h3>
+        <p class="confirm-desc" data-i18n="confirm_discard_desc">
+          Any unsaved changes will be cancelled and discarded.
+        </p>
+        <div class="confirm-foot">
+          <button type="button" id="btn-keep-editing" class="btn-ghost" data-i18n="btn_keep_editing">Keep Editing</button>
+          <button type="button" id="btn-confirm-discard" class="btn-danger">
+            <span data-i18n="btn_confirm_discard">Yes, Cancel</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- MODAL: BIN DETAIL & ACTION MENU (Opens on Row Tap) -->
     <div id="record-detail-modal" class="modal-overlay" hidden>
       <div class="modal-dialog detail-dialog" role="dialog" aria-modal="true" aria-labelledby="detail-location-title">
@@ -5598,6 +5621,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       border-color: #4e5058;
     }
   }
+
+  .confirm-discard-overlay {
+    z-index: 260 !important;
+    background: rgba(15, 23, 42, 0.55) !important;
+    padding: 1rem !important;
+    align-items: center !important;
+  }
+
+  :global([data-theme="dark"]) .confirm-discard-overlay {
+    background: rgba(0, 0, 0, 0.72) !important;
+  }
 </style>
 
 <script>
@@ -5790,6 +5824,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       confirm_delete_title: 'Delete Permanently?',
       confirm_delete_desc: 'The record for {loc} will be permanently removed.',
       confirm_delete_btn: 'Delete Permanently',
+      confirm_discard_title: 'Are you sure?',
+      confirm_discard_desc: 'Any unsaved changes will be cancelled and discarded.',
+      btn_keep_editing: 'Keep Editing',
+      btn_confirm_discard: 'Yes, Cancel',
       detail_customer: 'Customer',
       detail_price: 'Rental Price',
       detail_start: 'Start Date',
@@ -5910,6 +5948,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       confirm_delete_title: 'Padam Rekod Kekal?',
       confirm_delete_desc: 'Rekod di {loc} akan dipadamkan secara kekal.',
       confirm_delete_btn: 'Padam Kekal',
+      confirm_discard_title: 'Anda pasti?',
+      confirm_discard_desc: 'Sebarang maklumat yang belum disimpan akan dibatalkan.',
+      btn_keep_editing: 'Teruskan',
+      btn_confirm_discard: 'Ya, Batal',
       detail_customer: 'Pelanggan',
       detail_price: 'Harga Sewa',
       detail_start: 'Tarikh Mula',
@@ -7424,14 +7466,35 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   // Close date popovers when clicking inside modal background
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
-      closeModal();
+      requestCloseModal();
     } else {
       closeDatePickers();
     }
   });
 
-  // Modal Open / Close
+  // Modal Open / Close + Back / Cancel "Are you sure?" Confirmation
   const mapPickerCard = document.getElementById('map-picker-card') as HTMLElement | null;
+  const confirmDiscardModal = document.getElementById('confirm-discard-modal') as HTMLElement;
+  let modalHistoryPushed = false;
+
+  function pushModalHistoryState() {
+    if (modalHistoryPushed) return;
+    try {
+      window.history.pushState({ roroModalOpen: true }, '');
+      modalHistoryPushed = true;
+    } catch {}
+  }
+
+  function requestCloseModal() {
+    if (modal.hidden) return;
+    closeDatePickers();
+    closeAutocomplete();
+    confirmDiscardModal.hidden = false;
+  }
+
+  function closeDiscardConfirm() {
+    confirmDiscardModal.hidden = true;
+  }
 
   function applySpecialSettingsUI() {
     if (mapPickerCard) {
@@ -7464,6 +7527,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     if (mapPickerCard) mapPickerCard.hidden = !specialSettings.enableMapPicker;
     modal.hidden = false;
+    pushModalHistoryState();
     if (specialSettings.enableMapPicker) {
       setMapStatus('Click anywhere on the map or drag pin to select exact spot');
       ensureMapReady(DEPOT_LAT, DEPOT_LNG, 12, false);
@@ -7502,6 +7566,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     if (mapPickerCard) mapPickerCard.hidden = !specialSettings.enableMapPicker;
     modal.hidden = false;
+    pushModalHistoryState();
     if (specialSettings.enableMapPicker) {
       setMapStatus('Click anywhere on the map or drag pin to update spot');
       ensureMapReady(DEPOT_LAT, DEPOT_LNG, 12, false);
@@ -7512,7 +7577,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   function closeModal() {
     closeDatePickers();
     closeAutocomplete();
+    confirmDiscardModal.hidden = true;
     modal.hidden = true;
+    if (modalHistoryPushed) {
+      modalHistoryPushed = false;
+      try {
+        if (window.history.state && window.history.state.roroModalOpen) {
+          window.history.back();
+        }
+      } catch {}
+    }
   }
 
   function closePullModal() {
@@ -7525,11 +7599,25 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     pendingDeleteId = null;
   }
 
+  // Intercept browser / mobile hardware Back button while Add/Edit modal is open
+  window.addEventListener('popstate', () => {
+    if (!modal.hidden) {
+      modalHistoryPushed = false;
+      pushModalHistoryState();
+      requestCloseModal();
+    }
+  });
+
   // Bind Modal Triggers
   document.getElementById('btn-open-modal')?.addEventListener('click', openCreateModal);
   btnEmptyCreate?.addEventListener('click', openCreateModal);
-  document.getElementById('btn-close-modal')?.addEventListener('click', closeModal);
-  document.getElementById('btn-cancel-modal')?.addEventListener('click', closeModal);
+  document.getElementById('btn-close-modal')?.addEventListener('click', requestCloseModal);
+  document.getElementById('btn-cancel-modal')?.addEventListener('click', requestCloseModal);
+  document.getElementById('btn-keep-editing')?.addEventListener('click', closeDiscardConfirm);
+  document.getElementById('btn-confirm-discard')?.addEventListener('click', closeModal);
+  confirmDiscardModal.addEventListener('click', (e) => {
+    if (e.target === confirmDiscardModal) closeDiscardConfirm();
+  });
 
   confirmPullModal.addEventListener('click', (e) => {
     if (e.target === confirmPullModal) closePullModal();
@@ -7540,11 +7628,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (!confirmDiscardModal.hidden) {
+        closeDiscardConfirm();
+        return;
+      }
       if (dpStartWrapper?.classList.contains('is-open') || dpEndWrapper?.classList.contains('is-open')) {
         closeDatePickers();
         return;
       }
-      if (!modal.hidden) closeModal();
+      if (!modal.hidden) {
+        requestCloseModal();
+        return;
+      }
       if (!detailModal.hidden) closeDetailModal();
       if (!settingsModal.hidden) closeSettingsModal();
       if (!confirmPullModal.hidden) closePullModal();
