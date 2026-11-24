@@ -12,6 +12,7 @@ export interface RoroRecord {
   date_start: string;
   date_end: string;
   bin_owner: BinOwner;
+  invoice_no?: string;
   customer_name?: string;
   customer_phone: string;
   location: string;
@@ -76,6 +77,7 @@ export function buildDriverDispatchText(record: RoroRecord): string {
   const lines = [
     '*RORO DISPATCH INFO*',
     `Owner: ${record.bin_owner}`,
+    ...(record.invoice_no ? [`INV NO: #${record.invoice_no}`] : []),
     `Bin Size: ${record.size}`,
     `Location: ${record.location}`,
     `Waze: ${wazeUrl}`,
@@ -115,12 +117,14 @@ function normalizeOwner(raw: string | undefined): BinOwner {
 
 function normalizeRecord(r: any): RoroRecord {
   const owner = normalizeOwner(r.bin_owner);
+  const rawInvoice = r.invoice_no !== undefined && r.invoice_no !== null ? String(r.invoice_no).trim().slice(0, 4) : undefined;
   return {
     id: String(r.id),
     created_at: r.created_at || new Date().toISOString(),
     date_start: String(r.date_start),
     date_end: String(r.date_end),
     bin_owner: owner,
+    invoice_no: rawInvoice || undefined,
     customer_name:
       r.customer_name || (owner === OWNER_THIRUMAL ? THIRUMAL_DEFAULT_NAME : undefined),
     customer_phone:
@@ -265,6 +269,7 @@ export async function createRoroRecord(record: RoroRecord): Promise<{ synced: bo
       date_start: record.date_start,
       date_end: record.date_end,
       bin_owner: record.bin_owner,
+      invoice_no: record.invoice_no ? record.invoice_no.slice(0, 4) : null,
       customer_name: record.customer_name || null,
       customer_phone: record.customer_phone,
       location: record.location,
@@ -299,6 +304,7 @@ export async function updateRoroRecord(record: RoroRecord): Promise<{ synced: bo
       date_start: record.date_start,
       date_end: record.date_end,
       bin_owner: record.bin_owner,
+      invoice_no: record.invoice_no ? record.invoice_no.slice(0, 4) : null,
       customer_name: record.customer_name || null,
       customer_phone: record.customer_phone,
       location: record.location,
@@ -352,6 +358,7 @@ export const SUPABASE_SETUP_SQL = `CREATE TABLE IF NOT EXISTS public.system_roro
     date_start DATE NOT NULL,
     date_end DATE NOT NULL,
     bin_owner TEXT NOT NULL DEFAULT 'SKL Waste' CHECK (bin_owner IN ('SKL Waste', 'Thirumal Vel Enterprise')),
+    invoice_no VARCHAR(4),
     customer_name TEXT,
     customer_phone TEXT NOT NULL DEFAULT '',
     location TEXT NOT NULL,
@@ -364,6 +371,7 @@ export const SUPABASE_SETUP_SQL = `CREATE TABLE IF NOT EXISTS public.system_roro
 
 ALTER TABLE public.system_roro_records ADD COLUMN IF NOT EXISTS customer_phone TEXT NOT NULL DEFAULT '';
 ALTER TABLE public.system_roro_records ADD COLUMN IF NOT EXISTS bin_owner TEXT NOT NULL DEFAULT 'SKL Waste';
+ALTER TABLE public.system_roro_records ADD COLUMN IF NOT EXISTS invoice_no VARCHAR(4);
 
 ALTER TABLE public.system_roro_records ENABLE ROW LEVEL SECURITY;
 

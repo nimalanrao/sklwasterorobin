@@ -678,6 +678,26 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 class="form-control"
               />
             </div>
+
+            <div class="form-row">
+              <label for="modal-invoice-no" class="form-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <span>INV NO <span class="optional-tag">(Max 4 digits)</span></span>
+              </label>
+              <div class="prefix-field">
+                <span class="prefix-addon">#</span>
+                <input
+                  type="text"
+                  id="modal-invoice-no"
+                  class="prefix-input"
+                  maxlength="4"
+                  inputmode="numeric"
+                  placeholder="e.g. 1024"
+                  pattern="[0-9]{1,4}"
+                  title="Invoice number must be up to 4 digits"
+                />
+              </div>
+            </div>
           </div>
 
           <div class="form-split">
@@ -905,17 +925,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <span class="detail-info-sub" id="detail-phone-val">-</span>
             </div>
             <div class="detail-info-cell">
-              <span class="detail-info-label">Rental Price</span>
-              <strong class="detail-info-val detail-price-val" id="detail-price-val">RM 0</strong>
+              <span class="detail-info-label">INV NO</span>
+              <strong class="detail-info-val detail-inv-val" id="detail-invoice-val">-</strong>
               <span class="detail-info-sub" id="detail-owner-val">-</span>
             </div>
             <div class="detail-info-cell">
-              <span class="detail-info-label">Start Date</span>
-              <strong class="detail-info-val" id="detail-start-val">-</strong>
+              <span class="detail-info-label">Rental Price</span>
+              <strong class="detail-info-val detail-price-val" id="detail-price-val">RM 0</strong>
             </div>
             <div class="detail-info-cell">
-              <span class="detail-info-label">End Date</span>
-              <strong class="detail-info-val" id="detail-end-val">-</strong>
+              <span class="detail-info-label">Duration</span>
+              <strong class="detail-info-val" id="detail-start-val">-</strong>
+              <span class="detail-info-sub" id="detail-end-val">-</span>
             </div>
           </div>
 
@@ -2450,6 +2471,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     gap: 0.25rem;
   }
 
+  :global(.loc-head-row) {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+
   :global(.loc-main) {
     font-weight: 800;
     font-size: 1.05rem;
@@ -2810,6 +2838,21 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     background: #f5f3ff;
     color: #6d28d9;
     border: 1px solid #ede9fe;
+  }
+
+  :global(.pill-inv) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    white-space: nowrap;
   }
 
   :global(.owner-stack) {
@@ -5157,6 +5200,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   const modalFormErrorText = document.getElementById('modal-form-error-text') as HTMLElement;
   const recordIdInput = document.getElementById('record-id') as HTMLInputElement;
   const locationInput = document.getElementById('modal-location') as HTMLInputElement;
+  const invoiceNoInput = document.getElementById('modal-invoice-no') as HTMLInputElement;
   const phoneInput = document.getElementById('modal-phone') as HTMLInputElement;
   const priceInput = document.getElementById('modal-price') as HTMLInputElement;
   const dateStartInput = document.getElementById('modal-date-start') as HTMLInputElement;
@@ -5587,7 +5631,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
-        const hay = `${item.location || ''} ${item.bin_owner || ''} ${item.customer_name || ''} ${item.customer_phone || ''} ${item.size || ''} ${item.notes || ''}`.toLowerCase();
+        const hay = `${item.location || ''} ${item.bin_owner || ''} ${item.invoice_no ? 'inv #' + item.invoice_no : ''} ${item.customer_name || ''} ${item.customer_phone || ''} ${item.size || ''} ${item.notes || ''}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
@@ -5646,7 +5690,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       tr.innerHTML = `
         <td data-col="location">
           <div class="cell-loc">
-            <span class="loc-main">${escapeHtml(item.location)}</span>
+            <div class="loc-head-row">
+              <span class="loc-main">${escapeHtml(item.location)}</span>
+              ${item.invoice_no ? `<span class="pill-inv">INV #${escapeHtml(item.invoice_no)}</span>` : ''}
+            </div>
             ${item.notes ? `<span class="loc-note">${escapeHtml(item.notes)}</span>` : ''}
           </div>
         </td>
@@ -5727,6 +5774,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   const detailLocationTitle = document.getElementById('detail-location-title') as HTMLElement;
   const detailCustomerVal = document.getElementById('detail-customer-val') as HTMLElement;
   const detailPhoneVal = document.getElementById('detail-phone-val') as HTMLElement;
+  const detailInvoiceVal = document.getElementById('detail-invoice-val') as HTMLElement;
   const detailPriceVal = document.getElementById('detail-price-val') as HTMLElement;
   const detailOwnerVal = document.getElementById('detail-owner-val') as HTMLElement;
   const detailStartVal = document.getElementById('detail-start-val') as HTMLElement;
@@ -5753,11 +5801,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       ${buildStatusPillHtml(rec)}
       <span class="pill-size ${sizeCls}">${escapeHtml(rec.size)}</span>
       <span class="pill-owner ${ownerCls}">${ownerShort}</span>
+      ${rec.invoice_no ? `<span class="pill-inv">INV #${escapeHtml(rec.invoice_no)}</span>` : ''}
     `;
 
     detailLocationTitle.textContent = rec.location;
     detailCustomerVal.textContent = rec.customer_name || 'Customer';
     detailPhoneVal.textContent = formatPhoneDisplay(rec.customer_phone) || '-';
+    detailInvoiceVal.textContent = rec.invoice_no ? `#${rec.invoice_no}` : '-';
     detailPriceVal.textContent = `RM ${Number(rec.price).toLocaleString()}`;
     detailOwnerVal.textContent = rec.bin_owner;
     detailStartVal.textContent = formatDateDisplay(rec.date_start);
@@ -6585,6 +6635,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     recordForm.reset();
     modalFormError.hidden = true;
     recordIdInput.value = '';
+    invoiceNoInput.value = '';
     modalTitle.textContent = 'Add New RORO Bin';
     btnSaveText.textContent = 'Save Bin Record';
 
@@ -6630,6 +6681,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     syncDatePickerDisplays();
     customerInput.value = rec.customer_name || (rec.bin_owner === OWNER_THIRUMAL ? THIRUMAL_DEFAULT_NAME : '');
     notesInput.value = rec.notes || '';
+    invoiceNoInput.value = rec.invoice_no ? rec.invoice_no.slice(0, 4) : '';
     if (rec.size === '4 Feet') size4Radio.checked = true;
     else size2Radio.checked = true;
 
@@ -6830,6 +6882,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     const rawCust = customerInput.value.trim();
     const custVal = ownerVal === OWNER_THIRUMAL ? (rawCust || THIRUMAL_DEFAULT_NAME) : rawCust;
     const noteVal = notesInput.value.trim();
+    const invoiceVal = invoiceNoInput.value.trim().slice(0, 4);
     const sizeVal: '2 Feet' | '4 Feet' = size4Radio.checked ? '4 Feet' : '2 Feet';
     const { isOverdue } = getDaysRemaining(endVal);
 
@@ -6840,6 +6893,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         created_at: existing?.created_at || new Date().toISOString(),
         location: loc,
         bin_owner: ownerVal,
+        invoice_no: invoiceVal || undefined,
         customer_phone: normalizedPhone,
         size: sizeVal,
         price: priceVal,
@@ -6863,6 +6917,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         created_at: new Date().toISOString(),
         location: loc,
         bin_owner: ownerVal,
+        invoice_no: invoiceVal || undefined,
         customer_phone: normalizedPhone,
         size: sizeVal,
         price: priceVal,
