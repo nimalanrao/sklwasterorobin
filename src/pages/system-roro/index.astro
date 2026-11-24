@@ -29,7 +29,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </picture>
           </div>
           <div class="sidebar-brand-meta">
-            <span class="sidebar-brand-title">SYSTEM RORO</span>
+            <div class="sidebar-brand-title-row">
+              <span class="sidebar-brand-title">SYSTEM RORO</span>
+              <button type="button" id="btn-brand-refresh" class="brand-refresh-btn" title="Refresh data from Supabase" aria-label="Refresh data">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+              </button>
+            </div>
             <span class="sidebar-brand-sub">SKL Waste Sdn Bhd</span>
           </div>
         </div>
@@ -43,7 +52,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
       <!-- Navigation Views -->
       <nav class="sidebar-nav">
-        <div class="nav-section-label">OPERATIONS</div>
+        <div class="nav-section-label" data-i18n="section_operations">OPERATIONS</div>
         <button type="button" class="nav-item active" data-nav-view="all">
           <span class="nav-item-left">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -52,7 +61,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
               <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
             </svg>
-            <span>Active Bins</span>
+            <span data-i18n="nav_all">Active Bins</span>
           </span>
           <span class="nav-count" id="nav-count-all">0</span>
         </button>
@@ -63,7 +72,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            <span>&lt;10 Days</span>
+            <span data-i18n="nav_active">&lt;10 Days</span>
           </span>
           <span class="nav-count green" id="nav-count-active">0</span>
         </button>
@@ -75,7 +84,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <line x1="12" y1="9" x2="12" y2="13"></line>
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
-            <span>Needs Pull</span>
+            <span data-i18n="nav_overdue">Needs Pull</span>
           </span>
           <span class="nav-count red" id="nav-count-overdue">0</span>
         </button>
@@ -86,12 +95,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
-            <span>Completed</span>
+            <span data-i18n="nav_completed">Completed</span>
           </span>
           <span class="nav-count slate" id="nav-count-completed">0</span>
         </button>
 
-        <div class="nav-section-label spaced">OWNERS</div>
+        <div class="nav-section-label spaced" data-i18n="section_owners">OWNERS</div>
         <button type="button" class="nav-item" data-nav-view="owner_skl">
           <span class="nav-item-left">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -116,14 +125,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <span class="nav-count amber" id="nav-count-owner-thirumal">0</span>
         </button>
 
-        <div class="nav-section-label spaced">BIN SIZES</div>
+        <div class="nav-section-label spaced" data-i18n="section_sizes">BIN SIZES</div>
         <button type="button" class="nav-item" data-nav-view="2ft">
           <span class="nav-item-left">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="9" width="20" height="11" rx="2"></rect>
               <path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"></path>
             </svg>
-            <span>2 Feet</span>
+            <span data-i18n="size_2ft">2 Feet</span>
           </span>
           <span class="nav-count" id="nav-count-2ft">0</span>
         </button>
@@ -134,31 +143,41 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <rect x="2" y="5" width="20" height="15" rx="2"></rect>
               <line x1="2" y1="10" x2="22" y2="10"></line>
             </svg>
-            <span>4 Feet</span>
+            <span data-i18n="size_4ft">4 Feet</span>
           </span>
           <span class="nav-count" id="nav-count-4ft">0</span>
         </button>
 
-        <div class="nav-section-label spaced">SYSTEM</div>
+        <div class="nav-section-label spaced" data-i18n="section_system">SYSTEM</div>
         <button type="button" class="nav-item" id="btn-open-settings-nav">
           <span class="nav-item-left">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
-            <span>Settings</span>
+            <span data-i18n="nav_settings">Settings</span>
           </span>
           <svg class="nav-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
         </button>
+
+        <div class="nav-section-label spaced" data-i18n="section_language">LANGUAGE / BAHASA</div>
+        <div class="lang-toggle-wrap">
+          <button type="button" class="lang-btn active" id="btn-lang-en" data-lang="en">
+            <span>English</span>
+          </button>
+          <button type="button" class="lang-btn" id="btn-lang-ms" data-lang="ms">
+            <span>B. Melayu</span>
+          </button>
+        </div>
       </nav>
 
-      <!-- Sidebar Bottom Area: DB Sync Status + Admin Profile Dropdown & Logout -->
+      <!-- Sidebar Bottom Area: DB Sync Status (Shown only if table missing/error) + Admin Profile Dropdown & Logout -->
       <div class="sidebar-footer">
-        <!-- Supabase / Storage Sync Status -->
-        <div class="sync-status-card" id="sync-status-card">
+        <!-- Supabase / Storage Sync Status (Hidden automatically when connected) -->
+        <div class="sync-status-card" id="sync-status-card" hidden>
           <div class="sync-status-top">
             <span class="sync-dot" id="sync-dot"></span>
             <span class="sync-label" id="sync-label">Connecting...</span>
@@ -290,7 +309,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            <span>Add Bin</span>
+            <span data-i18n="btn_add_bin">Add Bin</span>
           </button>
         </div>
       </header>
@@ -330,7 +349,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </svg>
           </div>
           <div class="kpi-body">
-            <span class="kpi-label">Active</span>
+            <span class="kpi-label" data-i18n="kpi_active">Active</span>
             <span class="kpi-value" id="stat-total-count">0</span>
           </div>
         </div>
@@ -344,7 +363,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </svg>
           </div>
           <div class="kpi-body">
-            <span class="kpi-label">Needs Pull</span>
+            <span class="kpi-label" data-i18n="kpi_needs_pull">Needs Pull</span>
             <span class="kpi-value" id="stat-expired-count">0</span>
           </div>
         </div>
@@ -357,7 +376,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </svg>
           </div>
           <div class="kpi-body">
-            <span class="kpi-label">Completed</span>
+            <span class="kpi-label" data-i18n="kpi_completed">Completed</span>
             <span class="kpi-value" id="stat-completed-count">0</span>
           </div>
         </div>
@@ -508,11 +527,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <table class="roro-table">
             <thead>
               <tr>
-                <th>LOCATION</th>
-                <th>BIN</th>
-                <th>CUSTOMER</th>
-                <th>STATUS</th>
-                <th class="text-right price-col-head">PRICE</th>
+                <th data-i18n="th_location">LOCATION</th>
+                <th data-i18n="th_bin">BIN</th>
+                <th data-i18n="th_customer">CUSTOMER</th>
+                <th data-i18n="th_status">STATUS</th>
+                <th class="text-right price-col-head" data-i18n="th_price">PRICE</th>
               </tr>
             </thead>
             <tbody id="roro-table-body">
@@ -593,13 +612,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           </div>
 
           <div class="form-row">
-            <div class="label-between-row">
-              <label for="modal-location" class="form-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>Delivery Location / Address <strong class="req">*</strong></span>
-              </label>
-              <span class="my-only-badge">Malaysia Only</span>
-            </div>
+            <label for="modal-location" class="form-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Delivery Location / Address <strong class="req">*</strong></span>
+            </label>
             <div class="autocomplete-anchor" id="location-autocomplete-anchor">
               <input
                 type="text"
@@ -1135,7 +1151,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   /* --- LEFT FLOATING ISLAND SIDEBAR --- */
   .sidebar {
-    width: 274px;
+    width: 295px;
     flex-shrink: 0;
     background: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(20px);
@@ -1159,7 +1175,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2rem 1.15rem 1.05rem;
+    padding: 1.35rem 1.25rem 1.15rem;
     border-bottom: 1px solid #f1f5f9;
     border-radius: 24px 24px 0 0;
   }
@@ -1167,13 +1183,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .sidebar-brand-left {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
 
   .sidebar-logo-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 11px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     background: #ffffff;
     border: 1px solid #e5e7eb;
     display: flex;
@@ -1185,8 +1201,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .sidebar-logo-img {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
     display: block;
   }
@@ -1196,25 +1212,60 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     flex-direction: column;
   }
 
+  .sidebar-brand-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   .sidebar-brand-title {
     font-family: var(--font-display);
-    font-size: 0.98rem;
+    font-size: 1.08rem;
     font-weight: 800;
     letter-spacing: -0.02em;
     color: #0f172a;
     line-height: 1.15;
   }
 
+  .brand-refresh-btn {
+    width: 26px;
+    height: 26px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #64748b;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .brand-refresh-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+  }
+
+  .brand-refresh-btn:active {
+    transform: scale(0.92);
+  }
+
+  .brand-refresh-btn.spinning svg,
+  .sync-refresh-btn.spinning svg {
+    animation: spin360 0.7s linear infinite;
+  }
+
   .sidebar-brand-sub {
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #64748b;
   }
 
   .mobile-close-btn {
     display: none;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border: 1px solid #e5e7eb;
     background: #ffffff;
     color: #475569;
@@ -1227,35 +1278,35 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .sidebar-nav {
     flex: 1;
     overflow-y: auto;
-    padding: 1rem 0.85rem;
+    padding: 1.1rem 0.95rem;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.35rem;
   }
 
   .nav-section-label {
-    font-size: 0.66rem;
+    font-size: 0.74rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #94a3b8;
-    padding: 0.35rem 0.65rem 0.3rem;
+    padding: 0.45rem 0.75rem 0.35rem;
   }
 
   .nav-section-label.spaced {
-    margin-top: 0.95rem;
+    margin-top: 1.1rem;
   }
 
   .nav-item {
     width: 100%;
     border: none;
     background: transparent;
-    border-radius: 10px;
-    padding: 0.6rem 0.7rem;
+    border-radius: 12px;
+    padding: 0.75rem 0.85rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 0.82rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
     color: #475569;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
@@ -1270,17 +1321,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .nav-item.active {
     background: #f1f5f9;
     color: #0f172a;
-    font-weight: 700;
+    font-weight: 800;
   }
 
   .nav-item-left {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.65rem;
     min-width: 0;
   }
 
   .nav-item-left svg {
+    width: 19px;
+    height: 19px;
     color: #64748b;
     flex-shrink: 0;
   }
@@ -1290,13 +1343,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .nav-count {
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.1rem 0.48rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 0.15rem 0.58rem;
     border-radius: 9999px;
     background: #f1f5f9;
     color: #475569;
-    min-width: 24px;
+    min-width: 26px;
     text-align: center;
     flex-shrink: 0;
   }
@@ -1311,36 +1364,69 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .nav-count.amber { background: #fffbeb; color: #b45309; }
   .nav-count.slate { background: #f1f5f9; color: #334155; }
 
-  /* --- SIDEBAR FOOTER (DB Status + Admin Profile + Logout) --- */
+  /* --- LANGUAGE TOGGLE BUTTONS --- */
+  .lang-toggle-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    padding: 0.2rem 0.2rem;
+    background: #f1f5f9;
+    border-radius: 12px;
+    margin-top: 0.2rem;
+  }
+
+  .lang-btn {
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    padding: 0.55rem 0.4rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
+  }
+
+  .lang-btn:hover {
+    color: #0f172a;
+  }
+
+  .lang-btn.active {
+    background: #ffffff;
+    color: #0f172a;
+    font-weight: 800;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+  }
   .sidebar-footer {
-    padding: 0.85rem;
+    padding: 0.95rem;
     border-top: 1px solid #f1f5f9;
     border-radius: 0 0 24px 24px;
     display: flex;
     flex-direction: column;
-    gap: 0.7rem;
+    gap: 0.75rem;
     background: #ffffff;
   }
 
   .sync-status-card {
     background: #f8fafc;
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 0.6rem 0.75rem;
+    border-radius: 14px;
+    padding: 0.75rem 0.85rem;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.3rem;
   }
 
   .sync-status-top {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
 
   .sync-dot {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #94a3b8;
     flex-shrink: 0;
@@ -1357,15 +1443,15 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .sync-label {
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.84rem;
+    font-weight: 800;
     color: #0f172a;
     flex: 1;
   }
 
   .sync-refresh-btn {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border: none;
     background: transparent;
     color: #64748b;
@@ -1391,24 +1477,24 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .sync-sub {
-    font-size: 0.68rem;
+    font-size: 0.76rem;
     color: #64748b;
     font-weight: 500;
   }
 
   .sync-sql-btn {
-    margin-top: 0.3rem;
-    height: 28px;
+    margin-top: 0.35rem;
+    height: 32px;
     border: 1px solid #cbd5e1;
     background: #ffffff;
     color: #0f172a;
-    border-radius: 8px;
-    font-size: 0.7rem;
+    border-radius: 9px;
+    font-size: 0.78rem;
     font-weight: 700;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem;
+    gap: 0.4rem;
     cursor: pointer;
     transition: background-color 0.15s ease, border-color 0.15s ease;
   }
@@ -1432,11 +1518,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     flex: 1;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 0.65rem;
+    gap: 0.7rem;
+    padding: 0.6rem 0.75rem;
     background: #ffffff;
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
     text-align: left;
     transition: background-color 0.15s ease, border-color 0.15s ease;
@@ -1448,9 +1534,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .admin-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
     background: #0f172a;
     color: #ffffff;
     display: flex;
@@ -1467,14 +1553,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .admin-name {
-    font-size: 0.83rem;
-    font-weight: 700;
+    font-size: 0.92rem;
+    font-weight: 800;
     color: #0f172a;
     line-height: 1.2;
   }
 
   .admin-role {
-    font-size: 0.7rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: #64748b;
   }
@@ -1970,7 +2056,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   .workspace-title {
     font-family: var(--font-display);
-    font-size: 1.55rem;
+    font-size: 1.85rem;
     font-weight: 800;
     letter-spacing: -0.025em;
     color: #0f172a;
@@ -1978,23 +2064,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .workspace-sub {
-    font-size: 0.85rem;
+    font-size: 0.98rem;
     color: #64748b;
-    margin-top: 0.2rem;
+    margin-top: 0.25rem;
   }
 
   .primary-create-btn {
-    height: 42px;
-    padding: 0 1.2rem;
+    height: 46px;
+    padding: 0 1.35rem;
     border: none;
-    border-radius: 11px;
+    border-radius: 13px;
     background: #0f172a;
     color: #ffffff;
-    font-size: 0.86rem;
-    font-weight: 700;
+    font-size: 0.96rem;
+    font-weight: 800;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
     cursor: pointer;
     box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.28);
     transition: background-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
@@ -2029,7 +2115,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .kpi-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 1.15rem;
   }
 
   .kpi-grid[hidden] {
@@ -2039,28 +2125,33 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .kpi-card {
     background: #ffffff;
     border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 1.15rem 1.25rem;
+    border-radius: 18px;
+    padding: 1.35rem 1.45rem;
     display: flex;
     align-items: center;
-    gap: 0.95rem;
+    gap: 1.15rem;
     transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
   }
 
   .kpi-card:hover {
     border-color: #cbd5e1;
-    box-shadow: 0 8px 20px -10px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 24px -10px rgba(15, 23, 42, 0.09);
     transform: translateY(-1px);
   }
 
   .kpi-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+  }
+
+  .kpi-icon svg {
+    width: 26px;
+    height: 26px;
   }
 
   .kpi-icon.slate { background: #f1f5f9; color: #0f172a; }
@@ -2075,19 +2166,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .kpi-label {
-    font-size: 0.76rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 700;
     color: #64748b;
   }
 
   .kpi-value {
     font-family: var(--font-display);
-    font-size: 1.48rem;
+    font-size: 1.95rem;
     font-weight: 800;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     color: #0f172a;
-    line-height: 1.2;
-    margin-top: 0.1rem;
+    line-height: 1.15;
+    margin-top: 0.15rem;
   }
 
   /* --- TOOLBAR --- */
@@ -2095,18 +2186,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.85rem;
+    gap: 0.95rem;
     flex-wrap: wrap;
     background: #f8fafc;
     border: 1px solid #e5e7eb;
-    border-radius: 15px;
-    padding: 0.7rem 0.9rem;
+    border-radius: 16px;
+    padding: 0.85rem 1.05rem;
   }
 
   .toolbar-left {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
     flex: 1;
   }
@@ -2115,26 +2206,26 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     position: relative;
     display: flex;
     align-items: center;
-    min-width: 240px;
+    min-width: 260px;
     flex: 1;
-    max-width: 390px;
+    max-width: 440px;
   }
 
   .search-field svg {
     position: absolute;
-    left: 12px;
+    left: 14px;
     color: #64748b;
     pointer-events: none;
   }
 
   .search-field input {
     width: 100%;
-    height: 38px;
+    height: 44px;
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 0 0.9rem 0 2.35rem;
-    font-size: 0.84rem;
+    border-radius: 12px;
+    padding: 0 1rem 0 2.65rem;
+    font-size: 0.95rem;
     color: #0f172a;
     transition: border-color 0.16s ease, box-shadow 0.16s ease;
   }
@@ -2146,16 +2237,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .filter-trigger-btn {
-    height: 38px;
-    padding: 0 0.85rem;
+    height: 44px;
+    padding: 0 1rem;
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 12px;
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    font-size: 0.82rem;
-    font-weight: 600;
+    gap: 0.55rem;
+    font-size: 0.92rem;
+    font-weight: 700;
     color: #334155;
     cursor: pointer;
     transition: border-color 0.15s ease, background-color 0.15s ease;
@@ -2167,8 +2258,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .result-counter {
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 700;
     color: #64748b;
   }
 
@@ -2176,7 +2267,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .table-card {
     background: #ffffff;
     border: 1px solid #e5e7eb;
-    border-radius: 18px;
+    border-radius: 20px;
     overflow: hidden;
   }
 
@@ -2189,7 +2280,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-size: 0.85rem;
+    font-size: 0.96rem;
   }
 
   .roro-table thead {
@@ -2198,23 +2289,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .roro-table th {
-    padding: 0.85rem 1.05rem;
-    font-size: 0.69rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.78rem;
     font-weight: 800;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     color: #64748b;
     white-space: nowrap;
   }
 
   .roro-table th.price-col-head,
   .roro-table :global(td[data-col="price"]) {
-    width: 140px;
-    padding-right: 1.5rem;
+    width: 150px;
+    padding-right: 1.65rem;
     text-align: right;
   }
 
   .roro-table :global(td) {
-    padding: 0.95rem 1.05rem;
+    padding: 1.15rem 1.25rem;
     border-bottom: 1px solid #f1f5f9;
     color: #0f172a;
     vertical-align: middle;
@@ -2241,7 +2332,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   .roro-table :global(tbody tr:hover .row-chevron) {
     color: #0f172a;
-    transform: translateX(3px);
+    transform: translateX(4px);
   }
 
   .text-right,
@@ -2254,18 +2345,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global(.cell-loc) {
     display: flex;
     flex-direction: column;
-    gap: 0.18rem;
+    gap: 0.25rem;
   }
 
   :global(.loc-main) {
-    font-weight: 700;
-    font-size: 0.9rem;
+    font-weight: 800;
+    font-size: 1.05rem;
     color: #0f172a;
     line-height: 1.35;
   }
 
   :global(.loc-note) {
-    font-size: 0.74rem;
+    font-size: 0.86rem;
     color: #64748b;
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -2277,11 +2368,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.25rem;
+    gap: 0.35rem;
   }
 
   :global(.status-end-sub) {
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: #64748b;
     white-space: nowrap;
@@ -2291,7 +2382,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 0.75rem;
+    gap: 0.85rem;
     white-space: nowrap;
   }
 
@@ -2599,11 +2690,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global(.pill-size) {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.24rem 0.6rem;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    gap: 0.38rem;
+    padding: 0.32rem 0.72rem;
+    border-radius: 9px;
+    font-size: 0.86rem;
+    font-weight: 800;
     white-space: nowrap;
   }
 
@@ -2623,16 +2714,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.3rem;
+    gap: 0.35rem;
   }
 
   :global(.pill-owner) {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    padding: 0.14rem 0.5rem;
-    border-radius: 6px;
-    font-size: 0.67rem;
+    gap: 0.3rem;
+    padding: 0.2rem 0.58rem;
+    border-radius: 7px;
+    font-size: 0.78rem;
     font-weight: 700;
     white-space: nowrap;
   }
@@ -2651,9 +2742,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   .locked-pill {
     margin-left: auto;
-    font-size: 0.65rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    padding: 0.1rem 0.45rem;
+    padding: 0.12rem 0.5rem;
     border-radius: 9999px;
     background: #fffbeb;
     color: #b45309;
@@ -2674,17 +2765,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global(.cust-stack) {
     display: flex;
     flex-direction: column;
-    gap: 0.12rem;
+    gap: 0.2rem;
   }
 
   :global(.cust-name) {
-    font-weight: 700;
+    font-weight: 800;
     color: #0f172a;
-    font-size: 0.83rem;
+    font-size: 0.95rem;
   }
 
   :global(.cust-phone) {
-    font-size: 0.76rem;
+    font-size: 0.86rem;
     font-weight: 600;
     color: #64748b;
     white-space: nowrap;
@@ -2693,13 +2784,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global(.date-stack) {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
-    font-size: 0.79rem;
+    gap: 0.15rem;
+    font-size: 0.88rem;
     white-space: nowrap;
   }
 
   :global(.date-line-start) {
-    font-weight: 600;
+    font-weight: 700;
     color: #0f172a;
   }
 
@@ -2710,11 +2801,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global(.days-pill) {
     display: inline-flex;
     align-items: center;
-    gap: 0.32rem;
-    padding: 0.25rem 0.62rem;
+    gap: 0.38rem;
+    padding: 0.32rem 0.75rem;
     border-radius: 9999px;
-    font-size: 0.74rem;
-    font-weight: 700;
+    font-size: 0.84rem;
+    font-weight: 800;
     white-space: nowrap;
   }
 
@@ -2745,7 +2836,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global(.price-val) {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     font-variant-numeric: tabular-nums;
     color: #0f172a;
     white-space: nowrap;
@@ -3935,21 +4026,83 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   @media (max-width: 900px) {
     .sidebar {
       position: fixed;
-      left: 12px;
-      top: 12px;
-      bottom: 12px;
-      height: calc(100dvh - 24px);
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 100vw;
+      width: 100dvw;
+      max-width: 100%;
+      height: 100vh;
+      height: 100dvh;
       margin: 0;
-      border-radius: 22px;
-      transform: translateX(calc(-100% - 28px));
-      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.16);
+      border-radius: 0;
+      transform: translateX(-105%);
+      box-shadow: none;
+      border: none;
+      z-index: 70;
     }
 
     .sidebar.is-open { transform: translateX(0); }
     .mobile-menu-btn, .mobile-close-btn { display: inline-flex; }
     .workspace { padding: 1.15rem 1rem 2.5rem; gap: 1.05rem; }
-    .workspace-title { font-size: 1.3rem; }
-    .workspace-sub { font-size: 0.78rem; }
+    .workspace-title { font-size: 1.45rem; }
+    .workspace-sub { font-size: 0.88rem; }
+
+    .sidebar-brand {
+      padding: 1.25rem 1.15rem;
+      border-radius: 0;
+    }
+
+    .sidebar-nav {
+      padding: 1rem 1.15rem;
+      gap: 0.45rem;
+    }
+
+    .nav-item {
+      padding: 0.85rem 1rem;
+      font-size: 1.05rem;
+      border-radius: 14px;
+    }
+
+    .nav-item-left svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .nav-count {
+      font-size: 0.9rem;
+      padding: 0.2rem 0.7rem;
+    }
+
+    .sidebar-footer {
+      padding: 1.15rem;
+      border-radius: 0;
+      gap: 0.95rem;
+    }
+
+    .sync-status-card {
+      padding: 0.85rem 0.95rem;
+      border-radius: 16px;
+    }
+
+    .admin-profile-trigger {
+      padding: 0.75rem 0.85rem;
+      border-radius: 16px;
+    }
+
+    .admin-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+    }
+
+    .admin-name {
+      font-size: 1rem;
+    }
+
+    .admin-role {
+      font-size: 0.82rem;
+    }
   }
 
   /* Mobile Card-Table Transformation & Native-Style Sticky Modal Sheet */
@@ -4475,20 +4628,78 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       gap: 0.85rem;
     }
 
-    /* Keep custom blur calendars strictly inside mobile screen bounds */
+    /* Keep custom blur calendars big, comfortable & thumb-friendly on mobile screen */
     .calendar-popover,
     .calendar-popover.cal-left,
     .calendar-popover.cal-right {
       left: 50%;
       right: auto;
-      width: min(296px, calc(100vw - 2.6rem));
+      width: min(350px, calc(100vw - 1.8rem));
       min-width: 0;
+      padding: 1rem 1rem 1.15rem;
+      border-radius: 20px;
       transform: translateX(-50%) translateY(8px) scale(0.96);
       transform-origin: bottom center;
+      box-shadow:
+        0 24px 50px -12px rgba(15, 23, 42, 0.25),
+        0 0 0 1px rgba(226, 232, 240, 0.95);
     }
 
     .dropdown-anchor.is-open .calendar-popover {
       transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .cal-presets {
+      gap: 0.45rem;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .cal-preset-pill {
+      height: 34px;
+      padding: 0 0.85rem;
+      font-size: 0.82rem;
+      border-radius: 9px;
+    }
+
+    .cal-nav-row {
+      margin-bottom: 0.75rem;
+    }
+
+    .cal-month-label {
+      font-size: 1.05rem;
+    }
+
+    .cal-nav-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+    }
+
+    .cal-nav-btn svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .cal-weekdays {
+      margin-bottom: 0.45rem;
+    }
+
+    .cal-weekdays span {
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 0.25rem 0;
+    }
+
+    .cal-days-grid {
+      gap: 4px;
+    }
+
+    :global(.cal-day) {
+      height: 42px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      border-radius: 11px;
     }
 
     .toast-bar {
@@ -4591,6 +4802,203 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   const WA_SVG_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.82 11.82 0 00-3.48-8.413z"/></svg>`;
 
+  // Language & i18n Dictionary
+  const LANG_STORAGE_KEY = 'skl_system_roro_lang_v1';
+  type LangKey = 'en' | 'ms';
+  let currentLang: LangKey = (localStorage.getItem(LANG_STORAGE_KEY) as LangKey) || 'en';
+
+  const translations = {
+    en: {
+      section_operations: 'OPERATIONS',
+      nav_all: 'Active Bins',
+      nav_active: '<10 Days',
+      nav_overdue: 'Needs Pull',
+      nav_completed: 'Completed',
+      section_owners: 'OWNERS',
+      section_sizes: 'BIN SIZES',
+      size_2ft: '2 Feet',
+      size_4ft: '4 Feet',
+      section_system: 'SYSTEM',
+      nav_settings: 'Settings',
+      section_language: 'LANGUAGE / BAHASA',
+      btn_add_bin: 'Add Bin',
+      heading_all: 'Active Bins',
+      sub_all: 'Live fleet status and pulls',
+      heading_active: '<10 Days',
+      sub_active: 'Within standard window',
+      heading_overdue: 'Needs Pull',
+      sub_overdue: 'Due or overdue for pickup',
+      heading_completed: 'Completed',
+      sub_completed: 'Pulled bins history',
+      heading_skl: 'SKL Waste',
+      sub_skl: 'Direct company fleet',
+      heading_thirumal: 'Thirumal Vel',
+      sub_thirumal: 'Partner fleet',
+      heading_2ft: '2 Feet Bins',
+      sub_2ft: 'Heavy load low-profile',
+      heading_4ft: '4 Feet Bins',
+      sub_4ft: 'Bulk capacity high-wall',
+      kpi_active: 'Active',
+      kpi_needs_pull: 'Needs Pull',
+      kpi_completed: 'Completed',
+      search_placeholder: 'Search bins, phone, client, notes...',
+      filter_owners: 'Owners',
+      filter_all: 'All',
+      filter_size: 'Size',
+      filter_all_sizes: 'All Sizes',
+      filter_status: 'Status',
+      filter_sort: 'Sort',
+      sort_newest: 'Newest',
+      sort_due_soon: 'Due Soon',
+      sort_price_desc: 'Price (High)',
+      th_location: 'LOCATION',
+      th_bin: 'BIN',
+      th_customer: 'CUSTOMER',
+      th_status: 'STATUS',
+      th_price: 'PRICE',
+      pulled: 'Pulled',
+      due_today: 'Pull Today',
+      overdue_prefix: 'Overdue',
+      left_suffix: 'Left',
+      no_active_title: 'No Bins Found',
+      no_active_desc: 'No active records matching filters.',
+      no_completed_title: 'No Completed Bins',
+      no_completed_desc: 'Pulled bins appear here.',
+      modal_add_title: 'Add New RORO Bin',
+      modal_edit_title: 'Edit RORO Bin',
+      btn_save: 'Save Bin Record',
+      btn_cancel: 'Cancel',
+      confirm_pull_title: 'Mark Bin as Pulled?',
+      confirm_pull_desc: 'The bin at {loc} will be moved to Completed.',
+      confirm_pull_btn: 'Confirm Pulled',
+      confirm_delete_title: 'Delete Permanently?',
+      confirm_delete_desc: 'The record for {loc} will be permanently removed.',
+      confirm_delete_btn: 'Delete Permanently',
+      detail_customer: 'Customer',
+      detail_price: 'Rental Price',
+      detail_start: 'Start Date',
+      detail_end: 'End Date',
+      detail_notes: 'Site Notes',
+      quick_actions: 'Quick Actions',
+      extend_period: 'Extend Period',
+      btn_edit: 'Edit Record',
+      btn_pull: 'Mark Pulled',
+      btn_delete: 'Delete',
+      btn_restore: 'Restore to Active',
+      toast_lang_switched: 'Language switched to English'
+    },
+    ms: {
+      section_operations: 'OPERASI',
+      nav_all: 'Tong Aktif',
+      nav_active: '<10 Hari',
+      nav_overdue: 'Perlu Tarik',
+      nav_completed: 'Selesai',
+      section_owners: 'PEMILIK TONG',
+      section_sizes: 'SAIZ TONG',
+      size_2ft: '2 Kaki',
+      size_4ft: '4 Kaki',
+      section_system: 'SISTEM',
+      nav_settings: 'Tetapan',
+      section_language: 'BAHASA / LANGUAGE',
+      btn_add_bin: 'Tambah Tong',
+      heading_all: 'Tong Aktif',
+      sub_all: 'Status lori dan penarikan tong semasa',
+      heading_active: '<10 Hari',
+      sub_active: 'Dalam tempoh sewaan 10 hari',
+      heading_overdue: 'Perlu Tarik',
+      sub_overdue: 'Tamat tempoh atau perlu ditarik segera',
+      heading_completed: 'Selesai',
+      sub_completed: 'Rekod tong yang telah ditarik',
+      heading_skl: 'SKL Waste',
+      sub_skl: 'Tong syarikat SKL Waste',
+      heading_thirumal: 'Thirumal Vel',
+      sub_thirumal: 'Tong rakan kongsi',
+      heading_2ft: 'Tong 2 Kaki',
+      sub_2ft: 'Muatan berat profil rendah',
+      heading_4ft: 'Tong 4 Kaki',
+      sub_4ft: 'Muatan pukal dinding tinggi',
+      kpi_active: 'Aktif',
+      kpi_needs_pull: 'Perlu Tarik',
+      kpi_completed: 'Selesai',
+      search_placeholder: 'Cari tong, telefon, pelanggan, nota...',
+      filter_owners: 'Pemilik',
+      filter_all: 'Semua',
+      filter_size: 'Saiz',
+      filter_all_sizes: 'Semua Saiz',
+      filter_status: 'Status',
+      filter_sort: 'Susunan',
+      sort_newest: 'Terkini',
+      sort_due_soon: 'Hampir Tamat',
+      sort_price_desc: 'Harga Tertinggi',
+      th_location: 'LOKASI',
+      th_bin: 'TONG',
+      th_customer: 'PELANGGAN',
+      th_status: 'STATUS',
+      th_price: 'HARGA',
+      pulled: 'Ditarik',
+      due_today: 'Tarik Hari Ini',
+      overdue_prefix: 'Lebih',
+      left_suffix: 'Tinggal',
+      no_active_title: 'Tiada Tong Dijumpai',
+      no_active_desc: 'Tiada rekod sepadan dengan carian ini.',
+      no_completed_title: 'Tiada Rekod Selesai',
+      no_completed_desc: 'Tong yang telah ditarik akan dipaparkan di sini.',
+      modal_add_title: 'Tambah Tong RORO Baru',
+      modal_edit_title: 'Kemaskini Tong RORO',
+      btn_save: 'Simpan Rekod Tong',
+      btn_cancel: 'Batal',
+      confirm_pull_title: 'Tandakan Tong Ditarik?',
+      confirm_pull_desc: 'Tong di {loc} akan dipindahkan ke bahagian Selesai.',
+      confirm_pull_btn: 'Sahkan Ditarik',
+      confirm_delete_title: 'Padam Rekod Kekal?',
+      confirm_delete_desc: 'Rekod di {loc} akan dipadamkan secara kekal.',
+      confirm_delete_btn: 'Padam Kekal',
+      detail_customer: 'Pelanggan',
+      detail_price: 'Harga Sewa',
+      detail_start: 'Tarikh Mula',
+      detail_end: 'Tarikh Tamat',
+      detail_notes: 'Nota Tapak',
+      quick_actions: 'Tindakan Pantas',
+      extend_period: 'Lanjut Tempoh',
+      btn_edit: 'Kemaskini Rekod',
+      btn_pull: 'Tandakan Tarik',
+      btn_delete: 'Padam',
+      btn_restore: 'Kembalikan ke Aktif',
+      toast_lang_switched: 'Bahasa ditukar ke Bahasa Melayu'
+    }
+  };
+
+  function t(key: keyof typeof translations['en']): string {
+    return translations[currentLang]?.[key] || translations['en'][key] || key;
+  }
+
+  function applyLanguage(lang: LangKey) {
+    currentLang = lang;
+    localStorage.setItem(LANG_STORAGE_KEY, lang);
+
+    // Update active button state
+    document.getElementById('btn-lang-en')?.classList.toggle('active', lang === 'en');
+    document.getElementById('btn-lang-ms')?.classList.toggle('active', lang === 'ms');
+
+    // Update all elements with data-i18n
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const k = el.getAttribute('data-i18n') as keyof typeof translations['en'];
+      if (k && translations[lang]?.[k]) {
+        el.textContent = translations[lang][k];
+      }
+    });
+
+    // Update search placeholder
+    if (searchInput) {
+      searchInput.placeholder = t('search_placeholder');
+    }
+
+    // Refresh dynamic labels & table rendering
+    selectNavView(currentNavView);
+    syncFilterUI();
+    render();
+  }
+
   // DOM References
   const tableBody = document.getElementById('roro-table-body') as HTMLTableSectionElement;
   const emptyState = document.getElementById('table-empty-state') as HTMLElement;
@@ -4632,10 +5040,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   const bannerNotifLabel = document.getElementById('banner-notif-label');
 
   // Sync Indicators
+  const syncStatusCard = document.getElementById('sync-status-card');
   const syncDot = document.getElementById('sync-dot');
   const syncLabel = document.getElementById('sync-label');
   const syncSub = document.getElementById('sync-sub');
   const btnRefreshSync = document.getElementById('btn-refresh-sync');
+  const btnBrandRefresh = document.getElementById('btn-brand-refresh');
   const btnCopySql = document.getElementById('btn-copy-sql');
 
   // Modals & Form
@@ -4966,20 +5376,25 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   // Load Data from Supabase (with seamless Local Cache fallback)
   async function loadRecords(silent = true) {
     if (btnRefreshSync) btnRefreshSync.classList.add('spinning');
+    if (btnBrandRefresh) btnBrandRefresh.classList.add('spinning');
     const result = await fetchAllRecords();
     allRecords = result.records;
 
-    if (syncDot && syncLabel && syncSub) {
+    if (syncStatusCard && syncDot && syncLabel && syncSub) {
       syncDot.className = 'sync-dot ' + (result.source === 'supabase' ? 'cloud' : 'local');
       if (result.source === 'supabase') {
+        // Hide card completely when Supabase is connected per user requirement
+        syncStatusCard.hidden = true;
         syncLabel.textContent = 'Supabase Connected';
         syncSub.textContent = 'Live cloud database active';
         if (btnCopySql) btnCopySql.hidden = true;
       } else if (result.tableMissing) {
+        syncStatusCard.hidden = false;
         syncLabel.textContent = 'Supabase Table Missing';
         syncSub.textContent = 'API linked. Run SQL table setup.';
         if (btnCopySql) btnCopySql.hidden = false;
       } else {
+        syncStatusCard.hidden = false;
         syncLabel.textContent = 'Localhost Cache';
         syncSub.textContent = 'Using local browser storage';
         if (btnCopySql) btnCopySql.hidden = true;
@@ -4988,6 +5403,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     if (btnRefreshSync) {
       window.setTimeout(() => btnRefreshSync.classList.remove('spinning'), 350);
+    }
+    if (btnBrandRefresh) {
+      window.setTimeout(() => btnBrandRefresh.classList.remove('spinning'), 350);
     }
     render();
     firePickupDesktopNotifications(false);
@@ -5095,12 +5513,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (filtered.length === 0) {
       emptyState.hidden = false;
       if (isCompletedView) {
-        emptyStateTitle.textContent = 'No Completed Bins';
-        emptyStateDesc.textContent = 'Pulled bins appear here.';
+        emptyStateTitle.textContent = t('no_completed_title');
+        emptyStateDesc.textContent = t('no_completed_desc');
         btnEmptyCreate.hidden = true;
       } else {
-        emptyStateTitle.textContent = 'No Bins Found';
-        emptyStateDesc.textContent = 'No active records matching filters.';
+        emptyStateTitle.textContent = t('no_active_title');
+        emptyStateDesc.textContent = t('no_active_desc');
         btnEmptyCreate.hidden = false;
       }
       return;
@@ -5171,30 +5589,30 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       const doneDate = item.completed_at ? formatDateDisplay(item.completed_at) : '';
       return `<span class="days-pill done">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        Pulled${doneDate ? ` &bull; ${doneDate}` : ''}
+        ${t('pulled')}${doneDate ? ` &bull; ${doneDate}` : ''}
       </span>`;
     }
     if (isOverdue) {
       return `<span class="days-pill late">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-        Overdue ${Math.abs(daysLeft)}d
+        ${t('overdue_prefix')} ${Math.abs(daysLeft)}d
       </span>`;
     }
     if (daysLeft === 0) {
       return `<span class="days-pill late">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
-        Pull Today
+        ${t('due_today')}
       </span>`;
     }
     if (daysLeft <= 2) {
       return `<span class="days-pill soon">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 15 14"></polyline></svg>
-        ${daysLeft}d Left
+        ${daysLeft}d ${t('left_suffix')}
       </span>`;
     }
     return `<span class="days-pill ok">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      ${daysLeft}d Left
+      ${daysLeft}d ${t('left_suffix')}
     </span>`;
   }
 
@@ -6455,7 +6873,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   function syncFilterUI() {
     const ownerLabel = document.getElementById('filter-owner-label');
     if (ownerLabel) {
-      if (filterOwner === 'all') ownerLabel.textContent = 'All Owners';
+      if (filterOwner === 'all') ownerLabel.textContent = t('filter_owners');
       else if (filterOwner === OWNER_THIRUMAL) ownerLabel.textContent = 'Thirumal Vel Ent.';
       else ownerLabel.textContent = 'SKL Waste';
     }
@@ -6464,17 +6882,22 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     });
 
     const sizeLabel = document.getElementById('filter-size-label');
-    if (sizeLabel) sizeLabel.textContent = filterSize === 'all' ? 'All Sizes' : filterSize;
+    if (sizeLabel) {
+      if (filterSize === 'all') sizeLabel.textContent = t('filter_all_sizes');
+      else if (filterSize === '2 Feet') sizeLabel.textContent = t('size_2ft');
+      else if (filterSize === '4 Feet') sizeLabel.textContent = t('size_4ft');
+      else sizeLabel.textContent = filterSize;
+    }
     document.querySelectorAll('[data-size-filter]').forEach((el) => {
       el.classList.toggle('active', el.getAttribute('data-size-filter') === filterSize);
     });
 
     const statusLabel = document.getElementById('filter-status-label');
     if (statusLabel) {
-      if (filterStatus === 'all_active') statusLabel.textContent = 'All Active';
-      else if (filterStatus === 'within_10') statusLabel.textContent = 'Within 10 Days';
-      else if (filterStatus === 'overdue') statusLabel.textContent = 'Needs Pickup';
-      else statusLabel.textContent = 'Completed';
+      if (filterStatus === 'all_active') statusLabel.textContent = t('kpi_active');
+      else if (filterStatus === 'within_10') statusLabel.textContent = t('nav_active');
+      else if (filterStatus === 'overdue') statusLabel.textContent = t('nav_overdue');
+      else statusLabel.textContent = t('nav_completed');
     }
     document.querySelectorAll('[data-status-filter]').forEach((el) => {
       el.classList.toggle('active', el.getAttribute('data-status-filter') === filterStatus);
@@ -6491,7 +6914,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
   }
 
+  let currentNavView = 'all';
+
   function selectNavView(view: string) {
+    currentNavView = view;
     document.querySelectorAll('[data-nav-view]').forEach((b) => {
       b.classList.toggle('active', b.getAttribute('data-nav-view') === view);
     });
@@ -6505,50 +6931,50 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'Active Bins';
-      workspaceSubtitle.textContent = 'Live fleet status and pulls';
+      workspaceHeading.textContent = t('heading_all');
+      workspaceSubtitle.textContent = t('sub_all');
     } else if (view === 'active') {
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'within_10';
-      workspaceHeading.textContent = '<10 Days';
-      workspaceSubtitle.textContent = 'Within standard window';
+      workspaceHeading.textContent = t('heading_active');
+      workspaceSubtitle.textContent = t('sub_active');
     } else if (view === 'overdue') {
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'overdue';
-      workspaceHeading.textContent = 'Needs Pull';
-      workspaceSubtitle.textContent = 'Due or overdue for pickup';
+      workspaceHeading.textContent = t('heading_overdue');
+      workspaceSubtitle.textContent = t('sub_overdue');
     } else if (view === 'completed') {
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'completed';
-      workspaceHeading.textContent = 'Completed';
-      workspaceSubtitle.textContent = 'Pulled bins history';
+      workspaceHeading.textContent = t('heading_completed');
+      workspaceSubtitle.textContent = t('sub_completed');
     } else if (view === 'owner_skl') {
       filterOwner = OWNER_SKL;
       filterSize = 'all';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'SKL Waste';
-      workspaceSubtitle.textContent = 'Direct company fleet';
+      workspaceHeading.textContent = t('heading_skl');
+      workspaceSubtitle.textContent = t('sub_skl');
     } else if (view === 'owner_thirumal') {
       filterOwner = OWNER_THIRUMAL;
       filterSize = 'all';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'Thirumal Vel';
-      workspaceSubtitle.textContent = 'Partner fleet';
+      workspaceHeading.textContent = t('heading_thirumal');
+      workspaceSubtitle.textContent = t('sub_thirumal');
     } else if (view === '2ft') {
       filterOwner = 'all';
       filterSize = '2 Feet';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = '2 Feet Bins';
-      workspaceSubtitle.textContent = 'Heavy load low-profile';
+      workspaceHeading.textContent = t('heading_2ft');
+      workspaceSubtitle.textContent = t('sub_2ft');
     } else if (view === '4ft') {
       filterOwner = 'all';
       filterSize = '4 Feet';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = '4 Feet Bins';
-      workspaceSubtitle.textContent = 'Bulk capacity high-wall';
+      workspaceHeading.textContent = t('heading_4ft');
+      workspaceSubtitle.textContent = t('sub_4ft');
     }
 
     syncFilterUI();
@@ -6631,6 +7057,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   // Sync Refresh, SQL Copy & JSON Export
   btnRefreshSync?.addEventListener('click', () => loadRecords(false));
+  btnBrandRefresh?.addEventListener('click', () => loadRecords(false));
 
   btnCopySql?.addEventListener('click', async () => {
     try {
@@ -6673,7 +7100,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     firePickupDesktopNotifications(false);
   }, 60000);
 
+  document.getElementById('btn-lang-en')?.addEventListener('click', () => {
+    applyLanguage('en');
+    showToast(t('toast_lang_switched'));
+  });
+  document.getElementById('btn-lang-ms')?.addEventListener('click', () => {
+    applyLanguage('ms');
+    showToast(t('toast_lang_switched'));
+  });
+
   // Initial Load
+  applyLanguage(currentLang);
   updateNotificationPermissionUI();
   loadRecords(true);
 </script>
