@@ -1134,7 +1134,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </span>
             <div>
               <h2 class="modal-title" id="admin-panel-title">Admin Panel</h2>
-              <p class="modal-sub" id="admin-panel-sub">Audit Logs, Staff Activity &amp; Daily Statements</p>
+              <p class="modal-sub" id="admin-panel-sub">Audit Logs &amp; Team Staff Activity</p>
             </div>
           </div>
           <button type="button" id="btn-close-admin-panel" class="icon-close-btn" aria-label="Close">
@@ -1186,23 +1186,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           </div>
         </form>
 
-        <!-- Step 2: Unlocked Admin Panel (Audit Logs + Accounts + Statement Link) -->
+        <!-- Step 2: Unlocked Admin Panel (Audit Logs + Accounts) -->
         <div id="admin-unlocked-view" class="admin-panel-body" hidden>
           <div class="admin-panel-toolbar">
             <div class="admin-tabs">
               <button type="button" class="admin-tab-btn active" id="btn-admin-tab-logs">Audit Logs</button>
               <button type="button" class="admin-tab-btn" id="btn-admin-tab-accounts">Team Accounts</button>
-            </div>
-            <div class="admin-toolbar-right">
-              <a href="/system-roro/statement" target="_blank" rel="noopener noreferrer" class="admin-stmt-btn">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                </svg>
-                <span>Daily Statement (A4)</span>
-              </a>
             </div>
           </div>
 
@@ -5884,6 +5873,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: flex;
     flex-direction: column;
     max-height: 88dvh;
+  }
+
+  .admin-panel-body[hidden] {
+    display: none !important;
+  }
+
+  .admin-tab-content[hidden] {
+    display: none !important;
   }
 
   .admin-panel-body {

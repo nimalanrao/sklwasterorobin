@@ -465,6 +465,33 @@ function saveLocalAuditLogs(logs: AuditLogEntry[]): void {
   } catch {}
 }
 
+let cachedClientIp = '';
+
+export async function getClientIp(): Promise<string> {
+  if (cachedClientIp) return cachedClientIp;
+  try {
+    const res = await fetch('https://api.ipify.org?format=json', { signal: AbortSignal.timeout(2000) });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.ip) {
+        cachedClientIp = String(data.ip).trim();
+        return cachedClientIp;
+      }
+    }
+  } catch {}
+  try {
+    const res2 = await fetch('https://icanhazip.com', { signal: AbortSignal.timeout(2000) });
+    if (res2.ok) {
+      const txt = (await res2.text()).trim();
+      if (txt) {
+        cachedClientIp = txt;
+        return cachedClientIp;
+      }
+    }
+  } catch {}
+  return '';
+}
+
 export async function logAuditEvent(params: {
   action: AuditAction;
   record_id?: string | null;
@@ -473,6 +500,13 @@ export async function logAuditEvent(params: {
   actorOverride?: { username: string; displayName: string; role: UserRole };
 }): Promise<void> {
   const actor = params.actorOverride || getCurrentUser();
+  const ip = await getClientIp();
+  
+  let formattedDetails = params.details || null;
+  if (ip) {
+    formattedDetails = formattedDetails ? `${formattedDetails} • IP: ${ip}` : `IP: ${ip}`;
+  }
+
   const entry: AuditLogEntry = {
     id: `log-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     created_at: new Date().toISOString(),
@@ -482,7 +516,7 @@ export async function logAuditEvent(params: {
     action: params.action,
     record_id: params.record_id || null,
     location: params.location || null,
-    details: params.details || null
+    details: formattedDetails
   };
 
   const local = getLocalAuditLogs();
