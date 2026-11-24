@@ -5521,17 +5521,40 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     color: #6ee7a0;
   }
 
+  :global([data-theme="dark"]) .cal-presets {
+    border-bottom-color: #3f4147;
+  }
+
   :global([data-theme="dark"]) :global(.cal-day) {
-    color: #dbdee1;
+    color: #f2f3f5;
   }
 
   :global([data-theme="dark"]) :global(.cal-day:hover) {
     background: #383a40;
+    color: #ffffff;
   }
 
-  :global([data-theme="dark"]) :global(.cal-day.selected) {
-    background: #5865f2;
-    color: #ffffff;
+  :global([data-theme="dark"]) :global(.cal-day.is-outside) {
+    color: #6d6f78;
+  }
+
+  :global([data-theme="dark"]) :global(.cal-day.is-today) {
+    box-shadow: inset 0 0 0 1.5px #23a55a;
+    color: #43d17a;
+    font-weight: 800;
+  }
+
+  :global([data-theme="dark"]) :global(.cal-day.is-in-range) {
+    background: rgba(35, 165, 90, 0.22);
+    color: #86efac;
+    border-radius: 6px;
+  }
+
+  :global([data-theme="dark"]) :global(.cal-day.is-selected) {
+    background: #23a55a !important;
+    color: #ffffff !important;
+    font-weight: 800;
+    box-shadow: 0 2px 8px rgba(35, 165, 90, 0.4);
   }
 
   :global([data-theme="dark"]) .detail-info-cell,
