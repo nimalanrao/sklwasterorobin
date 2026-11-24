@@ -619,16 +619,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="size-toggle-grid">
               <label class="size-option">
                 <input type="radio" name="bin_owner" value="SKL Waste" id="owner-skl" checked />
-                <span class="size-card">
+                <span class="size-card size-card-compact">
                   <span class="size-card-title">SKL Waste</span>
-                  <span class="size-card-meta" data-i18n="owner_skl_meta">Default &bull; Direct Customer</span>
                 </span>
               </label>
               <label class="size-option">
                 <input type="radio" name="bin_owner" value="Thirumal Vel Enterprise" id="owner-thirumal" />
-                <span class="size-card">
+                <span class="size-card size-card-compact">
                   <span class="size-card-title">Thirumal Vel Enterprise</span>
-                  <span class="size-card-meta">Tiviya &bull; +60 17-694 7413</span>
                 </span>
               </label>
             </div>
@@ -706,7 +704,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <label for="modal-invoice-no" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                <span><span data-i18n="lbl_inv_no">INV NO</span> <span class="optional-tag" data-i18n="tag_max4">(Max 4 digits)</span></span>
+                <span><span data-i18n="lbl_inv_no">INV NO</span> <span class="optional-tag" data-i18n="tag_max4">(4 digits)</span></span>
               </label>
               <div class="prefix-field">
                 <span class="prefix-addon">#</span>
@@ -714,11 +712,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                   type="text"
                   id="modal-invoice-no"
                   class="prefix-input"
+                  minlength="4"
                   maxlength="4"
                   inputmode="numeric"
                   placeholder="e.g. 1024"
-                  pattern="[0-9]{1,4}"
-                  title="Invoice number must be up to 4 digits"
+                  pattern="[0-9]{4}"
+                  title="Invoice number must be exactly 4 digits"
                 />
               </div>
             </div>
@@ -5711,7 +5710,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       lbl_customer: 'Customer Name',
       tag_optional: '(Optional)',
       lbl_inv_no: 'INV NO',
-      tag_max4: '(Max 4 digits)',
+      tag_max4: '(4 digits)',
       modal_inv_placeholder: 'e.g. 1024',
       lbl_bin_size: 'Bin Size',
       lbl_price: 'Rental Price (RM)',
@@ -5830,7 +5829,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       lbl_customer: 'Nama Pelanggan',
       tag_optional: '(Pilihan)',
       lbl_inv_no: 'NO INVOIS',
-      tag_max4: '(Maks 4 digit)',
+      tag_max4: '(4 digit)',
       modal_inv_placeholder: 'cth. 1024',
       lbl_bin_size: 'Saiz Tong',
       lbl_price: 'Harga Sewa (RM)',
@@ -7645,7 +7644,15 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     const rawCust = customerInput.value.trim();
     const custVal = ownerVal === OWNER_THIRUMAL ? (rawCust || THIRUMAL_DEFAULT_NAME) : rawCust;
     const noteVal = notesInput.value.trim();
-    const invoiceVal = invoiceNoInput.value.trim().slice(0, 4);
+    const invoiceVal = invoiceNoInput.value.replace(/\D/g, '').slice(0, 4);
+    if (invoiceVal && invoiceVal.length !== 4) {
+      modalFormErrorText.textContent = currentLang === 'ms'
+        ? 'No Invois mesti tepat 4 digit (cth. 1024).'
+        : 'Invoice number must be exactly 4 digits (e.g. 1024).';
+      modalFormError.hidden = false;
+      invoiceNoInput.focus();
+      return;
+    }
     const sizeVal: '2 Feet' | '4 Feet' = size4Radio.checked ? '4 Feet' : '2 Feet';
     const { isOverdue } = getDaysRemaining(endVal);
 
@@ -8056,6 +8063,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   document.getElementById('btn-lang-ms')?.addEventListener('click', () => {
     applyLanguage('ms');
     showToast(t('toast_lang_switched'));
+  });
+
+  // Enforce digits-only (exactly 4 digits) on INV NO input
+  invoiceNoInput?.addEventListener('input', () => {
+    const cleaned = invoiceNoInput.value.replace(/\D/g, '').slice(0, 4);
+    if (invoiceNoInput.value !== cleaned) {
+      invoiceNoInput.value = cleaned;
+    }
   });
 
   // Initial Load
