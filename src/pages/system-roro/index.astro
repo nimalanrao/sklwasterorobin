@@ -46,55 +46,55 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         <div class="nav-section-label">OPERATIONS</div>
         <button type="button" class="nav-item active" data-nav-view="all">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
               <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
               <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
               <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
             </svg>
-            <span>All Active Bins</span>
+            <span>Active Bins</span>
           </span>
           <span class="nav-count" id="nav-count-all">0</span>
         </button>
 
         <button type="button" class="nav-item" data-nav-view="active">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="10"></circle>
               <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            <span>Within 10 Days</span>
+            <span>&lt;10 Days</span>
           </span>
           <span class="nav-count green" id="nav-count-active">0</span>
         </button>
 
         <button type="button" class="nav-item" data-nav-view="overdue">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
               <line x1="12" y1="9" x2="12" y2="13"></line>
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
-            <span>Needs Pickup (Due / Overdue)</span>
+            <span>Needs Pull</span>
           </span>
           <span class="nav-count red" id="nav-count-overdue">0</span>
         </button>
 
         <button type="button" class="nav-item" data-nav-view="completed">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
-            <span>Completed (Pulled)</span>
+            <span>Completed</span>
           </span>
           <span class="nav-count slate" id="nav-count-completed">0</span>
         </button>
 
-        <div class="nav-section-label spaced">WHO'S TONG</div>
+        <div class="nav-section-label spaced">OWNERS</div>
         <button type="button" class="nav-item" data-nav-view="owner_skl">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
@@ -105,36 +105,36 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
         <button type="button" class="nav-item" data-nav-view="owner_thirumal">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            <span>Thirumal Vel Ent.</span>
+            <span>Thirumal Vel</span>
           </span>
           <span class="nav-count amber" id="nav-count-owner-thirumal">0</span>
         </button>
 
-        <div class="nav-section-label spaced">BIN SIZE</div>
+        <div class="nav-section-label spaced">BIN SIZES</div>
         <button type="button" class="nav-item" data-nav-view="2ft">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="9" width="20" height="11" rx="2"></rect>
               <path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"></path>
             </svg>
-            <span>2 Feet Bins</span>
+            <span>2 Feet</span>
           </span>
           <span class="nav-count" id="nav-count-2ft">0</span>
         </button>
 
         <button type="button" class="nav-item" data-nav-view="4ft">
           <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="5" width="20" height="15" rx="2"></rect>
               <line x1="2" y1="10" x2="22" y2="10"></line>
             </svg>
-            <span>4 Feet Bins</span>
+            <span>4 Feet</span>
           </span>
           <span class="nav-count" id="nav-count-4ft">0</span>
         </button>
@@ -248,8 +248,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </svg>
           </button>
           <div>
-            <h1 class="workspace-title" id="workspace-heading">Active RORO Bins</h1>
-            <p class="workspace-sub" id="workspace-subtitle">Track dispatched bins, 2 ft &amp; 4 ft sizes, default 10-day rental periods, and pull status.</p>
+            <h1 class="workspace-title" id="workspace-heading">Active Bins</h1>
+            <p class="workspace-sub" id="workspace-subtitle">Live fleet status and pulls</p>
           </div>
         </div>
 
@@ -267,15 +267,15 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="blur-dropdown-menu downward right-aligned notif-panel" id="notif-dropdown-menu" role="menu">
               <div class="notif-panel-head">
                 <div>
-                  <span class="notif-panel-title">Pickup Alerts (Needs Pull)</span>
-                  <span class="notif-panel-sub" id="notif-panel-sub">Bins due today or overdue</span>
+                  <span class="notif-panel-title">Pickup Alerts</span>
+                  <span class="notif-panel-sub" id="notif-panel-sub">Due today or overdue</span>
                 </div>
-                <button type="button" id="btn-enable-browser-notif" class="browser-notif-pill" title="Enable browser desktop alerts">
+                <button type="button" id="btn-enable-browser-notif" class="browser-notif-pill" title="Enable browser alerts">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                     <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                   </svg>
-                  <span id="browser-notif-label">Enable Alerts</span>
+                  <span id="browser-notif-label">Alerts</span>
                 </button>
               </div>
               <div class="dropdown-sep"></div>
@@ -286,11 +286,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           </div>
 
           <button type="button" id="btn-open-modal" class="primary-create-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            <span>Add New Bin</span>
+            <span>Add Bin</span>
           </button>
         </div>
       </header>
@@ -305,17 +305,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </svg>
           </div>
           <div class="alert-banner-copy">
-            <strong class="alert-banner-title" id="alert-banner-title">RORO Pickup Required</strong>
-            <span class="alert-banner-desc" id="alert-banner-desc">Bins have reached their 10-day limit and need to be pulled.</span>
+            <strong class="alert-banner-title" id="alert-banner-title">Pickup Required</strong>
+            <span class="alert-banner-desc" id="alert-banner-desc">Bins due for pull.</span>
           </div>
         </div>
         <div class="alert-banner-actions">
           <button type="button" id="btn-banner-enable-notif" class="alert-btn-outline">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
-            <span id="banner-notif-label">Notify Desktop</span>
+            <span id="banner-notif-label">Alerts</span>
           </button>
           <button type="button" id="btn-banner-view-due" class="alert-btn-solid">
-            <span>View Pickups</span>
+            <span>View</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
         </div>
@@ -325,39 +325,39 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       <section id="kpi-summary-strip" class="kpi-grid" aria-label="Operations Summary">
         <div class="kpi-card">
           <div class="kpi-icon slate">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
             </svg>
           </div>
           <div class="kpi-body">
-            <span class="kpi-label">Active Bins Out</span>
+            <span class="kpi-label">Active</span>
             <span class="kpi-value" id="stat-total-count">0</span>
           </div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-icon danger">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
               <line x1="12" y1="9" x2="12" y2="13"></line>
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
           </div>
           <div class="kpi-body">
-            <span class="kpi-label">Needs Pickup Now</span>
+            <span class="kpi-label">Needs Pull</span>
             <span class="kpi-value" id="stat-expired-count">0</span>
           </div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-icon emerald">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
               <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
           </div>
           <div class="kpi-body">
-            <span class="kpi-label">Completed (Pulled)</span>
+            <span class="kpi-label">Completed</span>
             <span class="kpi-value" id="stat-completed-count">0</span>
           </div>
         </div>
@@ -367,14 +367,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       <section class="toolbar-bar">
         <div class="toolbar-left">
           <div class="search-field">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
             <input
               type="text"
               id="search-input"
-              placeholder="Search location, phone, customer, size, or notes..."
+              placeholder="Search bins, phone, client, notes..."
               autocomplete="off"
             />
           </div>
@@ -382,19 +382,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <!-- Owner (Who's Tong) Animated Blur Dropdown -->
           <div class="dropdown-anchor" id="filter-owner-wrapper">
             <button type="button" class="filter-trigger-btn" id="btn-filter-owner" aria-haspopup="true" aria-expanded="false">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
               </svg>
-              <span id="filter-owner-label">All Owners</span>
-              <svg class="dropdown-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <span id="filter-owner-label">Owners</span>
+              <svg class="dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
             <div class="blur-dropdown-menu downward" id="menu-filter-owner" role="menu">
               <button type="button" class="dropdown-action-item active" data-owner-filter="all" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
-                <span>All Owners</span>
+                <span>All</span>
               </button>
               <button type="button" class="dropdown-action-item" data-owner-filter="SKL Waste" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
@@ -402,7 +402,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               </button>
               <button type="button" class="dropdown-action-item" data-owner-filter="Thirumal Vel Enterprise" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-                <span>Thirumal Vel Enterprise</span>
+                <span>Thirumal Vel</span>
               </button>
             </div>
           </div>
@@ -410,11 +410,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <!-- Size Animated Blur Dropdown -->
           <div class="dropdown-anchor" id="filter-size-wrapper">
             <button type="button" class="filter-trigger-btn" id="btn-filter-size" aria-haspopup="true" aria-expanded="false">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
               </svg>
-              <span id="filter-size-label">All Sizes</span>
-              <svg class="dropdown-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <span id="filter-size-label">Size</span>
+              <svg class="dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
@@ -425,11 +425,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               </button>
               <button type="button" class="dropdown-action-item" data-size-filter="2 Feet" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="20" height="11" rx="2"></rect></svg>
-                <span>2 Feet Bin</span>
+                <span>2 Feet</span>
               </button>
               <button type="button" class="dropdown-action-item" data-size-filter="4 Feet" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="15" rx="2"></rect></svg>
-                <span>4 Feet Bin</span>
+                <span>4 Feet</span>
               </button>
             </div>
           </div>
@@ -437,32 +437,32 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <!-- Status Animated Blur Dropdown -->
           <div class="dropdown-anchor" id="filter-status-wrapper">
             <button type="button" class="filter-trigger-btn" id="btn-filter-status" aria-haspopup="true" aria-expanded="false">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              <span id="filter-status-label">All Active</span>
-              <svg class="dropdown-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <span id="filter-status-label">Status</span>
+              <svg class="dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
             <div class="blur-dropdown-menu downward" id="menu-filter-status" role="menu">
               <button type="button" class="dropdown-action-item active" data-status-filter="all_active" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle></svg>
-                <span>All Active</span>
+                <span>Active</span>
               </button>
               <button type="button" class="dropdown-action-item" data-status-filter="within_10" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Within 10 Days</span>
+                <span>&lt;10 Days</span>
               </button>
               <button type="button" class="dropdown-action-item" data-status-filter="overdue" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                <span>Needs Pickup (Due / Overdue)</span>
+                <span>Needs Pull</span>
               </button>
               <div class="dropdown-sep"></div>
               <button type="button" class="dropdown-action-item" data-status-filter="completed" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                <span>Completed (Pulled)</span>
+                <span>Completed</span>
               </button>
             </div>
           </div>
@@ -470,28 +470,28 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <!-- Sort Animated Blur Dropdown -->
           <div class="dropdown-anchor" id="filter-sort-wrapper">
             <button type="button" class="filter-trigger-btn" id="btn-filter-sort" aria-haspopup="true" aria-expanded="false">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <line x1="6" y1="12" x2="18" y2="12"></line>
                 <line x1="10" y1="18" x2="14" y2="18"></line>
               </svg>
-              <span id="filter-sort-label">Newest</span>
-              <svg class="dropdown-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <span id="filter-sort-label">Sort</span>
+              <svg class="dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
             <div class="blur-dropdown-menu downward" id="menu-filter-sort" role="menu">
               <button type="button" class="dropdown-action-item active" data-sort-filter="newest" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="12 5 12 19"></polyline><polyline points="19 12 12 19 5 12"></polyline></svg>
-                <span>Newest First</span>
+                <span>Newest</span>
               </button>
               <button type="button" class="dropdown-action-item" data-sort-filter="due_soon" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Ending Soonest</span>
+                <span>Due Soon</span>
               </button>
               <button type="button" class="dropdown-action-item" data-sort-filter="price_desc" role="menuitem">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                <span>Highest Price</span>
+                <span>Price (High)</span>
               </button>
             </div>
           </div>
@@ -3981,24 +3981,30 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     .roro-table :global(tbody) {
       display: flex;
       flex-direction: column;
-      gap: 0.95rem;
+      gap: 1.1rem;
     }
 
     .roro-table :global(tbody tr) {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 1.15rem 1.15rem;
-      box-shadow: 0 4px 14px -6px rgba(15, 23, 42, 0.06);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 20px;
+      padding: 1.35rem 1.25rem;
+      box-shadow:
+        0 10px 25px -8px rgba(15, 23, 42, 0.08),
+        0 2px 6px rgba(15, 23, 42, 0.02);
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 0.78rem 0.7rem;
+      gap: 0.9rem 0.75rem;
       align-items: center;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
     }
 
     .roro-table :global(tbody tr:active) {
-      transform: scale(0.99);
-      background: #f8fafc;
+      transform: scale(0.985);
+      background: #ffffff;
+      box-shadow: 0 4px 12px -4px rgba(15, 23, 42, 0.1);
     }
 
     .roro-table :global(td) {
@@ -4006,20 +4012,25 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       border-bottom: none;
     }
 
-    /* Location full width top */
+    /* Location full width top - Big & Ultra Clear */
     .roro-table :global(td[data-col="location"]) {
       grid-column: 1 / -1;
-      padding-bottom: 0.68rem;
+      padding-bottom: 0.85rem;
       border-bottom: 1px solid #f1f5f9;
     }
 
     .roro-table :global(.loc-main) {
-      font-size: 1.06rem;
+      font-size: 1.22rem;
+      font-weight: 800;
+      letter-spacing: -0.015em;
       line-height: 1.35;
+      color: #0f172a;
     }
 
     .roro-table :global(.loc-note) {
-      font-size: 0.84rem;
+      font-size: 0.94rem;
+      color: #64748b;
+      margin-top: 0.25rem;
     }
 
     /* Size & Owner left, Status right */
@@ -4031,19 +4042,21 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       flex-direction: row;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.42rem;
+      gap: 0.55rem;
     }
 
     .roro-table :global(.pill-size) {
-      font-size: 0.84rem;
-      padding: 0.34rem 0.72rem;
-      border-radius: 9px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      padding: 0.42rem 0.85rem;
+      border-radius: 11px;
     }
 
     .roro-table :global(.pill-owner) {
-      font-size: 0.78rem;
-      padding: 0.28rem 0.62rem;
-      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 0.38rem 0.75rem;
+      border-radius: 10px;
     }
 
     .roro-table :global(td[data-col="status"]) {
@@ -4053,16 +4066,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     .roro-table :global(td[data-col="status"] .status-stack) {
       align-items: flex-end;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
 
     .roro-table :global(.days-pill) {
-      font-size: 0.83rem;
-      padding: 0.32rem 0.72rem;
+      font-size: 0.94rem;
+      font-weight: 800;
+      padding: 0.42rem 0.88rem;
+      border-radius: 12px;
     }
 
     .roro-table :global(.status-end-sub) {
-      font-size: 0.8rem;
+      font-size: 0.88rem;
+      font-weight: 600;
     }
 
     /* Customer left, Price + Chevron right */
@@ -4071,11 +4087,15 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .roro-table :global(.cust-name) {
-      font-size: 0.96rem;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #0f172a;
     }
 
     .roro-table :global(.cust-phone) {
-      font-size: 0.86rem;
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: #475569;
     }
 
     .roro-table :global(td[data-col="price"]) {
@@ -4084,55 +4104,60 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .roro-table :global(.price-val) {
-      font-size: 1.08rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      color: #0f172a;
     }
 
     .roro-table :global(.row-chevron) {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
     }
 
     .empty-state {
       background: #ffffff;
       border: 1px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 2.75rem 1.25rem;
+      border-radius: 20px;
+      padding: 3rem 1.5rem;
     }
   }
 
   @media (max-width: 640px) {
     .workspace {
-      padding: 1.1rem 0.95rem 2.75rem;
-      gap: 1.15rem;
+      padding: 1.15rem 1rem 3.5rem;
+      gap: 1.25rem;
     }
 
     .mobile-menu-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
     }
 
     .workspace-title {
-      font-size: 1.45rem;
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
     .workspace-sub {
-      font-size: 0.86rem;
-      line-height: 1.4;
+      font-size: 0.94rem;
+      line-height: 1.35;
     }
 
-    /* Spacious, thumb-friendly 2 + 1 KPI layout on mobile */
+    /* Spacious, thumb-friendly 2 + 1 KPI layout on mobile with bigger typography */
     .kpi-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.7rem;
+      gap: 0.8rem;
     }
 
     .kpi-card {
       flex-direction: row;
       align-items: center;
-      padding: 0.95rem 1rem;
-      gap: 0.75rem;
-      border-radius: 16px;
+      padding: 1.05rem 1.15rem;
+      gap: 0.85rem;
+      border-radius: 18px;
     }
 
     .kpi-card:nth-child(3) {
@@ -4140,53 +4165,67 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .kpi-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
     }
 
     .kpi-icon svg {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
     }
 
     .kpi-label {
-      font-size: 0.8rem;
+      font-size: 0.92rem;
+      font-weight: 700;
       line-height: 1.25;
     }
 
     .kpi-value {
-      font-size: 1.55rem;
+      font-size: 1.85rem;
+      font-weight: 800;
     }
 
     .workspace-header {
-      padding-bottom: 1rem;
+      padding-bottom: 1.1rem;
     }
 
     .workspace-header-right {
       width: 100%;
       justify-content: space-between;
-      gap: 0.65rem;
+      gap: 0.75rem;
     }
 
     .notif-bell-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+    }
+
+    .notif-bell-btn svg {
+      width: 22px;
+      height: 22px;
     }
 
     .primary-create-btn {
       flex: 1;
-      height: 46px;
-      font-size: 0.95rem;
-      border-radius: 12px;
+      height: 50px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 14px;
       justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .primary-create-btn svg {
+      width: 20px;
+      height: 20px;
     }
 
     /* Viewport-safe Notification Panel */
     .notif-panel {
       position: fixed;
-      top: 76px;
+      top: 80px;
       left: 12px;
       right: 12px;
       width: auto;
@@ -4195,8 +4234,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     /* Pickup Alert Banner */
     .pickup-alert-banner {
-      padding: 0.95rem 1rem;
-      gap: 0.85rem;
+      padding: 1.1rem 1.15rem;
+      gap: 0.95rem;
+      border-radius: 18px;
+    }
+
+    .alert-banner-title {
+      font-size: 1.02rem;
+    }
+
+    .alert-banner-desc {
+      font-size: 0.88rem;
     }
 
     .alert-banner-actions {
@@ -4206,16 +4254,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     .alert-btn-outline,
     .alert-btn-solid {
       flex: 1;
-      height: 42px;
-      font-size: 0.86rem;
+      height: 46px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 12px;
       justify-content: center;
     }
 
     /* Spacious 2x2 Filter Toolbar on Mobile */
     .toolbar-bar {
-      padding: 0.85rem;
-      gap: 0.75rem;
-      border-radius: 16px;
+      padding: 0.95rem;
+      gap: 0.85rem;
+      border-radius: 18px;
     }
 
     .search-field {
@@ -4224,22 +4274,22 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .search-field input {
-      height: 46px;
-      font-size: 1rem;
-      border-radius: 12px;
-      padding-left: 2.6rem;
+      height: 50px;
+      font-size: 1.05rem;
+      border-radius: 14px;
+      padding-left: 2.85rem;
     }
 
     .search-field svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       left: 14px;
     }
 
     .toolbar-left {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.55rem;
+      gap: 0.65rem;
       width: 100%;
     }
 
@@ -4260,10 +4310,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     .filter-trigger-btn {
       width: 100%;
-      height: 44px;
-      padding: 0 0.85rem;
-      font-size: 0.86rem;
-      border-radius: 11px;
+      height: 48px;
+      padding: 0 0.95rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 13px;
       justify-content: space-between;
     }
 
@@ -4274,7 +4325,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .result-counter {
-      font-size: 0.84rem;
+      font-size: 0.92rem;
+      font-weight: 700;
     }
 
     /* Sticky Header & Footer Mobile Modal Sheet (Large, Thumb-Friendly) */
@@ -4285,7 +4337,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     .modal-dialog {
       max-height: 92dvh;
-      border-radius: 22px;
+      border-radius: 24px;
       padding: 0;
       display: flex;
       flex-direction: column;
@@ -4293,58 +4345,63 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .modal-head {
-      padding: 1.2rem 1.25rem 0.9rem;
+      padding: 1.25rem 1.35rem 0.95rem;
       margin-bottom: 0;
       flex-shrink: 0;
       background: #ffffff;
     }
 
     .modal-title {
-      font-size: 1.2rem;
+      font-size: 1.35rem;
+      font-weight: 800;
     }
 
     .modal-sub {
-      font-size: 0.82rem;
+      font-size: 0.9rem;
     }
 
     .modal-form {
       overflow-y: auto;
-      padding: 1rem 1.25rem 0;
-      gap: 0.95rem;
+      padding: 1rem 1.35rem 0;
+      gap: 1.05rem;
       flex: 1;
       -webkit-overflow-scrolling: touch;
     }
 
     .form-label {
-      font-size: 0.84rem;
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     .form-control,
     .prefix-field,
     .date-trigger-btn {
-      height: 48px;
-      font-size: 1rem;
+      height: 52px;
+      font-size: 1.08rem;
+      border-radius: 14px;
     }
 
     .prefix-input,
     .form-textarea {
-      font-size: 1rem;
+      font-size: 1.08rem;
     }
 
     .size-card {
-      padding: 0.72rem 0.85rem;
+      padding: 0.85rem 0.95rem;
+      border-radius: 14px;
     }
 
     .size-card-title {
-      font-size: 0.92rem;
+      font-size: 1.02rem;
+      font-weight: 800;
     }
 
     .modal-foot {
       position: sticky;
       bottom: 0;
       background: #ffffff;
-      margin: 0.75rem -1.25rem 0;
-      padding: 0.9rem 1.25rem 1.1rem;
+      margin: 0.75rem -1.35rem 0;
+      padding: 1rem 1.35rem 1.25rem;
       border-top: 1px solid #f1f5f9;
       z-index: 20;
       display: grid;
@@ -4775,12 +4832,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       if (count > 0 && specialSettings.enablePickupAlerts) {
         pickupAlertBanner.hidden = false;
         alertBannerTitle.textContent = count === 1
-          ? '1 RORO Bin Needs to Be Pulled Now'
-          : `${count} RORO Bins Need to Be Pulled Now`;
+          ? '1 Bin Needs Pull'
+          : `${count} Bins Need Pull`;
         const preview = dueBins.slice(0, 2).map((b) => b.location).join(' • ');
         alertBannerDesc.textContent = count > 2
-          ? `${preview} and ${count - 2} more location(s) due today or overdue.`
-          : `${preview} — due today or exceeded 10 days.`;
+          ? `${preview} +${count - 2} more`
+          : preview;
       } else {
         pickupAlertBanner.hidden = true;
       }
@@ -4789,13 +4846,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     // Notification Dropdown List
     if (notifPanelSub) {
       notifPanelSub.textContent = count > 0
-        ? `${count} bin${count > 1 ? 's' : ''} ready for pickup (tarik)`
-        : 'All active bins are within schedule';
+        ? `${count} bin${count > 1 ? 's' : ''} ready for pull`
+        : 'All bins on schedule';
     }
 
     if (!notifListBody) return;
     if (count === 0) {
-      notifListBody.innerHTML = `<div class="notif-empty">No bins require immediate pickup right now.</div>`;
+      notifListBody.innerHTML = `<div class="notif-empty">No pulls needed.</div>`;
       return;
     }
 
@@ -5031,19 +5088,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     const poolCount = isCompletedView ? completedCount : activeTotal;
     if (listingCounter) {
-      listingCounter.textContent = `Showing ${filtered.length} of ${poolCount} ${isCompletedView ? 'completed' : 'active'} bins`;
+      listingCounter.textContent = `${filtered.length} / ${poolCount}`;
     }
 
     tableBody.innerHTML = '';
     if (filtered.length === 0) {
       emptyState.hidden = false;
       if (isCompletedView) {
-        emptyStateTitle.textContent = 'No Completed Bins Yet';
-        emptyStateDesc.textContent = 'Bins marked as pulled will appear here so you can review or restore them anytime.';
+        emptyStateTitle.textContent = 'No Completed Bins';
+        emptyStateDesc.textContent = 'Pulled bins appear here.';
         btnEmptyCreate.hidden = true;
       } else {
-        emptyStateTitle.textContent = 'No Active RORO Bins';
-        emptyStateDesc.textContent = 'All bins have been pulled or no active records match your current filter.';
+        emptyStateTitle.textContent = 'No Bins Found';
+        emptyStateDesc.textContent = 'No active records matching filters.';
         btnEmptyCreate.hidden = false;
       }
       return;
@@ -6448,50 +6505,50 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'Active RORO Bins';
-      workspaceSubtitle.textContent = 'Track dispatched bins, 2 ft & 4 ft sizes, default 10-day rental periods, and pull status.';
+      workspaceHeading.textContent = 'Active Bins';
+      workspaceSubtitle.textContent = 'Live fleet status and pulls';
     } else if (view === 'active') {
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'within_10';
-      workspaceHeading.textContent = 'Active Within 10 Days';
-      workspaceSubtitle.textContent = 'Bins currently within their standard 10-day rental window.';
+      workspaceHeading.textContent = '<10 Days';
+      workspaceSubtitle.textContent = 'Within standard window';
     } else if (view === 'overdue') {
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'overdue';
-      workspaceHeading.textContent = 'Needs Pickup (Due Today & Overdue)';
-      workspaceSubtitle.textContent = 'Bins that have reached or exceeded their scheduled end date and need to be pulled.';
+      workspaceHeading.textContent = 'Needs Pull';
+      workspaceSubtitle.textContent = 'Due or overdue for pickup';
     } else if (view === 'completed') {
       filterOwner = 'all';
       filterSize = 'all';
       filterStatus = 'completed';
-      workspaceHeading.textContent = 'Completed (Pulled Bins)';
-      workspaceSubtitle.textContent = 'Archive of pulled bins. Restore any record back to active or delete permanently.';
+      workspaceHeading.textContent = 'Completed';
+      workspaceSubtitle.textContent = 'Pulled bins history';
     } else if (view === 'owner_skl') {
       filterOwner = OWNER_SKL;
       filterSize = 'all';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'SKL Waste Bins';
-      workspaceSubtitle.textContent = 'Active RORO bins assigned directly under SKL Waste Sdn Bhd.';
+      workspaceHeading.textContent = 'SKL Waste';
+      workspaceSubtitle.textContent = 'Direct company fleet';
     } else if (view === 'owner_thirumal') {
       filterOwner = OWNER_THIRUMAL;
       filterSize = 'all';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'Thirumal Vel Enterprise Bins';
-      workspaceSubtitle.textContent = 'Active RORO bins supplied via Thirumal Vel Enterprise (Contact: Tiviya • +60 17-694 7413).';
+      workspaceHeading.textContent = 'Thirumal Vel';
+      workspaceSubtitle.textContent = 'Partner fleet';
     } else if (view === '2ft') {
       filterOwner = 'all';
       filterSize = '2 Feet';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'Active 2 Feet Bins';
-      workspaceSubtitle.textContent = 'Low-profile heavy load bins currently deployed on site.';
+      workspaceHeading.textContent = '2 Feet Bins';
+      workspaceSubtitle.textContent = 'Heavy load low-profile';
     } else if (view === '4ft') {
       filterOwner = 'all';
       filterSize = '4 Feet';
       filterStatus = 'all_active';
-      workspaceHeading.textContent = 'Active 4 Feet Bins';
-      workspaceSubtitle.textContent = 'High-wall bulk capacity bins currently deployed on site.';
+      workspaceHeading.textContent = '4 Feet Bins';
+      workspaceSubtitle.textContent = 'Bulk capacity high-wall';
     }
 
     syncFilterUI();
