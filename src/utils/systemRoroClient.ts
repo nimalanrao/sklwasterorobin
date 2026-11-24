@@ -52,7 +52,7 @@ export function getCurrentUser(): CurrentUserSession {
     return { username: 'admin', displayName: 'Admin', role: 'admin', roleLabel: 'Administrator' };
   }
   try {
-    const uname = (sessionStorage.getItem('skl_system_roro_username') || 'admin').toLowerCase();
+    const uname = (sessionStorage.getItem('skl_system_roro_username') || localStorage.getItem('skl_system_roro_username') || 'admin').toLowerCase();
     const matched = RORO_ACCOUNTS.find((a) => a.username === uname);
     if (matched) {
       return {
@@ -62,8 +62,8 @@ export function getCurrentUser(): CurrentUserSession {
         roleLabel: matched.roleLabel
       };
     }
-    const role = (sessionStorage.getItem('skl_system_roro_role') as UserRole) || 'admin';
-    const displayName = sessionStorage.getItem('skl_system_roro_user') || 'Admin';
+    const role = (sessionStorage.getItem('skl_system_roro_role') || localStorage.getItem('skl_system_roro_role') || 'admin') as UserRole;
+    const displayName = sessionStorage.getItem('skl_system_roro_user') || localStorage.getItem('skl_system_roro_user') || 'Admin';
     return { username: uname, displayName, role, roleLabel: role === 'admin' ? 'Administrator' : role === 'driver' ? 'Driver (Tarik Only)' : 'Operations Staff' };
   } catch {
     return { username: 'admin', displayName: 'Admin', role: 'admin', roleLabel: 'Administrator' };

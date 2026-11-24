@@ -440,6 +440,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           sessionStorage.setItem('skl_system_roro_user', matched.displayName);
           sessionStorage.setItem('skl_system_roro_role', matched.role);
           sessionStorage.setItem('skl_system_roro_login_at', new Date().toISOString());
+
+          localStorage.setItem('skl_system_roro_auth', 'true');
+          localStorage.setItem('skl_system_roro_username', matched.username);
+          localStorage.setItem('skl_system_roro_user', matched.displayName);
+          localStorage.setItem('skl_system_roro_role', matched.role);
+          localStorage.setItem('skl_system_roro_login_at', new Date().toISOString());
         } catch {}
 
         if (submitBtn && submitLabel) {

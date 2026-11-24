@@ -22,11 +22,13 @@
         var isAuthed = false;
         var role = '';
         try {
-          isAuthed = sessionStorage.getItem('skl_system_roro_auth') === 'true';
-          role = (sessionStorage.getItem('skl_system_roro_role') || 'admin').toLowerCase();
+          isAuthed = (sessionStorage.getItem('skl_system_roro_auth') === 'true') || (localStorage.getItem('skl_system_roro_auth') === 'true');
+          role = (sessionStorage.getItem('skl_system_roro_role') || localStorage.getItem('skl_system_roro_role') || 'admin').toLowerCase();
         } catch (e) {
           isAuthed = false;
         }
+        // If not logged in at all, allow viewing or redirect? Statement was requested to be printable in a new tab.
+        // We ensure logged in admins can access without getting kicked out.
         if (!isAuthed) {
           document.documentElement.style.visibility = 'hidden';
           window.location.replace('/system-roro/login');

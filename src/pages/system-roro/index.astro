@@ -8730,6 +8730,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       sessionStorage.removeItem('skl_system_roro_username');
       sessionStorage.removeItem('skl_system_roro_role');
       sessionStorage.removeItem('skl_system_roro_login_at');
+
+      localStorage.removeItem('skl_system_roro_auth');
+      localStorage.removeItem('skl_system_roro_user');
+      localStorage.removeItem('skl_system_roro_username');
+      localStorage.removeItem('skl_system_roro_role');
+      localStorage.removeItem('skl_system_roro_login_at');
     } catch (e) {}
     window.location.replace('/system-roro/login');
   }

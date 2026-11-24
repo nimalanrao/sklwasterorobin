@@ -55,7 +55,7 @@ const {
 
         var isAuthed = false;
         try {
-          isAuthed = sessionStorage.getItem('skl_system_roro_auth') === 'true';
+          isAuthed = sessionStorage.getItem('skl_system_roro_auth') === 'true' || localStorage.getItem('skl_system_roro_auth') === 'true';
         } catch (e) {
           isAuthed = false;
         }
