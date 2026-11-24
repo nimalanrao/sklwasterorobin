@@ -1,0 +1,143 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  requireAuth?: boolean;
+  redirectIfAuth?: boolean;
+}
+
+const {
+  title = 'System RORO | SKL Waste Sdn Bhd',
+  description = 'RORO Bin Dispatch & Fleet Tracking Dashboard for SKL Waste Sdn Bhd',
+  requireAuth = false,
+  redirectIfAuth = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" href="/images/skl-logo.png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Leaflet Interactive Map (Free, Zero API Key) -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      crossorigin=""
+      defer
+    ></script>
+
+    <!-- Instant Auth Guard (Prevents any flash of unauthorized UI) -->
+    <script is:inline define:vars={{ requireAuth, redirectIfAuth }}>
+      (function () {
+        var isAuthed = false;
+        try {
+          isAuthed = sessionStorage.getItem('skl_system_roro_auth') === 'true';
+        } catch (e) {
+          isAuthed = false;
+        }
+
+        if (requireAuth && !isAuthed) {
+          document.documentElement.style.visibility = 'hidden';
+          window.location.replace('/system-roro/login');
+        } else if (redirectIfAuth && isAuthed) {
+          document.documentElement.style.visibility = 'hidden';
+          window.location.replace('/system-roro');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg-canvas: #ffffff;
+    --bg-subtle: #f8fafc;
+    --bg-muted: #f1f5f9;
+    --border-hairline: #e5e7eb;
+    --border-strong: #d1d5db;
+    --ink-primary: #0f172a;
+    --ink-secondary: #475569;
+    --ink-muted: #64748b;
+    --brand-emerald: #15803d;
+    --brand-emerald-dark: #166534;
+    --brand-emerald-soft: #f0fdf4;
+    --danger-red: #dc2626;
+    --danger-red-soft: #fef2f2;
+    --amber-warn: #b45309;
+    --amber-warn-soft: #fffbeb;
+    --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+
+  html,
+  body {
+    height: 100%;
+    background-color: var(--bg-canvas);
+    color: var(--ink-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+
+  /* Thin Grey Scrollbar across the entire System RORO app */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+</style>

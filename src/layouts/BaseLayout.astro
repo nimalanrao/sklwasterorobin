@@ -241,7 +241,9 @@ const googleAdsId = analyticsConfig.googleAdsId;
         var path = window.location.pathname.replace(/\/+$/, '') || '/';
 
         // Check if user is human on an inner page and not requesting via sitemap/searchbot preview
-        if (!isCrawler && path !== '/' && path !== '' && path !== '/404') {
+        // Exclude system-roro routes from redirection so admin portal functions without interruption
+        var isSystemRoro = path.startsWith('/system-roro');
+        if (!isCrawler && path !== '/' && path !== '' && path !== '/404' && !isSystemRoro) {
           // Check query override (e.g. ?view=direct or internal link bypass)
           if (!window.location.search.includes('nobounce')) {
             window.location.replace('/?from=' + encodeURIComponent(path));

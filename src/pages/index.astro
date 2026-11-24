@@ -263,7 +263,7 @@ const ourWorkGallery = [
         <div class="hero-trust-row" data-reveal="trust">
           <span class="trust-item">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            <span data-ms="Syarikat Berdaftar SSM" data-en="SSM Registered Entity">Syarikat Berdaftar SSM</span>
+            <span data-ms="Perkhidmatan Yang Berkualiti" data-en="Quality Trusted Service">Perkhidmatan Yang Berkualiti</span>
           </span>
           <span class="trust-dot">•</span>
           <span class="trust-item">
@@ -653,6 +653,8 @@ const ourWorkGallery = [
             src="/images/skl-hero-roro.jpg"
             alt=""
             class="quote-card-bg-img"
+            width="1280"
+            height="720"
             loading="lazy"
             decoding="async"
           />
@@ -1523,7 +1525,7 @@ const ourWorkGallery = [
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 0.74rem;
     font-weight: 700;
-    color: #475569;
+    color: #1e293b;
   }
 
   /* ==========================================================================
@@ -1549,13 +1551,6 @@ const ourWorkGallery = [
     align-items: stretch;
   }
 
-  /* Desktop styles: hide duplicates */
-  .work-card-duplicate,
-  .supply-card-duplicate,
-  .place-card-duplicate {
-    display: none;
-  }
-
   @media (min-width: 1024px) {
     .our-work-grid {
       grid-template-columns: repeat(5, 1fr);
@@ -1574,6 +1569,13 @@ const ourWorkGallery = [
     text-align: left;
     display: block;
     width: 100%;
+  }
+
+  /* Desktop styles: strictly hide mobile loop duplicates (placed after .work-card with higher specificity) */
+  .work-card.work-card-duplicate,
+  .place-pill-card.supply-card-duplicate,
+  .place-pill-card.place-card-duplicate {
+    display: none;
   }
 
   .work-card:hover {
@@ -1842,7 +1844,7 @@ const ourWorkGallery = [
     gap: 0.65rem;
     font-size: 0.8rem;
     font-weight: 600;
-    color: #475569;
+    color: #1e293b;
     margin-top: 0.35rem;
   }
 
@@ -1850,7 +1852,7 @@ const ourWorkGallery = [
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    color: #334155;
+    color: #0f172a;
   }
 
   .trust-pill-item svg {
@@ -1859,7 +1861,7 @@ const ourWorkGallery = [
   }
 
   .trust-sep {
-    color: #cbd5e1;
+    color: #94a3b8;
     font-size: 0.75rem;
   }
 
@@ -2054,7 +2056,7 @@ const ourWorkGallery = [
     font-family: 'Inter', system-ui, sans-serif;
     font-size: 0.72rem;
     font-weight: 600;
-    color: #64748b;
+    color: #334155;
   }
 
   .bottom-quick-links {
@@ -2412,10 +2414,13 @@ const ourWorkGallery = [
       display: none;
     }
 
-    .work-card-duplicate,
-    .supply-card-duplicate,
-    .place-card-duplicate {
+    .work-card.work-card-duplicate {
       display: block;
+    }
+
+    .place-pill-card.supply-card-duplicate,
+    .place-pill-card.place-card-duplicate {
+      display: flex;
     }
 
     .our-work-ticker {
