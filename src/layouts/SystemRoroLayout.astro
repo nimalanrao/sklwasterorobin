@@ -44,9 +44,15 @@ const {
       defer
     ></script>
 
-    <!-- Instant Auth Guard (Prevents any flash of unauthorized UI) -->
+    <!-- Instant Theme & Auth Guard (Prevents any flash of light theme or unauthorized UI) -->
     <script is:inline define:vars={{ requireAuth, redirectIfAuth }}>
       (function () {
+        try {
+          if (localStorage.getItem('skl_system_roro_theme_v1') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+
         var isAuthed = false;
         try {
           isAuthed = sessionStorage.getItem('skl_system_roro_auth') === 'true';
@@ -88,6 +94,37 @@ const {
     --amber-warn-soft: #fffbeb;
     --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  :root[data-theme="dark"] {
+    --bg-canvas: #0b0f19;
+    --bg-subtle: #111827;
+    --bg-muted: #1e293b;
+    --border-hairline: #1f2937;
+    --border-strong: #334155;
+    --ink-primary: #f8fafc;
+    --ink-secondary: #cbd5e1;
+    --ink-muted: #94a3b8;
+    --brand-emerald: #22c55e;
+    --brand-emerald-dark: #16a34a;
+    --brand-emerald-soft: rgba(34, 197, 94, 0.14);
+    --danger-red: #f87171;
+    --danger-red-soft: rgba(239, 68, 68, 0.15);
+    --amber-warn: #fbbf24;
+    --amber-warn-soft: rgba(245, 158, 11, 0.15);
+    color-scheme: dark;
+  }
+
+  :root[data-theme="dark"] * {
+    scrollbar-color: #334155 transparent;
+  }
+
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background-color: #334155;
+  }
+
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background-color: #475569;
   }
 
   *,

@@ -194,6 +194,30 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <span>B. Melayu</span>
           </button>
         </div>
+
+        <div class="nav-section-label spaced" data-i18n="section_theme">THEME / TEMA</div>
+        <div class="lang-toggle-wrap">
+          <button type="button" class="lang-btn active" id="btn-theme-light" data-theme-choice="light">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span data-i18n="theme_light">Light</span>
+          </button>
+          <button type="button" class="lang-btn" id="btn-theme-dark" data-theme-choice="dark">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span data-i18n="theme_dark">Dark</span>
+          </button>
+        </div>
       </nav>
 
       <!-- Sidebar Bottom Area: Admin Profile Dropdown & Logout -->
@@ -566,8 +590,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-head">
           <div>
-            <h2 class="modal-title" id="modal-title">Add New RORO Bin</h2>
-            <p class="modal-sub">End date is automatically calculated as 10 days from start date.</p>
+            <h2 class="modal-title" id="modal-title" data-i18n="modal_add_title">Add New RORO Bin</h2>
+            <p class="modal-sub" data-i18n="modal_add_sub">End date is automatically calculated as 10 days from start date.</p>
           </div>
           <button type="button" id="btn-close-modal" class="icon-close-btn" aria-label="Close">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -590,14 +614,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <div class="form-row">
             <span class="form-label">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              <span>Who's Tong <strong class="req">*</strong></span>
+              <span><span data-i18n="lbl_whos_tong">Who's Tong</span> <strong class="req">*</strong></span>
             </span>
             <div class="size-toggle-grid">
               <label class="size-option">
                 <input type="radio" name="bin_owner" value="SKL Waste" id="owner-skl" checked />
                 <span class="size-card">
                   <span class="size-card-title">SKL Waste</span>
-                  <span class="size-card-meta">Default &bull; Direct Customer</span>
+                  <span class="size-card-meta" data-i18n="owner_skl_meta">Default &bull; Direct Customer</span>
                 </span>
               </label>
               <label class="size-option">
@@ -613,7 +637,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <div class="form-row">
             <label for="modal-location" class="form-label">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              <span>Delivery Location / Address <strong class="req">*</strong></span>
+              <span><span data-i18n="lbl_delivery_loc">Delivery Location / Address</span> <strong class="req">*</strong></span>
             </label>
             <div class="autocomplete-anchor" id="location-autocomplete-anchor">
               <input
@@ -638,11 +662,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <div class="map-toolbar">
                 <span class="map-hint-text" id="map-status-text">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  <span>Click anywhere on the map or drag pin to select exact spot</span>
+                  <span data-i18n="map_hint">Click anywhere on the map or drag pin to select exact spot</span>
                 </span>
                 <div class="map-layer-toggle" role="group" aria-label="Map view style">
-                  <button type="button" id="btn-map-street" class="map-layer-btn active">Map</button>
-                  <button type="button" id="btn-map-sat" class="map-layer-btn">Satellite</button>
+                  <button type="button" id="btn-map-street" class="map-layer-btn active" data-i18n="map_street">Map</button>
+                  <button type="button" id="btn-map-sat" class="map-layer-btn" data-i18n="map_sat">Satellite</button>
                 </div>
               </div>
               <div id="roro-map-canvas" class="roro-map-canvas" aria-label="Interactive Malaysia location picker map"></div>
@@ -653,8 +677,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <label for="modal-phone" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                <span>Phone Number (WhatsApp) <strong class="req">*</strong></span>
-                <span id="phone-locked-badge" class="locked-pill" hidden>Fixed</span>
+                <span><span data-i18n="lbl_phone">Phone Number (WhatsApp)</span> <strong class="req">*</strong></span>
+                <span id="phone-locked-badge" class="locked-pill" data-i18n="tag_fixed" hidden>Fixed</span>
               </label>
               <div class="prefix-field">
                 <span class="prefix-addon">+60</span>
@@ -670,7 +694,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <label for="modal-customer" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span>Customer Name <span class="optional-tag">(Optional)</span></span>
+                <span><span data-i18n="lbl_customer">Customer Name</span> <span class="optional-tag" data-i18n="tag_optional">(Optional)</span></span>
               </label>
               <input
                 type="text"
@@ -682,7 +706,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <label for="modal-invoice-no" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                <span>INV NO <span class="optional-tag">(Max 4 digits)</span></span>
+                <span><span data-i18n="lbl_inv_no">INV NO</span> <span class="optional-tag" data-i18n="tag_max4">(Max 4 digits)</span></span>
               </label>
               <div class="prefix-field">
                 <span class="prefix-addon">#</span>
@@ -704,19 +728,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <span class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-                <span>Bin Size <strong class="req">*</strong></span>
+                <span><span data-i18n="lbl_bin_size">Bin Size</span> <strong class="req">*</strong></span>
               </span>
               <div class="size-toggle-grid">
                 <label class="size-option">
                   <input type="radio" name="size" value="2 Feet" id="size-2ft" checked />
                   <span class="size-card size-card-compact">
-                    <span class="size-card-title">2 Feet</span>
+                    <span class="size-card-title" data-i18n="size_2ft">2 Feet</span>
                   </span>
                 </label>
                 <label class="size-option">
                   <input type="radio" name="size" value="4 Feet" id="size-4ft" />
                   <span class="size-card size-card-compact">
-                    <span class="size-card-title">4 Feet</span>
+                    <span class="size-card-title" data-i18n="size_4ft">4 Feet</span>
                   </span>
                 </label>
               </div>
@@ -725,7 +749,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <label for="modal-price" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                <span>Rental Price (RM) <strong class="req">*</strong></span>
+                <span><span data-i18n="lbl_price">Rental Price (RM)</span> <strong class="req">*</strong></span>
               </label>
               <div class="prefix-field">
                 <span class="prefix-addon">RM</span>
@@ -745,7 +769,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <span class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>Start Date <strong class="req">*</strong></span>
+                <span><span data-i18n="lbl_start_date">Start Date</span> <strong class="req">*</strong></span>
               </span>
               <div class="dropdown-anchor date-picker-anchor" id="dp-start-wrapper">
                 <input type="hidden" id="modal-date-start" required />
@@ -760,9 +784,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 </button>
                 <div class="blur-dropdown-menu upward calendar-popover cal-left" id="cal-popover-start">
                   <div class="cal-presets">
-                    <button type="button" class="cal-preset-pill" data-start-preset="0">Today</button>
-                    <button type="button" class="cal-preset-pill" data-start-preset="1">Tomorrow</button>
-                    <button type="button" class="cal-preset-pill" data-start-preset="-1">Yesterday</button>
+                    <button type="button" class="cal-preset-pill" data-start-preset="0" data-i18n="cal_today">Today</button>
+                    <button type="button" class="cal-preset-pill" data-start-preset="1" data-i18n="cal_tomorrow">Tomorrow</button>
+                    <button type="button" class="cal-preset-pill" data-start-preset="-1" data-i18n="cal_yesterday">Yesterday</button>
                   </div>
                   <div class="cal-nav-row">
                     <button type="button" class="cal-nav-btn" data-cal-prev="start" aria-label="Previous month">
@@ -784,7 +808,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <span class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>End Date (Default 10 Days) <strong class="req">*</strong></span>
+                <span><span data-i18n="lbl_end_date">End Date (Default 10 Days)</span> <strong class="req">*</strong></span>
               </span>
               <div class="dropdown-anchor date-picker-anchor" id="dp-end-wrapper">
                 <input type="hidden" id="modal-date-end" required />
@@ -799,10 +823,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 </button>
                 <div class="blur-dropdown-menu upward calendar-popover cal-right" id="cal-popover-end">
                   <div class="cal-presets">
-                    <button type="button" class="cal-preset-pill highlight" data-end-days="10">+10 Days</button>
-                    <button type="button" class="cal-preset-pill" data-end-days="7">+7 Days</button>
-                    <button type="button" class="cal-preset-pill" data-end-days="14">+14 Days</button>
-                    <button type="button" class="cal-preset-pill" data-end-days="30">+30 Days</button>
+                    <button type="button" class="cal-preset-pill highlight" data-end-days="10" data-i18n="cal_plus10">+10 Days</button>
+                    <button type="button" class="cal-preset-pill" data-end-days="7" data-i18n="cal_plus7">+7 Days</button>
+                    <button type="button" class="cal-preset-pill" data-end-days="14" data-i18n="cal_plus14">+14 Days</button>
+                    <button type="button" class="cal-preset-pill" data-end-days="30" data-i18n="cal_plus30">+30 Days</button>
                   </div>
                   <div class="cal-nav-row">
                     <button type="button" class="cal-nav-btn" data-cal-prev="end" aria-label="Previous month">
@@ -825,7 +849,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <div class="form-row">
             <label for="modal-notes" class="form-label">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-              <span>Site Notes <span class="optional-tag">(Optional)</span></span>
+              <span><span data-i18n="lbl_site_notes">Site Notes</span> <span class="optional-tag" data-i18n="tag_optional">(Optional)</span></span>
             </label>
             <textarea
               id="modal-notes"
@@ -835,12 +859,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           </div>
 
           <div class="modal-foot">
-            <button type="button" id="btn-cancel-modal" class="btn-ghost">Cancel</button>
+            <button type="button" id="btn-cancel-modal" class="btn-ghost" data-i18n="btn_cancel">Cancel</button>
             <button type="submit" id="btn-save-record" class="btn-solid">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              <span id="btn-save-text">Save Bin Record</span>
+              <span id="btn-save-text" data-i18n="btn_save">Save Bin Record</span>
             </button>
           </div>
         </form>
@@ -856,17 +880,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
         </div>
-        <h3 class="confirm-title" id="confirm-pull-title">Mark Bin as Pulled?</h3>
+        <h3 class="confirm-title" id="confirm-pull-title" data-i18n="confirm_pull_title">Mark Bin as Pulled?</h3>
         <p class="confirm-desc">
           The bin at <strong id="confirm-pull-location">this location</strong> will be moved to the <strong>Completed</strong> section. You can restore it anytime.
         </p>
         <div class="confirm-foot">
-          <button type="button" id="btn-cancel-pull" class="btn-ghost">Cancel</button>
+          <button type="button" id="btn-cancel-pull" class="btn-ghost" data-i18n="btn_cancel">Cancel</button>
           <button type="button" id="btn-execute-pull" class="btn-emerald">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
-            <span>Confirm Pulled</span>
+            <span data-i18n="confirm_pull_btn">Confirm Pulled</span>
           </button>
         </div>
       </div>
@@ -883,18 +907,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <line x1="14" y1="11" x2="14" y2="17"></line>
           </svg>
         </div>
-        <h3 class="confirm-title" id="confirm-delete-title">Delete Record Permanently?</h3>
+        <h3 class="confirm-title" id="confirm-delete-title" data-i18n="confirm_delete_title">Delete Record Permanently?</h3>
         <p class="confirm-desc">
           The completed record for <strong id="confirm-delete-location">this location</strong> will be permanently removed and cannot be undone.
         </p>
         <div class="confirm-foot">
-          <button type="button" id="btn-cancel-delete" class="btn-ghost">Cancel</button>
+          <button type="button" id="btn-cancel-delete" class="btn-ghost" data-i18n="btn_cancel">Cancel</button>
           <button type="button" id="btn-execute-delete" class="btn-danger">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
             </svg>
-            <span>Delete Permanently</span>
+            <span data-i18n="confirm_delete_btn">Delete Permanently</span>
           </button>
         </div>
       </div>
@@ -920,41 +944,41 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <!-- Essential Record Info Grid -->
           <div class="detail-info-grid">
             <div class="detail-info-cell">
-              <span class="detail-info-label">Customer</span>
+              <span class="detail-info-label" data-i18n="detail_customer">Customer</span>
               <strong class="detail-info-val" id="detail-customer-val">-</strong>
               <span class="detail-info-sub" id="detail-phone-val">-</span>
             </div>
             <div class="detail-info-cell">
-              <span class="detail-info-label">INV NO</span>
+              <span class="detail-info-label" data-i18n="lbl_inv_no">INV NO</span>
               <strong class="detail-info-val detail-inv-val" id="detail-invoice-val">-</strong>
               <span class="detail-info-sub" id="detail-owner-val">-</span>
             </div>
             <div class="detail-info-cell">
-              <span class="detail-info-label">Rental Price</span>
+              <span class="detail-info-label" data-i18n="detail_price">Rental Price</span>
               <strong class="detail-info-val detail-price-val" id="detail-price-val">RM 0</strong>
             </div>
             <div class="detail-info-cell">
-              <span class="detail-info-label">Duration</span>
+              <span class="detail-info-label" data-i18n="detail_duration">Duration</span>
               <strong class="detail-info-val" id="detail-start-val">-</strong>
               <span class="detail-info-sub" id="detail-end-val">-</span>
             </div>
           </div>
 
           <div id="detail-notes-box" class="detail-notes-box" hidden>
-            <span class="detail-info-label">Site Notes</span>
+            <span class="detail-info-label" data-i18n="detail_notes">Site Notes</span>
             <p class="detail-notes-text" id="detail-notes-val"></p>
           </div>
 
           <!-- Quick Dispatch & Contact Actions -->
           <div class="detail-section">
-            <span class="detail-section-label">Quick Actions</span>
+            <span class="detail-section-label" data-i18n="quick_actions">Quick Actions</span>
             <div class="detail-quick-grid">
               <button type="button" id="btn-detail-copy-driver" class="detail-action-tile">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
-                <span>Copy Driver</span>
+                <span data-i18n="btn_copy_driver">Copy Driver</span>
               </button>
 
               <button type="button" id="btn-detail-copy-waze" class="detail-action-tile waze-tile">
@@ -962,7 +986,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                   <path d="M167.91 57.17c-11.19-23.85-31-37.94-57.29-40.74-20.35-2.15-38.54 3.79-54.07 17.69C41.49 47.68 33.6 64.84 33.07 85.1c-.08 3 0 6 0 9v4.2c-.09 6.56-3.4 11.33-9.35 13.51l-1.57.26a4.66 4.66 0 0 0-4.36 6.31l.73 1.91c3.93 10.39 18.73 25.07 29.5 29.32l.3.12.46.17 11.27 2.26a8.09 8.09 0 0 1 15.28 3.07l11.45 2.3h10.23c2.22 0 4.48 0 6.71-.17h.63a101.71 101.71 0 0 0 11.44-1.12c1.67-.26 3.35-.6 5-1A69.27 69.27 0 0 0 131 151.9a67.88 67.88 0 0 0 10.78-5.58 70.47 70.47 0 0 0 26.18-89.15Zm-11.26 54.71a58.22 58.22 0 0 1-38.77 31.57 65 65 0 0 1-11.16 1.62c-1.07.08-2.1.14-3.07.19-3.72.24-7.45.19-11.39.14h-2.09a24.28 24.28 0 0 1-4.33-.45l-1.76-.36-28-5.62-3.37-.67a4.46 4.46 0 0 1-1-.31c-4.77-2.16-11.2-7.62-15.95-13.1a4.64 4.64 0 0 1 .5-6.53c5.61-4.78 8.81-11.74 8.93-20v-4.4c0-2.82-.05-5.75 0-8.53.45-17 6.82-30.88 19.44-42.28 12.87-11.5 27.9-16.43 44.69-14.65 22.16 2.36 38.17 13.75 47.6 33.82a57.7 57.7 0 0 1-.27 49.56Z"/>
                   <path d="M86.87 77.85a6 6 0 1 1 6-6 6 6 0 0 1-6 6Zm54.05-6.12a6.1 6.1 0 0 1-5.95 6 5.93 5.93 0 0 1-6.05-6 6 6 0 0 1 12-.1Zm-56.84 72.84a20.22 20.22 0 1 0 3.32 12.92 15.94 15.94 0 0 0 .08-1.71 20.16 20.16 0 0 0-3.4-11.21Zm-16.82 19.3a8.09 8.09 0 1 1 8.07-8.68v.59a8.1 8.1 0 0 1-8.07 8.09Zm74.47-17.55a20.25 20.25 0 0 0-9-8.73 57.64 57.64 0 0 1-14.81 5.86 65 65 0 0 1-11.16 1.62 20.06 20.06 0 0 0-3.07 10.71c0 .55 0 1.08.07 1.62a20.21 20.21 0 1 0 38-11.08Zm-17.86 17.55a8.1 8.1 0 0 1-8.08-7.62v-.47A8.08 8.08 0 0 1 131 151.9a8 8 0 0 1 1 3.88 8.1 8.1 0 0 1-8.13 8.09Z"/>
                 </svg>
-                <span>Copy Waze Link</span>
+                <span data-i18n="btn_copy_waze">Copy Waze Link</span>
               </button>
 
               <a id="btn-detail-whatsapp" href="#" target="_blank" rel="noopener noreferrer" class="detail-action-tile wa-tile">
@@ -977,16 +1001,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <!-- Inline 1-Tap Extend Rental Period (Active Bins Only) -->
           <div id="detail-extend-section" class="detail-section">
             <div class="detail-section-head">
-              <span class="detail-section-label">Extend Period</span>
-              <span class="detail-section-hint">Tap to add days instantly</span>
+              <span class="detail-section-label" data-i18n="extend_period">Extend Period</span>
+              <span class="detail-section-hint" data-i18n="extend_hint">Tap to add days instantly</span>
             </div>
             <div class="detail-extend-grid">
-              <button type="button" class="extend-opt-btn primary" data-detail-extend-days="1">+1 Day</button>
-              <button type="button" class="extend-opt-btn primary" data-detail-extend-days="2">+2 Days</button>
-              <button type="button" class="extend-opt-btn" data-detail-extend-days="3">+3 Days</button>
-              <button type="button" class="extend-opt-btn" data-detail-extend-days="5">+5 Days</button>
-              <button type="button" class="extend-opt-btn" data-detail-extend-days="7">+7 Days</button>
-              <button type="button" class="extend-opt-btn" data-detail-extend-days="10">+10 Days</button>
+              <button type="button" class="extend-opt-btn primary" data-detail-extend-days="1" data-i18n="ext_1">+1 Day</button>
+              <button type="button" class="extend-opt-btn primary" data-detail-extend-days="2" data-i18n="ext_2">+2 Days</button>
+              <button type="button" class="extend-opt-btn" data-detail-extend-days="3" data-i18n="ext_3">+3 Days</button>
+              <button type="button" class="extend-opt-btn" data-detail-extend-days="5" data-i18n="ext_5">+5 Days</button>
+              <button type="button" class="extend-opt-btn" data-detail-extend-days="7" data-i18n="cal_plus7">+7 Days</button>
+              <button type="button" class="extend-opt-btn" data-detail-extend-days="10" data-i18n="cal_plus10">+10 Days</button>
             </div>
           </div>
         </div>
@@ -998,13 +1022,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
               <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
             </svg>
-            <span>Edit Record</span>
+            <span data-i18n="btn_edit">Edit Record</span>
           </button>
           <button type="button" id="btn-detail-pull" class="btn-solid detail-foot-btn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
-            <span>Mark Pulled</span>
+            <span data-i18n="btn_pull">Mark Pulled</span>
           </button>
         </div>
 
@@ -1015,14 +1039,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <polyline points="3 6 5 6 21 6"></polyline>
               <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
             </svg>
-            <span>Delete</span>
+            <span data-i18n="btn_delete">Delete</span>
           </button>
           <button type="button" id="btn-detail-restore" class="btn-solid detail-foot-btn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="1 4 1 10 7 10"></polyline>
               <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
             </svg>
-            <span>Restore to Active</span>
+            <span data-i18n="btn_restore">Restore to Active</span>
           </button>
         </div>
       </div>
@@ -1405,6 +1429,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     color: #64748b;
     cursor: pointer;
     text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
     transition: background-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
   }
 
@@ -4868,6 +4896,544 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       font-size: 0.78rem;
     }
   }
+
+  /* ==========================================================================
+     DARK THEME OVERRIDES (Triggered via <html data-theme="dark">)
+     ========================================================================== */
+  :global([data-theme="dark"]) .dashboard-shell {
+    background: #0b0f19;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .sidebar {
+    background: rgba(17, 24, 39, 0.96);
+    border-color: #1f2937;
+    box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.65);
+  }
+
+  :global([data-theme="dark"]) .sidebar-brand {
+    border-bottom-color: #1f2937;
+  }
+
+  :global([data-theme="dark"]) .sidebar-logo-icon {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .sidebar-brand-title {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .sidebar-brand-sub,
+  :global([data-theme="dark"]) .nav-section-label {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .brand-refresh-btn,
+  :global([data-theme="dark"]) .mobile-close-btn,
+  :global([data-theme="dark"]) .mobile-menu-btn,
+  :global([data-theme="dark"]) .notif-bell-btn,
+  :global([data-theme="dark"]) .icon-close-btn {
+    background: #1e293b;
+    border-color: #334155;
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) .brand-refresh-btn:hover,
+  :global([data-theme="dark"]) .mobile-close-btn:hover,
+  :global([data-theme="dark"]) .mobile-menu-btn:hover,
+  :global([data-theme="dark"]) .notif-bell-btn:hover,
+  :global([data-theme="dark"]) .icon-close-btn:hover {
+    background: #334155;
+    border-color: #475569;
+    color: #ffffff;
+  }
+
+  :global([data-theme="dark"]) .nav-item {
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) .nav-item:hover {
+    background: #1e293b;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .nav-item.active {
+    background: #1e293b;
+    color: #ffffff;
+    box-shadow: inset 0 0 0 1px #334155;
+  }
+
+  :global([data-theme="dark"]) .nav-item-left svg {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .nav-item.active .nav-item-left svg {
+    color: #22c55e;
+  }
+
+  :global([data-theme="dark"]) .nav-count {
+    background: #1e293b;
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) .nav-item.active .nav-count {
+    background: #0f172a;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .nav-count.green {
+    background: rgba(34, 197, 94, 0.16);
+    color: #4ade80;
+  }
+
+  :global([data-theme="dark"]) .nav-count.red {
+    background: rgba(239, 68, 68, 0.18);
+    color: #f87171;
+  }
+
+  :global([data-theme="dark"]) .nav-count.amber {
+    background: rgba(245, 158, 11, 0.18);
+    color: #fbbf24;
+  }
+
+  :global([data-theme="dark"]) .nav-count.slate {
+    background: #1e293b;
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .lang-toggle-wrap {
+    background: #0f172a;
+    border: 1px solid #1f2937;
+  }
+
+  :global([data-theme="dark"]) .lang-btn {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .lang-btn:hover {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .lang-btn.active {
+    background: #1e293b;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  :global([data-theme="dark"]) .sidebar-footer {
+    border-top-color: #1f2937;
+  }
+
+  :global([data-theme="dark"]) .admin-profile-trigger {
+    background: #111827;
+    border-color: #1f2937;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .admin-profile-trigger:hover {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .admin-avatar {
+    background: #1e293b;
+    color: #4ade80;
+  }
+
+  :global([data-theme="dark"]) .admin-name {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .admin-role {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .workspace-title {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .workspace-sub,
+  :global([data-theme="dark"]) .result-counter {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .primary-create-btn,
+  :global([data-theme="dark"]) .btn-solid {
+    background: #16a34a;
+    color: #ffffff;
+    border-color: #16a34a;
+  }
+
+  :global([data-theme="dark"]) .primary-create-btn:hover,
+  :global([data-theme="dark"]) .btn-solid:hover {
+    background: #15803d;
+  }
+
+  :global([data-theme="dark"]) .kpi-card {
+    background: #111827;
+    border-color: #1f2937;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  :global([data-theme="dark"]) .kpi-card:hover {
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .kpi-label {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .kpi-value {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .kpi-icon.slate {
+    background: #1e293b;
+    color: #e2e8f0;
+  }
+
+  :global([data-theme="dark"]) .kpi-icon.emerald {
+    background: rgba(34, 197, 94, 0.16);
+    color: #4ade80;
+  }
+
+  :global([data-theme="dark"]) .kpi-icon.danger {
+    background: rgba(239, 68, 68, 0.16);
+    color: #f87171;
+  }
+
+  :global([data-theme="dark"]) .kpi-icon.indigo {
+    background: rgba(59, 130, 246, 0.16);
+    color: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .search-field input,
+  :global([data-theme="dark"]) .filter-trigger-btn {
+    background: #111827;
+    border-color: #1f2937;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .search-field input::placeholder {
+    color: #64748b;
+  }
+
+  :global([data-theme="dark"]) .search-field input:focus,
+  :global([data-theme="dark"]) .filter-trigger-btn:hover {
+    border-color: #334155;
+    background: #1e293b;
+  }
+
+  :global([data-theme="dark"]) .table-card {
+    background: #111827;
+    border-color: #1f2937;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  :global([data-theme="dark"]) .roro-table thead {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .roro-table th {
+    color: #94a3b8;
+    border-bottom-color: #1f2937;
+  }
+
+  :global([data-theme="dark"]) .roro-table :global(td) {
+    border-bottom-color: #1f2937;
+    color: #e2e8f0;
+  }
+
+  :global([data-theme="dark"]) .roro-table :global(tbody tr:hover) {
+    background: rgba(30, 41, 59, 0.65);
+  }
+
+  :global([data-theme="dark"]) :global(.loc-main),
+  :global([data-theme="dark"]) :global(.cust-name),
+  :global([data-theme="dark"]) :global(.price-val) {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) :global(.loc-note),
+  :global([data-theme="dark"]) :global(.cust-phone),
+  :global([data-theme="dark"]) :global(.status-end-sub),
+  :global([data-theme="dark"]) :global(.row-chevron) {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) :global(.pill-inv) {
+    background: #1e293b;
+    color: #cbd5e1;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) :global(.pill-size.s2) {
+    background: rgba(59, 130, 246, 0.16);
+    color: #93c5fd;
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  :global([data-theme="dark"]) :global(.pill-size.s4) {
+    background: rgba(139, 92, 246, 0.18);
+    color: #c4b5fd;
+    border-color: rgba(139, 92, 246, 0.32);
+  }
+
+  :global([data-theme="dark"]) :global(.pill-owner.skl) {
+    background: rgba(34, 197, 94, 0.14);
+    color: #86efac;
+    border-color: rgba(34, 197, 94, 0.28);
+  }
+
+  :global([data-theme="dark"]) :global(.pill-owner.thirumal) {
+    background: rgba(245, 158, 11, 0.16);
+    color: #fcd34d;
+    border-color: rgba(245, 158, 11, 0.3);
+  }
+
+  :global([data-theme="dark"]) :global(.days-pill.ok) {
+    background: rgba(34, 197, 94, 0.16);
+    color: #4ade80;
+    border-color: rgba(34, 197, 94, 0.28);
+  }
+
+  :global([data-theme="dark"]) :global(.days-pill.warn) {
+    background: rgba(245, 158, 11, 0.16);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.3);
+  }
+
+  :global([data-theme="dark"]) :global(.days-pill.late) {
+    background: rgba(239, 68, 68, 0.18);
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.32);
+  }
+
+  :global([data-theme="dark"]) :global(.days-pill.done) {
+    background: #1e293b;
+    color: #cbd5e1;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .blur-dropdown-menu {
+    background: rgba(17, 24, 39, 0.96);
+    border-color: #334155;
+    box-shadow: 0 20px 44px -10px rgba(0, 0, 0, 0.7);
+  }
+
+  :global([data-theme="dark"]) .dm-name,
+  :global([data-theme="dark"]) .notif-panel-title,
+  :global([data-theme="dark"]) .cal-month-label {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .dm-sub,
+  :global([data-theme="dark"]) .notif-panel-sub,
+  :global([data-theme="dark"]) .cal-weekdays span {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .dropdown-sep,
+  :global([data-theme="dark"]) .notif-panel-head {
+    border-color: #1f2937;
+  }
+
+  :global([data-theme="dark"]) .dropdown-action-item {
+    color: #e2e8f0;
+  }
+
+  :global([data-theme="dark"]) .dropdown-action-item:hover,
+  :global([data-theme="dark"]) .dropdown-action-item.active {
+    background: #1e293b;
+    color: #ffffff;
+  }
+
+  :global([data-theme="dark"]) .modal-overlay {
+    background: rgba(2, 6, 23, 0.74);
+  }
+
+  :global([data-theme="dark"]) .modal-dialog {
+    background: #111827;
+    border: 1px solid #1f2937;
+    box-shadow: 0 28px 60px -12px rgba(0, 0, 0, 0.75);
+  }
+
+  :global([data-theme="dark"]) .modal-head,
+  :global([data-theme="dark"]) .detail-head,
+  :global([data-theme="dark"]) .modal-foot,
+  :global([data-theme="dark"]) .detail-foot {
+    border-color: #1f2937;
+  }
+
+  :global([data-theme="dark"]) .modal-title,
+  :global([data-theme="dark"]) .detail-loc-title,
+  :global([data-theme="dark"]) .confirm-title,
+  :global([data-theme="dark"]) .form-label,
+  :global([data-theme="dark"]) .detail-info-val,
+  :global([data-theme="dark"]) .setting-toggle-title {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .modal-sub,
+  :global([data-theme="dark"]) .optional-tag,
+  :global([data-theme="dark"]) .confirm-desc,
+  :global([data-theme="dark"]) .detail-info-label,
+  :global([data-theme="dark"]) .detail-info-sub,
+  :global([data-theme="dark"]) .detail-section-label,
+  :global([data-theme="dark"]) .detail-section-hint,
+  :global([data-theme="dark"]) .setting-toggle-desc {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .form-control,
+  :global([data-theme="dark"]) .form-textarea,
+  :global([data-theme="dark"]) .prefix-field,
+  :global([data-theme="dark"]) .date-trigger-btn {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .prefix-addon {
+    background: #1e293b;
+    color: #cbd5e1;
+    border-right-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .prefix-input {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .form-control:focus,
+  :global([data-theme="dark"]) .form-textarea:focus,
+  :global([data-theme="dark"]) .prefix-field:focus-within,
+  :global([data-theme="dark"]) .date-trigger-btn:hover {
+    border-color: #22c55e;
+  }
+
+  :global([data-theme="dark"]) .size-card {
+    background: #0f172a;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .size-card-title {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .size-card-meta {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .size-option input:checked + .size-card {
+    background: rgba(34, 197, 94, 0.14);
+    border-color: #22c55e;
+  }
+
+  :global([data-theme="dark"]) .cal-preset-pill,
+  :global([data-theme="dark"]) .cal-nav-btn,
+  :global([data-theme="dark"]) .extend-opt-btn,
+  :global([data-theme="dark"]) .btn-ghost {
+    background: #1e293b;
+    border-color: #334155;
+    color: #e2e8f0;
+  }
+
+  :global([data-theme="dark"]) .cal-preset-pill:hover,
+  :global([data-theme="dark"]) .cal-nav-btn:hover,
+  :global([data-theme="dark"]) .extend-opt-btn:hover,
+  :global([data-theme="dark"]) .btn-ghost:hover {
+    background: #334155;
+    color: #ffffff;
+  }
+
+  :global([data-theme="dark"]) .cal-preset-pill.highlight,
+  :global([data-theme="dark"]) .extend-opt-btn.primary {
+    background: rgba(34, 197, 94, 0.16);
+    border-color: rgba(34, 197, 94, 0.35);
+    color: #4ade80;
+  }
+
+  :global([data-theme="dark"]) :global(.cal-day) {
+    color: #e2e8f0;
+  }
+
+  :global([data-theme="dark"]) :global(.cal-day:hover) {
+    background: #1e293b;
+  }
+
+  :global([data-theme="dark"]) :global(.cal-day.selected) {
+    background: #16a34a;
+    color: #ffffff;
+  }
+
+  :global([data-theme="dark"]) .detail-info-cell,
+  :global([data-theme="dark"]) .detail-notes-box,
+  :global([data-theme="dark"]) .detail-action-tile,
+  :global([data-theme="dark"]) .setting-toggle-card {
+    background: #0f172a;
+    border-color: #1f2937;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .detail-action-tile:hover,
+  :global([data-theme="dark"]) .setting-toggle-card:hover {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .detail-notes-text {
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) .pickup-alert-banner {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+
+  :global([data-theme="dark"]) .alert-banner-title {
+    color: #fca5a5;
+  }
+
+  :global([data-theme="dark"]) .alert-banner-desc {
+    color: #fecaca;
+  }
+
+  :global([data-theme="dark"]) .alert-btn-outline {
+    background: #111827;
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+  }
+
+  :global([data-theme="dark"]) .toast-bar {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .empty-state-title {
+    color: #f8fafc;
+  }
+
+  :global([data-theme="dark"]) .empty-state-desc {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) :global(.ac-item) {
+    color: #e2e8f0;
+    border-bottom-color: #1f2937;
+  }
+
+  :global([data-theme="dark"]) :global(.ac-item:hover) {
+    background: #1e293b;
+  }
+
+  @media (max-width: 760px) {
+    :global([data-theme="dark"]) .roro-table :global(tbody tr) {
+      background: #111827;
+      border-color: #1f2937;
+    }
+  }
 </style>
 
 <script>
@@ -4966,6 +5532,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       section_system: 'SYSTEM',
       nav_settings: 'Settings',
       section_language: 'LANGUAGE / BAHASA',
+      section_theme: 'THEME / TEMA',
+      theme_light: 'Light',
+      theme_dark: 'Dark',
+      toast_theme_light: 'Switched to Light theme',
+      toast_theme_dark: 'Switched to Dark theme',
       btn_add_bin: 'Add Bin',
       heading_all: 'Active Bins',
       sub_all: 'Live fleet status and pulls',
@@ -5010,9 +5581,44 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       no_completed_title: 'No Completed Bins',
       no_completed_desc: 'Pulled bins appear here.',
       modal_add_title: 'Add New RORO Bin',
-      modal_edit_title: 'Edit RORO Bin',
+      modal_add_sub: 'End date is automatically calculated as 10 days from start date.',
+      modal_edit_title: 'Edit RORO Bin Record',
       btn_save: 'Save Bin Record',
+      btn_update: 'Update Record',
       btn_cancel: 'Cancel',
+      lbl_whos_tong: "Who's Tong",
+      owner_skl_meta: 'Default • Direct Customer',
+      lbl_delivery_loc: 'Delivery Location / Address',
+      map_hint: 'Click anywhere on the map or drag pin to select exact spot',
+      map_street: 'Map',
+      map_sat: 'Satellite',
+      lbl_phone: 'Phone Number (WhatsApp)',
+      tag_fixed: 'Fixed',
+      lbl_customer: 'Customer Name',
+      tag_optional: '(Optional)',
+      lbl_inv_no: 'INV NO',
+      tag_max4: '(Max 4 digits)',
+      modal_inv_placeholder: 'e.g. 1024',
+      lbl_bin_size: 'Bin Size',
+      lbl_price: 'Rental Price (RM)',
+      lbl_start_date: 'Start Date',
+      lbl_end_date: 'End Date (Default 10 Days)',
+      lbl_site_notes: 'Site Notes',
+      cal_today: 'Today',
+      cal_tomorrow: 'Tomorrow',
+      cal_yesterday: 'Yesterday',
+      cal_plus7: '+7 Days',
+      cal_plus10: '+10 Days',
+      cal_plus14: '+14 Days',
+      cal_plus30: '+30 Days',
+      detail_duration: 'Duration',
+      btn_copy_driver: 'Copy Driver',
+      btn_copy_waze: 'Copy Waze Link',
+      extend_hint: 'Tap to add days instantly',
+      ext_1: '+1 Day',
+      ext_2: '+2 Days',
+      ext_3: '+3 Days',
+      ext_5: '+5 Days',
       confirm_pull_title: 'Mark Bin as Pulled?',
       confirm_pull_desc: 'The bin at {loc} will be moved to Completed.',
       confirm_pull_btn: 'Confirm Pulled',
@@ -5045,6 +5651,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       section_system: 'SISTEM',
       nav_settings: 'Tetapan',
       section_language: 'BAHASA / LANGUAGE',
+      section_theme: 'TEMA / THEME',
+      theme_light: 'Cerah',
+      theme_dark: 'Gelap',
+      toast_theme_light: 'Tema ditukar ke Mod Cerah',
+      toast_theme_dark: 'Tema ditukar ke Mod Gelap',
       btn_add_bin: 'Tambah Tong',
       heading_all: 'Tong Aktif',
       sub_all: 'Status lori dan penarikan tong semasa',
@@ -5089,9 +5700,44 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       no_completed_title: 'Tiada Rekod Selesai',
       no_completed_desc: 'Tong yang telah ditarik akan dipaparkan di sini.',
       modal_add_title: 'Tambah Tong RORO Baru',
-      modal_edit_title: 'Kemaskini Tong RORO',
+      modal_add_sub: 'Tarikh tamat dikira secara automatik selama 10 hari dari tarikh mula.',
+      modal_edit_title: 'Kemaskini Rekod Tong RORO',
       btn_save: 'Simpan Rekod Tong',
+      btn_update: 'Kemaskini Rekod',
       btn_cancel: 'Batal',
+      lbl_whos_tong: 'Pemilik Tong',
+      owner_skl_meta: 'Lalai • Pelanggan Terus',
+      lbl_delivery_loc: 'Lokasi Penghantaran / Alamat',
+      map_hint: 'Klik di mana-mana pada peta atau seret pin untuk pilih lokasi tepat',
+      map_street: 'Peta',
+      map_sat: 'Satelit',
+      lbl_phone: 'Nombor Telefon (WhatsApp)',
+      tag_fixed: 'Tetap',
+      lbl_customer: 'Nama Pelanggan',
+      tag_optional: '(Pilihan)',
+      lbl_inv_no: 'NO INVOIS',
+      tag_max4: '(Maks 4 digit)',
+      modal_inv_placeholder: 'cth. 1024',
+      lbl_bin_size: 'Saiz Tong',
+      lbl_price: 'Harga Sewa (RM)',
+      lbl_start_date: 'Tarikh Mula',
+      lbl_end_date: 'Tarikh Tamat (Lalai 10 Hari)',
+      lbl_site_notes: 'Nota Tapak',
+      cal_today: 'Hari Ini',
+      cal_tomorrow: 'Esok',
+      cal_yesterday: 'Semalam',
+      cal_plus7: '+7 Hari',
+      cal_plus10: '+10 Hari',
+      cal_plus14: '+14 Hari',
+      cal_plus30: '+30 Hari',
+      detail_duration: 'Tempoh Sewaan',
+      btn_copy_driver: 'Salin Info Pemandu',
+      btn_copy_waze: 'Salin Pautan Waze',
+      extend_hint: 'Tekan untuk tambah hari serta-merta',
+      ext_1: '+1 Hari',
+      ext_2: '+2 Hari',
+      ext_3: '+3 Hari',
+      ext_5: '+5 Hari',
       confirm_pull_title: 'Tandakan Tong Ditarik?',
       confirm_pull_desc: 'Tong di {loc} akan dipindahkan ke bahagian Selesai.',
       confirm_pull_btn: 'Sahkan Ditarik',
@@ -5133,9 +5779,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       }
     });
 
-    // Update search placeholder
+    // Update search & invoice placeholders
     if (searchInput) {
       searchInput.placeholder = t('search_placeholder');
+    }
+    if (invoiceNoInput) {
+      invoiceNoInput.placeholder = t('modal_inv_placeholder');
     }
 
     // Refresh dynamic labels & table rendering
@@ -6636,8 +7285,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     modalFormError.hidden = true;
     recordIdInput.value = '';
     invoiceNoInput.value = '';
-    modalTitle.textContent = 'Add New RORO Bin';
-    btnSaveText.textContent = 'Save Bin Record';
+    modalTitle.textContent = t('modal_add_title');
+    btnSaveText.textContent = t('btn_save');
 
     const todayStr = toIsoDate(new Date());
     dateStartInput.value = todayStr;
@@ -6662,8 +7311,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     recordForm.reset();
     modalFormError.hidden = true;
     recordIdInput.value = rec.id;
-    modalTitle.textContent = 'Edit RORO Bin Record';
-    btnSaveText.textContent = 'Update Record';
+    modalTitle.textContent = t('modal_edit_title');
+    btnSaveText.textContent = t('btn_update');
 
     locationInput.value = rec.location;
     if (rec.bin_owner === OWNER_THIRUMAL) {
@@ -7258,6 +7907,34 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     firePickupDesktopNotifications(false);
   }, 60000);
 
+  // Theme (Light / Dark) Controller
+  const THEME_STORAGE_KEY = 'skl_system_roro_theme_v1';
+  type ThemeKey = 'light' | 'dark';
+  let currentTheme: ThemeKey = (localStorage.getItem(THEME_STORAGE_KEY) as ThemeKey) === 'dark' ? 'dark' : 'light';
+
+  function applyTheme(theme: ThemeKey) {
+    currentTheme = theme;
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {}
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    document.getElementById('btn-theme-light')?.classList.toggle('active', theme === 'light');
+    document.getElementById('btn-theme-dark')?.classList.toggle('active', theme === 'dark');
+  }
+
+  document.getElementById('btn-theme-light')?.addEventListener('click', () => {
+    applyTheme('light');
+    showToast(t('toast_theme_light'));
+  });
+  document.getElementById('btn-theme-dark')?.addEventListener('click', () => {
+    applyTheme('dark');
+    showToast(t('toast_theme_dark'));
+  });
+
   document.getElementById('btn-lang-en')?.addEventListener('click', () => {
     applyLanguage('en');
     showToast(t('toast_lang_switched'));
@@ -7268,6 +7945,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   });
 
   // Initial Load
+  applyTheme(currentTheme);
   applyLanguage(currentLang);
   updateNotificationPermissionUI();
   loadRecords(true);
