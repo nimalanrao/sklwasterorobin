@@ -171,6 +171,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </button>
 
         <div class="nav-section-label spaced" data-i18n="section_system">SYSTEM</div>
+        <a href="/system-roro/statement" target="_blank" rel="noopener noreferrer" class="nav-item nav-item-link">
+          <span class="nav-item-left">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <span data-i18n="nav_statement">Daily Statement</span>
+          </span>
+          <svg class="nav-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
         <button type="button" class="nav-item" id="btn-open-settings-nav">
           <span class="nav-item-left">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -296,6 +313,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </div>
 
         <div class="workspace-header-right">
+          <!-- Quick Daily Statement (Opens A4 Official Statement in New Tab) -->
+          <a
+            href="/system-roro/statement"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="notif-bell-btn statement-header-btn"
+            title="Daily Statement (A4 PDF)"
+            aria-label="Open Daily Statement in new tab"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </a>
+
           <!-- Pickup Notification Center (Bell with Animated Blur Dropdown) -->
           <div class="dropdown-anchor" id="notif-dropdown-wrapper">
             <button type="button" id="btn-notif-bell" class="notif-bell-btn" aria-haspopup="true" aria-expanded="false" aria-label="Pickup notifications">
@@ -1343,6 +1377,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     width: 100%;
     border: none;
     background: transparent;
+    text-decoration: none;
     border-radius: 12px;
     padding: 0.75rem 0.85rem;
     display: flex;
@@ -5643,6 +5678,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       size_2ft: '2 Feet',
       size_4ft: '4 Feet',
       section_system: 'SYSTEM',
+      nav_statement: 'Daily Statement',
       nav_settings: 'Settings',
       section_language: 'LANGUAGE / BAHASA',
       section_theme: 'THEME / TEMA',
@@ -5762,6 +5798,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       size_2ft: '2 Kaki',
       size_4ft: '4 Kaki',
       section_system: 'SISTEM',
+      nav_statement: 'Penyata Harian',
       nav_settings: 'Tetapan',
       section_language: 'BAHASA / LANGUAGE',
       section_theme: 'TEMA / THEME',

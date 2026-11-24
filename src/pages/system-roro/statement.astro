@@ -1,0 +1,966 @@
+---
+// Official Printable A4 Daily Statement for System RORO (Opens in a new tab)
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Statement | SKL Waste Sdn Bhd</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" href="/images/skl-logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Auth Guard -->
+    <script is:inline>
+      (function () {
+        var isAuthed = false;
+        try {
+          isAuthed = sessionStorage.getItem('skl_system_roro_auth') === 'true';
+        } catch (e) {
+          isAuthed = false;
+        }
+        if (!isAuthed) {
+          document.documentElement.style.visibility = 'hidden';
+          window.location.replace('/system-roro/login');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- TOP CONTROLS BAR (Hidden when printing / saving as PDF) -->
+    <div class="control-bar no-print">
+      <div class="control-bar-inner">
+        <div class="control-left">
+          <div class="control-brand">
+            <img src="/images/skl-logo.png" alt="SKL Waste Logo" width="28" height="28" />
+            <div>
+              <div class="control-title">Daily Statement Preview</div>
+              <div class="control-sub">A4 Official Print &amp; PDF Format</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-filters">
+          <label class="ctrl-field">
+            <span>Date</span>
+            <input type="date" id="stmt-date" />
+          </label>
+
+          <label class="ctrl-field">
+            <span>Report Type</span>
+            <select id="stmt-scope">
+              <option value="daily_start">Daily Dispatches (Start Date)</option>
+              <option value="active_all">All Active Bins (Snapshot)</option>
+              <option value="daily_pulled">Pulled / Completed on Date</option>
+              <option value="all_records">All Records</option>
+            </select>
+          </label>
+
+          <label class="ctrl-field">
+            <span>Owner</span>
+            <select id="stmt-owner">
+              <option value="all">All Owners</option>
+              <option value="SKL Waste">SKL Waste</option>
+              <option value="Thirumal Vel Enterprise">Thirumal Vel Enterprise</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="control-actions">
+          <button type="button" id="btn-refresh-stmt" class="ctrl-btn secondary" title="Reload latest data">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            <span>Refresh</span>
+          </button>
+          <button type="button" id="btn-print-pdf" class="ctrl-btn primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>Download PDF / Print A4</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- A4 OFFICIAL PAPER SHEET -->
+    <main class="paper-stage">
+      <article class="a4-sheet" id="statement-sheet">
+        <!-- OFFICIAL LETTERHEAD -->
+        <header class="letterhead">
+          <div class="lh-company">
+            <img src="/images/skl-logo.png" alt="SKL Waste Sdn Bhd" class="lh-logo" />
+            <div class="lh-company-info">
+              <h1 class="lh-company-name">SKL WASTE SDN BHD</h1>
+              <div class="lh-company-reg">Company Reg. No: 200801038953</div>
+              <div class="lh-company-addr">Sungai Buloh, Selangor Darul Ehsan, Malaysia</div>
+              <div class="lh-company-contact">Tel / WhatsApp: +60 16-615 9365 &nbsp;&bull;&nbsp; RORO Bin Operations</div>
+            </div>
+          </div>
+
+          <div class="lh-doc-box">
+            <div class="lh-doc-title">DAILY STATEMENT</div>
+            <div class="lh-doc-subtitle">PENYATA OPERASI HARIAN</div>
+            <table class="lh-meta-table">
+              <tbody>
+                <tr>
+                  <td class="meta-k">Ref. No</td>
+                  <td class="meta-v" id="doc-ref-no">STM-00000000</td>
+                </tr>
+                <tr>
+                  <td class="meta-k">Date</td>
+                  <td class="meta-v" id="doc-date-val">-</td>
+                </tr>
+                <tr>
+                  <td class="meta-k">Scope</td>
+                  <td class="meta-v" id="doc-scope-val">Daily Dispatches</td>
+                </tr>
+                <tr>
+                  <td class="meta-k">Owner</td>
+                  <td class="meta-v" id="doc-owner-val">All Owners</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </header>
+
+        <div class="double-rule"></div>
+
+        <!-- SUMMARY BOXES -->
+        <section class="summary-grid" aria-label="Statement Summary">
+          <div class="sum-box">
+            <span class="sum-label">TOTAL BINS</span>
+            <strong class="sum-val" id="sum-total-bins">0</strong>
+            <span class="sum-sub" id="sum-size-split">2ft: 0 &bull; 4ft: 0</span>
+          </div>
+          <div class="sum-box">
+            <span class="sum-label">SKL WASTE</span>
+            <strong class="sum-val" id="sum-skl-count">0</strong>
+            <span class="sum-sub" id="sum-skl-rm">RM 0.00</span>
+          </div>
+          <div class="sum-box">
+            <span class="sum-label">THIRUMAL VEL</span>
+            <strong class="sum-val" id="sum-thirumal-count">0</strong>
+            <span class="sum-sub" id="sum-thirumal-rm">RM 0.00</span>
+          </div>
+          <div class="sum-box sum-box-total">
+            <span class="sum-label">GRAND TOTAL (RM)</span>
+            <strong class="sum-val" id="sum-grand-total">RM 0.00</strong>
+            <span class="sum-sub" id="sum-generated-at">Generated: -</span>
+          </div>
+        </section>
+
+        <!-- OFFICIAL BORDERED STATEMENT TABLE -->
+        <section class="table-section">
+          <table class="stmt-table">
+            <thead>
+              <tr>
+                <th class="col-no">No.</th>
+                <th class="col-inv">INV NO</th>
+                <th class="col-owner">Owner</th>
+                <th class="col-loc">Delivery Location / Site</th>
+                <th class="col-cust">Customer &amp; Phone</th>
+                <th class="col-size">Size</th>
+                <th class="col-dates">Rental Period</th>
+                <th class="col-status">Status</th>
+                <th class="col-amt">Amount (RM)</th>
+              </tr>
+            </thead>
+            <tbody id="stmt-tbody">
+              <tr>
+                <td colspan="9" class="stmt-empty">Loading records from Supabase...</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="total-row">
+                <td colspan="8" class="total-label">TOTAL AMOUNT (RM) / JUMLAH KESELURUHAN</td>
+                <td class="total-val" id="tfoot-total">0.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </section>
+
+        <!-- OFFICIAL SIGN-OFF & VERIFICATION BOXES -->
+        <footer class="signoff-footer">
+          <div class="signoff-grid">
+            <div class="signoff-box">
+              <div class="signoff-head">Prepared By / Disediakan Oleh</div>
+              <div class="signoff-line"></div>
+              <div class="signoff-meta">
+                <span>Name: Admin Operations</span>
+                <span id="sign-date-1">Date: -</span>
+              </div>
+            </div>
+
+            <div class="signoff-box">
+              <div class="signoff-head">Verified By / Disahkan Oleh</div>
+              <div class="signoff-line"></div>
+              <div class="signoff-meta">
+                <span>Authorized Signature &amp; Stamp</span>
+                <span>Date: _______________</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="legal-foot">
+            <span>SKL WASTE SDN BHD (200801038953) &bull; Official System RORO Daily Statement</span>
+            <span id="legal-print-time">Printed: -</span>
+          </div>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
+
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #2b2d31;
+    color: #0f172a;
+    min-height: 100vh;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* --- TOP INTERACTIVE CONTROL BAR (SCREEN ONLY) --- */
+  .control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #1e1f22;
+    border-bottom: 1px solid #3f4147;
+    color: #f2f3f5;
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  .control-bar-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+  }
+
+  .control-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .control-brand img {
+    border-radius: 7px;
+    background: #ffffff;
+    padding: 2px;
+  }
+
+  .control-title {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 0.96rem;
+    font-weight: 800;
+    color: #f2f3f5;
+    line-height: 1.2;
+  }
+
+  .control-sub {
+    font-size: 0.75rem;
+    color: #b5bac1;
+  }
+
+  .control-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .ctrl-field {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #b5bac1;
+  }
+
+  .ctrl-field input,
+  .ctrl-field select {
+    height: 36px;
+    padding: 0 0.65rem;
+    border-radius: 8px;
+    border: 1px solid #4e5058;
+    background: #2b2d31;
+    color: #f2f3f5;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    outline: none;
+  }
+
+  .ctrl-field input:focus,
+  .ctrl-field select:focus {
+    border-color: #23a55a;
+  }
+
+  .control-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .ctrl-btn {
+    height: 38px;
+    padding: 0 0.95rem;
+    border-radius: 9px;
+    border: 1px solid transparent;
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+  }
+
+  .ctrl-btn.secondary {
+    background: #383a40;
+    border-color: #4e5058;
+    color: #f2f3f5;
+  }
+
+  .ctrl-btn.secondary:hover {
+    background: #4e5058;
+  }
+
+  .ctrl-btn.primary {
+    background: #23a55a;
+    color: #ffffff;
+  }
+
+  .ctrl-btn.primary:hover {
+    background: #1a7f44;
+  }
+
+  /* --- A4 PAPER STAGE --- */
+  .paper-stage {
+    padding: 1.75rem 1rem 3rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .a4-sheet {
+    width: 210mm;
+    min-height: 297mm;
+    background: #ffffff;
+    color: #0f172a;
+    padding: 12mm 13mm;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    gap: 5mm;
+  }
+
+  /* --- OFFICIAL LETTERHEAD --- */
+  .letterhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8mm;
+  }
+
+  .lh-company {
+    display: flex;
+    align-items: flex-start;
+    gap: 4mm;
+  }
+
+  .lh-logo {
+    width: 17mm;
+    height: 17mm;
+    object-fit: contain;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 1.5mm;
+    background: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .lh-company-name {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 15pt;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #020617;
+    line-height: 1.15;
+  }
+
+  .lh-company-reg {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #15803d;
+    margin-top: 1mm;
+  }
+
+  .lh-company-addr,
+  .lh-company-contact {
+    font-size: 8.2pt;
+    color: #334155;
+    line-height: 1.4;
+  }
+
+  .lh-doc-box {
+    border: 1.5px solid #0f172a;
+    border-radius: 4px;
+    min-width: 64mm;
+    overflow: hidden;
+  }
+
+  .lh-doc-title {
+    background: #0f172a;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 11pt;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 2mm 3mm 0.8mm;
+  }
+
+  .lh-doc-subtitle {
+    background: #0f172a;
+    color: #cbd5e1;
+    font-size: 6.8pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 0 3mm 1.8mm;
+  }
+
+  .lh-meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.8pt;
+  }
+
+  .lh-meta-table td {
+    padding: 1.2mm 2.5mm;
+    border-top: 1px solid #cbd5e1;
+  }
+
+  .lh-meta-table .meta-k {
+    font-weight: 700;
+    color: #475569;
+    background: #f8fafc;
+    width: 34%;
+    border-right: 1px solid #cbd5e1;
+  }
+
+  .lh-meta-table .meta-v {
+    font-weight: 700;
+    color: #020617;
+  }
+
+  .double-rule {
+    border-top: 2px solid #0f172a;
+    border-bottom: 1px solid #0f172a;
+    height: 4px;
+  }
+
+  /* --- SUMMARY KPI BOXES --- */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3mm;
+  }
+
+  .sum-box {
+    border: 1.2px solid #334155;
+    border-radius: 4px;
+    padding: 2.5mm 3mm;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8mm;
+    background: #ffffff;
+  }
+
+  .sum-box-total {
+    background: #f0fdf4;
+    border: 1.5px solid #15803d;
+  }
+
+  .sum-label {
+    font-size: 6.8pt;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #475569;
+  }
+
+  .sum-box-total .sum-label {
+    color: #15803d;
+  }
+
+  .sum-val {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 13pt;
+    font-weight: 800;
+    color: #020617;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sum-box-total .sum-val {
+    color: #14532d;
+  }
+
+  .sum-sub {
+    font-size: 7.2pt;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  /* --- OFFICIAL BORDERED TABLE --- */
+  .table-section {
+    flex: 1;
+  }
+
+  .stmt-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid #0f172a;
+    font-size: 7.8pt;
+  }
+
+  .stmt-table thead th {
+    background: #0f172a;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: left;
+    padding: 2.2mm 2mm;
+    border: 1px solid #334155;
+    font-size: 7.2pt;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .stmt-table thead th.col-no,
+  .stmt-table thead th.col-inv,
+  .stmt-table thead th.col-size,
+  .stmt-table thead th.col-status {
+    text-align: center;
+  }
+
+  .stmt-table thead th.col-amt {
+    text-align: right;
+  }
+
+  .stmt-table tbody td {
+    padding: 2mm 2mm;
+    border: 1px solid #94a3b8;
+    vertical-align: top;
+    color: #0f172a;
+    line-height: 1.35;
+  }
+
+  .stmt-table tbody tr:nth-child(even) {
+    background: #f8fafc;
+  }
+
+  .stmt-table tbody tr {
+    page-break-inside: avoid;
+  }
+
+  .col-no { width: 5%; text-align: center; font-weight: 700; }
+  .col-inv { width: 8%; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .col-owner { width: 12%; font-weight: 700; }
+  .col-loc { width: 27%; }
+  .col-cust { width: 16%; }
+  .col-size { width: 7%; text-align: center; font-weight: 700; }
+  .col-dates { width: 11%; font-variant-numeric: tabular-nums; font-size: 7.2pt; }
+  .col-status { width: 6%; text-align: center; font-weight: 700; }
+  .col-amt { width: 8%; text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+  .loc-text {
+    font-weight: 700;
+    color: #020617;
+  }
+
+  .note-text {
+    font-size: 7pt;
+    color: #475569;
+    margin-top: 0.8mm;
+  }
+
+  .cust-name-cell {
+    font-weight: 700;
+    color: #020617;
+  }
+
+  .cust-phone-cell {
+    font-size: 7.2pt;
+    color: #334155;
+    margin-top: 0.6mm;
+  }
+
+  .status-tag {
+    display: inline-block;
+    padding: 0.5mm 1.5mm;
+    border-radius: 3px;
+    font-size: 6.8pt;
+    font-weight: 800;
+    border: 1px solid #cbd5e1;
+  }
+
+  .status-tag.active { background: #f0fdf4; color: #15803d; border-color: #86efac; }
+  .status-tag.overdue { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .status-tag.completed { background: #f1f5f9; color: #334155; border-color: #cbd5e1; }
+
+  .stmt-empty {
+    text-align: center;
+    padding: 12mm 4mm !important;
+    color: #64748b !important;
+    font-weight: 600;
+    font-size: 9pt;
+  }
+
+  .stmt-table tfoot .total-row td {
+    background: #f1f5f9;
+    border: 1.5px solid #0f172a;
+    padding: 2.5mm 2.5mm;
+    font-weight: 800;
+    color: #020617;
+  }
+
+  .total-label {
+    text-align: right;
+    font-size: 8pt;
+    letter-spacing: 0.04em;
+  }
+
+  .total-val {
+    text-align: right;
+    font-size: 9.5pt;
+    font-variant-numeric: tabular-nums;
+    color: #14532d !important;
+    background: #dcfce7 !important;
+  }
+
+  /* --- SIGN-OFF FOOTER --- */
+  .signoff-footer {
+    margin-top: auto;
+    padding-top: 4mm;
+    page-break-inside: avoid;
+  }
+
+  .signoff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8mm;
+    margin-bottom: 4mm;
+  }
+
+  .signoff-box {
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    padding: 3mm 4mm;
+  }
+
+  .signoff-head {
+    font-size: 7.5pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #334155;
+    margin-bottom: 10mm;
+  }
+
+  .signoff-line {
+    border-bottom: 1px solid #0f172a;
+    margin-bottom: 1.8mm;
+  }
+
+  .signoff-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.2pt;
+    color: #475569;
+    font-weight: 600;
+  }
+
+  .legal-foot {
+    border-top: 1px solid #cbd5e1;
+    padding-top: 2mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 7pt;
+    color: #64748b;
+  }
+
+  /* --- MOBILE PREVIEW SCROLL --- */
+  @media (max-width: 820px) {
+    .paper-stage {
+      padding: 0.75rem;
+      overflow-x: auto;
+      justify-content: flex-start;
+    }
+  }
+
+  /* --- EXACT A4 PRINT STYLES --- */
+  @media print {
+    body {
+      background: #ffffff !important;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    .paper-stage {
+      padding: 0 !important;
+      display: block !important;
+    }
+
+    .a4-sheet {
+      width: 100% !important;
+      min-height: auto !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+    }
+  }
+</style>
+
+<script>
+  import {
+    fetchAllRecords,
+    formatPhoneDisplay,
+    OWNER_SKL,
+    OWNER_THIRUMAL,
+    type RoroRecord
+  } from '../../utils/systemRoroClient';
+
+  const dateInput = document.getElementById('stmt-date') as HTMLInputElement;
+  const scopeSelect = document.getElementById('stmt-scope') as HTMLSelectElement;
+  const ownerSelect = document.getElementById('stmt-owner') as HTMLSelectElement;
+  const btnRefresh = document.getElementById('btn-refresh-stmt') as HTMLButtonElement;
+  const btnPrint = document.getElementById('btn-print-pdf') as HTMLButtonElement;
+
+  const docRefNo = document.getElementById('doc-ref-no') as HTMLElement;
+  const docDateVal = document.getElementById('doc-date-val') as HTMLElement;
+  const docScopeVal = document.getElementById('doc-scope-val') as HTMLElement;
+  const docOwnerVal = document.getElementById('doc-owner-val') as HTMLElement;
+
+  const sumTotalBins = document.getElementById('sum-total-bins') as HTMLElement;
+  const sumSizeSplit = document.getElementById('sum-size-split') as HTMLElement;
+  const sumSklCount = document.getElementById('sum-skl-count') as HTMLElement;
+  const sumSklRm = document.getElementById('sum-skl-rm') as HTMLElement;
+  const sumThirumalCount = document.getElementById('sum-thirumal-count') as HTMLElement;
+  const sumThirumalRm = document.getElementById('sum-thirumal-rm') as HTMLElement;
+  const sumGrandTotal = document.getElementById('sum-grand-total') as HTMLElement;
+  const sumGeneratedAt = document.getElementById('sum-generated-at') as HTMLElement;
+
+  const tbody = document.getElementById('stmt-tbody') as HTMLTableSectionElement;
+  const tfootTotal = document.getElementById('tfoot-total') as HTMLElement;
+  const signDate1 = document.getElementById('sign-date-1') as HTMLElement;
+  const legalPrintTime = document.getElementById('legal-print-time') as HTMLElement;
+
+  let allRecords: RoroRecord[] = [];
+
+  function getTodayLocalIso(): string {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  function formatDateNice(iso: string): string {
+    if (!iso) return '-';
+    const p = iso.split('T')[0].split('-');
+    if (p.length !== 3) return iso;
+    return `${p[2]}/${p[1]}/${p[0]}`;
+  }
+
+  function formatRm(val: number): string {
+    return Number(val || 0).toLocaleString('en-MY', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function escapeHtml(str: string): string {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function computeStatus(rec: RoroRecord): 'Active' | 'Overdue' | 'Completed' {
+    if (rec.status === 'Completed') return 'Completed';
+    const end = new Date(rec.date_end + 'T00:00:00');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return end.getTime() < today.getTime() ? 'Overdue' : 'Active';
+  }
+
+  function renderStatement() {
+    const selectedDate = dateInput.value || getTodayLocalIso();
+    const scope = scopeSelect.value;
+    const ownerFilter = ownerSelect.value;
+
+    const scopeLabels: Record<string, string> = {
+      daily_start: 'Daily Dispatches',
+      active_all: 'All Active Bins',
+      daily_pulled: 'Completed / Pulled',
+      all_records: 'All Records'
+    };
+
+    const filtered = allRecords.filter((rec) => {
+      if (ownerFilter !== 'all' && rec.bin_owner !== ownerFilter) return false;
+
+      if (scope === 'daily_start') {
+        return (rec.date_start || '').slice(0, 10) === selectedDate;
+      }
+      if (scope === 'active_all') {
+        return rec.status !== 'Completed';
+      }
+      if (scope === 'daily_pulled') {
+        return rec.status === 'Completed' && (rec.completed_at || '').slice(0, 10) === selectedDate;
+      }
+      return true;
+    });
+
+    // Update Document Header Metadata
+    const compactDate = selectedDate.replace(/-/g, '');
+    docRefNo.textContent = `STM-${compactDate}`;
+    docDateVal.textContent = formatDateNice(selectedDate);
+    docScopeVal.textContent = scopeLabels[scope] || scope;
+    docOwnerVal.textContent = ownerFilter === 'all' ? 'All Owners' : ownerFilter;
+    document.title = `SKL_Daily_Statement_${selectedDate}`;
+
+    const nowStr = new Date().toLocaleString('en-MY', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    sumGeneratedAt.textContent = `Generated: ${nowStr}`;
+    signDate1.textContent = `Date: ${formatDateNice(selectedDate)}`;
+    legalPrintTime.textContent = `Printed: ${nowStr}`;
+
+    // Summary Calculations
+    let count2ft = 0;
+    let count4ft = 0;
+    let sklCount = 0;
+    let sklTotal = 0;
+    let thirumalCount = 0;
+    let thirumalTotal = 0;
+    let grandTotal = 0;
+
+    filtered.forEach((rec) => {
+      const amt = Number(rec.price) || 0;
+      grandTotal += amt;
+      if (rec.size === '4 Feet') count4ft++;
+      else count2ft++;
+
+      if (rec.bin_owner === OWNER_THIRUMAL) {
+        thirumalCount++;
+        thirumalTotal += amt;
+      } else {
+        sklCount++;
+        sklTotal += amt;
+      }
+    });
+
+    sumTotalBins.textContent = String(filtered.length);
+    sumSizeSplit.textContent = `2ft: ${count2ft} • 4ft: ${count4ft}`;
+    sumSklCount.textContent = String(sklCount);
+    sumSklRm.textContent = `RM ${formatRm(sklTotal)}`;
+    sumThirumalCount.textContent = String(thirumalCount);
+    sumThirumalRm.textContent = `RM ${formatRm(thirumalTotal)}`;
+    sumGrandTotal.textContent = `RM ${formatRm(grandTotal)}`;
+    tfootTotal.textContent = formatRm(grandTotal);
+
+    // Render Table Rows
+    if (filtered.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="9" class="stmt-empty">
+            No RORO bin records found for ${formatDateNice(selectedDate)} (${escapeHtml(scopeLabels[scope] || scope)}).
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    tbody.innerHTML = filtered
+      .map((rec, idx) => {
+        const st = computeStatus(rec);
+        const stCls = st === 'Completed' ? 'completed' : st === 'Overdue' ? 'overdue' : 'active';
+        const ownerShort = rec.bin_owner === OWNER_THIRUMAL ? 'Thirumal Vel' : 'SKL Waste';
+        return `
+          <tr>
+            <td class="col-no">${idx + 1}</td>
+            <td class="col-inv">${rec.invoice_no ? '#' + escapeHtml(rec.invoice_no) : '-'}</td>
+            <td class="col-owner">${escapeHtml(ownerShort)}</td>
+            <td class="col-loc">
+              <div class="loc-text">${escapeHtml(rec.location)}</div>
+              ${rec.notes ? `<div class="note-text">Note: ${escapeHtml(rec.notes)}</div>` : ''}
+            </td>
+            <td class="col-cust">
+              <div class="cust-name-cell">${escapeHtml(rec.customer_name || '-')}</div>
+              <div class="cust-phone-cell">${escapeHtml(formatPhoneDisplay(rec.customer_phone))}</div>
+            </td>
+            <td class="col-size">${escapeHtml(rec.size)}</td>
+            <td class="col-dates">${formatDateNice(rec.date_start)}<br/>to ${formatDateNice(rec.date_end)}</td>
+            <td class="col-status"><span class="status-tag ${stCls}">${st}</span></td>
+            <td class="col-amt">${formatRm(rec.price)}</td>
+          </tr>
+        `;
+      })
+      .join('');
+  }
+
+  async function loadData() {
+    tbody.innerHTML = `<tr><td colspan="9" class="stmt-empty">Loading live records from Supabase...</td></tr>`;
+    const res = await fetchAllRecords();
+    allRecords = res.records || [];
+    renderStatement();
+  }
+
+  dateInput.value = getTodayLocalIso();
+  dateInput.addEventListener('change', renderStatement);
+  scopeSelect.addEventListener('change', renderStatement);
+  ownerSelect.addEventListener('change', renderStatement);
+  btnRefresh.addEventListener('click', loadData);
+  btnPrint.addEventListener('click', () => window.print());
+
+  loadData();
+</script>
