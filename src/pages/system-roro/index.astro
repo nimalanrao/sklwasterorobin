@@ -3330,28 +3330,29 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   .optional-tag {
-    font-weight: 500;
-    color: #94a3b8;
+    font-weight: 600;
+    color: #475569;
   }
 
   .form-control,
   .form-textarea {
     width: 100%;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 11px;
+    border: 1.5px solid #94a3b8;
+    border-radius: 12px;
     background: #ffffff;
-    color: #0f172a;
-    font-size: 0.88rem;
+    color: #020617;
+    font-size: 0.96rem;
+    font-weight: 600;
     transition: border-color 0.16s ease, box-shadow 0.16s ease;
   }
 
   .form-control {
-    height: 42px;
-    padding: 0 0.85rem;
+    height: 48px;
+    padding: 0 0.95rem;
   }
 
   .form-textarea {
-    padding: 0.65rem 0.85rem;
+    padding: 0.75rem 0.95rem;
     resize: vertical;
   }
 
@@ -3359,17 +3360,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .form-textarea:focus {
     outline: none;
     border-color: #0f172a;
-    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12);
   }
 
   /* Unified Flex Prefix Field (+60 / RM) for exact horizontal alignment */
   .prefix-field {
     display: flex;
     align-items: center;
-    height: 42px;
+    height: 48px;
     width: 100%;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 11px;
+    border: 1.5px solid #94a3b8;
+    border-radius: 12px;
     background: #ffffff;
     overflow: hidden;
     transition: border-color 0.16s ease, box-shadow 0.16s ease;
@@ -3377,11 +3378,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   .prefix-field:focus-within {
     border-color: #0f172a;
-    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12);
   }
 
   .prefix-field:has(.prefix-input[readonly]) {
-    background: #f8fafc;
+    background: #f1f5f9;
   }
 
   .prefix-addon {
@@ -3389,13 +3390,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 0.65rem 0 0.85rem;
-    font-size: 0.88rem;
-    font-weight: 700;
+    padding: 0 0.85rem;
+    font-size: 0.94rem;
+    font-weight: 800;
     line-height: 1;
-    color: #64748b;
-    background: transparent;
-    border-right: 1px solid #f1f5f9;
+    color: #0f172a;
+    background: #f1f5f9;
+    border-right: 1.5px solid #cbd5e1;
     user-select: none;
     flex-shrink: 0;
   }
@@ -3406,23 +3407,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     height: 100%;
     border: none;
     background: transparent;
-    padding: 0 0.8rem;
-    font-size: 0.88rem;
-    font-weight: 600;
+    padding: 0 0.9rem;
+    font-size: 0.96rem;
+    font-weight: 700;
     line-height: 1;
-    color: #0f172a;
+    color: #020617;
     outline: none;
   }
 
   .prefix-input[readonly] {
-    color: #475569;
+    color: #334155;
     cursor: not-allowed;
   }
 
   .size-toggle-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
 
   .size-option {
@@ -3436,37 +3437,39 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   .size-card {
     display: flex;
     flex-direction: column;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 11px;
-    padding: 0.45rem 0.7rem;
+    border: 1.5px solid #94a3b8;
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
     background: #ffffff;
     transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .size-card-compact {
-    height: 42px;
-    padding: 0 0.75rem;
+    height: 48px;
+    padding: 0 0.85rem;
     align-items: center;
     justify-content: center;
     text-align: center;
   }
 
   .size-card-title {
-    font-size: 0.84rem;
+    font-size: 0.96rem;
     font-weight: 800;
-    color: #0f172a;
-    line-height: 1.2;
+    color: #020617;
+    line-height: 1.25;
   }
 
   .size-card-meta {
-    font-size: 0.66rem;
-    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 0.12rem;
   }
 
   .size-option input:checked + .size-card {
     border-color: #15803d;
-    background: #f0fdf4;
-    box-shadow: 0 0 0 1px #15803d;
+    background: #dcfce7;
+    box-shadow: 0 0 0 1.5px #15803d;
   }
 
   /* --- LOCATION AUTOCOMPLETE (FREE OPENSTREETMAP PHOTON / NOMINATIM) --- */
@@ -3839,10 +3842,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   .date-trigger-btn {
     width: 100%;
-    height: 42px;
-    padding: 0 0.85rem;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 11px;
+    height: 48px;
+    padding: 0 0.95rem;
+    border: 1.5px solid #94a3b8;
+    border-radius: 12px;
     background: #ffffff;
     color: #0f172a;
     font-size: 0.88rem;
@@ -4307,30 +4310,28 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     .roro-table :global(tbody) {
       display: flex;
       flex-direction: column;
-      gap: 1.1rem;
+      gap: 1.05rem;
     }
 
     .roro-table :global(tbody tr) {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(226, 232, 240, 0.95);
-      border-radius: 20px;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 18px;
       padding: 1.35rem 1.25rem;
       box-shadow:
-        0 10px 25px -8px rgba(15, 23, 42, 0.08),
-        0 2px 6px rgba(15, 23, 42, 0.02);
+        0 8px 22px -6px rgba(15, 23, 42, 0.1),
+        0 2px 6px rgba(15, 23, 42, 0.04);
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 0.9rem 0.75rem;
+      gap: 0.95rem 0.85rem;
       align-items: center;
       transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
     }
 
     .roro-table :global(tbody tr:active) {
       transform: scale(0.985);
-      background: #ffffff;
-      box-shadow: 0 4px 12px -4px rgba(15, 23, 42, 0.1);
+      background: #f8fafc;
+      box-shadow: 0 4px 12px -4px rgba(15, 23, 42, 0.14);
     }
 
     .roro-table :global(td) {
@@ -4341,22 +4342,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     /* Location full width top - Big & Ultra Clear */
     .roro-table :global(td[data-col="location"]) {
       grid-column: 1 / -1;
-      padding-bottom: 0.85rem;
-      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 0.9rem;
+      border-bottom: 1.5px solid #e2e8f0;
     }
 
     .roro-table :global(.loc-main) {
-      font-size: 1.22rem;
+      font-size: 1.3rem;
       font-weight: 800;
       letter-spacing: -0.015em;
       line-height: 1.35;
-      color: #0f172a;
+      color: #020617;
     }
 
     .roro-table :global(.loc-note) {
-      font-size: 0.94rem;
-      color: #64748b;
-      margin-top: 0.25rem;
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: #334155;
+      margin-top: 0.3rem;
     }
 
     /* Size & Owner left, Status right */
@@ -4655,15 +4657,21 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       font-weight: 700;
     }
 
-    /* Sticky Header & Footer Mobile Modal Sheet (Large, Thumb-Friendly) */
+    /* Full-Screen Native Scrollable Page on Mobile (Not a Floating Popup) */
     .modal-overlay {
-      padding: 0.5rem;
-      align-items: flex-end;
+      padding: 0;
+      align-items: stretch;
+      background: #ffffff;
     }
 
     .modal-dialog {
-      max-height: 92dvh;
-      border-radius: 24px;
+      width: 100%;
+      max-width: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
       padding: 0;
       display: flex;
       flex-direction: column;
@@ -4671,40 +4679,49 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .modal-head {
-      padding: 1.25rem 1.35rem 0.95rem;
+      padding: 1.15rem 1.25rem 1rem;
       margin-bottom: 0;
       flex-shrink: 0;
       background: #ffffff;
+      border-bottom: 1.5px solid #cbd5e1;
+      position: sticky;
+      top: 0;
+      z-index: 25;
     }
 
     .modal-title {
-      font-size: 1.35rem;
+      font-size: 1.42rem;
       font-weight: 800;
+      color: #020617;
     }
 
     .modal-sub {
-      font-size: 0.9rem;
+      font-size: 0.94rem;
+      color: #334155;
+      font-weight: 500;
     }
 
     .modal-form {
       overflow-y: auto;
-      padding: 1rem 1.35rem 0;
-      gap: 1.05rem;
+      padding: 1.25rem 1.25rem 1.5rem;
+      gap: 1.2rem;
       flex: 1;
       -webkit-overflow-scrolling: touch;
     }
 
     .form-label {
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #020617;
     }
 
     .form-control,
     .prefix-field,
     .date-trigger-btn {
-      height: 52px;
+      height: 54px;
       font-size: 1.08rem;
       border-radius: 14px;
+      border-width: 1.5px;
     }
 
     .prefix-input,
@@ -4713,53 +4730,71 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .size-card {
-      padding: 0.85rem 0.95rem;
+      padding: 0.95rem 1rem;
       border-radius: 14px;
     }
 
     .size-card-title {
-      font-size: 1.02rem;
+      font-size: 1.05rem;
       font-weight: 800;
+    }
+
+    .size-card-meta {
+      font-size: 0.84rem;
     }
 
     .modal-foot {
       position: sticky;
       bottom: 0;
       background: #ffffff;
-      margin: 0.75rem -1.35rem 0;
-      padding: 1rem 1.35rem 1.25rem;
-      border-top: 1px solid #f1f5f9;
-      z-index: 20;
+      margin: 0.75rem -1.25rem -1.5rem;
+      padding: 1rem 1.25rem calc(1.15rem + env(safe-area-inset-bottom, 0px));
+      border-top: 1.5px solid #cbd5e1;
+      z-index: 25;
       display: grid;
       grid-template-columns: 1fr 1.6fr;
-      gap: 0.6rem;
+      gap: 0.7rem;
     }
 
     .modal-foot .btn-ghost,
     .modal-foot .btn-solid {
       width: 100%;
       justify-content: center;
-      height: 48px;
-      font-size: 0.94rem;
+      height: 52px;
+      font-size: 1rem;
+      font-weight: 800;
+      border-radius: 14px;
     }
 
     .confirm-dialog {
+      width: calc(100% - 2rem);
+      max-width: 420px;
+      height: auto;
+      max-height: 90dvh;
+      border-radius: 22px;
+      border: 1.5px solid #cbd5e1;
       padding: 1.65rem 1.3rem;
       margin: auto;
+      box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.28);
     }
 
     .detail-head {
-      padding: 1.25rem 1.25rem 0.95rem;
+      padding: 1.2rem 1.25rem 1rem;
+      border-bottom: 1.5px solid #cbd5e1;
+      flex-shrink: 0;
     }
 
     .detail-loc-title {
-      font-size: 1.32rem;
+      font-size: 1.42rem;
     }
 
     .detail-body {
-      padding: 1.1rem 1.25rem;
-      gap: 1.15rem;
-      max-height: 64dvh;
+      padding: 1.2rem 1.25rem 1.5rem;
+      gap: 1.2rem;
+      max-height: none;
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .detail-info-val {
@@ -5290,19 +5325,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global([data-theme="dark"]) .form-textarea,
   :global([data-theme="dark"]) .prefix-field,
   :global([data-theme="dark"]) .date-trigger-btn {
-    background: #0f172a;
-    border-color: #334155;
-    color: #f8fafc;
+    background: #020617;
+    border-color: #475569;
+    color: #ffffff;
   }
 
   :global([data-theme="dark"]) .prefix-addon {
     background: #1e293b;
-    color: #cbd5e1;
-    border-right-color: #334155;
+    color: #f8fafc;
+    border-right-color: #475569;
   }
 
   :global([data-theme="dark"]) .prefix-input {
-    color: #f8fafc;
+    color: #ffffff;
   }
 
   :global([data-theme="dark"]) .form-control:focus,
@@ -5313,20 +5348,20 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   :global([data-theme="dark"]) .size-card {
-    background: #0f172a;
-    border-color: #334155;
+    background: #020617;
+    border-color: #475569;
   }
 
   :global([data-theme="dark"]) .size-card-title {
-    color: #f8fafc;
+    color: #ffffff;
   }
 
   :global([data-theme="dark"]) .size-card-meta {
-    color: #94a3b8;
+    color: #cbd5e1;
   }
 
   :global([data-theme="dark"]) .size-option input:checked + .size-card {
-    background: rgba(34, 197, 94, 0.14);
+    background: rgba(34, 197, 94, 0.2);
     border-color: #22c55e;
   }
 
@@ -5428,10 +5463,30 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     background: #1e293b;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 768px) {
     :global([data-theme="dark"]) .roro-table :global(tbody tr) {
       background: #111827;
-      border-color: #1f2937;
+      border-color: #334155;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(td[data-col="location"]) {
+      border-bottom-color: #1f2937;
+    }
+
+    :global([data-theme="dark"]) .modal-overlay {
+      background: #0b0f19;
+    }
+
+    :global([data-theme="dark"]) .modal-head,
+    :global([data-theme="dark"]) .modal-foot,
+    :global([data-theme="dark"]) .detail-head,
+    :global([data-theme="dark"]) .detail-foot {
+      background: #111827;
+      border-color: #334155;
+    }
+
+    :global([data-theme="dark"]) .confirm-dialog {
+      border-color: #334155;
     }
   }
 </style>
