@@ -16,18 +16,23 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <!-- Auth Guard -->
+    <!-- Auth Guard (Admin Only) -->
     <script is:inline>
       (function () {
         var isAuthed = false;
+        var role = '';
         try {
           isAuthed = sessionStorage.getItem('skl_system_roro_auth') === 'true';
+          role = (sessionStorage.getItem('skl_system_roro_role') || 'admin').toLowerCase();
         } catch (e) {
           isAuthed = false;
         }
         if (!isAuthed) {
           document.documentElement.style.visibility = 'hidden';
           window.location.replace('/system-roro/login');
+        } else if (role !== 'admin') {
+          document.documentElement.style.visibility = 'hidden';
+          window.location.replace('/system-roro');
         }
       })();
     </script>

@@ -1,4 +1,95 @@
 export type BinOwner = 'SKL Waste' | 'Thirumal Vel Enterprise';
+export type UserRole = 'admin' | 'staff' | 'driver';
+
+export interface RoroAccount {
+  username: string;
+  password: string;
+  displayName: string;
+  role: UserRole;
+  roleLabel: string;
+}
+
+export const RORO_ACCOUNTS: RoroAccount[] = [
+  {
+    username: 'admin',
+    password: 'admin',
+    displayName: 'Admin',
+    role: 'admin',
+    roleLabel: 'Administrator'
+  },
+  {
+    username: 'tiviya',
+    password: 'skl6688',
+    displayName: 'Tiviya',
+    role: 'staff',
+    roleLabel: 'Operations Staff'
+  },
+  {
+    username: 'karupaiyah',
+    password: 'karu1234',
+    displayName: 'Karupaiyah',
+    role: 'driver',
+    roleLabel: 'Driver (Tarik Only)'
+  },
+  {
+    username: 'hari',
+    password: 'hari1234',
+    displayName: 'Hari',
+    role: 'driver',
+    roleLabel: 'Driver (Tarik Only)'
+  }
+];
+
+export interface CurrentUserSession {
+  username: string;
+  displayName: string;
+  role: UserRole;
+  roleLabel: string;
+}
+
+export function getCurrentUser(): CurrentUserSession {
+  if (typeof window === 'undefined') {
+    return { username: 'admin', displayName: 'Admin', role: 'admin', roleLabel: 'Administrator' };
+  }
+  try {
+    const uname = (sessionStorage.getItem('skl_system_roro_username') || 'admin').toLowerCase();
+    const matched = RORO_ACCOUNTS.find((a) => a.username === uname);
+    if (matched) {
+      return {
+        username: matched.username,
+        displayName: matched.displayName,
+        role: matched.role,
+        roleLabel: matched.roleLabel
+      };
+    }
+    const role = (sessionStorage.getItem('skl_system_roro_role') as UserRole) || 'admin';
+    const displayName = sessionStorage.getItem('skl_system_roro_user') || 'Admin';
+    return { username: uname, displayName, role, roleLabel: role === 'admin' ? 'Administrator' : role === 'driver' ? 'Driver (Tarik Only)' : 'Operations Staff' };
+  } catch {
+    return { username: 'admin', displayName: 'Admin', role: 'admin', roleLabel: 'Administrator' };
+  }
+}
+
+export type AuditAction =
+  | 'LOGIN'
+  | 'ADD_BIN'
+  | 'EDIT_BIN'
+  | 'EXTEND_BIN'
+  | 'TARIK_BIN'
+  | 'RESTORE_BIN'
+  | 'DELETE_BIN';
+
+export interface AuditLogEntry {
+  id: string;
+  created_at: string;
+  actor_username: string;
+  actor_name: string;
+  actor_role: string;
+  action: AuditAction;
+  record_id?: string | null;
+  location?: string | null;
+  details?: string | null;
+}
 
 export const OWNER_SKL: BinOwner = 'SKL Waste';
 export const OWNER_THIRUMAL: BinOwner = 'Thirumal Vel Enterprise';
@@ -349,6 +440,84 @@ export async function deleteRoroRecord(id: string): Promise<{ synced: boolean }>
   } catch (err) {
     console.warn('Supabase delete fallback to local:', err);
     return { synced: false };
+  }
+}
+
+const AUDIT_TABLE_NAME = 'system_roro_audit_logs';
+const AUDIT_STORAGE_KEY = 'skl_system_roro_audit_logs_v1';
+
+export function getLocalAuditLogs(): AuditLogEntry[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(AUDIT_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveLocalAuditLogs(logs: AuditLogEntry[]): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(AUDIT_STORAGE_KEY, JSON.stringify(logs.slice(0, 250)));
+  } catch {}
+}
+
+export async function logAuditEvent(params: {
+  action: AuditAction;
+  record_id?: string | null;
+  location?: string | null;
+  details?: string | null;
+  actorOverride?: { username: string; displayName: string; role: UserRole };
+}): Promise<void> {
+  const actor = params.actorOverride || getCurrentUser();
+  const entry: AuditLogEntry = {
+    id: `log-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    created_at: new Date().toISOString(),
+    actor_username: actor.username,
+    actor_name: actor.displayName,
+    actor_role: actor.role,
+    action: params.action,
+    record_id: params.record_id || null,
+    location: params.location || null,
+    details: params.details || null
+  };
+
+  const local = getLocalAuditLogs();
+  saveLocalAuditLogs([entry, ...local]);
+
+  if (!isSupabaseConfigured) return;
+
+  try {
+    await fetch(`${supabaseUrl}/rest/v1/${AUDIT_TABLE_NAME}`, {
+      method: 'POST',
+      headers: getHeaders({ Prefer: 'return=minimal' }),
+      body: JSON.stringify(entry)
+    });
+  } catch (err) {
+    console.warn('Audit log sync fallback to local:', err);
+  }
+}
+
+export async function fetchAuditLogs(): Promise<{ logs: AuditLogEntry[]; source: 'supabase' | 'local' }> {
+  if (!isSupabaseConfigured) {
+    return { logs: getLocalAuditLogs(), source: 'local' };
+  }
+  try {
+    const res = await fetch(
+      `${supabaseUrl}/rest/v1/${AUDIT_TABLE_NAME}?select=*&order=created_at.desc&limit=200`,
+      { method: 'GET', headers: getHeaders() }
+    );
+    if (res.ok) {
+      const data = (await res.json()) as AuditLogEntry[];
+      saveLocalAuditLogs(data);
+      return { logs: data, source: 'supabase' };
+    }
+    return { logs: getLocalAuditLogs(), source: 'local' };
+  } catch {
+    return { logs: getLocalAuditLogs(), source: 'local' };
   }
 }
 

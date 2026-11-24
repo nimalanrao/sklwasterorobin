@@ -33,8 +33,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </div>
 
         <div class="welcome-block">
-          <h2 class="welcome-title">Admin Sign In</h2>
-          <p class="welcome-desc">Manage active RORO bin dispatches, 10-day cycles, and pull completions.</p>
+          <h2 class="welcome-title">System RORO Sign In</h2>
+          <p class="welcome-desc">Sign in with your SKL Waste account (Admin, Staff, or Driver).</p>
         </div>
 
         <!-- Inline Error Feedback -->
@@ -399,58 +399,73 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 </style>
 
-<script is:inline>
-  (function () {
-    var form = document.getElementById('login-form');
-    var usernameEl = document.getElementById('username');
-    var passwordEl = document.getElementById('password');
-    var errorBox = document.getElementById('login-error');
-    var errorText = document.getElementById('login-error-text');
-    var toggleBtn = document.getElementById('toggle-password');
-    var eyeOpen = document.getElementById('eye-open');
-    var eyeClosed = document.getElementById('eye-closed');
-    var submitBtn = document.getElementById('btn-login-submit');
-    var submitLabel = document.getElementById('btn-login-label');
+<script>
+  import { RORO_ACCOUNTS, logAuditEvent } from '../../utils/systemRoroClient';
 
-    if (toggleBtn && passwordEl) {
-      toggleBtn.addEventListener('click', function () {
-        var showing = passwordEl.type === 'text';
-        passwordEl.type = showing ? 'password' : 'text';
-        if (eyeOpen && eyeClosed) {
-          eyeOpen.style.display = showing ? 'block' : 'none';
-          eyeClosed.style.display = showing ? 'none' : 'block';
+  const form = document.getElementById('login-form') as HTMLFormElement | null;
+  const usernameEl = document.getElementById('username') as HTMLInputElement | null;
+  const passwordEl = document.getElementById('password') as HTMLInputElement | null;
+  const errorBox = document.getElementById('login-error') as HTMLElement | null;
+  const errorText = document.getElementById('login-error-text') as HTMLElement | null;
+  const toggleBtn = document.getElementById('toggle-password') as HTMLButtonElement | null;
+  const eyeOpen = document.getElementById('eye-open') as HTMLElement | null;
+  const eyeClosed = document.getElementById('eye-closed') as HTMLElement | null;
+  const submitBtn = document.getElementById('btn-login-submit') as HTMLButtonElement | null;
+  const submitLabel = document.getElementById('btn-login-label') as HTMLElement | null;
+
+  if (toggleBtn && passwordEl) {
+    toggleBtn.addEventListener('click', () => {
+      const showing = passwordEl.type === 'text';
+      passwordEl.type = showing ? 'password' : 'text';
+      if (eyeOpen && eyeClosed) {
+        eyeOpen.style.display = showing ? 'block' : 'none';
+        eyeClosed.style.display = showing ? 'none' : 'block';
+      }
+    });
+  }
+
+  if (form && usernameEl && passwordEl) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = (usernameEl.value || '').trim().toLowerCase();
+      const pass = passwordEl.value || '';
+
+      const matched = RORO_ACCOUNTS.find((a) => a.username === user && a.password === pass);
+
+      if (matched) {
+        if (errorBox) errorBox.hidden = true;
+        try {
+          sessionStorage.setItem('skl_system_roro_auth', 'true');
+          sessionStorage.setItem('skl_system_roro_username', matched.username);
+          sessionStorage.setItem('skl_system_roro_user', matched.displayName);
+          sessionStorage.setItem('skl_system_roro_role', matched.role);
+          sessionStorage.setItem('skl_system_roro_login_at', new Date().toISOString());
+        } catch {}
+
+        if (submitBtn && submitLabel) {
+          submitBtn.disabled = true;
+          submitLabel.textContent = 'Signing in...';
         }
-      });
-    }
 
-    if (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var user = (usernameEl.value || '').trim();
-        var pass = passwordEl.value || '';
-
-        if (user.toLowerCase() === 'admin' && pass === 'admin') {
-          if (errorBox) errorBox.hidden = true;
-          try {
-            sessionStorage.setItem('skl_system_roro_auth', 'true');
-            sessionStorage.setItem('skl_system_roro_user', 'Admin');
-            sessionStorage.setItem('skl_system_roro_login_at', new Date().toISOString());
-          } catch (err) {}
-
-          if (submitBtn && submitLabel) {
-            submitBtn.disabled = true;
-            submitLabel.textContent = 'Signing in...';
+        await logAuditEvent({
+          action: 'LOGIN',
+          details: `${matched.displayName} (${matched.roleLabel}) signed in`,
+          actorOverride: {
+            username: matched.username,
+            displayName: matched.displayName,
+            role: matched.role
           }
-          window.location.replace('/system-roro');
-        } else {
-          if (errorBox && errorText) {
-            errorText.textContent = 'Invalid username or password. Please try again.';
-            errorBox.hidden = false;
-          }
-          passwordEl.focus();
-          passwordEl.select();
+        });
+
+        window.location.replace('/system-roro');
+      } else {
+        if (errorBox && errorText) {
+          errorText.textContent = 'Invalid username or password. Please try again.';
+          errorBox.hidden = false;
         }
-      });
-    }
-  })();
+        passwordEl.focus();
+        passwordEl.select();
+      }
+    });
+  }
 </script>

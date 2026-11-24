@@ -170,93 +170,116 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <span class="nav-count" id="nav-count-4ft">0</span>
         </button>
 
-        <div class="nav-section-label spaced" data-i18n="section_system">SYSTEM</div>
-        <a href="/system-roro/statement" target="_blank" rel="noopener noreferrer" class="nav-item nav-item-link">
-          <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
+        <div id="sidebar-admin-section" data-admin-only>
+          <div class="nav-section-label spaced" data-i18n="section_admin">ADMIN</div>
+          <button type="button" class="nav-item" id="btn-open-admin-panel">
+            <span class="nav-item-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span data-i18n="nav_admin_panel">Admin Panel</span>
+            </span>
+            <svg class="nav-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <span data-i18n="nav_statement">Daily Statement</span>
-          </span>
-          <svg class="nav-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <line x1="10" y1="14" x2="21" y2="3"></line>
-          </svg>
-        </a>
-        <button type="button" class="nav-item" id="btn-open-settings-nav">
-          <span class="nav-item-left">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-            <span data-i18n="nav_settings">Settings</span>
-          </span>
-          <svg class="nav-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-        </button>
+          </button>
 
-        <div class="nav-section-label spaced" data-i18n="section_language">LANGUAGE / BAHASA</div>
-        <div class="lang-toggle-wrap">
-          <button type="button" class="lang-btn active" id="btn-lang-en" data-lang="en">
-            <span>English</span>
-          </button>
-          <button type="button" class="lang-btn" id="btn-lang-ms" data-lang="ms">
-            <span>B. Melayu</span>
-          </button>
-        </div>
+          <a href="/system-roro/statement" target="_blank" rel="noopener noreferrer" class="nav-item nav-item-link">
+            <span class="nav-item-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span data-i18n="nav_statement">Daily Statement</span>
+            </span>
+            <svg class="nav-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
 
-        <div class="nav-section-label spaced" data-i18n="section_theme">THEME / TEMA</div>
-        <div class="lang-toggle-wrap">
-          <button type="button" class="lang-btn active" id="btn-theme-light" data-theme-choice="light">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <button type="button" class="nav-item" id="btn-open-settings-nav">
+            <span class="nav-item-left">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span data-i18n="nav_settings">Settings</span>
+            </span>
+            <svg class="nav-lock-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
-            <span data-i18n="theme_light">Light</span>
-          </button>
-          <button type="button" class="lang-btn" id="btn-theme-dark" data-theme-choice="dark">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <span data-i18n="theme_dark">Dark</span>
           </button>
         </div>
       </nav>
 
-      <!-- Sidebar Bottom Area: Admin Profile Dropdown & Logout -->
+      <!-- Sidebar Bottom Area: Account Profile Dropdown (Language, Theme, Settings & Logout) -->
       <div class="sidebar-footer">
-        <!-- Admin Account Row + Animated Blur Dropdown Menu (Opens Upward) -->
+        <!-- Account Row + Animated Blur Dropdown Menu (Opens Upward) -->
         <div class="dropdown-anchor sidebar-admin-anchor" id="admin-dropdown-wrapper">
           <div class="blur-dropdown-menu upward" id="admin-dropdown-menu" role="menu">
             <div class="dropdown-meta-header">
-              <span class="dm-name">SKL Waste Admin</span>
-              <span class="dm-sub">Full Administrator Access</span>
+              <span class="dm-name" id="dm-user-name">SKL Waste Admin</span>
+              <span class="dm-sub" id="dm-user-role">Administrator</span>
             </div>
             <div class="dropdown-sep"></div>
-            <button type="button" id="btn-export-json" class="dropdown-action-item" role="menuitem">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+            <!-- Language & Theme inside Profile Settings Menu -->
+            <div class="dropdown-pref-block">
+              <div class="dropdown-pref-label" data-i18n="section_language">LANGUAGE / BAHASA</div>
+              <div class="lang-toggle-wrap compact-toggle">
+                <button type="button" class="lang-btn active" id="btn-lang-en" data-lang="en">
+                  <span>English</span>
+                </button>
+                <button type="button" class="lang-btn" id="btn-lang-ms" data-lang="ms">
+                  <span>B. Melayu</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="dropdown-pref-block">
+              <div class="dropdown-pref-label" data-i18n="section_theme">THEME / TEMA</div>
+              <div class="lang-toggle-wrap compact-toggle">
+                <button type="button" class="lang-btn active" id="btn-theme-light" data-theme-choice="light">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
+                  <span data-i18n="theme_light">Light</span>
+                </button>
+                <button type="button" class="lang-btn" id="btn-theme-dark" data-theme-choice="dark">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  </svg>
+                  <span data-i18n="theme_dark">Dark</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="dropdown-sep" data-admin-only></div>
+            <button type="button" id="btn-export-json" class="dropdown-action-item" role="menuitem" data-admin-only>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
               <span>Export Records (JSON)</span>
             </button>
-            <button type="button" id="btn-open-settings-menu" class="dropdown-action-item" role="menuitem">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button type="button" id="btn-open-settings-menu" class="dropdown-action-item" role="menuitem" data-admin-only>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="3"></circle>
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
               </svg>
@@ -264,7 +287,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </button>
             <div class="dropdown-sep"></div>
             <button type="button" id="btn-menu-logout" class="dropdown-action-item danger" role="menuitem">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                 <polyline points="16 17 21 12 16 7"></polyline>
                 <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -282,8 +305,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 </svg>
               </span>
               <span class="admin-text">
-                <span class="admin-name">Admin</span>
-                <span class="admin-role">Operations</span>
+                <span class="admin-name" id="sidebar-user-name">Admin</span>
+                <span class="admin-role" id="sidebar-user-role">Operations</span>
               </span>
               <svg class="dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="18 15 12 9 6 15"></polyline>
@@ -313,23 +336,6 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </div>
 
         <div class="workspace-header-right">
-          <!-- Quick Daily Statement (Opens A4 Official Statement in New Tab) -->
-          <a
-            href="/system-roro/statement"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="notif-bell-btn statement-header-btn"
-            title="Daily Statement (A4 PDF)"
-            aria-label="Open Daily Statement in new tab"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-            </svg>
-          </a>
-
           <!-- Pickup Notification Center (Bell with Animated Blur Dropdown) -->
           <div class="dropdown-anchor" id="notif-dropdown-wrapper">
             <button type="button" id="btn-notif-bell" class="notif-bell-btn" aria-haspopup="true" aria-expanded="false" aria-label="Pickup notifications">
@@ -1104,6 +1110,122 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </svg>
             <span data-i18n="btn_restore">Restore to Active</span>
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: ADMIN PANEL (Password Locked: admin1234 — Audit Logs, Accounts & Daily Statement) -->
+    <div id="admin-panel-modal" class="modal-overlay" hidden>
+      <div class="modal-dialog admin-panel-dialog" role="dialog" aria-modal="true" aria-labelledby="admin-panel-title">
+        <div class="detail-head">
+          <div class="settings-head-left">
+            <span class="settings-head-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </span>
+            <div>
+              <h2 class="modal-title" id="admin-panel-title">Admin Panel</h2>
+              <p class="modal-sub" id="admin-panel-sub">Audit Logs, Staff Activity &amp; Daily Statements</p>
+            </div>
+          </div>
+          <button type="button" id="btn-close-admin-panel" class="icon-close-btn" aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Step 1: Admin Panel Password Gate (admin1234) -->
+        <form id="admin-lock-view" class="settings-lock-body" autocomplete="off">
+          <div id="admin-lock-error" class="modal-error-bar" role="alert" hidden>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span>Incorrect Admin Panel password.</span>
+          </div>
+
+          <div class="form-row">
+            <label for="admin-panel-password" class="form-label">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Admin Panel Password</span>
+            </label>
+            <input
+              type="password"
+              id="admin-panel-password"
+              class="form-control"
+              placeholder="Enter admin panel password"
+              autocomplete="new-password"
+              required
+            />
+          </div>
+
+          <div class="settings-lock-foot">
+            <button type="button" id="btn-cancel-admin-lock" class="btn-ghost detail-foot-btn">Cancel</button>
+            <button type="submit" class="btn-solid detail-foot-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+              </svg>
+              <span>Unlock Admin Panel</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Step 2: Unlocked Admin Panel (Audit Logs + Accounts + Statement Link) -->
+        <div id="admin-unlocked-view" class="admin-panel-body" hidden>
+          <div class="admin-panel-toolbar">
+            <div class="admin-tabs">
+              <button type="button" class="admin-tab-btn active" id="btn-admin-tab-logs">Audit Logs</button>
+              <button type="button" class="admin-tab-btn" id="btn-admin-tab-accounts">Team Accounts</button>
+            </div>
+            <div class="admin-toolbar-right">
+              <a href="/system-roro/statement" target="_blank" rel="noopener noreferrer" class="admin-stmt-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span>Daily Statement (A4)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Audit Logs Tab -->
+          <div id="admin-tab-logs-panel" class="admin-tab-content">
+            <div class="audit-filter-row">
+              <select id="audit-user-filter" class="form-control audit-select">
+                <option value="all">All Users (Everyone)</option>
+                <option value="tiviya">Tiviya</option>
+                <option value="karupaiyah">Karupaiyah</option>
+                <option value="hari">Hari</option>
+                <option value="admin">Admin</option>
+              </select>
+              <button type="button" id="btn-refresh-audit" class="btn-ghost audit-refresh-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span>Refresh</span>
+              </button>
+            </div>
+            <div id="audit-log-list" class="audit-log-list">
+              <div class="audit-empty">Loading audit logs...</div>
+            </div>
+          </div>
+
+          <!-- Team Accounts Tab -->
+          <div id="admin-tab-accounts-panel" class="admin-tab-content" hidden>
+            <div id="admin-accounts-grid" class="admin-accounts-grid"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -5655,6 +5777,325 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global([data-theme="dark"]) .confirm-discard-overlay {
     background: rgba(0, 0, 0, 0.72) !important;
   }
+
+  /* --- MORE VIEWABLE ICONS (LIGHT & DARK MODE) --- */
+  .form-label svg {
+    width: 16px;
+    height: 16px;
+    color: #334155;
+    flex-shrink: 0;
+  }
+
+  .date-trigger-icon {
+    width: 17px;
+    height: 17px;
+    color: #334155;
+  }
+
+  :global([data-theme="dark"]) .form-label svg,
+  :global([data-theme="dark"]) .date-trigger-icon,
+  :global([data-theme="dark"]) .nav-item-left svg,
+  :global([data-theme="dark"]) .search-field svg,
+  :global([data-theme="dark"]) .dropdown-action-item svg {
+    color: #dbdee1;
+  }
+
+  /* --- LANGUAGE & THEME INSIDE PROFILE DROPDOWN --- */
+  .dropdown-pref-block {
+    padding: 0.45rem 0.6rem;
+  }
+
+  .dropdown-pref-label {
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    margin-bottom: 0.35rem;
+  }
+
+  :global([data-theme="dark"]) .dropdown-pref-label {
+    color: #949ba4;
+  }
+
+  .compact-toggle {
+    margin-top: 0;
+  }
+
+  .compact-toggle .lang-btn {
+    padding: 0.4rem 0.35rem;
+    font-size: 0.78rem;
+  }
+
+  /* --- ADMIN PANEL MODAL (AUDIT LOGS & ACCOUNTS) --- */
+  .admin-panel-dialog {
+    max-width: 720px;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 88dvh;
+  }
+
+  .admin-panel-body {
+    padding: 1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .admin-panel-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .admin-tabs {
+    display: inline-flex;
+    gap: 0.35rem;
+    background: #f1f5f9;
+    padding: 0.22rem;
+    border-radius: 10px;
+  }
+
+  :global([data-theme="dark"]) .admin-tabs {
+    background: #1e1f22;
+    border: 1px solid #3f4147;
+  }
+
+  .admin-tab-btn {
+    border: none;
+    background: transparent;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+  }
+
+  .admin-tab-btn.active {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  :global([data-theme="dark"]) .admin-tab-btn {
+    color: #b5bac1;
+  }
+
+  :global([data-theme="dark"]) .admin-tab-btn.active {
+    background: #404249;
+    color: #ffffff;
+  }
+
+  .admin-stmt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 10px;
+    background: #15803d;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .admin-stmt-btn:hover {
+    background: #166534;
+  }
+
+  :global([data-theme="dark"]) .admin-stmt-btn {
+    background: #23a55a;
+  }
+
+  .audit-filter-row {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .audit-select {
+    flex: 1;
+    height: 40px !important;
+    font-size: 0.86rem !important;
+  }
+
+  .audit-refresh-btn {
+    height: 40px;
+    padding: 0 0.85rem;
+    font-size: 0.84rem;
+  }
+
+  .audit-log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    max-height: 48dvh;
+    overflow-y: auto;
+    padding-right: 0.2rem;
+  }
+
+  :global(.audit-item) {
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 0.72rem 0.88rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  :global([data-theme="dark"]) :global(.audit-item) {
+    background: #2b2d31;
+    border-color: #3f4147;
+  }
+
+  :global(.audit-item-top) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  :global(.audit-actor-wrap) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  :global(.audit-badge) {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 0.16rem 0.5rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  :global(.audit-badge.add) { background: #dcfce7; color: #15803d; }
+  :global(.audit-badge.edit) { background: #dbeafe; color: #1d4ed8; }
+  :global(.audit-badge.tarik) { background: #fef3c7; color: #b45309; }
+  :global(.audit-badge.delete) { background: #fee2e2; color: #dc2626; }
+  :global(.audit-badge.login) { background: #ede9fe; color: #6d28d9; }
+
+  :global([data-theme="dark"]) :global(.audit-badge.add) { background: rgba(35, 165, 90, 0.22); color: #6ee7a0; }
+  :global([data-theme="dark"]) :global(.audit-badge.edit) { background: rgba(88, 101, 242, 0.25); color: #a5adff; }
+  :global([data-theme="dark"]) :global(.audit-badge.tarik) { background: rgba(240, 178, 50, 0.22); color: #fcd34d; }
+  :global([data-theme="dark"]) :global(.audit-badge.delete) { background: rgba(242, 63, 67, 0.22); color: #ff8a8c; }
+  :global([data-theme="dark"]) :global(.audit-badge.login) { background: rgba(168, 85, 247, 0.22); color: #d8b4fe; }
+
+  :global(.audit-actor) {
+    font-weight: 800;
+    font-size: 0.88rem;
+    color: #0f172a;
+  }
+
+  :global([data-theme="dark"]) :global(.audit-actor) {
+    color: #f2f3f5;
+  }
+
+  :global(.audit-time) {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #64748b;
+    font-variant-numeric: tabular-nums;
+  }
+
+  :global([data-theme="dark"]) :global(.audit-time) {
+    color: #949ba4;
+  }
+
+  :global(.audit-loc) {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  :global([data-theme="dark"]) :global(.audit-loc) {
+    color: #dbdee1;
+  }
+
+  :global(.audit-details) {
+    font-size: 0.78rem;
+    color: #475569;
+  }
+
+  :global([data-theme="dark"]) :global(.audit-details) {
+    color: #b5bac1;
+  }
+
+  .audit-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+
+  .admin-accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 600px) {
+    .admin-accounts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  :global(.acct-card) {
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    border-radius: 13px;
+    padding: 0.9rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  :global([data-theme="dark"]) :global(.acct-card) {
+    background: #2b2d31;
+    border-color: #3f4147;
+  }
+
+  :global(.acct-name) {
+    font-weight: 800;
+    font-size: 0.98rem;
+    color: #0f172a;
+  }
+
+  :global([data-theme="dark"]) :global(.acct-name) {
+    color: #f2f3f5;
+  }
+
+  :global(.acct-role) {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #15803d;
+  }
+
+  :global([data-theme="dark"]) :global(.acct-role) {
+    color: #43d17a;
+  }
+
+  :global(.acct-cred) {
+    font-size: 0.8rem;
+    color: #475569;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+  }
+
+  :global([data-theme="dark"]) :global(.acct-cred) {
+    color: #b5bac1;
+  }
 </style>
 
 <script>
@@ -5673,10 +6114,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     THIRUMAL_PHONE_NORMALIZED,
     THIRUMAL_PHONE_LOCAL,
     THIRUMAL_DEFAULT_NAME,
+    RORO_ACCOUNTS,
+    getCurrentUser,
+    logAuditEvent,
+    fetchAuditLogs,
     SUPABASE_SETUP_SQL,
     type BinOwner,
-    type RoroRecord
+    type RoroRecord,
+    type AuditLogEntry
   } from '../../utils/systemRoroClient';
+
+  const currentUser = getCurrentUser();
 
   // Special Settings (Password-protected: admin1234, persisted in localStorage)
   const SETTINGS_STORAGE_KEY = 'skl_system_roro_settings_v1';
@@ -5751,6 +6199,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       size_2ft: '2 Feet',
       size_4ft: '4 Feet',
       section_system: 'SYSTEM',
+      section_admin: 'ADMIN',
+      nav_admin_panel: 'Admin Panel',
       nav_statement: 'Daily Statement',
       nav_settings: 'Settings',
       section_language: 'LANGUAGE / BAHASA',
@@ -5875,6 +6325,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       size_2ft: '2 Kaki',
       size_4ft: '4 Kaki',
       section_system: 'SISTEM',
+      section_admin: 'ADMIN',
+      nav_admin_panel: 'Panel Admin',
       nav_statement: 'Penyata Harian',
       nav_settings: 'Tetapan',
       section_language: 'BAHASA / LANGUAGE',
@@ -6708,9 +7160,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       btnDetailWhatsApp.hidden = true;
     }
 
-    detailExtendSection.hidden = isDone;
+    const isDriver = currentUser.role === 'driver';
+    detailExtendSection.hidden = isDone || isDriver;
     detailActiveFoot.hidden = isDone;
-    detailCompletedFoot.hidden = !isDone;
+    detailCompletedFoot.hidden = !isDone || isDriver;
+    const btnDetailEditEl = document.getElementById('btn-detail-edit') as HTMLElement | null;
+    if (btnDetailEditEl) btnDetailEditEl.hidden = isDriver;
   }
 
   function openDetailModal(rec: RoroRecord) {
@@ -6806,6 +7261,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     render();
     populateDetailModal(updated);
     const res = await updateRoroRecord(updated);
+    logAuditEvent({
+      action: 'EXTEND_BIN',
+      record_id: updated.id,
+      location: updated.location,
+      details: `Extended +${addDays}d (New end: ${formatDateDisplay(nextEndIso)})${updated.invoice_no ? ` • INV #${updated.invoice_no}` : ''}`
+    });
     const dayLabel = addDays === 1 ? '1 day' : `${addDays} days`;
     showToast(
       res.synced
@@ -6844,6 +7305,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     closeDetailModal();
     render();
     const res = await updateRoroRecord(restored);
+    logAuditEvent({
+      action: 'RESTORE_BIN',
+      record_id: restored.id,
+      location: restored.location,
+      details: `Restored to Active • ${restored.size} • RM ${restored.price} • ${restored.bin_owner}${restored.invoice_no ? ` • INV #${restored.invoice_no}` : ''}`
+    });
     showToast(res.synced ? 'Restored to active list (Supabase synced)' : 'Bin restored to active list');
   });
 
@@ -7851,6 +8318,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       render();
       firePickupDesktopNotifications(false);
       const res = await updateRoroRecord(updated);
+      logAuditEvent({
+        action: 'EDIT_BIN',
+        record_id: updated.id,
+        location: updated.location,
+        details: `${updated.bin_owner} • ${updated.size} • RM ${updated.price}${updated.invoice_no ? ` • INV #${updated.invoice_no}` : ''}`
+      });
       showToast(res.synced ? 'Record updated in Supabase' : 'Record updated successfully');
     } else {
       const created: RoroRecord = {
@@ -7879,6 +8352,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       }
       firePickupDesktopNotifications(false);
       const res = await createRoroRecord(created);
+      logAuditEvent({
+        action: 'ADD_BIN',
+        record_id: created.id,
+        location: created.location,
+        details: `${created.bin_owner} • ${created.size} • RM ${created.price}${created.invoice_no ? ` • INV #${created.invoice_no}` : ''}`
+      });
       showToast(res.synced ? 'New bin saved to Supabase' : 'New bin record saved');
     }
   });
@@ -7900,6 +8379,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     allRecords = allRecords.map((r) => (r.id === rec.id ? completedRecord : r));
     render();
     const res = await updateRoroRecord(completedRecord);
+    logAuditEvent({
+      action: 'TARIK_BIN',
+      record_id: completedRecord.id,
+      location: completedRecord.location,
+      details: `Tarik / Marked Pulled • ${completedRecord.bin_owner} • ${completedRecord.size} • RM ${completedRecord.price}${completedRecord.invoice_no ? ` • INV #${completedRecord.invoice_no}` : ''}`
+    });
     showToast(res.synced ? 'Moved to Completed (Supabase synced)' : 'Moved to Completed section');
   });
 
@@ -7908,10 +8393,17 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   document.getElementById('btn-execute-delete')?.addEventListener('click', async () => {
     if (!pendingDeleteId) return;
     const idToDelete = pendingDeleteId;
+    const deletedRec = allRecords.find((r) => r.id === idToDelete);
     allRecords = allRecords.filter((r) => r.id !== idToDelete);
     closeDeleteModal();
     render();
     const res = await deleteRoroRecord(idToDelete);
+    logAuditEvent({
+      action: 'DELETE_BIN',
+      record_id: idToDelete,
+      location: deletedRec?.location || 'Unknown',
+      details: deletedRec ? `Deleted permanently • ${deletedRec.bin_owner} • ${deletedRec.size} • RM ${deletedRec.price}${deletedRec.invoice_no ? ` • INV #${deletedRec.invoice_no}` : ''}` : 'Deleted permanently'
+    });
     showToast(res.synced ? 'Deleted permanently from Supabase' : 'Record permanently deleted');
   });
 
@@ -8186,6 +8678,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     try {
       sessionStorage.removeItem('skl_system_roro_auth');
       sessionStorage.removeItem('skl_system_roro_user');
+      sessionStorage.removeItem('skl_system_roro_username');
+      sessionStorage.removeItem('skl_system_roro_role');
       sessionStorage.removeItem('skl_system_roro_login_at');
     } catch (e) {}
     window.location.replace('/system-roro/login');
@@ -8218,22 +8712,212 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     document.getElementById('btn-theme-dark')?.classList.toggle('active', theme === 'dark');
   }
 
-  document.getElementById('btn-theme-light')?.addEventListener('click', () => {
+  document.getElementById('btn-theme-light')?.addEventListener('click', (e) => {
+    e.stopPropagation();
     applyTheme('light');
     showToast(t('toast_theme_light'));
   });
-  document.getElementById('btn-theme-dark')?.addEventListener('click', () => {
+  document.getElementById('btn-theme-dark')?.addEventListener('click', (e) => {
+    e.stopPropagation();
     applyTheme('dark');
     showToast(t('toast_theme_dark'));
   });
 
-  document.getElementById('btn-lang-en')?.addEventListener('click', () => {
+  document.getElementById('btn-lang-en')?.addEventListener('click', (e) => {
+    e.stopPropagation();
     applyLanguage('en');
     showToast(t('toast_lang_switched'));
   });
-  document.getElementById('btn-lang-ms')?.addEventListener('click', () => {
+  document.getElementById('btn-lang-ms')?.addEventListener('click', (e) => {
+    e.stopPropagation();
     applyLanguage('ms');
     showToast(t('toast_lang_switched'));
+  });
+
+  // =========================================================================
+  // ROLE-BASED UI & ADMIN PANEL (Password: admin1234 — Audit Logs & Accounts)
+  // =========================================================================
+  function applyUserRoleUI() {
+    const isAdmin = currentUser.role === 'admin';
+    const isDriver = currentUser.role === 'driver';
+
+    const sbName = document.getElementById('sidebar-user-name');
+    const sbRole = document.getElementById('sidebar-user-role');
+    const dmName = document.getElementById('dm-user-name');
+    const dmRole = document.getElementById('dm-user-role');
+    if (sbName) sbName.textContent = currentUser.displayName;
+    if (sbRole) sbRole.textContent = currentUser.roleLabel;
+    if (dmName) dmName.textContent = `${currentUser.displayName} (${currentUser.username})`;
+    if (dmRole) dmRole.textContent = currentUser.roleLabel;
+
+    // Hide all admin-only controls for non-admin accounts (Tiviya, Karupaiyah, Hari)
+    document.querySelectorAll<HTMLElement>('[data-admin-only]').forEach((el) => {
+      el.hidden = !isAdmin;
+      if (!isAdmin) el.style.display = 'none';
+    });
+
+    // Drivers (Karupaiyah & Hari) can ONLY Tarik Tong (Mark Pulled) — hide Add Bin buttons
+    const btnOpenModalEl = document.getElementById('btn-open-modal') as HTMLElement | null;
+    if (btnOpenModalEl && isDriver) btnOpenModalEl.style.display = 'none';
+    if (btnEmptyCreate && isDriver) btnEmptyCreate.style.display = 'none';
+  }
+
+  const adminPanelModal = document.getElementById('admin-panel-modal') as HTMLElement | null;
+  const adminLockView = document.getElementById('admin-lock-view') as HTMLFormElement | null;
+  const adminUnlockedView = document.getElementById('admin-unlocked-view') as HTMLElement | null;
+  const adminPanelPasswordInput = document.getElementById('admin-panel-password') as HTMLInputElement | null;
+  const adminLockError = document.getElementById('admin-lock-error') as HTMLElement | null;
+  const auditUserFilter = document.getElementById('audit-user-filter') as HTMLSelectElement | null;
+  const auditLogList = document.getElementById('audit-log-list') as HTMLElement | null;
+  const adminAccountsGrid = document.getElementById('admin-accounts-grid') as HTMLElement | null;
+  const btnAdminTabLogs = document.getElementById('btn-admin-tab-logs') as HTMLButtonElement | null;
+  const btnAdminTabAccounts = document.getElementById('btn-admin-tab-accounts') as HTMLButtonElement | null;
+  const adminTabLogsPanel = document.getElementById('admin-tab-logs-panel') as HTMLElement | null;
+  const adminTabAccountsPanel = document.getElementById('admin-tab-accounts-panel') as HTMLElement | null;
+
+  let cachedAuditLogs: AuditLogEntry[] = [];
+
+  function formatAuditTime(iso: string): string {
+    try {
+      return new Date(iso).toLocaleString('en-MY', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+    } catch {
+      return iso;
+    }
+  }
+
+  function renderAuditLogs() {
+    if (!auditLogList) return;
+    const filterUser = (auditUserFilter?.value || 'all').toLowerCase();
+    const list = cachedAuditLogs.filter((entry) => {
+      if (filterUser === 'all') return true;
+      return (entry.actor_username || '').toLowerCase() === filterUser;
+    });
+
+    if (list.length === 0) {
+      auditLogList.innerHTML = `<div class="audit-empty">No activity logs recorded yet for this filter.</div>`;
+      return;
+    }
+
+    const actionMeta: Record<string, { label: string; cls: string }> = {
+      ADD_BIN: { label: 'Added Tong', cls: 'add' },
+      EDIT_BIN: { label: 'Edited Tong', cls: 'edit' },
+      EXTEND_BIN: { label: 'Extended', cls: 'edit' },
+      TARIK_BIN: { label: 'Tarik / Pulled', cls: 'tarik' },
+      RESTORE_BIN: { label: 'Restored', cls: 'add' },
+      DELETE_BIN: { label: 'Deleted', cls: 'delete' },
+      LOGIN: { label: 'Signed In', cls: 'login' }
+    };
+
+    auditLogList.innerHTML = list
+      .map((entry) => {
+        const meta = actionMeta[entry.action] || { label: entry.action, cls: 'edit' };
+        return `
+          <div class="audit-item">
+            <div class="audit-item-top">
+              <span class="audit-actor-wrap">
+                <span class="audit-badge ${meta.cls}">${escapeHtml(meta.label)}</span>
+                <span class="audit-actor">${escapeHtml(entry.actor_name)}</span>
+              </span>
+              <span class="audit-time">${escapeHtml(formatAuditTime(entry.created_at))}</span>
+            </div>
+            ${entry.location ? `<div class="audit-loc">${escapeHtml(entry.location)}</div>` : ''}
+            ${entry.details ? `<div class="audit-details">${escapeHtml(entry.details)}</div>` : ''}
+          </div>
+        `;
+      })
+      .join('');
+  }
+
+  function renderAdminAccounts() {
+    if (!adminAccountsGrid) return;
+    adminAccountsGrid.innerHTML = RORO_ACCOUNTS.map((acc) => {
+      const perms =
+        acc.role === 'admin'
+          ? 'Full Admin + Admin Panel + Daily Statement'
+          : acc.role === 'staff'
+            ? 'Key In, Edit, Extend, Tarik & Delete (All Logged)'
+            : 'View Bins & Tarik Tong (Mark Pulled) Only';
+      return `
+        <div class="acct-card">
+          <div class="acct-name">${escapeHtml(acc.displayName)}</div>
+          <div class="acct-role">${escapeHtml(acc.roleLabel)}</div>
+          <div class="acct-cred">User: <strong>${escapeHtml(acc.username)}</strong> &bull; Pass: <strong>${escapeHtml(acc.password)}</strong></div>
+          <div class="audit-details">${escapeHtml(perms)}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  async function refreshAuditLogs() {
+    if (!auditLogList) return;
+    auditLogList.innerHTML = `<div class="audit-empty">Loading live audit logs...</div>`;
+    const res = await fetchAuditLogs();
+    cachedAuditLogs = res.logs || [];
+    renderAuditLogs();
+  }
+
+  function openAdminPanel() {
+    if (currentUser.role !== 'admin' || !adminPanelModal) return;
+    closeMobileSidebar();
+    closeAllDropdowns();
+    if (adminLockError) adminLockError.hidden = true;
+    if (adminPanelPasswordInput) adminPanelPasswordInput.value = '';
+    if (adminLockView) adminLockView.hidden = false;
+    if (adminUnlockedView) adminUnlockedView.hidden = true;
+    adminPanelModal.hidden = false;
+    window.setTimeout(() => adminPanelPasswordInput?.focus(), 60);
+  }
+
+  function closeAdminPanel() {
+    if (adminPanelModal) adminPanelModal.hidden = true;
+  }
+
+  document.getElementById('btn-open-admin-panel')?.addEventListener('click', openAdminPanel);
+  document.getElementById('btn-close-admin-panel')?.addEventListener('click', closeAdminPanel);
+  document.getElementById('btn-cancel-admin-lock')?.addEventListener('click', closeAdminPanel);
+  adminPanelModal?.addEventListener('click', (e) => {
+    if (e.target === adminPanelModal) closeAdminPanel();
+  });
+
+  adminLockView?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const entered = (adminPanelPasswordInput?.value || '').trim();
+    if (entered === 'admin1234') {
+      if (adminLockError) adminLockError.hidden = true;
+      if (adminLockView) adminLockView.hidden = true;
+      if (adminUnlockedView) adminUnlockedView.hidden = false;
+      renderAdminAccounts();
+      refreshAuditLogs();
+    } else {
+      if (adminLockError) adminLockError.hidden = false;
+      adminPanelPasswordInput?.focus();
+      adminPanelPasswordInput?.select();
+    }
+  });
+
+  auditUserFilter?.addEventListener('change', renderAuditLogs);
+  document.getElementById('btn-refresh-audit')?.addEventListener('click', refreshAuditLogs);
+
+  btnAdminTabLogs?.addEventListener('click', () => {
+    btnAdminTabLogs.classList.add('active');
+    btnAdminTabAccounts?.classList.remove('active');
+    if (adminTabLogsPanel) adminTabLogsPanel.hidden = false;
+    if (adminTabAccountsPanel) adminTabAccountsPanel.hidden = true;
+  });
+
+  btnAdminTabAccounts?.addEventListener('click', () => {
+    btnAdminTabAccounts.classList.add('active');
+    btnAdminTabLogs?.classList.remove('active');
+    if (adminTabLogsPanel) adminTabLogsPanel.hidden = true;
+    if (adminTabAccountsPanel) adminTabAccountsPanel.hidden = false;
   });
 
   // Enforce digits-only (exactly 4 digits) on INV NO input
@@ -8245,6 +8929,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   });
 
   // Initial Load
+  applyUserRoleUI();
   applyTheme(currentTheme);
   applyLanguage(currentLang);
   updateNotificationPermissionUI();
