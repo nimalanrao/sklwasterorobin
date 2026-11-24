@@ -5432,6 +5432,22 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     color: #f2f3f5;
   }
 
+  :global([data-theme="dark"]) .prefix-field:has(.prefix-input[readonly]) {
+    background: #232428;
+    border-color: #4e5058;
+  }
+
+  :global([data-theme="dark"]) .prefix-input[readonly] {
+    color: #b5bac1;
+    background: transparent;
+  }
+
+  :global([data-theme="dark"]) .locked-pill {
+    background: rgba(240, 178, 50, 0.2);
+    color: #f0b232;
+    border-color: rgba(240, 178, 50, 0.4);
+  }
+
   :global([data-theme="dark"]) .form-control:focus,
   :global([data-theme="dark"]) .form-textarea:focus,
   :global([data-theme="dark"]) .prefix-field:focus-within,
