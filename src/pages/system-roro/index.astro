@@ -635,7 +635,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     <!-- MODAL: ADD / EDIT RECORD -->
     <div id="roro-modal" class="modal-overlay" hidden>
-      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-dialog bin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-head">
           <div>
             <h2 class="modal-title" id="modal-title" data-i18n="modal_add_title">Add New RORO Bin</h2>
@@ -740,7 +740,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             <div class="form-row">
               <label for="modal-customer" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span><span data-i18n="lbl_customer">Customer Name</span> <span class="optional-tag" data-i18n="tag_optional">(Optional)</span></span>
+                <span><span data-i18n="lbl_customer">Customer Name</span> <strong class="req">*</strong></span>
               </label>
               <input
                 type="text"
@@ -748,11 +748,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 class="form-control"
               />
             </div>
+          </div>
 
+          <div class="form-split">
             <div class="form-row">
               <label for="modal-invoice-no" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                <span><span data-i18n="lbl_inv_no">INV NO</span> <span class="optional-tag" data-i18n="tag_max4">(4 digits)</span></span>
+                <span><span data-i18n="lbl_inv_no">INV NO</span> <strong class="req">*</strong></span>
               </label>
               <div class="prefix-field">
                 <span class="prefix-addon">#</span>
@@ -769,12 +771,25 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 />
               </div>
             </div>
+
+            <div class="form-row">
+              <label for="modal-notes" class="form-label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span><span data-i18n="lbl_site_notes">Site Notes</span> <strong class="req">*</strong></span>
+              </label>
+              <input
+                type="text"
+                id="modal-notes"
+                class="form-control"
+                placeholder="Site notes / remarks"
+              />
+            </div>
           </div>
 
           <div class="form-split">
             <div class="form-row">
               <span class="form-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
                 <span><span data-i18n="lbl_bin_size">Bin Size</span> <strong class="req">*</strong></span>
               </span>
               <div class="size-toggle-grid">
@@ -893,17 +908,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </div>
           </div>
 
-          <div class="form-row">
-            <label for="modal-notes" class="form-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-              <span><span data-i18n="lbl_site_notes">Site Notes</span> <span class="optional-tag" data-i18n="tag_optional">(Optional)</span></span>
-            </label>
-            <textarea
-              id="modal-notes"
-              rows="2"
-              class="form-textarea"
-            ></textarea>
-          </div>
+
 
           <div class="modal-foot">
             <button type="button" id="btn-cancel-modal" class="btn-ghost" data-i18n="btn_cancel">Cancel</button>
@@ -2743,9 +2748,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.35rem;
+    gap: 0.25rem;
   }
 
+  :global(.status-start-sub),
   :global(.status-end-sub) {
     font-size: 0.82rem;
     font-weight: 600;
@@ -4294,6 +4300,62 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     background: #15803d;
   }
 
+  .bin-modal-dialog {
+    max-width: 620px;
+    padding: 1.15rem 1.35rem 1rem;
+    overflow-y: auto;
+  }
+
+  .bin-modal-dialog .modal-head {
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .bin-modal-dialog .modal-form {
+    gap: 0.65rem;
+  }
+
+  .bin-modal-dialog .form-row {
+    gap: 0.28rem;
+  }
+
+  .bin-modal-dialog .form-split {
+    gap: 0.75rem;
+  }
+
+  .bin-modal-dialog .form-control,
+  .bin-modal-dialog .prefix-field,
+  .bin-modal-dialog .date-trigger-btn,
+  .bin-modal-dialog .size-card-compact {
+    height: 40px;
+    font-size: 0.88rem;
+  }
+
+  .bin-modal-dialog .prefix-addon {
+    font-size: 0.86rem;
+    padding: 0 0.75rem;
+  }
+
+  .bin-modal-dialog .size-card-title {
+    font-size: 0.88rem;
+  }
+
+  .bin-modal-dialog .form-label {
+    font-size: 0.74rem;
+    gap: 0.32rem;
+  }
+
+  .bin-modal-dialog .modal-foot {
+    padding-top: 0.65rem;
+    margin-top: 0.25rem;
+  }
+
+  .bin-modal-dialog .btn-ghost,
+  .bin-modal-dialog .btn-solid {
+    height: 38px;
+    font-size: 0.82rem;
+  }
+
   /* Confirm Dialog */
   .confirm-dialog {
     max-width: 420px;
@@ -4621,6 +4683,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       border-radius: 12px;
     }
 
+    .roro-table :global(.status-start-sub),
     .roro-table :global(.status-end-sub) {
       font-size: 0.88rem;
       font-weight: 600;
@@ -5171,8 +5234,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   :global([data-theme="dark"]) .sidebar-logo-icon {
-    background: #1e1f22;
-    border-color: #3f4147;
+    background: #ffffff;
+    border-color: #ffffff;
   }
 
   :global([data-theme="dark"]) .sidebar-brand-title {
@@ -5440,6 +5503,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   :global([data-theme="dark"]) :global(.loc-note),
   :global([data-theme="dark"]) :global(.cust-phone),
+  :global([data-theme="dark"]) :global(.status-start-sub),
   :global([data-theme="dark"]) :global(.status-end-sub),
   :global([data-theme="dark"]) :global(.row-chevron) {
     color: #b5bac1;
@@ -5540,6 +5604,53 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   :global([data-theme="dark"]) .dropdown-sep,
   :global([data-theme="dark"]) .notif-panel-head {
     border-color: #3f4147;
+  }
+
+  /* Pickup Alerts Popover Cards & Buttons in Dark Theme */
+  :global([data-theme="dark"]) :global(.notif-empty) {
+    color: #949ba4;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-item-card) {
+    background: #2b2d31;
+    border-color: #3f4147;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-item-loc) {
+    color: #f2f3f5;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-item-meta) {
+    color: #949ba4;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-item-tag) {
+    background: rgba(242, 63, 67, 0.18);
+    color: #ff6b6e;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-wa-link) {
+    background: rgba(35, 165, 90, 0.18);
+    border-color: rgba(35, 165, 90, 0.35);
+    color: #43d17a;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-wa-link:hover) {
+    background: #23a55a;
+    border-color: #23a55a;
+    color: #ffffff;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-pull-btn) {
+    background: #1e1f22;
+    border-color: #3f4147;
+    color: #dbdee1;
+  }
+
+  :global([data-theme="dark"]) :global(.notif-pull-btn:hover) {
+    background: #383a40;
+    border-color: #4e5058;
+    color: #ffffff;
   }
 
   :global([data-theme="dark"]) .dropdown-action-item,
@@ -7092,6 +7203,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </td>
         <td data-col="status">
           <div class="status-stack">
+            ${item.date_start ? `<span class="status-start-sub">Start: ${formatDateDisplay(item.date_start)}</span>` : ''}
             ${statusPill}
             <span class="status-end-sub">End: ${formatDateDisplay(item.date_end)}</span>
           </div>
