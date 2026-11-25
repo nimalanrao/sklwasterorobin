@@ -762,12 +762,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                   type="text"
                   id="modal-invoice-no"
                   class="prefix-input"
-                  minlength="4"
                   maxlength="4"
                   inputmode="numeric"
                   placeholder="e.g. 1024"
-                  pattern="[0-9]{4}"
-                  title="Invoice number must be exactly 4 digits"
+                  title="Invoice number (up to 4 digits)"
                 />
               </div>
             </div>
@@ -845,11 +843,6 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                   </svg>
                 </button>
                 <div class="blur-dropdown-menu upward calendar-popover cal-left" id="cal-popover-start">
-                  <div class="cal-presets">
-                    <button type="button" class="cal-preset-pill" data-start-preset="0" data-i18n="cal_today">Today</button>
-                    <button type="button" class="cal-preset-pill" data-start-preset="1" data-i18n="cal_tomorrow">Tomorrow</button>
-                    <button type="button" class="cal-preset-pill" data-start-preset="-1" data-i18n="cal_yesterday">Yesterday</button>
-                  </div>
                   <div class="cal-nav-row">
                     <button type="button" class="cal-nav-btn" data-cal-prev="start" aria-label="Previous month">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -884,12 +877,6 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                   </svg>
                 </button>
                 <div class="blur-dropdown-menu upward calendar-popover cal-right" id="cal-popover-end">
-                  <div class="cal-presets">
-                    <button type="button" class="cal-preset-pill highlight" data-end-days="10" data-i18n="cal_plus10">+10 Days</button>
-                    <button type="button" class="cal-preset-pill" data-end-days="7" data-i18n="cal_plus7">+7 Days</button>
-                    <button type="button" class="cal-preset-pill" data-end-days="14" data-i18n="cal_plus14">+14 Days</button>
-                    <button type="button" class="cal-preset-pill" data-end-days="30" data-i18n="cal_plus30">+30 Days</button>
-                  </div>
                   <div class="cal-nav-row">
                     <button type="button" class="cal-nav-btn" data-cal-prev="end" aria-label="Previous month">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -5749,6 +5736,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     border-color: #5865f2;
   }
 
+  :global([data-theme="dark"]) .date-picker-anchor.is-open .date-trigger-btn {
+    border-color: #5865f2;
+    background: #1e1f22 !important;
+    color: #f2f3f5 !important;
+    box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.25);
+  }
+
   :global([data-theme="dark"]) .size-card {
     background: #2b2d31;
     border-color: #4e5058;
@@ -7859,23 +7853,70 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     acTimer = window.setTimeout(() => searchMalaysiaPlaces(q), 240);
   });
 
+  // Sequential Enter-key navigation:
+  // Delivery Location -> Phone Number -> Customer Name -> INV NO -> Site Notes -> Rental Price -> Submit
   locationInput?.addEventListener('keydown', (e) => {
-    if (!locAnchor?.classList.contains('is-open') || acResults.length === 0) return;
-
-    if (e.key === 'ArrowDown') {
+    if (e.key === 'Enter') {
+      if (locAnchor?.classList.contains('is-open') && acResults.length > 0 && acActiveIdx >= 0) {
+        e.preventDefault();
+        selectAutocompleteItem(acResults[acActiveIdx]);
+        phoneInput?.focus();
+        phoneInput?.select();
+        return;
+      }
       e.preventDefault();
-      acActiveIdx = (acActiveIdx + 1) % acResults.length;
-      updateAcHighlight();
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      acActiveIdx = (acActiveIdx - 1 + acResults.length) % acResults.length;
-      updateAcHighlight();
-    } else if (e.key === 'Enter' && acActiveIdx >= 0) {
-      e.preventDefault();
-      selectAutocompleteItem(acResults[acActiveIdx]);
-    } else if (e.key === 'Escape') {
-      e.stopPropagation();
       closeAutocomplete();
+      phoneInput?.focus();
+      phoneInput?.select();
+    } else if (locAnchor?.classList.contains('is-open') && acResults.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        acActiveIdx = (acActiveIdx + 1) % acResults.length;
+        updateAcHighlight();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        acActiveIdx = (acActiveIdx - 1 + acResults.length) % acResults.length;
+        updateAcHighlight();
+      } else if (e.key === 'Escape') {
+        e.stopPropagation();
+        closeAutocomplete();
+      }
+    }
+  });
+
+  phoneInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      customerInput?.focus();
+      customerInput?.select();
+    }
+  });
+
+  customerInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      invoiceNoInput?.focus();
+      invoiceNoInput?.select();
+    }
+  });
+
+  invoiceNoInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const raw = invoiceNoInput.value.replace(/\D/g, '');
+      if (raw) {
+        invoiceNoInput.value = raw.padStart(4, '0').slice(-4);
+      }
+      notesInput?.focus();
+      notesInput?.select();
+    }
+  });
+
+  notesInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      priceInput?.focus();
+      priceInput?.select();
     }
   });
 
@@ -8440,14 +8481,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     const rawCust = customerInput.value.trim();
     const custVal = ownerVal === OWNER_THIRUMAL ? (rawCust || THIRUMAL_DEFAULT_NAME) : rawCust;
     const noteVal = notesInput.value.trim();
-    const invoiceVal = invoiceNoInput.value.replace(/\D/g, '').slice(0, 4);
-    if (invoiceVal && invoiceVal.length !== 4) {
-      modalFormErrorText.textContent = currentLang === 'ms'
-        ? 'No Invois mesti tepat 4 digit (cth. 1024).'
-        : 'Invoice number must be exactly 4 digits (e.g. 1024).';
-      modalFormError.hidden = false;
-      invoiceNoInput.focus();
-      return;
+    const rawInvDigits = invoiceNoInput.value.replace(/\D/g, '');
+    let invoiceVal = '';
+    if (rawInvDigits) {
+      invoiceVal = rawInvDigits.padStart(4, '0').slice(-4);
+      invoiceNoInput.value = invoiceVal;
     }
     const sizeVal: '2 Feet' | '4 Feet' = size4Radio.checked ? '4 Feet' : '2 Feet';
     const { isOverdue } = getDaysRemaining(endVal);
@@ -9084,7 +9122,15 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (adminTabAccountsPanel) adminTabAccountsPanel.hidden = false;
   });
 
-  // Enforce digits-only (exactly 4 digits) on INV NO input
+  // Auto-pad invoice digits to 4 digits on blur (e.g. 513 -> 0513)
+  invoiceNoInput?.addEventListener('blur', () => {
+    const raw = invoiceNoInput.value.replace(/\D/g, '');
+    if (raw) {
+      invoiceNoInput.value = raw.padStart(4, '0').slice(-4);
+    }
+  });
+
+  // Enforce digits-only (up to 4 digits) on INV NO input
   invoiceNoInput?.addEventListener('input', () => {
     const cleaned = invoiceNoInput.value.replace(/\D/g, '').slice(0, 4);
     if (invoiceNoInput.value !== cleaned) {
