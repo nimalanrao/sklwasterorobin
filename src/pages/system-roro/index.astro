@@ -7622,15 +7622,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         zoomControl: true
       });
 
-      // Authenticated CARTO Voyager Street Map (5M req/mo free tier, Retina @2x supported)
-      const cartoKey = import.meta.env.PUBLIC_CARTO_API_KEY || 'cb1_5ebw_1_9728bee24002c3f5e876702e';
-      streetLayer = L.tileLayer(
-        `https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=${encodeURIComponent(cartoKey)}`,
-        {
-          maxZoom: 19,
-          attribution: '&copy; OpenStreetMap &copy; CARTO'
-        }
-      ).addTo(roroMap);
+      // Google Maps Streets (Clean standard roadmap)
+      streetLayer = L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        subdomains: ['0', '1', '2', '3'],
+        maxZoom: 20,
+        attribution: '&copy; Google Maps'
+      }).addTo(roroMap);
 
       // High-resolution Google Maps Satellite Imagery with Road & Place Labels (Hybrid)
       satLayer = L.tileLayer('https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
