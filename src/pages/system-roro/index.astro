@@ -806,10 +806,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row" id="row-modal-price">
               <label for="modal-price" class="form-label">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                <span><span data-i18n="lbl_price">Rental Price (RM)</span> <strong class="req">*</strong></span>
+                <span><span data-i18n="lbl_price">Rental Price (RM)</span> <strong id="price-req-star" class="req">*</strong></span>
               </label>
               <div class="prefix-field">
                 <span class="prefix-addon">RM</span>
@@ -819,7 +819,6 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                   class="prefix-input"
                   min="0"
                   step="1"
-                  required
                 />
               </div>
             </div>
@@ -832,7 +831,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 <span><span data-i18n="lbl_start_date">Start Date</span> <strong class="req">*</strong></span>
               </span>
               <div class="dropdown-anchor date-picker-anchor" id="dp-start-wrapper">
-                <input type="hidden" id="modal-date-start" required />
+                <input type="hidden" id="modal-date-start" />
                 <button type="button" id="btn-date-start" class="date-trigger-btn" aria-haspopup="true" aria-expanded="false">
                   <span class="date-trigger-val" id="date-start-display">-</span>
                   <svg class="date-trigger-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -866,7 +865,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 <span><span data-i18n="lbl_end_date">End Date (Default 10 Days)</span> <strong class="req">*</strong></span>
               </span>
               <div class="dropdown-anchor date-picker-anchor" id="dp-end-wrapper">
-                <input type="hidden" id="modal-date-end" required />
+                <input type="hidden" id="modal-date-end" />
                 <button type="button" id="btn-date-end" class="date-trigger-btn" aria-haspopup="true" aria-expanded="false">
                   <span class="date-trigger-val" id="date-end-display">-</span>
                   <svg class="date-trigger-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -6950,6 +6949,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       e.stopPropagation();
       const id = pullBtn.getAttribute('data-notif-pull-id');
       const loc = pullBtn.getAttribute('data-notif-pull-loc') || 'this location';
+      const rec = allRecords.find((r) => r.id === id);
+      if (currentUser.username === 'tiviya' && rec && rec.bin_owner !== OWNER_THIRUMAL) {
+        showToast("Tiviya account can only manage Thirumal Vel Enterprise bins");
+        return;
+      }
       if (id) {
         closeAllDropdowns();
         pendingPullId = id;
@@ -7204,7 +7208,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </td>
         <td data-col="price" class="text-right">
           <span class="price-chevron-cell">
-            <span class="price-val">RM ${Number(item.price).toLocaleString()}</span>
+            ${item.bin_owner === OWNER_THIRUMAL && !Number(item.price)
+              ? '<span class="price-val" style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">-</span>'
+              : `<span class="price-val">RM ${Number(item.price).toLocaleString()}</span>`
+            }
             <svg class="row-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
@@ -7292,7 +7299,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     detailCustomerVal.textContent = rec.customer_name || 'Customer';
     detailPhoneVal.textContent = formatPhoneDisplay(rec.customer_phone) || '-';
     detailInvoiceVal.textContent = rec.invoice_no ? `#${rec.invoice_no}` : '-';
-    detailPriceVal.textContent = `RM ${Number(rec.price).toLocaleString()}`;
+    detailPriceVal.textContent = rec.bin_owner === OWNER_THIRUMAL && !Number(rec.price)
+      ? '-'
+      : `RM ${Number(rec.price).toLocaleString()}`;
     detailOwnerVal.textContent = rec.bin_owner;
     detailStartVal.textContent = formatDateDisplay(rec.date_start);
     detailEndVal.textContent = formatDateDisplay(rec.date_end);
@@ -7313,11 +7322,32 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     const isDriver = currentUser.role === 'driver';
+    const isTiviya = currentUser.username === 'tiviya';
+    const isThirumalBin = rec.bin_owner === OWNER_THIRUMAL;
+
     detailExtendSection.hidden = isDone || isDriver;
     detailActiveFoot.hidden = isDone;
     detailCompletedFoot.hidden = !isDone || isDriver;
     const btnDetailEditEl = document.getElementById('btn-detail-edit') as HTMLElement | null;
-    if (btnDetailEditEl) btnDetailEditEl.hidden = isDriver;
+    if (btnDetailEditEl) {
+      // Drivers cannot edit; Tiviya can only edit Thirumal bins
+      btnDetailEditEl.hidden = isDriver || (isTiviya && !isThirumalBin);
+    }
+    const btnDetailPullEl = document.getElementById('btn-detail-pull') as HTMLElement | null;
+    if (btnDetailPullEl) {
+      // Tiviya can only pull Thirumal bins
+      btnDetailPullEl.hidden = isTiviya && !isThirumalBin;
+    }
+    const btnDetailDeleteEl = document.getElementById('btn-detail-delete') as HTMLElement | null;
+    if (btnDetailDeleteEl) {
+      // Tiviya can only delete Thirumal bins
+      btnDetailDeleteEl.hidden = isTiviya && !isThirumalBin;
+    }
+    const btnDetailRestoreEl = document.getElementById('btn-detail-restore') as HTMLElement | null;
+    if (btnDetailRestoreEl) {
+      // Tiviya can only restore Thirumal bins
+      btnDetailRestoreEl.hidden = isTiviya && !isThirumalBin;
+    }
   }
 
   function openDetailModal(rec: RoroRecord) {
@@ -7392,6 +7422,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (!btn) return;
     const rec = getActiveDetailRecord();
     if (!rec) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only manage Thirumal Vel Enterprise bins");
+      return;
+    }
 
     const addDays = Number(btn.getAttribute('data-detail-extend-days')) || 1;
     const today = new Date();
@@ -7431,6 +7465,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   document.getElementById('btn-detail-edit')?.addEventListener('click', () => {
     const rec = getActiveDetailRecord();
     if (!rec) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only edit Thirumal Vel Enterprise bins");
+      return;
+    }
     closeDetailModal();
     openEditModal(rec);
   });
@@ -7438,6 +7476,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   document.getElementById('btn-detail-pull')?.addEventListener('click', () => {
     const rec = getActiveDetailRecord();
     if (!rec) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only pull Thirumal Vel Enterprise bins");
+      return;
+    }
     closeDetailModal();
     pendingPullId = rec.id;
     confirmPullLocation.textContent = rec.location;
@@ -7447,6 +7489,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   document.getElementById('btn-detail-restore')?.addEventListener('click', async () => {
     const rec = getActiveDetailRecord();
     if (!rec) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only restore Thirumal Vel Enterprise bins");
+      return;
+    }
     const { isOverdue } = getDaysRemaining(rec.date_end);
     const restored: RoroRecord = {
       ...rec,
@@ -7469,6 +7515,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   document.getElementById('btn-detail-delete')?.addEventListener('click', () => {
     const rec = getActiveDetailRecord();
     if (!rec) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only delete Thirumal Vel Enterprise bins");
+      return;
+    }
     closeDetailModal();
     pendingDeleteId = rec.id;
     confirmDeleteLocation.textContent = rec.location;
@@ -7477,6 +7527,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   // Apply Who's Tong auto-fill rules (Thirumal Vel Enterprise -> always +60 17-694 7413 & Tiviya)
   function applyOwnerSelection(owner: BinOwner, fromUserToggle = false) {
+    const rowPrice = document.getElementById('row-modal-price') as HTMLElement | null;
+    const starPrice = document.getElementById('price-req-star') as HTMLElement | null;
+
     if (owner === OWNER_THIRUMAL) {
       phoneInput.value = THIRUMAL_PHONE_LOCAL;
       phoneInput.readOnly = true;
@@ -7484,10 +7537,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       if (!customerInput.value.trim() || fromUserToggle) {
         customerInput.value = THIRUMAL_DEFAULT_NAME;
       }
+      // Thirumal Vel Enterprise has no rental price
+      priceInput.value = '';
+      priceInput.required = false;
+      if (rowPrice) rowPrice.style.display = 'none';
+      if (starPrice) starPrice.hidden = true;
       modalFormError.hidden = true;
     } else {
       phoneInput.readOnly = false;
       if (phoneLockedBadge) phoneLockedBadge.hidden = true;
+      if (rowPrice) rowPrice.style.display = '';
+      if (starPrice) starPrice.hidden = false;
+      priceInput.required = true;
       if (fromUserToggle) {
         if (normalizeMalaysianPhone(phoneInput.value) === THIRUMAL_PHONE_NORMALIZED) {
           phoneInput.value = '';
@@ -7571,14 +7632,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         }
       ).addTo(roroMap);
 
-      // Crisp Satellite Imagery + Road Labels (Free Esri World Imagery)
-      satLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19,
-        attribution: '&copy; Esri'
+      // High-resolution Google Maps Satellite Imagery with Road & Place Labels (Hybrid)
+      satLayer = L.tileLayer('https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+        subdomains: ['0', '1', '2', '3'],
+        maxZoom: 20,
+        attribution: '&copy; Google Maps'
       });
-      satLabelsLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19
-      });
+      satLabelsLayer = null;
 
       // Click anywhere on map -> drop pin + reverse geocode exact Malaysia address
       roroMap.on('click', (e: any) => {
@@ -7678,18 +7738,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (!roroMap) return;
     btnMapStreet.classList.add('active');
     btnMapSat?.classList.remove('active');
-    if (roroMap.hasLayer(satLayer)) roroMap.removeLayer(satLayer);
-    if (roroMap.hasLayer(satLabelsLayer)) roroMap.removeLayer(satLabelsLayer);
-    if (!roroMap.hasLayer(streetLayer)) streetLayer.addTo(roroMap);
+    if (satLayer && roroMap.hasLayer(satLayer)) roroMap.removeLayer(satLayer);
+    if (satLabelsLayer && roroMap.hasLayer(satLabelsLayer)) roroMap.removeLayer(satLabelsLayer);
+    if (streetLayer && !roroMap.hasLayer(streetLayer)) streetLayer.addTo(roroMap);
   });
 
   btnMapSat?.addEventListener('click', () => {
     if (!roroMap) return;
     btnMapSat.classList.add('active');
     btnMapStreet?.classList.remove('active');
-    if (roroMap.hasLayer(streetLayer)) roroMap.removeLayer(streetLayer);
-    if (!roroMap.hasLayer(satLayer)) satLayer.addTo(roroMap);
-    if (!roroMap.hasLayer(satLabelsLayer)) satLabelsLayer.addTo(roroMap);
+    if (streetLayer && roroMap.hasLayer(streetLayer)) roroMap.removeLayer(streetLayer);
+    if (satLayer && !roroMap.hasLayer(satLayer)) satLayer.addTo(roroMap);
+    if (satLabelsLayer && !roroMap.hasLayer(satLabelsLayer)) satLabelsLayer.addTo(roroMap);
   });
 
   function closeAutocomplete() {
@@ -8206,12 +8266,25 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     modalTitle.textContent = t('modal_add_title');
     btnSaveText.textContent = t('btn_save');
 
-    const todayStr = toIsoDate(new Date());
-    dateStartInput.value = todayStr;
-    dateEndInput.value = computeEndDatePlus10(todayStr);
+    dateStartInput.value = '';
+    dateEndInput.value = '';
     syncDatePickerDisplays();
-    ownerSklRadio.checked = true;
-    applyOwnerSelection(OWNER_SKL, false);
+
+    if (currentUser.username === 'tiviya') {
+      ownerThirumalRadio.checked = true;
+      ownerSklRadio.checked = false;
+      applyOwnerSelection(OWNER_THIRUMAL, false);
+      const sklWrapper = ownerSklRadio.closest('.size-option') as HTMLElement | null;
+      if (sklWrapper) sklWrapper.style.display = 'none';
+      ownerSklRadio.disabled = true;
+    } else {
+      const sklWrapper = ownerSklRadio.closest('.size-option') as HTMLElement | null;
+      if (sklWrapper) sklWrapper.style.display = '';
+      ownerSklRadio.disabled = false;
+      ownerSklRadio.checked = true;
+      applyOwnerSelection(OWNER_SKL, false);
+    }
+
     size2Radio.checked = true;
 
     if (mapPickerCard) mapPickerCard.hidden = !specialSettings.enableMapPicker;
@@ -8225,6 +8298,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   function openEditModal(rec: RoroRecord) {
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only manage Thirumal Vel Enterprise bins");
+      return;
+    }
+
     closeDatePickers();
     closeAutocomplete();
     recordForm.reset();
@@ -8242,6 +8320,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       applyOwnerSelection(OWNER_SKL, false);
       const strippedPhone = (rec.customer_phone || '').replace(/^\+?60/, '');
       phoneInput.value = strippedPhone;
+    }
+
+    if (currentUser.username === 'tiviya') {
+      const sklWrapper = ownerSklRadio.closest('.size-option') as HTMLElement | null;
+      if (sklWrapper) sklWrapper.style.display = 'none';
+      ownerSklRadio.disabled = true;
+    } else {
+      const sklWrapper = ownerSklRadio.closest('.size-option') as HTMLElement | null;
+      if (sklWrapper) sklWrapper.style.display = '';
+      ownerSklRadio.disabled = false;
     }
     priceInput.value = String(rec.price);
     dateStartInput.value = rec.date_start;
@@ -8456,7 +8544,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     const editingId = recordIdInput.value.trim();
     const loc = locationInput.value.trim();
-    const ownerVal: BinOwner = ownerThirumalRadio.checked ? OWNER_THIRUMAL : OWNER_SKL;
+    let ownerVal: BinOwner = ownerThirumalRadio.checked ? OWNER_THIRUMAL : OWNER_SKL;
+
+    if (currentUser.username === 'tiviya') {
+      ownerVal = OWNER_THIRUMAL;
+    }
+
     const rawPhone = ownerVal === OWNER_THIRUMAL ? THIRUMAL_PHONE_NORMALIZED : phoneInput.value.trim();
     const normalizedPhone = ownerVal === OWNER_THIRUMAL ? THIRUMAL_PHONE_NORMALIZED : normalizeMalaysianPhone(rawPhone);
     const localDigits = normalizedPhone.replace(/^\+60/, '');
@@ -8475,9 +8568,29 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       return;
     }
 
-    const priceVal = Number(priceInput.value) || 0;
+    const priceVal = ownerVal === OWNER_THIRUMAL ? 0 : (Number(priceInput.value) || 0);
+    if (ownerVal !== OWNER_THIRUMAL && (!priceInput.value.trim() || Number.isNaN(Number(priceInput.value)))) {
+      modalFormErrorText.textContent = 'Rental price is required.';
+      modalFormError.hidden = false;
+      priceInput.focus();
+      return;
+    }
+
     const startVal = dateStartInput.value;
-    const endVal = dateEndInput.value || computeEndDatePlus10(startVal);
+    if (!startVal) {
+      modalFormErrorText.textContent = 'Please select a Start Date.';
+      modalFormError.hidden = false;
+      openCalendarPicker('start');
+      return;
+    }
+
+    const endVal = dateEndInput.value || (specialSettings.enableAuto10Days ? computeEndDatePlus10(startVal) : '');
+    if (!endVal) {
+      modalFormErrorText.textContent = 'Please select an End Date.';
+      modalFormError.hidden = false;
+      openCalendarPicker('end');
+      return;
+    }
     const rawCust = customerInput.value.trim();
     const custVal = ownerVal === OWNER_THIRUMAL ? (rawCust || THIRUMAL_DEFAULT_NAME) : rawCust;
     const noteVal = notesInput.value.trim();
@@ -8566,6 +8679,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     closePullModal();
     if (!rec) return;
 
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only manage Thirumal Vel Enterprise bins");
+      return;
+    }
+
     const completedRecord: RoroRecord = {
       ...rec,
       status: 'Completed',
@@ -8590,6 +8708,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (!pendingDeleteId) return;
     const idToDelete = pendingDeleteId;
     const deletedRec = allRecords.find((r) => r.id === idToDelete);
+    if (currentUser.username === 'tiviya' && deletedRec && deletedRec.bin_owner !== OWNER_THIRUMAL) {
+      closeDeleteModal();
+      showToast("Tiviya account can only delete Thirumal Vel Enterprise bins");
+      return;
+    }
     allRecords = allRecords.filter((r) => r.id !== idToDelete);
     closeDeleteModal();
     render();
@@ -8962,6 +9085,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     const btnOpenModalEl = document.getElementById('btn-open-modal') as HTMLElement | null;
     if (btnOpenModalEl && isDriver) btnOpenModalEl.style.display = 'none';
     if (btnEmptyCreate && isDriver) btnEmptyCreate.style.display = 'none';
+
+    // Tiviya account: restricted to Thirumal Vel Enterprise bins only
+    if (currentUser.username === 'tiviya') {
+      const sklOptWrapper = ownerSklRadio?.closest('.size-option') as HTMLElement | null;
+      if (sklOptWrapper) sklOptWrapper.style.display = 'none';
+      if (ownerSklRadio) ownerSklRadio.disabled = true;
+      if (ownerThirumalRadio) ownerThirumalRadio.checked = true;
+    }
   }
 
   const adminPanelModal = document.getElementById('admin-panel-modal') as HTMLElement | null;
