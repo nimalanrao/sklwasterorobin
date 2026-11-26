@@ -112,6 +112,8 @@ export interface RoroRecord {
   status: 'Active' | 'Overdue' | 'Completed';
   completed_at?: string | null;
   notes?: string;
+  tarik_action?: 'tarik' | 'tukar';
+  tarik_notes?: string;
 }
 
 const supabaseUrl = (import.meta.env.PUBLIC_SUPABASE_URL || '').replace(/\/+$/, '');

@@ -909,26 +909,80 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       </div>
     </div>
 
-    <!-- MODAL: CONFIRM MARK PULLED (MOVES TO COMPLETED) -->
+    <!-- MODAL: CONFIRM MARK PULLED / TUKAR TONG (MOVES TO COMPLETED) -->
     <div id="confirm-pull-modal" class="modal-overlay" hidden>
-      <div class="modal-dialog confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-pull-title">
-        <div class="confirm-badge emerald">
+      <div class="modal-dialog confirm-dialog pull-action-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-pull-title">
+        <div class="confirm-badge emerald" id="confirm-pull-badge">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
         </div>
-        <h3 class="confirm-title" id="confirm-pull-title" data-i18n="confirm_pull_title">Mark Bin as Pulled?</h3>
+        <h3 class="confirm-title" id="confirm-pull-title">Tarik Tong / Tukar Tong</h3>
         <p class="confirm-desc">
-          The bin at <strong id="confirm-pull-location">this location</strong> will be moved to the <strong>Completed</strong> section. You can restore it anytime.
+          Select action for the bin at <strong id="confirm-pull-location">this location</strong>:
         </p>
+
+        <!-- Action Choice: Tarik Tong (Pull Bin) vs Tukar Tong (Change Bin) -->
+        <div class="tarik-action-grid">
+          <label class="tarik-action-opt">
+            <input type="radio" name="tarik_choice" value="tarik" id="tarik-opt-tarik" checked />
+            <span class="tarik-action-card">
+              <span class="tarik-action-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span class="tarik-action-text">
+                <strong>Tarik Tong</strong>
+                <small>Pull bin &bull; Selesai</small>
+              </span>
+            </span>
+          </label>
+
+          <label class="tarik-action-opt">
+            <input type="radio" name="tarik_choice" value="tukar" id="tarik-opt-tukar" />
+            <span class="tarik-action-card">
+              <span class="tarik-action-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+              </span>
+              <span class="tarik-action-text">
+                <strong>Tukar Tong</strong>
+                <small>Change / swap bin</small>
+              </span>
+            </span>
+          </label>
+        </div>
+
+        <!-- Optional Note for Tarik / Tukar -->
+        <div class="tarik-note-wrap">
+          <label for="tarik-note-input" class="tarik-note-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <span>Nota / Remarks <small class="text-muted" style="font-weight: 500;">(Optional)</small></span>
+          </label>
+          <input
+            type="text"
+            id="tarik-note-input"
+            class="form-control"
+            placeholder="e.g. Tukar saiz 4ft, customer mintak esok, etc."
+            maxlength="160"
+          />
+        </div>
+
         <div class="confirm-foot">
           <button type="button" id="btn-cancel-pull" class="btn-ghost" data-i18n="btn_cancel">Cancel</button>
           <button type="button" id="btn-execute-pull" class="btn-emerald">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
-            <span data-i18n="confirm_pull_btn">Confirm Pulled</span>
+            <span id="btn-execute-pull-text">Confirm Tarik Tong</span>
           </button>
         </div>
       </div>
@@ -4349,6 +4403,158 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     padding: 2rem 1.75rem;
   }
 
+  .pull-action-dialog {
+    max-width: 440px;
+    text-align: left;
+  }
+
+  .pull-action-dialog .confirm-title {
+    text-align: center;
+  }
+
+  .pull-action-dialog .confirm-desc {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .tarik-action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .tarik-action-opt {
+    cursor: pointer;
+    display: block;
+    user-select: none;
+  }
+
+  .tarik-action-opt input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .tarik-action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.85rem 0.65rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    transition: all 0.16s ease;
+    gap: 0.35rem;
+  }
+
+  .tarik-action-opt:hover .tarik-action-card {
+    border-color: #cbd5e1;
+    background: #f1f5f9;
+  }
+
+  .tarik-action-opt input:checked + .tarik-action-card {
+    border-color: #16a34a;
+    background: #f0fdf4;
+    color: #166534;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
+  }
+
+  .tarik-action-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+  }
+
+  .tarik-action-opt input:checked + .tarik-action-card .tarik-action-icon {
+    background: #16a34a;
+    color: #ffffff;
+    border-color: #16a34a;
+  }
+
+  .tarik-action-text strong {
+    display: block;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .tarik-action-opt input:checked + .tarik-action-card .tarik-action-text strong {
+    color: #15803d;
+  }
+
+  .tarik-action-text small {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+  }
+
+  .tarik-note-wrap {
+    margin-bottom: 1.25rem;
+  }
+
+  .tarik-note-label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 0.35rem;
+  }
+
+  .tarik-note-wrap input {
+    height: 38px;
+    font-size: 0.82rem;
+    border-radius: 10px;
+  }
+
+  :global([data-theme="dark"]) .tarik-action-card {
+    background: #2b2d31;
+    border-color: #3f4147;
+  }
+
+  :global([data-theme="dark"]) .tarik-action-icon {
+    background: #1e1f22;
+    border-color: #3f4147;
+    color: #949ba4;
+  }
+
+  :global([data-theme="dark"]) .tarik-action-text strong {
+    color: #f2f3f5;
+  }
+
+  :global([data-theme="dark"]) .tarik-action-text small {
+    color: #949ba4;
+  }
+
+  :global([data-theme="dark"]) .tarik-action-opt input:checked + .tarik-action-card {
+    background: #1e2920;
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+  }
+
+  :global([data-theme="dark"]) .tarik-action-opt input:checked + .tarik-action-card .tarik-action-icon {
+    background: #22c55e;
+    color: #ffffff;
+    border-color: #22c55e;
+  }
+
+  :global([data-theme="dark"]) .tarik-action-opt input:checked + .tarik-action-card .tarik-action-text strong {
+    color: #4ade80;
+  }
+
+  :global([data-theme="dark"]) .tarik-note-label {
+    color: #949ba4;
+  }
+
   .confirm-badge {
     width: 54px;
     height: 54px;
@@ -6700,6 +6906,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   // Confirm Pull & Permanent Delete Modals
   const confirmPullModal = document.getElementById('confirm-pull-modal') as HTMLElement;
   const confirmPullLocation = document.getElementById('confirm-pull-location') as HTMLElement;
+  const tarikOptTarik = document.getElementById('tarik-opt-tarik') as HTMLInputElement | null;
+  const tarikOptTukar = document.getElementById('tarik-opt-tukar') as HTMLInputElement | null;
+  const tarikNoteInput = document.getElementById('tarik-note-input') as HTMLInputElement | null;
+  const btnExecutePullText = document.getElementById('btn-execute-pull-text') as HTMLElement | null;
   const confirmDeleteModal = document.getElementById('confirm-delete-modal') as HTMLElement;
   const confirmDeleteLocation = document.getElementById('confirm-delete-location') as HTMLElement;
 
@@ -6956,9 +7166,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       }
       if (id) {
         closeAllDropdowns();
-        pendingPullId = id;
-        confirmPullLocation.textContent = loc;
-        confirmPullModal.hidden = false;
+        openPullModal(id, loc);
       }
     }
   });
@@ -7228,9 +7436,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     const { daysLeft, isOverdue } = getDaysRemaining(item.date_end);
     if (isDone) {
       const doneDate = item.completed_at ? formatDateDisplay(item.completed_at) : '';
+      const actionTxt = item.tarik_action === 'tukar' ? 'Tukar Tong' : t('pulled');
       return `<span class="days-pill done">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        ${t('pulled')}${doneDate ? ` &bull; ${doneDate}` : ''}
+        ${actionTxt}${doneDate ? ` &bull; ${doneDate}` : ''}
       </span>`;
     }
     if (isOverdue) {
@@ -7306,8 +7515,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     detailStartVal.textContent = formatDateDisplay(rec.date_start);
     detailEndVal.textContent = formatDateDisplay(rec.date_end);
 
-    if (rec.notes && rec.notes.trim()) {
-      detailNotesVal.textContent = rec.notes;
+    const displayNotes = [
+      rec.notes && rec.notes.trim() ? rec.notes.trim() : '',
+      rec.tarik_notes && rec.tarik_notes.trim() ? `[${rec.tarik_action === 'tukar' ? 'Tukar' : 'Tarik'}] ${rec.tarik_notes.trim()}` : ''
+    ].filter(Boolean).join(' • ');
+
+    if (displayNotes) {
+      detailNotesVal.textContent = displayNotes;
       detailNotesBox.hidden = false;
     } else {
       detailNotesBox.hidden = true;
@@ -7481,9 +7695,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       return;
     }
     closeDetailModal();
-    pendingPullId = rec.id;
-    confirmPullLocation.textContent = rec.location;
-    confirmPullModal.hidden = false;
+    openPullModal(rec.id, rec.location);
   });
 
   document.getElementById('btn-detail-restore')?.addEventListener('click', async () => {
@@ -8363,6 +8575,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
   }
 
+  function openPullModal(id: string, loc: string) {
+    pendingPullId = id;
+    confirmPullLocation.textContent = loc;
+    if (tarikOptTarik) tarikOptTarik.checked = true;
+    if (tarikNoteInput) tarikNoteInput.value = '';
+    if (btnExecutePullText) btnExecutePullText.textContent = 'Confirm Tarik Tong';
+    confirmPullModal.hidden = false;
+  }
+
+  tarikOptTarik?.addEventListener('change', () => {
+    if (btnExecutePullText) btnExecutePullText.textContent = 'Confirm Tarik Tong';
+  });
+
+  tarikOptTukar?.addEventListener('change', () => {
+    if (btnExecutePullText) btnExecutePullText.textContent = 'Confirm Tukar Tong';
+  });
+
   function closePullModal() {
     confirmPullModal.hidden = true;
     pendingPullId = null;
@@ -8668,11 +8897,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
   });
 
-  // Confirm Mark Pulled -> Moves to Completed Section
+  // Confirm Mark Pulled / Tukar Tong -> Moves to Completed Section
   document.getElementById('btn-cancel-pull')?.addEventListener('click', closePullModal);
   document.getElementById('btn-execute-pull')?.addEventListener('click', async () => {
     if (!pendingPullId) return;
     const rec = allRecords.find((r) => r.id === pendingPullId);
+    const chosenAction: 'tarik' | 'tukar' = tarikOptTukar?.checked ? 'tukar' : 'tarik';
+    const noteText = tarikNoteInput?.value.trim() || undefined;
     closePullModal();
     if (!rec) return;
 
@@ -8681,22 +8912,26 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       return;
     }
 
+    const actionLabel = chosenAction === 'tukar' ? 'Tukar Tong' : 'Tarik Tong';
+
     const completedRecord: RoroRecord = {
       ...rec,
       status: 'Completed',
-      completed_at: new Date().toISOString()
+      completed_at: new Date().toISOString(),
+      tarik_action: chosenAction,
+      tarik_notes: noteText
     };
 
     allRecords = allRecords.map((r) => (r.id === rec.id ? completedRecord : r));
     render();
     const res = await updateRoroRecord(completedRecord);
     logAuditEvent({
-      action: 'TARIK_BIN',
+      action: chosenAction === 'tukar' ? 'TUKAR_BIN' : 'TARIK_BIN',
       record_id: completedRecord.id,
       location: completedRecord.location,
-      details: `Tarik / Marked Pulled • ${completedRecord.bin_owner} • ${completedRecord.size} • RM ${completedRecord.price}${completedRecord.invoice_no ? ` • INV #${completedRecord.invoice_no}` : ''}`
+      details: `${actionLabel}${noteText ? ` (${noteText})` : ''} • ${completedRecord.bin_owner} • ${completedRecord.size} • RM ${completedRecord.price}${completedRecord.invoice_no ? ` • INV #${completedRecord.invoice_no}` : ''}`
     });
-    showToast(res.synced ? 'Moved to Completed (Supabase synced)' : 'Moved to Completed section');
+    showToast(res.synced ? `${actionLabel} saved (Supabase synced)` : `${actionLabel} saved to Completed`);
   });
 
   // Confirm Permanent Delete (from Completed Section)
