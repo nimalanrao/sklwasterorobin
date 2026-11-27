@@ -33,7 +33,7 @@ export const analyticsConfig: AnalyticsConfig = {
   googleSiteVerification: import.meta.env.PUBLIC_GSC_VERIFICATION ?? '',
   gscVerificationToken: import.meta.env.PUBLIC_GSC_VERIFICATION ?? '',
   ga4MeasurementId: import.meta.env.PUBLIC_GA4_MEASUREMENT_ID ?? '',
-  gtmId: import.meta.env.PUBLIC_GTM_ID ?? '',
+  gtmId: import.meta.env.PUBLIC_GTM_ID || 'GTM-WH7RDN24',
   googleAdsId: import.meta.env.PUBLIC_GOOGLE_ADS_ID ?? '',
   googleAdsConversionLabel: import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_LABEL ?? ''
 };
