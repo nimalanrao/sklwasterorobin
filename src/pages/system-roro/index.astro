@@ -337,6 +337,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
+          <span class="mobile-header-logo" aria-hidden="true">
+            <picture>
+              <source srcset="/images/logo-skl-waste-sdn-bhd.webp" type="image/webp" />
+              <img src="/images/skl-logo.png" alt="SKL Waste" width="28" height="28" />
+            </picture>
+          </span>
           <div>
             <h1 class="workspace-title" id="workspace-heading">Active Bins</h1>
             <p class="workspace-sub" id="workspace-subtitle">Live fleet status and pulls</p>
@@ -344,7 +350,15 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </div>
 
         <div class="workspace-header-right">
-          <!-- Pickup Notification Center (Bell with Animated Blur Dropdown) -->
+          <button type="button" id="btn-mob-refresh" class="notif-bell-btn mobile-refresh-btn" title="Refresh data" aria-label="Refresh data">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+          </button>
+
+          <!-- Pickup Notification Center (Bell with Animated Blur Dropdown / Fullscreen on Mobile) -->
           <div class="dropdown-anchor" id="notif-dropdown-wrapper">
             <button type="button" id="btn-notif-bell" class="notif-bell-btn" aria-haspopup="true" aria-expanded="false" aria-label="Pickup notifications">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -356,17 +370,25 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
             <div class="blur-dropdown-menu downward right-aligned notif-panel" id="notif-dropdown-menu" role="menu">
               <div class="notif-panel-head">
-                <div>
+                <div class="notif-head-title-wrap">
                   <span class="notif-panel-title">Pickup Alerts</span>
                   <span class="notif-panel-sub" id="notif-panel-sub">Due today or overdue</span>
                 </div>
-                <button type="button" id="btn-enable-browser-notif" class="browser-notif-pill" title="Enable browser alerts">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                  </svg>
-                  <span id="browser-notif-label">Alerts</span>
-                </button>
+                <div class="notif-head-actions">
+                  <button type="button" id="btn-enable-browser-notif" class="browser-notif-pill" title="Enable browser alerts">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                      <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span id="browser-notif-label">Alerts</span>
+                  </button>
+                  <button type="button" id="btn-close-notif" class="notif-close-btn" aria-label="Close notifications">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
               </div>
               <div class="dropdown-sep"></div>
               <div class="notif-list" id="notif-list-body">
@@ -1392,6 +1414,178 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       </div>
     </div>
 
+    <!-- MOBILE APP FLOATING CURVED BOTTOM NAVIGATION BAR (Mobile Only <= 900px) -->
+    <nav id="mobile-bottom-nav" class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <button type="button" class="mob-tab-btn active" data-nav-view="all">
+        <span class="mob-tab-icon">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+        </span>
+        <span class="mob-tab-label" data-i18n="mob_nav_active">Active</span>
+      </button>
+
+      <button type="button" class="mob-tab-btn" data-nav-view="overdue">
+        <span class="mob-tab-icon">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <span class="mob-tab-badge" id="mob-nav-badge-overdue" hidden>0</span>
+        </span>
+        <span class="mob-tab-label" data-i18n="mob_nav_pull">Pull</span>
+      </button>
+
+      <button type="button" id="btn-mob-add-bin" class="mob-add-fab" aria-label="Add Bin">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+
+      <button type="button" class="mob-tab-btn" data-nav-view="completed">
+        <span class="mob-tab-icon">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </span>
+        <span class="mob-tab-label" data-i18n="mob_nav_done">Done</span>
+      </button>
+
+      <button type="button" id="btn-mob-more" class="mob-tab-btn" aria-haspopup="dialog" aria-expanded="false">
+        <span class="mob-tab-icon">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M20 21a8 8 0 1 0-16 0"></path>
+          </svg>
+        </span>
+        <span class="mob-tab-label" data-i18n="mob_nav_menu">Menu</span>
+      </button>
+    </nav>
+
+    <!-- MOBILE APP "MORE / ACCOUNT" CURVED BOTTOM SHEET (Replaces Sidebar on Mobile) -->
+    <div id="mobile-more-modal" class="mobile-sheet-overlay" hidden>
+      <div class="mobile-sheet" role="dialog" aria-modal="true" aria-labelledby="mob-sheet-title">
+        <div class="mobile-sheet-handle" aria-hidden="true"></div>
+        <div class="mobile-sheet-head">
+          <div class="mobile-sheet-user">
+            <span class="mobile-sheet-avatar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </span>
+            <div>
+              <span class="mobile-sheet-name" id="mob-user-name">Admin</span>
+              <span class="mobile-sheet-role" id="mob-user-role">Administrator</span>
+            </div>
+          </div>
+          <div class="mobile-sheet-head-btns">
+            <button type="button" id="btn-mob-sheet-refresh" class="mobile-sheet-icon-btn" title="Sync data" aria-label="Sync data">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+            </button>
+            <button type="button" id="btn-close-mob-more" class="mobile-sheet-icon-btn" aria-label="Close menu">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="mobile-sheet-body">
+          <div class="mob-sheet-section">
+            <span class="mob-sheet-label" id="mob-sheet-title" data-i18n="section_operations">QUICK VIEWS</span>
+            <div class="mob-chip-grid">
+              <button type="button" class="mob-view-chip" data-nav-view="active">
+                <span data-i18n="nav_active">&lt;10 Days</span>
+                <span class="mob-chip-count green" id="mob-count-active">0</span>
+              </button>
+              <button type="button" class="mob-view-chip" data-nav-view="owner_skl">
+                <span>SKL Waste</span>
+                <span class="mob-chip-count" id="mob-count-owner-skl">0</span>
+              </button>
+              <button type="button" class="mob-view-chip" data-nav-view="owner_thirumal">
+                <span>Thirumal Vel</span>
+                <span class="mob-chip-count amber" id="mob-count-owner-thirumal">0</span>
+              </button>
+              <button type="button" class="mob-view-chip" data-nav-view="2ft">
+                <span data-i18n="size_2ft">2 Feet</span>
+                <span class="mob-chip-count" id="mob-count-2ft">0</span>
+              </button>
+              <button type="button" class="mob-view-chip" data-nav-view="4ft">
+                <span data-i18n="size_4ft">4 Feet</span>
+                <span class="mob-chip-count" id="mob-count-4ft">0</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="mob-sheet-prefs">
+            <div class="mob-pref-col">
+              <span class="mob-sheet-label" data-i18n="section_language">LANGUAGE</span>
+              <div class="lang-toggle-wrap compact-toggle">
+                <button type="button" class="lang-btn active" id="btn-mob-lang-en" data-lang="en"><span>English</span></button>
+                <button type="button" class="lang-btn" id="btn-mob-lang-ms" data-lang="ms"><span>B. Melayu</span></button>
+              </div>
+            </div>
+            <div class="mob-pref-col">
+              <span class="mob-sheet-label" data-i18n="section_theme">THEME</span>
+              <div class="lang-toggle-wrap compact-toggle">
+                <button type="button" class="lang-btn active" id="btn-mob-theme-light" data-theme-choice="light">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line></svg>
+                  <span data-i18n="theme_light">Light</span>
+                </button>
+                <button type="button" class="lang-btn" id="btn-mob-theme-dark" data-theme-choice="dark">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                  <span data-i18n="theme_dark">Dark</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mob-sheet-section" data-admin-only>
+            <span class="mob-sheet-label" data-i18n="section_admin">ADMIN</span>
+            <div class="mob-sheet-actions">
+              <button type="button" id="btn-mob-admin-panel" class="mob-sheet-action-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span data-i18n="nav_admin_panel">Admin Panel</span>
+              </button>
+              <a href="/system-roro/statement" target="_blank" rel="noopener noreferrer" class="mob-sheet-action-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                <span data-i18n="nav_statement">Daily Statement</span>
+              </a>
+              <button type="button" id="btn-mob-settings" class="mob-sheet-action-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span data-i18n="nav_settings">Settings</span>
+              </button>
+              <button type="button" id="btn-mob-export-json" class="mob-sheet-action-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Export JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <button type="button" id="btn-mob-logout" class="mob-sheet-logout-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Subtle Frosted Toast Notification -->
     <div id="toast-bar" class="toast-bar" role="status" aria-live="polite" hidden>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -2174,6 +2368,54 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     justify-content: space-between;
     gap: 0.5rem;
     padding: 0.25rem 0.4rem 0.35rem;
+  }
+
+  .notif-head-title-wrap {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .notif-head-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+  }
+
+  .notif-close-btn {
+    display: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #334155;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.14s ease;
+  }
+
+  .notif-close-btn:active {
+    transform: scale(0.92);
+  }
+
+  .mobile-header-logo,
+  .mobile-refresh-btn,
+  .mobile-bottom-nav,
+  .mobile-sheet-overlay {
+    display: none;
+  }
+
+  .mobile-sheet-overlay[hidden] {
+    display: none !important;
+  }
+
+  .mobile-refresh-btn.spinning svg,
+  .mobile-sheet-icon-btn.spinning svg {
+    animation: spin360 0.7s linear infinite;
   }
 
   .notif-panel-title {
@@ -4671,84 +4913,578 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   @media (max-width: 900px) {
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 100vw;
-      width: 100dvw;
-      max-width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      margin: 0;
-      border-radius: 0;
-      transform: translateX(-105%);
-      box-shadow: none;
-      border: none;
-      z-index: 70;
+    /* Completely remove Sidebar & Hamburger Menu on Mobile */
+    .sidebar,
+    .sidebar-backdrop,
+    .mobile-menu-btn,
+    .mobile-close-btn,
+    .primary-create-btn {
+      display: none !important;
     }
 
-    .sidebar.is-open { transform: translateX(0); }
-    .mobile-menu-btn, .mobile-close-btn { display: inline-flex; }
-    .workspace { padding: 1.15rem 1rem 2.5rem; gap: 1.05rem; }
-    .workspace-title { font-size: 1.45rem; }
-    .workspace-sub { font-size: 0.88rem; }
-
-    .sidebar-brand {
-      padding: 1.25rem 1.15rem;
-      border-radius: 0;
+    .workspace {
+      padding: 1.05rem 1rem calc(108px + env(safe-area-inset-bottom, 0px));
+      gap: 1.05rem;
     }
 
-    .sidebar-nav {
-      padding: 1rem 1.15rem;
-      gap: 0.45rem;
+    .workspace-header {
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 0.95rem;
     }
 
-    .nav-item {
-      padding: 0.85rem 1rem;
-      font-size: 1.05rem;
-      border-radius: 14px;
+    .workspace-header-left {
+      min-width: 0;
+      gap: 0.7rem;
     }
 
-    .nav-item-left svg {
-      width: 22px;
-      height: 22px;
+    .mobile-header-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 3px 10px -3px rgba(15, 23, 42, 0.12);
+      flex-shrink: 0;
+      padding: 4px;
     }
 
-    .nav-count {
-      font-size: 0.9rem;
-      padding: 0.2rem 0.7rem;
+    .mobile-header-logo img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      display: block;
     }
 
-    .sidebar-footer {
-      padding: 1.15rem;
-      border-radius: 0;
-      gap: 0.95rem;
+    .workspace-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
     }
 
-    .sync-status-card {
-      padding: 0.85rem 0.95rem;
-      border-radius: 16px;
+    .workspace-sub {
+      font-size: 0.82rem;
+      line-height: 1.3;
     }
 
-    .admin-profile-trigger {
-      padding: 0.75rem 0.85rem;
-      border-radius: 16px;
+    .workspace-header-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
     }
 
-    .admin-avatar {
+    .mobile-refresh-btn {
+      display: inline-flex;
+    }
+
+    .notif-bell-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+    }
+
+    /* Toast floats cleanly above curved bottom app bar */
+    .toast-bar {
+      bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+      left: 14px;
+      right: 14px;
+      justify-content: center;
+    }
+
+    /* ======================================================================
+       FULL-SCREEN NOTIFICATIONS PANEL ON MOBILE
+       ====================================================================== */
+    .notif-panel,
+    .blur-dropdown-menu.downward.right-aligned.notif-panel {
+      position: fixed !important;
+      inset: 0 !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      width: 100dvw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      max-width: none !important;
+      max-height: none !important;
+      border-radius: 0 !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      background: #f8fafc !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      z-index: 220 !important;
+      transform: translateY(20px) !important;
+      filter: none !important;
+      transform-origin: center center !important;
+      transition: opacity 0.22s ease, transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s !important;
+    }
+
+    .dropdown-anchor.is-open .notif-panel,
+    .dropdown-anchor.is-open .blur-dropdown-menu.downward.right-aligned.notif-panel {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      pointer-events: auto !important;
+    }
+
+    .notif-panel .dropdown-sep {
+      display: none;
+    }
+
+    .notif-panel-head {
+      padding: calc(1rem + env(safe-area-inset-top, 0px)) 1.15rem 1rem !important;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      flex-shrink: 0;
+      gap: 0.75rem;
+    }
+
+    .notif-panel-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .notif-panel-sub {
+      font-size: 0.85rem;
+      margin-top: 0.1rem;
+    }
+
+    .notif-panel .browser-notif-pill {
+      height: 36px;
+      padding: 0 0.8rem;
+      border-radius: 11px;
+      font-size: 0.8rem;
+    }
+
+    .notif-close-btn {
+      display: inline-flex;
       width: 40px;
       height: 40px;
       border-radius: 12px;
     }
 
-    .admin-name {
-      font-size: 1rem;
+    .notif-list {
+      flex: 1;
+      max-height: none !important;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem 1rem calc(2rem + env(safe-area-inset-bottom, 0px));
+      gap: 0.75rem;
     }
 
-    .admin-role {
-      font-size: 0.82rem;
+    :global(.notif-empty) {
+      padding: 4rem 1.5rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    :global(.notif-item-card) {
+      padding: 1rem 1.05rem;
+      border-radius: 16px;
+      gap: 0.6rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 14px -4px rgba(15, 23, 42, 0.07);
+    }
+
+    :global(.notif-item-loc) {
+      font-size: 0.98rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    :global(.notif-item-tag) {
+      font-size: 0.76rem;
+      padding: 0.24rem 0.65rem;
+    }
+
+    :global(.notif-item-meta) {
+      font-size: 0.84rem;
+    }
+
+    :global(.notif-item-actions) {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    :global(.notif-wa-link),
+    :global(.notif-pull-btn) {
+      height: 40px;
+      border-radius: 11px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0 0.5rem;
+      text-align: center;
+    }
+
+    /* ======================================================================
+       APP-STYLE FLOATING CURVED BOTTOM NAVIGATION BAR (Mobile Only)
+       ====================================================================== */
+    .mobile-bottom-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+      height: 68px;
+      padding: 6px 10px;
+      gap: 4px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(22px) saturate(185%);
+      -webkit-backdrop-filter: blur(22px) saturate(185%);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow:
+        0 14px 36px -8px rgba(15, 23, 42, 0.18),
+        0 4px 12px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      z-index: 120;
+    }
+
+    .mob-tab-btn {
+      flex: 1;
+      height: 54px;
+      border: none;
+      background: transparent;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: #64748b;
+      cursor: pointer;
+      padding: 4px 2px;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.16s ease, background-color 0.18s ease, transform 0.14s ease;
+    }
+
+    .mob-tab-btn:active {
+      transform: scale(0.92);
+    }
+
+    .mob-tab-btn.active {
+      color: #15803d;
+      background: rgba(22, 163, 74, 0.11);
+    }
+
+    .mob-tab-icon {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 24px;
+    }
+
+    .mob-tab-btn.active .mob-tab-icon svg {
+      stroke-width: 2.4;
+    }
+
+    .mob-tab-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .mob-tab-btn.active .mob-tab-label {
+      font-weight: 800;
+    }
+
+    .mob-tab-badge {
+      position: absolute;
+      top: -5px;
+      right: -9px;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      border-radius: 9999px;
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 0.62rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
+    }
+
+    .mob-tab-badge[hidden] {
+      display: none;
+    }
+
+    .mob-add-fab {
+      width: 52px;
+      height: 52px;
+      flex-shrink: 0;
+      margin: 0 4px;
+      border-radius: 18px;
+      border: none;
+      background: linear-gradient(145deg, #16a34a 0%, #15803d 100%);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow:
+        0 8px 20px -4px rgba(21, 128, 61, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease;
+    }
+
+    .mob-add-fab:active {
+      transform: scale(0.9);
+      box-shadow: 0 4px 12px -2px rgba(21, 128, 61, 0.45);
+    }
+
+    /* ======================================================================
+       MOBILE "MORE / ACCOUNT" CURVED BOTTOM SHEET
+       ====================================================================== */
+    .mobile-sheet-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 210;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      animation: sheetFadeIn 0.2s ease-out;
+    }
+
+    @keyframes sheetFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes sheetSlideUp {
+      from { transform: translateY(36px); opacity: 0.6; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .mobile-sheet {
+      width: 100%;
+      max-height: 86dvh;
+      background: #ffffff;
+      border-radius: 28px 28px 0 0;
+      box-shadow: 0 -16px 44px -8px rgba(15, 23, 42, 0.24);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: sheetSlideUp 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-sheet-handle {
+      width: 40px;
+      height: 4px;
+      border-radius: 9999px;
+      background: #cbd5e1;
+      margin: 10px auto 4px;
+      flex-shrink: 0;
+    }
+
+    .mobile-sheet-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 1.2rem 0.95rem;
+      border-bottom: 1px solid #f1f5f9;
+      flex-shrink: 0;
+    }
+
+    .mobile-sheet-user {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .mobile-sheet-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #15803d;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .mobile-sheet-name {
+      display: block;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+
+    .mobile-sheet-role {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .mobile-sheet-head-btns {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .mobile-sheet-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .mobile-sheet-body {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 1.05rem 1.2rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .mob-sheet-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .mob-sheet-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+
+    .mob-chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .mob-view-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.58rem 0.85rem;
+      border-radius: 13px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .mob-view-chip.active {
+      background: #f0fdf4;
+      border-color: #16a34a;
+      color: #15803d;
+    }
+
+    .mob-chip-count {
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 0.1rem 0.45rem;
+      border-radius: 9999px;
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .mob-chip-count.green {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .mob-chip-count.amber {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .mob-sheet-prefs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .mob-pref-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .mob-sheet-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+
+    .mob-sheet-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.78rem 0.85rem;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #0f172a;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .mob-sheet-logout-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: 15px;
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      color: #dc2626;
+      font-size: 0.92rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
     }
   }
 
@@ -4925,25 +5661,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   @media (max-width: 640px) {
     .workspace {
-      padding: 1.15rem 1rem 3.5rem;
-      gap: 1.25rem;
-    }
-
-    .mobile-menu-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
+      padding: 1rem 0.95rem calc(108px + env(safe-area-inset-bottom, 0px));
+      gap: 1.15rem;
     }
 
     .workspace-title {
-      font-size: 1.7rem;
+      font-size: 1.48rem;
       font-weight: 800;
       letter-spacing: -0.03em;
     }
 
     .workspace-sub {
-      font-size: 0.94rem;
-      line-height: 1.35;
+      font-size: 0.84rem;
+      line-height: 1.3;
     }
 
     /* Spacious, thumb-friendly 2 + 1 KPI layout on mobile with bigger typography */
@@ -4987,49 +5717,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .workspace-header {
-      padding-bottom: 1.1rem;
+      padding-bottom: 0.9rem;
     }
 
     .workspace-header-right {
-      width: 100%;
-      justify-content: space-between;
-      gap: 0.75rem;
+      width: auto;
+      gap: 0.5rem;
     }
 
     .notif-bell-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
     }
 
     .notif-bell-btn svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    .primary-create-btn {
-      flex: 1;
-      height: 50px;
-      font-size: 1.05rem;
-      font-weight: 800;
-      border-radius: 14px;
-      justify-content: center;
-      gap: 0.6rem;
-    }
-
-    .primary-create-btn svg {
       width: 20px;
       height: 20px;
-    }
-
-    /* Viewport-safe Notification Panel */
-    .notif-panel {
-      position: fixed;
-      top: 80px;
-      left: 12px;
-      right: 12px;
-      width: auto;
-      max-width: none;
     }
 
     /* Pickup Alert Banner */
@@ -6088,6 +6792,128 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     color: #b5bac1;
   }
 
+  @media (max-width: 900px) {
+    :global([data-theme="dark"]) .mobile-header-logo {
+      background: #ffffff;
+      border-color: #4e5058;
+    }
+
+    :global([data-theme="dark"]) .mobile-bottom-nav {
+      background: rgba(35, 36, 40, 0.94);
+      border-color: rgba(78, 80, 88, 0.75);
+      box-shadow:
+        0 18px 40px -8px rgba(0, 0, 0, 0.65),
+        0 2px 8px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    :global([data-theme="dark"]) .mob-tab-btn {
+      color: #949ba4;
+    }
+
+    :global([data-theme="dark"]) .mob-tab-btn.active {
+      color: #43d17a;
+      background: rgba(35, 165, 90, 0.18);
+    }
+
+    :global([data-theme="dark"]) .mob-tab-badge {
+      border-color: #232428;
+    }
+
+    :global([data-theme="dark"]) .mob-add-fab {
+      background: linear-gradient(145deg, #23a55a 0%, #1d8f4d 100%);
+      box-shadow:
+        0 8px 22px -4px rgba(35, 165, 90, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    }
+
+    /* Full-Screen Notifications in Dark Mode */
+    :global([data-theme="dark"]) .notif-panel,
+    :global([data-theme="dark"]) .blur-dropdown-menu.downward.right-aligned.notif-panel {
+      background: #1e1f22 !important;
+    }
+
+    :global([data-theme="dark"]) .notif-panel-head {
+      background: #2b2d31;
+      border-bottom-color: #3f4147;
+    }
+
+    :global([data-theme="dark"]) .notif-close-btn {
+      background: #1e1f22;
+      border-color: #3f4147;
+      color: #dbdee1;
+    }
+
+    /* Mobile Curved Bottom Sheet in Dark Mode */
+    :global([data-theme="dark"]) .mobile-sheet-overlay {
+      background: rgba(0, 0, 0, 0.68);
+    }
+
+    :global([data-theme="dark"]) .mobile-sheet {
+      background: #2b2d31;
+      border-top: 1px solid #3f4147;
+      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.65);
+    }
+
+    :global([data-theme="dark"]) .mobile-sheet-handle {
+      background: #4e5058;
+    }
+
+    :global([data-theme="dark"]) .mobile-sheet-head {
+      border-bottom-color: #3f4147;
+    }
+
+    :global([data-theme="dark"]) .mobile-sheet-avatar {
+      background: rgba(35, 165, 90, 0.18);
+      border-color: rgba(35, 165, 90, 0.35);
+      color: #43d17a;
+    }
+
+    :global([data-theme="dark"]) .mobile-sheet-name {
+      color: #f2f3f5;
+    }
+
+    :global([data-theme="dark"]) .mobile-sheet-role,
+    :global([data-theme="dark"]) .mob-sheet-label {
+      color: #949ba4;
+    }
+
+    :global([data-theme="dark"]) .mobile-sheet-icon-btn,
+    :global([data-theme="dark"]) .mob-view-chip,
+    :global([data-theme="dark"]) .mob-sheet-action-btn {
+      background: #1e1f22;
+      border-color: #3f4147;
+      color: #f2f3f5;
+    }
+
+    :global([data-theme="dark"]) .mob-view-chip.active {
+      background: rgba(35, 165, 90, 0.2);
+      border-color: #23a55a;
+      color: #43d17a;
+    }
+
+    :global([data-theme="dark"]) .mob-chip-count {
+      background: #383a40;
+      color: #dbdee1;
+    }
+
+    :global([data-theme="dark"]) .mob-chip-count.green {
+      background: rgba(35, 165, 90, 0.22);
+      color: #43d17a;
+    }
+
+    :global([data-theme="dark"]) .mob-chip-count.amber {
+      background: rgba(240, 178, 50, 0.22);
+      color: #f0b232;
+    }
+
+    :global([data-theme="dark"]) .mob-sheet-logout-btn {
+      background: rgba(242, 63, 67, 0.16);
+      border-color: rgba(242, 63, 67, 0.38);
+      color: #ff6b6e;
+    }
+  }
+
   @media (max-width: 768px) {
     :global([data-theme="dark"]) .roro-table :global(tbody tr) {
       background: #2b2d31;
@@ -6668,6 +7494,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       btn_pull: 'Mark Pulled',
       btn_delete: 'Delete',
       btn_restore: 'Restore to Active',
+      mob_nav_active: 'Active',
+      mob_nav_pull: 'Pull',
+      mob_nav_done: 'Done',
+      mob_nav_menu: 'Menu',
       toast_lang_switched: 'Language switched to English'
     },
     ms: {
@@ -6794,6 +7624,10 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       btn_pull: 'Tandakan Tarik',
       btn_delete: 'Padam',
       btn_restore: 'Kembalikan ke Aktif',
+      mob_nav_active: 'Aktif',
+      mob_nav_pull: 'Tarik',
+      mob_nav_done: 'Selesai',
+      mob_nav_menu: 'Menu',
       toast_lang_switched: 'Bahasa ditukar ke Bahasa Melayu'
     }
   };
@@ -6806,9 +7640,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     currentLang = lang;
     localStorage.setItem(LANG_STORAGE_KEY, lang);
 
-    // Update active button state
+    // Update active button state (Desktop & Mobile Sheet)
     document.getElementById('btn-lang-en')?.classList.toggle('active', lang === 'en');
     document.getElementById('btn-lang-ms')?.classList.toggle('active', lang === 'ms');
+    document.getElementById('btn-mob-lang-en')?.classList.toggle('active', lang === 'en');
+    document.getElementById('btn-mob-lang-ms')?.classList.toggle('active', lang === 'ms');
 
     // Update all elements with data-i18n
     document.querySelectorAll('[data-i18n]').forEach((el) => {
@@ -7225,9 +8061,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   });
 
   // Load Data from Supabase (with seamless Local Cache fallback)
+  const btnMobRefresh = document.getElementById('btn-mob-refresh');
+  const btnMobSheetRefresh = document.getElementById('btn-mob-sheet-refresh');
+
   async function loadRecords(silent = true) {
     if (btnRefreshSync) btnRefreshSync.classList.add('spinning');
     if (btnBrandRefresh) btnBrandRefresh.classList.add('spinning');
+    if (btnMobRefresh) btnMobRefresh.classList.add('spinning');
+    if (btnMobSheetRefresh) btnMobSheetRefresh.classList.add('spinning');
     const result = await fetchAllRecords();
     allRecords = result.records;
 
@@ -7248,6 +8089,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
     if (btnBrandRefresh) {
       window.setTimeout(() => btnBrandRefresh.classList.remove('spinning'), 350);
+    }
+    if (btnMobRefresh) {
+      window.setTimeout(() => btnMobRefresh.classList.remove('spinning'), 350);
+    }
+    if (btnMobSheetRefresh) {
+      window.setTimeout(() => btnMobSheetRefresh.classList.remove('spinning'), 350);
     }
     render();
     firePickupDesktopNotifications(false);
@@ -7305,6 +8152,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (navCountOwnerThirumal) navCountOwnerThirumal.textContent = String(countOwnerThirumal);
     if (navCount2ft) navCount2ft.textContent = String(count2ft);
     if (navCount4ft) navCount4ft.textContent = String(count4ft);
+
+    // Mobile Bottom Bar & More Sheet Counters
+    const mobBadgeOverdue = document.getElementById('mob-nav-badge-overdue');
+    if (mobBadgeOverdue) {
+      mobBadgeOverdue.textContent = String(needsPickupCount);
+      mobBadgeOverdue.hidden = needsPickupCount <= 0;
+    }
+    const mobCountActive = document.getElementById('mob-count-active');
+    const mobCountSkl = document.getElementById('mob-count-owner-skl');
+    const mobCountThirumal = document.getElementById('mob-count-owner-thirumal');
+    const mobCount2ft = document.getElementById('mob-count-2ft');
+    const mobCount4ft = document.getElementById('mob-count-4ft');
+    if (mobCountActive) mobCountActive.textContent = String(within10Count);
+    if (mobCountSkl) mobCountSkl.textContent = String(countOwnerSkl);
+    if (mobCountThirumal) mobCountThirumal.textContent = String(countOwnerThirumal);
+    if (mobCount2ft) mobCount2ft.textContent = String(count2ft);
+    if (mobCount4ft) mobCount4ft.textContent = String(count4ft);
 
     // Filter
     const isCompletedView = filterStatus === 'completed';
@@ -8613,6 +9477,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   // Bind Modal Triggers
   document.getElementById('btn-open-modal')?.addEventListener('click', openCreateModal);
+  document.getElementById('btn-mob-add-bin')?.addEventListener('click', openCreateModal);
   btnEmptyCreate?.addEventListener('click', openCreateModal);
   document.getElementById('btn-close-modal')?.addEventListener('click', requestCloseModal);
   document.getElementById('btn-cancel-modal')?.addEventListener('click', requestCloseModal);
@@ -8647,6 +9512,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       if (!settingsModal.hidden) closeSettingsModal();
       if (!confirmPullModal.hidden) closePullModal();
       if (!confirmDeleteModal.hidden) closeDeleteModal();
+      if (mobileMoreModal && !mobileMoreModal.hidden) closeMobileMoreSheet();
       closeAllDropdowns();
     }
   });
@@ -8974,6 +9840,20 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     document.getElementById('filter-sort-wrapper')
   ].filter(Boolean) as HTMLElement[];
 
+  const mobileMoreModal = document.getElementById('mobile-more-modal') as HTMLElement | null;
+  const btnMobMore = document.getElementById('btn-mob-more') as HTMLButtonElement | null;
+
+  function syncMobileBodyScrollLock() {
+    const notifOpen = Boolean(document.getElementById('notif-dropdown-wrapper')?.classList.contains('is-open'));
+    const sheetOpen = Boolean(mobileMoreModal && !mobileMoreModal.hidden);
+    if (window.innerWidth <= 900 && (notifOpen || sheetOpen)) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+  window.addEventListener('resize', syncMobileBodyScrollLock);
+
   function closeAllDropdowns(except?: HTMLElement) {
     for (const anchor of dropdownAnchors) {
       if (anchor !== except) {
@@ -8982,6 +9862,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
       }
     }
+    syncMobileBodyScrollLock();
   }
 
   function wireDropdown(wrapperId: string, triggerId: string) {
@@ -8995,6 +9876,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       closeAllDropdowns(wrapper);
       wrapper.classList.toggle('is-open', willOpen);
       trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      syncMobileBodyScrollLock();
     });
   }
 
@@ -9005,8 +9887,12 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   wireDropdown('filter-status-wrapper', 'btn-filter-status');
   wireDropdown('filter-sort-wrapper', 'btn-filter-sort');
 
-  // Keep notification panel open when clicking inside it
+  // Keep notification panel open when clicking inside it, close with X button
   document.getElementById('notif-dropdown-menu')?.addEventListener('click', (e) => e.stopPropagation());
+  document.getElementById('btn-close-notif')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeAllDropdowns();
+  });
   document.addEventListener('click', () => {
     closeAllDropdowns();
   });
@@ -9121,6 +10007,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     syncFilterUI();
     closeMobileSidebar();
+    closeMobileMoreSheet();
+    const isSecondaryView = !['all', 'overdue', 'completed'].includes(view);
+    btnMobMore?.classList.toggle('active', isSecondaryView);
     render();
     triggerTabBlurSlideLeft();
   }
@@ -9182,7 +10071,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     });
   });
 
-  // Mobile Sidebar Controls
+  // Mobile Sidebar Controls (Desktop fallback) + Mobile Curved Bottom Sheet ("Menu")
   function openMobileSidebar() {
     sidebar?.classList.add('is-open');
     if (sidebarBackdrop) sidebarBackdrop.hidden = false;
@@ -9193,24 +10082,38 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (sidebarBackdrop) sidebarBackdrop.hidden = true;
   }
 
+  function openMobileMoreSheet() {
+    if (!mobileMoreModal) return;
+    closeAllDropdowns();
+    mobileMoreModal.hidden = false;
+    btnMobMore?.setAttribute('aria-expanded', 'true');
+    syncMobileBodyScrollLock();
+  }
+
+  function closeMobileMoreSheet() {
+    if (!mobileMoreModal) return;
+    mobileMoreModal.hidden = true;
+    btnMobMore?.setAttribute('aria-expanded', 'false');
+    syncMobileBodyScrollLock();
+  }
+
   btnOpenSidebar?.addEventListener('click', openMobileSidebar);
   btnCloseSidebar?.addEventListener('click', closeMobileSidebar);
   sidebarBackdrop?.addEventListener('click', closeMobileSidebar);
 
+  btnMobMore?.addEventListener('click', openMobileMoreSheet);
+  document.getElementById('btn-close-mob-more')?.addEventListener('click', closeMobileMoreSheet);
+  mobileMoreModal?.addEventListener('click', (e) => {
+    if (e.target === mobileMoreModal) closeMobileMoreSheet();
+  });
+
   // Sync Refresh, SQL Copy & JSON Export
   btnRefreshSync?.addEventListener('click', () => loadRecords(false));
   btnBrandRefresh?.addEventListener('click', () => loadRecords(false));
+  btnMobRefresh?.addEventListener('click', () => loadRecords(false));
+  btnMobSheetRefresh?.addEventListener('click', () => loadRecords(false));
 
-  btnCopySql?.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(SUPABASE_SETUP_SQL);
-      showToast('SQL copied! Paste into Supabase SQL Editor.');
-    } catch {
-      showToast('See public/system_roro_schema.sql for table SQL');
-    }
-  });
-
-  document.getElementById('btn-export-json')?.addEventListener('click', () => {
+  function exportRecordsJson() {
     const blob = new Blob([JSON.stringify(allRecords, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -9221,8 +10124,30 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     a.remove();
     URL.revokeObjectURL(url);
     closeAllDropdowns();
+    closeMobileMoreSheet();
     showToast('JSON export downloaded');
+  }
+
+  btnCopySql?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(SUPABASE_SETUP_SQL);
+      showToast('SQL copied! Paste into Supabase SQL Editor.');
+    } catch {
+      showToast('See public/system_roro_schema.sql for table SQL');
+    }
   });
+
+  document.getElementById('btn-export-json')?.addEventListener('click', exportRecordsJson);
+  document.getElementById('btn-mob-export-json')?.addEventListener('click', exportRecordsJson);
+  document.getElementById('btn-mob-admin-panel')?.addEventListener('click', () => {
+    closeMobileMoreSheet();
+    openAdminPanel();
+  });
+  document.getElementById('btn-mob-settings')?.addEventListener('click', () => {
+    closeMobileMoreSheet();
+    openSettingsModal();
+  });
+  document.getElementById('btn-mob-logout')?.addEventListener('click', performLogout);
 
   // Logout (Left Sidebar Quick Button & Blur Dropdown)
   function performLogout() {
@@ -9267,6 +10192,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
     document.getElementById('btn-theme-light')?.classList.toggle('active', theme === 'light');
     document.getElementById('btn-theme-dark')?.classList.toggle('active', theme === 'dark');
+    document.getElementById('btn-mob-theme-light')?.classList.toggle('active', theme === 'light');
+    document.getElementById('btn-mob-theme-dark')?.classList.toggle('active', theme === 'dark');
   }
 
   document.getElementById('btn-theme-light')?.addEventListener('click', (e) => {
@@ -9279,6 +10206,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     applyTheme('dark');
     showToast(t('toast_theme_dark'));
   });
+  document.getElementById('btn-mob-theme-light')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    applyTheme('light');
+    showToast(t('toast_theme_light'));
+  });
+  document.getElementById('btn-mob-theme-dark')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    applyTheme('dark');
+    showToast(t('toast_theme_dark'));
+  });
 
   document.getElementById('btn-lang-en')?.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -9286,6 +10223,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     showToast(t('toast_lang_switched'));
   });
   document.getElementById('btn-lang-ms')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    applyLanguage('ms');
+    showToast(t('toast_lang_switched'));
+  });
+  document.getElementById('btn-mob-lang-en')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    applyLanguage('en');
+    showToast(t('toast_lang_switched'));
+  });
+  document.getElementById('btn-mob-lang-ms')?.addEventListener('click', (e) => {
     e.stopPropagation();
     applyLanguage('ms');
     showToast(t('toast_lang_switched'));
@@ -9302,10 +10249,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     const sbRole = document.getElementById('sidebar-user-role');
     const dmName = document.getElementById('dm-user-name');
     const dmRole = document.getElementById('dm-user-role');
+    const mobName = document.getElementById('mob-user-name');
+    const mobRole = document.getElementById('mob-user-role');
     if (sbName) sbName.textContent = currentUser.displayName;
     if (sbRole) sbRole.textContent = currentUser.roleLabel;
     if (dmName) dmName.textContent = `${currentUser.displayName} (${currentUser.username})`;
     if (dmRole) dmRole.textContent = currentUser.roleLabel;
+    if (mobName) mobName.textContent = `${currentUser.displayName} (${currentUser.username})`;
+    if (mobRole) mobRole.textContent = currentUser.roleLabel;
 
     // Hide all admin-only controls for non-admin accounts (Tiviya, Karupaiyah, Hari)
     document.querySelectorAll<HTMLElement>('[data-admin-only]').forEach((el) => {
@@ -9315,7 +10266,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     // Drivers (Karupaiyah & Hari) can ONLY Tarik Tong (Mark Pulled) — hide Add Bin buttons
     const btnOpenModalEl = document.getElementById('btn-open-modal') as HTMLElement | null;
+    const btnMobAddBinEl = document.getElementById('btn-mob-add-bin') as HTMLElement | null;
     if (btnOpenModalEl && isDriver) btnOpenModalEl.style.display = 'none';
+    if (btnMobAddBinEl && isDriver) btnMobAddBinEl.style.display = 'none';
     if (btnEmptyCreate && isDriver) btnEmptyCreate.style.display = 'none';
 
     // Tiviya account: restricted to Thirumal Vel Enterprise bins only
