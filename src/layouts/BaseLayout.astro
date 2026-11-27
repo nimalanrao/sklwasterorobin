@@ -134,11 +134,9 @@ const googleAdsId = analyticsConfig.googleAdsId;
     <meta name="author" content="SKL WASTE SDN BHD (200801038953)" />
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Hreflang Language Alternates (Malay Default + English + Chinese for Regional Authority) -->
-    <link rel="alternate" hreflang="ms-MY" href={canonicalUrl} />
-    <link rel="alternate" hreflang="en-MY" href={canonicalUrl} />
-    <link rel="alternate" hreflang="zh-MY" href={canonicalUrl} />
-    <link rel="alternate" hreflang="zh-Hans" href={canonicalUrl} />
+    <!-- Hreflang Language Alternates (Self-referential language alternates) -->
+    <link rel="alternate" hreflang="ms" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
     <!-- Zero-Restriction Robot & AI Crawler Directives -->
@@ -220,22 +218,6 @@ const googleAdsId = analyticsConfig.googleAdsId;
       (function() {
         // Add instant JS ready class for blur-fade animation triggering
         document.documentElement.classList.add('js-ready');
-
-        // Allow verified search engine & AI bot crawlers complete unfiltered access
-        // Human visitors landing directly on inner pages are smoothly redirected to the main homepage
-        var ua = (navigator.userAgent || '').toLowerCase();
-        var isCrawler = /bot|googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|crawler|spider|mediapartners|adsbot|applebot|facebookexternalhit|whatsapp|telegrambot|twitterbot|pinterest|linkedinbot|petalbot|semrushbot|ahrefsbot|mj12bot|dotbot|rogerbot|screaming frog|gptbot|chatgpt|claudebot|anthropic-ai|perplexitybot|cohere|bytespider/i.test(ua);
-        var path = window.location.pathname.replace(/\/+$/, '') || '/';
-
-        // Check if user is human on an inner page and not requesting via sitemap/searchbot preview
-        // Exclude system-roro routes from redirection so admin portal functions without interruption
-        var isSystemRoro = path.startsWith('/system-roro');
-        if (!isCrawler && path !== '/' && path !== '' && path !== '/404' && !isSystemRoro) {
-          // Check query override (e.g. ?view=direct or internal link bypass)
-          if (!window.location.search.includes('nobounce')) {
-            window.location.replace('/?from=' + encodeURIComponent(path));
-          }
-        }
       })();
     </script>
   </head>
