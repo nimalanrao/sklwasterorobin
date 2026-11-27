@@ -253,6 +253,18 @@ const googleAdsId = analyticsConfig.googleAdsId;
     </script>
   </head>
   <body class={normalizedPath === '/' ? 'is-home-page' : 'is-inner-page'}>
+    <!-- Google Tag Manager (noscript) -->
+    {gtmId && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+      </noscript>
+    )}
+
     <!-- Ultra-Smooth Split-Curtain Entrance Animation (Fast Slide Out) -->
     {normalizedPath === '/' && (
       <div id="site-preloader" class="preloader-curtain" aria-hidden="true">
