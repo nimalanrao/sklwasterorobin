@@ -42,7 +42,7 @@ const sitelinksSearchboxSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   '@id': `${SITE_URL}/#website-search`,
-  url: SITE_URL,
+  url: `${SITE_URL}/`,
   name: 'SKL Waste Sdn Bhd',
   alternateName: ['SKL Waste', 'Sewa Tong Roro Selangor', 'Sewa Tong Roro KL'],
   potentialAction: {
@@ -136,7 +136,9 @@ const googleAdsId = analyticsConfig.googleAdsId;
 
     <!-- Hreflang Language Alternates (Self-referential language alternates) -->
     <link rel="alternate" hreflang="ms" href={canonicalUrl} />
+    <link rel="alternate" hreflang="ms-MY" href={canonicalUrl} />
     <link rel="alternate" hreflang="en" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-MY" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
     <!-- Zero-Restriction Robot & AI Crawler Directives -->

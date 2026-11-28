@@ -20,7 +20,7 @@ export function buildOrganizationSchema() {
       propertyID: 'SSM Registration Number',
       value: companyData.registrationNumber,
     },
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     logo: `${SITE_URL}/images/skl-logo.png`,
     image: `${SITE_URL}/images/og-embed-skl-waste.jpg`,
     telephone: '+60166159365',
@@ -51,7 +51,7 @@ export function buildWebSiteSchema() {
   return {
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     name: companyData.name,
     publisher: {
       '@id': `${SITE_URL}/#organization`,

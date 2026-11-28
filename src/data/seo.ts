@@ -213,7 +213,10 @@ export const pageSEOMap: Record<string, PageSEOConfig> = {
 };
 
 export function getCanonicalUrl(path: string): string {
-  const cleanPath = path === '/' ? '' : path.replace(/\/+$/, '');
+  if (!path || path === '/') {
+    return `${SITE_URL}/`;
+  }
+  const cleanPath = path.startsWith('/') ? path.replace(/\/+$/, '') : `/${path.replace(/\/+$/, '')}`;
   return `${SITE_URL}${cleanPath}`;
 }
 

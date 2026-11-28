@@ -5,32 +5,50 @@
 
 User-agent: *
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 Crawl-delay: 0
 
 # Search Engine Crawlers
 User-agent: Googlebot
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: Googlebot-Image
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: Googlebot-Mobile
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: Googlebot-Video
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: AdsBot-Google
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: AdsBot-Google-Mobile
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: Mediapartners-Google
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: Bingbot
 Allow: /
+Disallow: /system-roro/
+Disallow: /system-roro
 
 User-agent: AdIdxBot
 Allow: /
@@ -144,5 +162,4 @@ Allow: /
 
 # Sitemaps & AI Knowledge Files
 Sitemap: https://www.tongrorosklwaste.my/sitemap.xml
-Sitemap: https://nimalanrao.github.io/sklwasterorobin/sitemap.xml
 Host: https://www.tongrorosklwaste.my

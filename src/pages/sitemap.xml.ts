@@ -71,7 +71,9 @@ export const GET: APIRoute = async () => {
     <lastmod>${buildDate}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
+    <xhtml:link rel="alternate" hreflang="ms" href="${canonical}" />
     <xhtml:link rel="alternate" hreflang="ms-MY" href="${canonical}" />
+    <xhtml:link rel="alternate" hreflang="en" href="${canonical}" />
     <xhtml:link rel="alternate" hreflang="en-MY" href="${canonical}" />
     <xhtml:link rel="alternate" hreflang="x-default" href="${canonical}" />
     <image:image>
