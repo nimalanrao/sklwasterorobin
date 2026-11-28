@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.2",
-    "astro": "^5.1.0"
+    "astro": "^5.1.0",
+    "exceljs": "^4.4.0"
   },
   "devDependencies": {
     "typescript": "^5.7.0"

@@ -278,6 +278,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </div>
 
             <div class="dropdown-sep" data-admin-only></div>
+            <button type="button" id="btn-export-excel" class="dropdown-action-item" role="menuitem" data-admin-only>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="8" y1="13" x2="16" y2="13"></line>
+                <line x1="8" y1="17" x2="16" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span>Export Records (Excel .xlsx)</span>
+            </button>
             <button type="button" id="btn-export-json" class="dropdown-action-item" role="menuitem" data-admin-only>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -12110,6 +12120,233 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
   });
 
+  async function exportRecordsExcel() {
+    try {
+      showToast('Generating formatted Excel file...');
+      const ExcelJSModule = await import('exceljs');
+      const ExcelJS = (ExcelJSModule as any).default || ExcelJSModule;
+      const wb = new ExcelJS.Workbook();
+      wb.creator = 'SKL Waste Sdn Bhd';
+      wb.lastModifiedBy = 'SKL Waste RoRo Fleet System';
+      wb.created = new Date();
+      wb.modified = new Date();
+
+      const COLOR_BRAND_GREEN = '15803D';
+      const COLOR_DARK_HEADER = '0F172A';
+      const COLOR_ZEBRA_LIGHT = 'F8FAFC';
+      const COLOR_BORDER = 'CBD5E1';
+
+      // 1. ACTIVE BINS SHEET
+      const wsActive = wb.addWorksheet('Active RoRo Fleet', {
+        views: [{ state: 'frozen', ySplit: 4, showGridLines: true }]
+      });
+
+      wsActive.mergeCells('A1:J1');
+      const t1 = wsActive.getCell('A1');
+      t1.value = 'SKL WASTE SDN BHD — ACTIVE RORO FLEET REGISTER';
+      t1.font = { name: 'Segoe UI', size: 13, bold: true, color: { argb: 'FFFFFFFF' } };
+      t1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLOR_DARK_HEADER } };
+      t1.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+      wsActive.getRow(1).height = 32;
+
+      wsActive.mergeCells('A2:J2');
+      const s1 = wsActive.getCell('A2');
+      s1.value = `Exported: ${new Date().toLocaleDateString('en-GB')} • Live fleet tracking & pull monitoring`;
+      s1.font = { name: 'Segoe UI', size: 9.5, italic: true, color: { argb: 'FF64748B' } };
+      s1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF1F5F9' } };
+      s1.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+      wsActive.getRow(2).height = 20;
+      wsActive.getRow(3).height = 6;
+
+      const activeHeaders = ['No', 'INV #', 'Bin Owner', 'Bin Size', 'Delivery Location / Address', 'Customer Name', 'Phone', 'Start Date', 'End Date', 'Rental Fee (RM)'];
+      const hRow = wsActive.getRow(4);
+      hRow.values = activeHeaders;
+      hRow.height = 26;
+      hRow.eachCell((c: any, col: number) => {
+        c.font = { name: 'Segoe UI', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+        c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: COLOR_BRAND_GREEN } };
+        c.alignment = { vertical: 'middle', horizontal: col === 1 || col === 2 || col === 4 || col === 8 || col === 9 ? 'center' : (col === 10 ? 'right' : 'left') };
+      });
+
+      const activeItems = allRecords.filter((r) => r.status !== 'Completed');
+      activeItems.forEach((rec, idx) => {
+        const rIdx = 5 + idx;
+        const row = wsActive.getRow(rIdx);
+        row.values = [
+          idx + 1,
+          rec.invoice_no || '-',
+          rec.bin_owner,
+          rec.size,
+          rec.location,
+          rec.customer_name || 'Customer',
+          rec.customer_phone || '-',
+          rec.date_start,
+          rec.date_end,
+          rec.price || 0
+        ];
+        row.height = 22;
+        const bg = idx % 2 === 1 ? COLOR_ZEBRA_LIGHT : 'FFFFFFFF';
+        row.eachCell((c: any, col: number) => {
+          c.font = { name: 'Segoe UI', size: 9.5, color: { argb: 'FF0F172A' } };
+          c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bg } };
+          c.border = {
+            top: { style: 'thin', color: { argb: COLOR_BORDER } },
+            bottom: { style: 'thin', color: { argb: COLOR_BORDER } },
+            left: { style: 'thin', color: { argb: COLOR_BORDER } },
+            right: { style: 'thin', color: { argb: COLOR_BORDER } }
+          };
+          if (col === 1 || col === 2) {
+            c.alignment = { vertical: 'middle', horizontal: 'center' };
+          } else if (col === 4) {
+            c.alignment = { vertical: 'middle', horizontal: 'center' };
+            c.font = { name: 'Segoe UI', size: 9, bold: true, color: { argb: rec.size === '4 Feet' ? 'FF6B21A8' : 'FF1D4ED8' } };
+          } else if (col === 8 || col === 9) {
+            c.alignment = { vertical: 'middle', horizontal: 'center' };
+          } else if (col === 10) {
+            c.alignment = { vertical: 'middle', horizontal: 'right' };
+            c.numFmt = '"RM "#,##0.00';
+            c.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: 'FF0F172A' } };
+          } else {
+            c.alignment = { vertical: 'middle', horizontal: 'left' };
+          }
+        });
+      });
+
+      if (activeItems.length > 0) {
+        const totRow = wsActive.getRow(5 + activeItems.length);
+        totRow.getCell(3).value = 'TOTAL ACTIVE';
+        totRow.getCell(4).value = `${activeItems.length} Bins`;
+        totRow.getCell(10).value = { formula: `SUM(J5:J${4 + activeItems.length})` };
+        totRow.height = 25;
+        totRow.eachCell((c: any, col: number) => {
+          c.font = { name: 'Segoe UI', size: 10, bold: true, color: { argb: 'FF0F172A' } };
+          c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+          c.border = { top: { style: 'medium', color: { argb: '94A3B8' } }, bottom: { style: 'double', color: { argb: '475569' } } };
+          if (col === 10) {
+            c.numFmt = '"RM "#,##0.00';
+            c.alignment = { vertical: 'middle', horizontal: 'right' };
+            c.font = { name: 'Segoe UI', size: 10.5, bold: true, color: { argb: 'FF15803D' } };
+          } else if (col === 4) {
+            c.alignment = { vertical: 'middle', horizontal: 'center' };
+          }
+        });
+      }
+
+      wsActive.getColumn(1).width = 7;
+      wsActive.getColumn(2).width = 11;
+      wsActive.getColumn(3).width = 26;
+      wsActive.getColumn(4).width = 14;
+      wsActive.getColumn(5).width = 54;
+      wsActive.getColumn(6).width = 24;
+      wsActive.getColumn(7).width = 19;
+      wsActive.getColumn(8).width = 15;
+      wsActive.getColumn(9).width = 15;
+      wsActive.getColumn(10).width = 18;
+
+      // 2. COMPLETED BINS SHEET
+      const wsCompleted = wb.addWorksheet('Completed History', {
+        views: [{ state: 'frozen', ySplit: 4, showGridLines: true }]
+      });
+
+      wsCompleted.mergeCells('A1:J1');
+      const t2 = wsCompleted.getCell('A1');
+      t2.value = 'SKL WASTE SDN BHD — COMPLETED BINS ARCHIVE';
+      t2.font = { name: 'Segoe UI', size: 13, bold: true, color: { argb: 'FFFFFFFF' } };
+      t2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '334155' } };
+      t2.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+      wsCompleted.getRow(1).height = 32;
+
+      wsCompleted.mergeCells('A2:J2');
+      const s2 = wsCompleted.getCell('A2');
+      s2.value = 'Pulled and replaced bins with recorded completion timestamps';
+      s2.font = { name: 'Segoe UI', size: 9.5, italic: true, color: { argb: 'FF64748B' } };
+      s2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF1F5F9' } };
+      s2.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+      wsCompleted.getRow(2).height = 20;
+      wsCompleted.getRow(3).height = 6;
+
+      const compHeaders = ['No', 'INV #', 'Bin Owner', 'Bin Size', 'Delivery Location / Address', 'Customer Name', 'Action', 'Start Date', 'Completed Date', 'Rental Fee (RM)'];
+      const hRowComp = wsCompleted.getRow(4);
+      hRowComp.values = compHeaders;
+      hRowComp.height = 26;
+      hRowComp.eachCell((c: any, col: number) => {
+        c.font = { name: 'Segoe UI', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+        c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '1E293B' } };
+        c.alignment = { vertical: 'middle', horizontal: col === 1 || col === 2 || col === 4 || col === 7 || col === 8 || col === 9 ? 'center' : (col === 10 ? 'right' : 'left') };
+      });
+
+      const compItems = allRecords.filter((r) => r.status === 'Completed');
+      compItems.forEach((rec, idx) => {
+        const rIdx = 5 + idx;
+        const row = wsCompleted.getRow(rIdx);
+        row.values = [
+          idx + 1,
+          rec.invoice_no || '-',
+          rec.bin_owner,
+          rec.size,
+          rec.location,
+          rec.customer_name || 'Customer',
+          rec.tarik_action === 'tukar' ? 'Tukar Tong' : 'Tarik Tong',
+          rec.date_start,
+          rec.completed_at ? rec.completed_at.split('T')[0] : rec.date_end,
+          rec.price || 0
+        ];
+        row.height = 22;
+        const bg = idx % 2 === 1 ? COLOR_ZEBRA_LIGHT : 'FFFFFFFF';
+        row.eachCell((c: any, col: number) => {
+          c.font = { name: 'Segoe UI', size: 9.5, color: { argb: 'FF0F172A' } };
+          c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bg } };
+          c.border = {
+            top: { style: 'thin', color: { argb: COLOR_BORDER } },
+            bottom: { style: 'thin', color: { argb: COLOR_BORDER } },
+            left: { style: 'thin', color: { argb: COLOR_BORDER } },
+            right: { style: 'thin', color: { argb: COLOR_BORDER } }
+          };
+          if (col === 1 || col === 2 || col === 4 || col === 7 || col === 8 || col === 9) {
+            c.alignment = { vertical: 'middle', horizontal: 'center' };
+          } else if (col === 10) {
+            c.alignment = { vertical: 'middle', horizontal: 'right' };
+            c.numFmt = '"RM "#,##0.00';
+            c.font = { name: 'Segoe UI', size: 9.5, bold: true, color: { argb: 'FF0F172A' } };
+          } else {
+            c.alignment = { vertical: 'middle', horizontal: 'left' };
+          }
+        });
+      });
+
+      wsCompleted.getColumn(1).width = 7;
+      wsCompleted.getColumn(2).width = 11;
+      wsCompleted.getColumn(3).width = 26;
+      wsCompleted.getColumn(4).width = 14;
+      wsCompleted.getColumn(5).width = 54;
+      wsCompleted.getColumn(6).width = 24;
+      wsCompleted.getColumn(7).width = 18;
+      wsCompleted.getColumn(8).width = 15;
+      wsCompleted.getColumn(9).width = 17;
+      wsCompleted.getColumn(10).width = 18;
+
+      const buffer = await wb.xlsx.writeBuffer();
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `SKL_Waste_RoRo_Records_${new Date().toISOString().split('T')[0]}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      closeAllDropdowns();
+      closeMobileMoreSheet();
+      showToast('Excel spreadsheet (.xlsx) downloaded successfully!');
+    } catch (err) {
+      console.error('Failed to export Excel:', err);
+      // Fallback: download template
+      window.location.href = '/SKL_Waste_RoRo_Fleet_Management.xlsx';
+      showToast('Downloaded master Excel template');
+    }
+  }
+
+  document.getElementById('btn-export-excel')?.addEventListener('click', exportRecordsExcel);
   document.getElementById('btn-export-json')?.addEventListener('click', exportRecordsJson);
   document.getElementById('btn-mob-export-json')?.addEventListener('click', exportRecordsJson);
   document.getElementById('btn-mob-admin-panel')?.addEventListener('click', () => {
