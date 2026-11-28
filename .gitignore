@@ -7,3 +7,5 @@ dist/
 skills-lock.json
 .env*
 !.env.example
+Training images/
+supabase_*_backup*.json

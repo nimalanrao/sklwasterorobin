@@ -31,6 +31,15 @@ jobs:
         run: npm ci
 
       - name: Build static site for GitHub Pages
+        env:
+          PUBLIC_SITE_URL: ${{ secrets.PUBLIC_SITE_URL }}
+          PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
+          PUBLIC_CARTO_API_KEY: ${{ secrets.PUBLIC_CARTO_API_KEY }}
+          PUBLIC_GTM_ID: ${{ secrets.PUBLIC_GTM_ID }}
+          PUBLIC_GEMINI_API_KEY: ${{ secrets.PUBLIC_GEMINI_API_KEY }}
+          PUBLIC_OPENROUTER_API_KEY: ${{ secrets.PUBLIC_OPENROUTER_API_KEY }}
+          PUBLIC_GROQ_API_KEY: ${{ secrets.PUBLIC_GROQ_API_KEY }}
         run: node scripts/build-gh-pages.mjs
 
       - name: Configure Pages

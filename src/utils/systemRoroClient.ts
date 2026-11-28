@@ -76,6 +76,7 @@ export type AuditAction =
   | 'EDIT_BIN'
   | 'EXTEND_BIN'
   | 'TARIK_BIN'
+  | 'TUKAR_BIN'
   | 'RESTORE_BIN'
   | 'DELETE_BIN';
 
