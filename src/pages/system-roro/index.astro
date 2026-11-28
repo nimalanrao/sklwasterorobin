@@ -1032,32 +1032,40 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 <span><span data-i18n="lbl_end_date">End Date (Default 10 Days)</span> <strong class="req">*</strong></span>
               </span>
-              <div class="dropdown-anchor date-picker-anchor" id="dp-end-wrapper">
-                <input type="hidden" id="modal-date-end" />
-                <button type="button" id="btn-date-end" class="date-trigger-btn" aria-haspopup="true" aria-expanded="false">
-                  <span class="date-trigger-val" id="date-end-display">-</span>
-                  <svg class="date-trigger-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
+              <div class="date-stepper-container">
+                <button type="button" id="btn-modal-end-minus" class="date-step-icon-btn" title="Decrease 1 day (-)" aria-label="Decrease 1 day">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 </button>
-                <div class="blur-dropdown-menu upward calendar-popover cal-right" id="cal-popover-end">
-                  <div class="cal-nav-row">
-                    <button type="button" class="cal-nav-btn" data-cal-prev="end" aria-label="Previous month">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                    </button>
-                    <span class="cal-month-label" id="cal-month-end"></span>
-                    <button type="button" class="cal-nav-btn" data-cal-next="end" aria-label="Next month">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </button>
+                <div class="dropdown-anchor date-picker-anchor" id="dp-end-wrapper" style="flex: 1;">
+                  <input type="hidden" id="modal-date-end" />
+                  <button type="button" id="btn-date-end" class="date-trigger-btn" aria-haspopup="true" aria-expanded="false">
+                    <span class="date-trigger-val" id="date-end-display">-</span>
+                    <svg class="date-trigger-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  </button>
+                  <div class="blur-dropdown-menu upward calendar-popover cal-right" id="cal-popover-end">
+                    <div class="cal-nav-row">
+                      <button type="button" class="cal-nav-btn" data-cal-prev="end" aria-label="Previous month">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                      </button>
+                      <span class="cal-month-label" id="cal-month-end"></span>
+                      <button type="button" class="cal-nav-btn" data-cal-next="end" aria-label="Next month">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                      </button>
+                    </div>
+                    <div class="cal-weekdays">
+                      <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+                    </div>
+                    <div class="cal-days-grid" id="cal-grid-end"></div>
                   </div>
-                  <div class="cal-weekdays">
-                    <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
-                  </div>
-                  <div class="cal-days-grid" id="cal-grid-end"></div>
                 </div>
+                <button type="button" id="btn-modal-end-plus" class="date-step-icon-btn" title="Increase 1 day (+)" aria-label="Increase 1 day">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
               </div>
             </div>
           </div>
@@ -1281,13 +1289,29 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </div>
           </div>
 
-          <!-- Inline 1-Tap Extend Rental Period (Active Bins Only) -->
+          <!-- Inline 1-Tap Extend / Adjust Rental Period (Active Bins Only) -->
           <div id="detail-extend-section" class="detail-section">
             <div class="detail-section-head">
-              <span class="detail-section-label" data-i18n="extend_period">Extend Period</span>
-              <span class="detail-section-hint" id="detail-extend-hint" data-i18n="extend_hint">Select days &amp; tap Save</span>
+              <span class="detail-section-label" data-i18n="extend_period">Adjust / Extend Period</span>
+              <span class="detail-section-hint" id="detail-extend-hint" data-i18n="extend_hint">Tap - / + or select days &amp; tap Save</span>
             </div>
+
+            <!-- Interactive - / + Stepper for Days -->
+            <div class="extend-stepper-row">
+              <button type="button" class="stepper-ctrl-btn" id="btn-extend-step-minus" aria-label="Minus 1 day (-)" title="Minus 1 day (-)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </button>
+              <div class="stepper-center-badge" id="extend-stepper-badge">
+                <span id="extend-stepper-val">+1 Day</span>
+              </div>
+              <button type="button" class="stepper-ctrl-btn" id="btn-extend-step-plus" aria-label="Add 1 day (+)" title="Add 1 day (+)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </button>
+            </div>
+
             <div class="detail-extend-grid">
+              <button type="button" class="extend-opt-btn" data-detail-extend-days="-2">-2 Days</button>
+              <button type="button" class="extend-opt-btn" data-detail-extend-days="-1">-1 Day</button>
               <button type="button" class="extend-opt-btn primary" data-detail-extend-days="1" data-i18n="ext_1">+1 Day</button>
               <button type="button" class="extend-opt-btn primary" data-detail-extend-days="2" data-i18n="ext_2">+2 Days</button>
               <button type="button" class="extend-opt-btn" data-detail-extend-days="3" data-i18n="ext_3">+3 Days</button>
@@ -9037,6 +9061,107 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     background: #1e293b;
     border-color: #23a55a;
   }
+
+  /* - + Day Stepper Styles (Detail & Modal) */
+  .extend-stepper-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem;
+    padding: 0.45rem 0.65rem;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+  }
+  :global([data-theme="dark"]) .extend-stepper-row {
+    background: #2b2d31;
+    border-color: #383a40;
+  }
+  .stepper-ctrl-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 800;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  :global([data-theme="dark"]) .stepper-ctrl-btn {
+    background: #313338;
+    border-color: #4e5058;
+    color: #f2f3f5;
+  }
+  .stepper-ctrl-btn:hover {
+    background: #0f172a;
+    border-color: #0f172a;
+    color: #ffffff;
+    transform: scale(1.06);
+  }
+  :global([data-theme="dark"]) .stepper-ctrl-btn:hover {
+    background: #23a55a;
+    border-color: #23a55a;
+    color: #ffffff;
+  }
+  .stepper-ctrl-btn:active {
+    transform: scale(0.94);
+  }
+  .stepper-center-badge {
+    min-width: 110px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+  }
+  :global([data-theme="dark"]) .stepper-center-badge {
+    color: #ffffff;
+  }
+  .date-stepper-container {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: 100%;
+  }
+  .date-step-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  :global([data-theme="dark"]) .date-step-icon-btn {
+    background: #2b2d31;
+    border-color: #4e5058;
+    color: #f2f3f5;
+  }
+  .date-step-icon-btn:hover {
+    background: #0f172a;
+    border-color: #0f172a;
+    color: #ffffff;
+  }
+  :global([data-theme="dark"]) .date-step-icon-btn:hover {
+    background: #23a55a;
+    border-color: #23a55a;
+    color: #ffffff;
+  }
+  .date-step-icon-btn:active {
+    transform: scale(0.94);
+  }
   .detail-extend-preview-txt {
     font-size: 0.86rem;
     font-weight: 600;
@@ -10289,6 +10414,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     pendingExtendDays = null;
     const saveWrap = document.getElementById('detail-extend-save-wrap');
     if (saveWrap) saveWrap.hidden = true;
+    const badgeVal = document.getElementById('extend-stepper-val');
+    if (badgeVal) badgeVal.textContent = '+1 Day';
     detailExtendSection?.querySelectorAll('.extend-opt-btn').forEach((b) => b.classList.remove('selected'));
   }
 
@@ -10301,6 +10428,42 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   function getActiveDetailRecord(): RoroRecord | undefined {
     if (!activeDetailId) return undefined;
     return allRecords.find((r) => r.id === activeDetailId);
+  }
+
+  function updateExtendPreview(days: number) {
+    if (days === 0) days = 1;
+    pendingExtendDays = days;
+    const rec = getActiveDetailRecord();
+    if (!rec) return;
+
+    const badgeVal = document.getElementById('extend-stepper-val');
+    if (badgeVal) {
+      const sign = days > 0 ? `+${days}` : `${days}`;
+      const unit = Math.abs(days) === 1 ? 'Day' : 'Days';
+      badgeVal.textContent = `${sign} ${unit}`;
+    }
+
+    detailExtendSection?.querySelectorAll('.extend-opt-btn').forEach((b) => {
+      const bDays = Number(b.getAttribute('data-detail-extend-days'));
+      b.classList.toggle('selected', bDays === days);
+    });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const currentEnd = new Date(rec.date_end + 'T00:00:00');
+    const baseDate = !Number.isNaN(currentEnd.getTime()) ? currentEnd : today;
+    const nextEnd = new Date(baseDate);
+    nextEnd.setDate(nextEnd.getDate() + days);
+    const nextEndIso = toIsoDate(nextEnd);
+
+    const saveWrap = document.getElementById('detail-extend-save-wrap');
+    const previewEl = document.getElementById('detail-extend-preview');
+    if (previewEl) {
+      const sign = days > 0 ? `+${days}` : `${days}`;
+      const unit = Math.abs(days) === 1 ? 'day' : 'days';
+      previewEl.innerHTML = `New End: <strong>${formatDateDisplay(nextEndIso)}</strong> (${sign} ${unit})`;
+    }
+    if (saveWrap) saveWrap.hidden = false;
   }
 
   // Tap or press Enter/Space on any dashboard row to open Detail & Action Menu
@@ -10352,7 +10515,33 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
   });
 
-  // Inline Extend Period buttons inside Detail Menu - Select Day option
+  // Inline Extend / Adjust Period - / + Stepper & Preset Day options
+  document.getElementById('btn-extend-step-minus')?.addEventListener('click', () => {
+    const rec = getActiveDetailRecord();
+    if (!rec) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only manage Thirumal Vel Enterprise bins");
+      return;
+    }
+    const cur = pendingExtendDays ?? 1;
+    let nextVal = cur - 1;
+    if (nextVal === 0) nextVal = -1;
+    updateExtendPreview(nextVal);
+  });
+
+  document.getElementById('btn-extend-step-plus')?.addEventListener('click', () => {
+    const rec = getActiveDetailRecord();
+    if (!rec) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only manage Thirumal Vel Enterprise bins");
+      return;
+    }
+    const cur = pendingExtendDays ?? 1;
+    let nextVal = cur + 1;
+    if (nextVal === 0) nextVal = 1;
+    updateExtendPreview(nextVal);
+  });
+
   detailExtendSection?.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest('[data-detail-extend-days]') as HTMLElement | null;
     if (!btn) return;
@@ -10364,27 +10553,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     const addDays = Number(btn.getAttribute('data-detail-extend-days')) || 1;
-    pendingExtendDays = addDays;
-
-    detailExtendSection.querySelectorAll('.extend-opt-btn').forEach((b) => {
-      b.classList.toggle('selected', b === btn);
-    });
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const currentEnd = new Date(rec.date_end + 'T00:00:00');
-    const baseDate = !Number.isNaN(currentEnd.getTime()) && currentEnd >= today ? currentEnd : today;
-    const nextEnd = new Date(baseDate);
-    nextEnd.setDate(nextEnd.getDate() + addDays);
-    const nextEndIso = toIsoDate(nextEnd);
-
-    const saveWrap = document.getElementById('detail-extend-save-wrap');
-    const previewEl = document.getElementById('detail-extend-preview');
-    if (previewEl) {
-      const dayTxt = addDays === 1 ? '1 day' : `${addDays} days`;
-      previewEl.innerHTML = `New End: <strong>${formatDateDisplay(nextEndIso)}</strong> (+${dayTxt})`;
-    }
-    if (saveWrap) saveWrap.hidden = false;
+    updateExtendPreview(addDays);
   });
 
   // Save Extend confirmation button click
@@ -11154,6 +11323,23 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       syncDatePickerDisplays();
       closeDatePickers();
     });
+  });
+
+  // End Date - / + Stepper buttons in modal
+  document.getElementById('btn-modal-end-minus')?.addEventListener('click', () => {
+    const baseStr = dateEndInput.value || dateStartInput.value || toIsoDate(new Date());
+    const d = new Date(baseStr + 'T00:00:00');
+    d.setDate(d.getDate() - 1);
+    dateEndInput.value = toIsoDate(d);
+    syncDatePickerDisplays();
+  });
+
+  document.getElementById('btn-modal-end-plus')?.addEventListener('click', () => {
+    const baseStr = dateEndInput.value || dateStartInput.value || toIsoDate(new Date());
+    const d = new Date(baseStr + 'T00:00:00');
+    d.setDate(d.getDate() + 1);
+    dateEndInput.value = toIsoDate(d);
+    syncDatePickerDisplays();
   });
 
   // Day Selection Delegation for Both Calendars
