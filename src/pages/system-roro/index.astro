@@ -1060,7 +1060,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
-              <span id="btn-save-text" data-i18n="btn_save">Save Bin Record</span>
+              <span id="btn-save-text" data-i18n="btn_save">Save</span>
             </button>
           </div>
         </form>
@@ -1275,7 +1275,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
           <div id="detail-extend-section" class="detail-section">
             <div class="detail-section-head">
               <span class="detail-section-label" data-i18n="extend_period">Extend Period</span>
-              <span class="detail-section-hint" data-i18n="extend_hint">Tap to add days instantly</span>
+              <span class="detail-section-hint" id="detail-extend-hint" data-i18n="extend_hint">Select days &amp; tap Save</span>
             </div>
             <div class="detail-extend-grid">
               <button type="button" class="extend-opt-btn primary" data-detail-extend-days="1" data-i18n="ext_1">+1 Day</button>
@@ -1284,6 +1284,16 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <button type="button" class="extend-opt-btn" data-detail-extend-days="5" data-i18n="ext_5">+5 Days</button>
               <button type="button" class="extend-opt-btn" data-detail-extend-days="7" data-i18n="cal_plus7">+7 Days</button>
               <button type="button" class="extend-opt-btn" data-detail-extend-days="10" data-i18n="cal_plus10">+10 Days</button>
+            </div>
+            <!-- Save Button Row for Extend Days -->
+            <div id="detail-extend-save-wrap" class="detail-extend-save-row" hidden>
+              <span id="detail-extend-preview" class="detail-extend-preview-txt">New End: <strong>-</strong></span>
+              <button type="button" id="btn-save-extend-days" class="btn-solid btn-save-extend">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Save</span>
+              </button>
             </div>
           </div>
         </div>
@@ -1639,38 +1649,6 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         </div>
 
         <div class="mobile-sheet-body">
-          <div class="mob-sheet-section">
-            <span class="mob-sheet-label" id="mob-sheet-title" data-i18n="section_operations">QUICK VIEWS</span>
-            <div class="mob-chip-grid">
-              <button type="button" class="mob-view-chip" data-nav-view="active">
-                <span data-i18n="nav_active">&lt;10 Days</span>
-                <span class="mob-chip-count green" id="mob-count-active">0</span>
-              </button>
-              <button type="button" class="mob-view-chip" data-nav-view="owner_skl">
-                <span>SKL Waste</span>
-                <span class="mob-chip-count" id="mob-count-owner-skl">0</span>
-              </button>
-              <button type="button" class="mob-view-chip" data-nav-view="owner_thirumal">
-                <span>Thirumal Vel</span>
-                <span class="mob-chip-count amber" id="mob-count-owner-thirumal">0</span>
-              </button>
-              <button type="button" class="mob-view-chip" data-nav-view="2ft">
-                <span data-i18n="size_2ft">2 Feet</span>
-                <span class="mob-chip-count" id="mob-count-2ft">0</span>
-              </button>
-              <button type="button" class="mob-view-chip" data-nav-view="4ft">
-                <span data-i18n="size_4ft">4 Feet</span>
-                <span class="mob-chip-count" id="mob-count-4ft">0</span>
-              </button>
-            </div>
-            <button type="button" id="btn-mob-bulk-scan" class="mob-ai-scan-cta">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              <span>AI Scan Tong / Bulk Slip Images</span>
-            </button>
-          </div>
-
           <div class="mob-sheet-prefs">
             <div class="mob-pref-col">
               <span class="mob-sheet-label" data-i18n="section_language">LANGUAGE</span>
@@ -1694,27 +1672,15 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
             </div>
           </div>
 
-          <div class="mob-sheet-section" data-admin-only>
-            <span class="mob-sheet-label" data-i18n="section_admin">ADMIN</span>
-            <div class="mob-sheet-actions">
-              <button type="button" id="btn-mob-admin-panel" class="mob-sheet-action-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <span data-i18n="nav_admin_panel">Admin Panel</span>
-              </button>
-              <a href="/system-roro/statement" target="_blank" rel="noopener noreferrer" class="mob-sheet-action-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                <span data-i18n="nav_statement">Daily Statement</span>
-              </a>
-              <button type="button" id="btn-mob-settings" class="mob-sheet-action-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                <span data-i18n="nav_settings">Settings</span>
-              </button>
-              <button type="button" id="btn-mob-export-json" class="mob-sheet-action-btn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                <span>Export JSON</span>
-              </button>
-            </div>
-          </div>
+          <button type="button" id="btn-mob-logout" class="mob-sheet-logout-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Sign Out</span>
+          </button>
+        </div>
 
           <button type="button" id="btn-mob-logout" class="mob-sheet-logout-btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
@@ -2138,7 +2104,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     padding: 0.55rem 0.4rem;
     font-size: 0.84rem;
     font-weight: 700;
-    color: #64748b;
+    color: #1e293b;
     cursor: pointer;
     text-align: center;
     display: inline-flex;
@@ -2150,13 +2116,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
   .lang-btn:hover {
     color: #0f172a;
+    background: rgba(255, 255, 255, 0.6);
   }
 
   .lang-btn.active {
     background: #ffffff;
     color: #0f172a;
     font-weight: 800;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
   }
   /* Full-Screen Server Disconnected Red Error Overlay */
   .server-error-screen {
@@ -5234,7 +5201,14 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     .workspace-header-left {
       min-width: 0;
-      gap: 0.7rem;
+      flex: 1 1 auto;
+      gap: 0.6rem;
+      overflow: hidden;
+    }
+
+    .workspace-header-left > div {
+      min-width: 0;
+      overflow: hidden;
     }
 
     .mobile-header-logo {
@@ -5259,8 +5233,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     .workspace-title {
-      font-size: 1.4rem;
+      font-size: 1.32rem;
       font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       letter-spacing: -0.025em;
       line-height: 1.15;
     }
@@ -5819,15 +5796,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
 
     .roro-table :global(tbody tr) {
       background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 18px;
-      padding: 1.35rem 1.25rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 0.95rem 1rem;
       box-shadow:
-        0 8px 22px -6px rgba(15, 23, 42, 0.1),
-        0 2px 6px rgba(15, 23, 42, 0.04);
+        0 4px 14px -3px rgba(15, 23, 42, 0.08),
+        0 1px 3px rgba(15, 23, 42, 0.04);
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 0.95rem 0.85rem;
+      grid-template-areas:
+        "loc loc"
+        "size status"
+        "cust price";
+      gap: 0.65rem 0.75rem;
       align-items: center;
       transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
     }
@@ -5835,7 +5816,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     .roro-table :global(tbody tr:active) {
       transform: scale(0.985);
       background: #f8fafc;
-      box-shadow: 0 4px 12px -4px rgba(15, 23, 42, 0.14);
+      box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.12);
     }
 
     .roro-table :global(td) {
@@ -5843,109 +5824,127 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       border-bottom: none;
     }
 
-    /* Location full width top - Big & Ultra Clear */
+    /* Location full width top - Compact & Crisp with word wrapping */
     .roro-table :global(td[data-col="location"]) {
-      grid-column: 1 / -1;
-      padding-bottom: 0.9rem;
-      border-bottom: 1.5px solid #e2e8f0;
+      grid-area: loc;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid #f1f5f9;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .roro-table :global(.loc-head-row) {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.45rem;
+      flex-wrap: wrap;
     }
 
     .roro-table :global(.loc-main) {
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: -0.015em;
+      font-size: 1.02rem;
+      font-weight: 750;
+      letter-spacing: -0.01em;
       line-height: 1.35;
-      color: #020617;
+      color: #0f172a;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      flex: 1 1 180px;
     }
 
     .roro-table :global(.loc-note) {
-      font-size: 0.98rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      color: #334155;
-      margin-top: 0.3rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+      word-break: break-word;
     }
 
     /* Size & Owner left, Status right */
     .roro-table :global(td[data-col="size"]) {
-      grid-column: 1 / 2;
+      grid-area: size;
     }
 
     .roro-table :global(td[data-col="size"] .owner-stack) {
       flex-direction: row;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.4rem;
     }
 
     .roro-table :global(.pill-size) {
-      font-size: 0.94rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      padding: 0.42rem 0.85rem;
-      border-radius: 11px;
+      padding: 0.32rem 0.65rem;
+      border-radius: 9px;
     }
 
     .roro-table :global(.pill-owner) {
-      font-size: 0.88rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      padding: 0.38rem 0.75rem;
-      border-radius: 10px;
+      padding: 0.28rem 0.6rem;
+      border-radius: 8px;
     }
 
     .roro-table :global(td[data-col="status"]) {
-      grid-column: 2 / 3;
+      grid-area: status;
       text-align: right;
     }
 
     .roro-table :global(td[data-col="status"] .status-stack) {
       align-items: flex-end;
-      gap: 0.35rem;
+      gap: 0.2rem;
     }
 
     .roro-table :global(.days-pill) {
-      font-size: 0.94rem;
-      font-weight: 800;
-      padding: 0.42rem 0.88rem;
-      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 750;
+      padding: 0.32rem 0.7rem;
+      border-radius: 10px;
     }
 
     .roro-table :global(.status-start-sub),
     .roro-table :global(.status-end-sub) {
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: #64748b;
     }
 
     /* Customer left, Price + Chevron right */
     .roro-table :global(td[data-col="customer"]) {
-      grid-column: 1 / 2;
+      grid-area: cust;
+      min-width: 0;
     }
 
     .roro-table :global(.cust-name) {
-      font-size: 1.08rem;
+      font-size: 0.94rem;
       font-weight: 700;
       color: #0f172a;
+      word-break: break-word;
     }
 
     .roro-table :global(.cust-phone) {
-      font-size: 0.96rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: #475569;
     }
 
     .roro-table :global(td[data-col="price"]) {
-      grid-column: 2 / 3;
+      grid-area: price;
       text-align: right;
     }
 
     .roro-table :global(.price-val) {
-      font-size: 1.25rem;
+      font-size: 1.08rem;
       font-weight: 800;
       letter-spacing: -0.015em;
       color: #0f172a;
     }
 
     .roro-table :global(.row-chevron) {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
+      color: #94a3b8;
     }
 
     .empty-state {
@@ -6220,8 +6219,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       position: sticky;
       bottom: 0;
       background: #ffffff;
-      margin: 0.75rem -1.25rem -1.5rem;
-      padding: 1rem 1.25rem calc(1.15rem + env(safe-area-inset-bottom, 0px));
+      margin: 0.5rem -1.25rem 0;
+      padding: 0.85rem 1.25rem max(0.85rem, env(safe-area-inset-bottom, 0.85rem));
       border-top: 1.5px solid #cbd5e1;
       z-index: 25;
       display: grid;
@@ -6519,16 +6518,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   :global([data-theme="dark"]) .lang-btn {
-    color: #b5bac1;
+    color: #cbd5e1;
+    font-weight: 700;
   }
 
   :global([data-theme="dark"]) .lang-btn:hover {
-    color: #f2f3f5;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
   }
 
   :global([data-theme="dark"]) .lang-btn.active {
     background: #404249;
     color: #ffffff;
+    font-weight: 800;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   }
 
@@ -7211,15 +7213,52 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     :global([data-theme="dark"]) .roro-table :global(tbody tr) {
-      background: #2b2d31;
-      border-color: #3f4147;
+      background: #2b2d31 !important;
+      border-color: #3f4147 !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(tbody tr:active) {
+      background: #35373c !important;
     }
 
     :global([data-theme="dark"]) .roro-table :global(td[data-col="location"]) {
-      border-bottom-color: #3f4147;
+      border-bottom-color: #3f4147 !important;
     }
+
+    :global([data-theme="dark"]) .roro-table :global(.loc-main) {
+      color: #f2f3f5 !important;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(.loc-note) {
+      color: #949ba4 !important;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(.cust-name) {
+      color: #f2f3f5 !important;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(.cust-phone) {
+      color: #b5bac1 !important;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(.price-val) {
+      color: #f2f3f5 !important;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(.status-start-sub),
+    :global([data-theme="dark"]) .roro-table :global(.status-end-sub) {
+      color: #949ba4 !important;
+    }
+
+    :global([data-theme="dark"]) .roro-table :global(.row-chevron) {
+      color: #72767d !important;
+    }
+  }
+
+  @media (max-width: 768px) {
 
     :global([data-theme="dark"]) .modal-overlay {
       background: #313338;
@@ -8968,15 +9007,91 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     color: #f2f3f5;
   }
 
+  /* Extend Days Save Confirmation Bar */
+  .extend-opt-btn.selected {
+    background: #15803d !important;
+    color: #ffffff !important;
+    border-color: #15803d !important;
+    box-shadow: 0 2px 8px rgba(21, 128, 61, 0.35) !important;
+    font-weight: 800;
+  }
+  :global([data-theme="dark"]) .extend-opt-btn.selected {
+    background: #23a55a !important;
+    color: #ffffff !important;
+    border-color: #23a55a !important;
+    box-shadow: 0 2px 8px rgba(35, 165, 90, 0.4) !important;
+  }
+  .detail-extend-save-row {
+    margin-top: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    animation: fadeIn 0.18s ease-out;
+  }
+  :global([data-theme="dark"]) .detail-extend-save-row {
+    background: #1e293b;
+    border-color: #23a55a;
+  }
+  .detail-extend-preview-txt {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #166534;
+  }
+  :global([data-theme="dark"]) .detail-extend-preview-txt {
+    color: #86efac;
+  }
+  .detail-extend-preview-txt strong {
+    font-weight: 800;
+    color: #0f172a;
+  }
+  :global([data-theme="dark"]) .detail-extend-preview-txt strong {
+    color: #ffffff;
+  }
+  .btn-save-extend {
+    padding: 0.4rem 0.95rem;
+    height: 36px;
+    font-size: 0.86rem;
+    font-weight: 800;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    background: #15803d;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-save-extend:hover {
+    background: #166534;
+  }
+  :global([data-theme="dark"]) .btn-save-extend {
+    background: #23a55a;
+    color: #ffffff;
+  }
+  :global([data-theme="dark"]) .btn-save-extend:hover {
+    background: #1a7f44;
+  }
+
+  /* On PC Desktop, hide camera option so only 'Select Images' is available */
+  @media (min-width: 901px) {
+    #btn-bulk-pick-camera {
+      display: none !important;
+    }
+  }
+
   @media (max-width: 900px) {
     .ai-scan-btn-label {
       display: none;
     }
+    /* Remove top scanning button on mobile header to prevent title crowding */
     .ai-scan-header-btn {
-      width: 44px;
-      height: 44px;
-      padding: 0;
-      justify-content: center;
+      display: none !important;
     }
   }
 
@@ -9168,7 +9283,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       modal_add_title: 'Add New RORO Bin',
       modal_add_sub: 'End date is automatically calculated as 10 days from start date.',
       modal_edit_title: 'Edit RORO Bin Record',
-      btn_save: 'Save Bin Record',
+      btn_save: 'Save',
       btn_update: 'Update Record',
       btn_cancel: 'Cancel',
       lbl_whos_tong: "Who's Tong",
@@ -9298,7 +9413,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       modal_add_title: 'Tambah Tong RORO Baru',
       modal_add_sub: 'Tarikh tamat dikira secara automatik selama 10 hari dari tarikh mula.',
       modal_edit_title: 'Kemaskini Rekod Tong RORO',
-      btn_save: 'Simpan Rekod Tong',
+      btn_save: 'Simpan',
       btn_update: 'Kemaskini Rekod',
       btn_cancel: 'Batal',
       lbl_whos_tong: 'Pemilik Tong',
@@ -10163,13 +10278,24 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   function openDetailModal(rec: RoroRecord) {
     closeAllDropdowns();
     activeDetailId = rec.id;
+    resetDetailExtendState();
     populateDetailModal(rec);
     detailModal.hidden = false;
+  }
+
+  let pendingExtendDays: number | null = null;
+
+  function resetDetailExtendState() {
+    pendingExtendDays = null;
+    const saveWrap = document.getElementById('detail-extend-save-wrap');
+    if (saveWrap) saveWrap.hidden = true;
+    detailExtendSection?.querySelectorAll('.extend-opt-btn').forEach((b) => b.classList.remove('selected'));
   }
 
   function closeDetailModal() {
     detailModal.hidden = true;
     activeDetailId = null;
+    resetDetailExtendState();
   }
 
   function getActiveDetailRecord(): RoroRecord | undefined {
@@ -10226,8 +10352,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
   });
 
-  // Inline Extend Period buttons inside Detail Menu
-  detailExtendSection?.addEventListener('click', async (e) => {
+  // Inline Extend Period buttons inside Detail Menu - Select Day option
+  detailExtendSection?.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest('[data-detail-extend-days]') as HTMLElement | null;
     if (!btn) return;
     const rec = getActiveDetailRecord();
@@ -10238,6 +10364,39 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     }
 
     const addDays = Number(btn.getAttribute('data-detail-extend-days')) || 1;
+    pendingExtendDays = addDays;
+
+    detailExtendSection.querySelectorAll('.extend-opt-btn').forEach((b) => {
+      b.classList.toggle('selected', b === btn);
+    });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const currentEnd = new Date(rec.date_end + 'T00:00:00');
+    const baseDate = !Number.isNaN(currentEnd.getTime()) && currentEnd >= today ? currentEnd : today;
+    const nextEnd = new Date(baseDate);
+    nextEnd.setDate(nextEnd.getDate() + addDays);
+    const nextEndIso = toIsoDate(nextEnd);
+
+    const saveWrap = document.getElementById('detail-extend-save-wrap');
+    const previewEl = document.getElementById('detail-extend-preview');
+    if (previewEl) {
+      const dayTxt = addDays === 1 ? '1 day' : `${addDays} days`;
+      previewEl.innerHTML = `New End: <strong>${formatDateDisplay(nextEndIso)}</strong> (+${dayTxt})`;
+    }
+    if (saveWrap) saveWrap.hidden = false;
+  });
+
+  // Save Extend confirmation button click
+  document.getElementById('btn-save-extend-days')?.addEventListener('click', async () => {
+    const rec = getActiveDetailRecord();
+    if (!rec || !pendingExtendDays) return;
+    if (currentUser.username === 'tiviya' && rec.bin_owner !== OWNER_THIRUMAL) {
+      showToast("Tiviya account can only manage Thirumal Vel Enterprise bins");
+      return;
+    }
+
+    const addDays = pendingExtendDays;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const currentEnd = new Date(rec.date_end + 'T00:00:00');
@@ -10256,6 +10415,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     notifiedIds.delete(rec.id);
     render();
     populateDetailModal(updated);
+    resetDetailExtendState();
+
     const res = await updateRoroRecord(updated);
     logAuditEvent({
       action: 'EXTEND_BIN',
@@ -11839,6 +12000,11 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   function openMobileMoreSheet() {
     if (!mobileMoreModal) return;
     closeAllDropdowns();
+    const sheetEl = mobileMoreModal.querySelector('.mobile-sheet') as HTMLElement | null;
+    if (sheetEl) {
+      sheetEl.style.transform = '';
+      sheetEl.style.transition = '';
+    }
     mobileMoreModal.hidden = false;
     btnMobMore?.setAttribute('aria-expanded', 'true');
     syncMobileBodyScrollLock();
@@ -11860,6 +12026,59 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   mobileMoreModal?.addEventListener('click', (e) => {
     if (e.target === mobileMoreModal) closeMobileMoreSheet();
   });
+
+  // Native-feel slide-to-dismiss gesture on Mobile More Sheet
+  const mobileSheetEl = mobileMoreModal?.querySelector('.mobile-sheet') as HTMLElement | null;
+  if (mobileSheetEl) {
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+
+    mobileSheetEl.addEventListener('touchstart', (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      const scrollable = target.closest('.mobile-sheet-body') as HTMLElement | null;
+      if (scrollable && scrollable.scrollTop > 0) return;
+      startY = e.touches[0].clientY;
+      currentY = startY;
+      isDragging = true;
+      mobileSheetEl.style.transition = 'none';
+    }, { passive: true });
+
+    mobileSheetEl.addEventListener('touchmove', (e: TouchEvent) => {
+      if (!isDragging) return;
+      currentY = e.touches[0].clientY;
+      const deltaY = currentY - startY;
+      if (deltaY > 0) {
+        mobileSheetEl.style.transform = `translateY(${deltaY}px)`;
+      } else {
+        mobileSheetEl.style.transform = 'translateY(0px)';
+      }
+    }, { passive: true });
+
+    const handleTouchEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const deltaY = currentY - startY;
+      mobileSheetEl.style.transition = 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
+      if (deltaY > 75) {
+        mobileSheetEl.style.transform = 'translateY(100%)';
+        setTimeout(() => {
+          closeMobileMoreSheet();
+          mobileSheetEl.style.transform = '';
+          mobileSheetEl.style.transition = '';
+        }, 220);
+      } else {
+        mobileSheetEl.style.transform = 'translateY(0px)';
+        setTimeout(() => {
+          mobileSheetEl.style.transform = '';
+          mobileSheetEl.style.transition = '';
+        }, 220);
+      }
+    };
+
+    mobileSheetEl.addEventListener('touchend', handleTouchEnd);
+    mobileSheetEl.addEventListener('touchcancel', handleTouchEnd);
+  }
 
   // Sync Refresh, SQL Copy & JSON Export
   btnRefreshSync?.addEventListener('click', () => loadRecords(false));
