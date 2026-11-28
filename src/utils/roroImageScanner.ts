@@ -51,6 +51,12 @@ export interface ExtractedBinDraft {
   tiviyaDetected: boolean;
 }
 
+export interface ScanStageEvent {
+  stage: 'normal' | 'contrast' | 'extracting' | 'done';
+  originalUprightDataUrl?: string;
+  enhancedDataUrl?: string;
+}
+
 export interface ScanImageResult {
   bins: ExtractedBinDraft[];
   providerUsed: string;
@@ -745,8 +751,14 @@ export async function resolveMalaysianAddress(params: {
   const cleanedGuessInput = cleanMalaysianAddressText(params.guessedSearchQuery || '');
   const candidates: string[] = [];
   const addCandidate = (val: string) => {
-    const v = val.trim().replace(/,\s*Malaysia$/i, '').replace(/,\s*,+/g, ',');
-    if (v && !candidates.some((c) => c.toLowerCase() === v.toLowerCase())) {
+    const v = val
+      .trim()
+      .replace(/,\s*Malaysia$/i, '')
+      .replace(/\s{2,}/g, ' ')
+      .replace(/,\s*,+/g, ',')
+      .replace(/^[\s,]+|[\s,]+$/g, '');
+    const normKey = v.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (v && normKey.length >= 3 && !candidates.some((c) => c.toLowerCase().replace(/[^a-z0-9]/g, '') === normKey)) {
       candidates.push(v);
     }
   };
@@ -872,6 +884,50 @@ export async function resolveMalaysianAddress(params: {
                   : resolved;
               addCandidate(withUnit);
               verified = true;
+            }
+          }
+        }
+      }
+
+      // Broader Malaysian street/area fallback if strict query returned fewer than 3 map matches
+      if (candidates.length < 3 && streetQuery.includes(',')) {
+        const broaderQuery = streetQuery
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+          .slice(0, 2)
+          .join(', ');
+        if (broaderQuery.length >= 4 && broaderQuery.toLowerCase() !== streetQuery.toLowerCase()) {
+          const broadRes = await fetch(
+            `https://photon.komoot.io/api/?q=${encodeURIComponent(broaderQuery)}&bbox=99.5,0.8,119.5,7.5&lat=${DEPOT_LAT}&lon=${DEPOT_LNG}&limit=4&lang=en`,
+            { signal: AbortSignal.timeout(3200) }
+          );
+          if (broadRes.ok) {
+            const bData = await broadRes.json();
+            const bFeatures = Array.isArray(bData?.features) ? bData.features : [];
+            for (const f of bFeatures) {
+              const p = f?.properties || {};
+              const cc = String(p.countrycode || '').toUpperCase();
+              if (cc && cc !== 'MY') continue;
+              const title = p.name || p.street || p.locality || '';
+              const sub = [
+                p.street && p.street !== title ? p.street : '',
+                p.district,
+                p.city && p.city !== title ? p.city : '',
+                p.postcode,
+                p.state
+              ]
+                .filter(Boolean)
+                .join(', ');
+              const resolved = [title, sub].filter(Boolean).join(', ');
+              if (resolved) {
+                const withUnit =
+                  unitPrefix && !resolved.toLowerCase().startsWith(unitPrefix.toLowerCase())
+                    ? `${unitPrefix}, ${resolved}`
+                    : resolved;
+                addCandidate(withUnit);
+                verified = true;
+              }
             }
           }
         }
@@ -1312,19 +1368,37 @@ function heuristicParseOcrText(rawText: string): any {
 // ============================================================================
 export async function scanRoroImage(
   file: File,
-  options?: { forceOwner?: BinOwner; auto10Days?: boolean; manualRotationDeg?: number }
+  options?: {
+    forceOwner?: BinOwner;
+    auto10Days?: boolean;
+    manualRotationDeg?: number;
+    onStage?: (evt: ScanStageEvent) => void;
+  }
 ): Promise<ScanImageResult> {
   const warnings: string[] = [];
   const cfg = loadVisionConfig();
   const detected = detectProviderFromKey(cfg);
 
-  // Stage 1: EXIF GPS + Ultra-High-Contrast Upright Green-Paper Preprocessing in parallel
+  // Stage 1: Show original normal photo -> compute EXIF GPS + Ultra-High-Contrast Upright Scan
+  options?.onStage?.({ stage: 'normal' });
   const [gps, prepared] = await Promise.all([
     extractExifGps(file),
     prepareEnhancedReceiptImage(file, options?.manualRotationDeg)
   ]);
 
+  // Notify UI that the upright normal photo + high-contrast image are ready for the visual wipe animation
+  options?.onStage?.({
+    stage: 'contrast',
+    originalUprightDataUrl: prepared.originalUprightDataUrl,
+    enhancedDataUrl: prepared.enhancedDataUrl
+  });
+
   // Stage 2: Multi-Provider Automatic Cascade with Continuously Learned Prompt
+  options?.onStage?.({
+    stage: 'extracting',
+    originalUprightDataUrl: prepared.originalUprightDataUrl,
+    enhancedDataUrl: prepared.enhancedDataUrl
+  });
   const dynamicPrompt = buildDynamicExtractionPrompt();
   let parsedPayload: any = null;
   let providerUsed = detected.label;
@@ -1556,6 +1630,12 @@ export async function scanRoroImage(
       tiviyaDetected
     });
   }
+
+  options?.onStage?.({
+    stage: 'done',
+    originalUprightDataUrl: prepared.originalUprightDataUrl,
+    enhancedDataUrl: prepared.enhancedDataUrl
+  });
 
   return {
     bins: resolvedDrafts,

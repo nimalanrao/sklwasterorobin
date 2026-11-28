@@ -729,23 +729,53 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               </div>
             </div>
 
-            <!-- Mobile-Only Sleek Loading Bar -> Green Checkmark -> Smooth Fade -->
-            <div id="mobile-scan-feedback" class="mobile-scan-feedback" hidden>
-              <div id="mobile-scan-loading-view" class="mobile-scan-loading-view">
-                <div class="mobile-scan-label-row">
-                  <span class="mobile-scan-label">Extracting information...</span>
-                </div>
-                <div class="mobile-scan-bar-track">
-                  <div id="mobile-scan-bar-fill" class="mobile-scan-bar-fill"></div>
+            <!-- Visual 4-Stage Scan Pipeline: Normal Photo -> High-Contrast Wipe -> Extracting Info -> Done -->
+            <div id="scan-pipeline-stage" class="scan-pipeline-stage" hidden>
+              <div class="scan-steps-rail" id="scan-steps-rail" aria-label="Scan progress steps">
+                <span class="scan-step-pill" data-scan-step="normal">
+                  <span class="scan-step-dot"></span>
+                  <span>Photo</span>
+                </span>
+                <span class="scan-step-arrow" aria-hidden="true">›</span>
+                <span class="scan-step-pill" data-scan-step="contrast">
+                  <span class="scan-step-dot"></span>
+                  <span>Contrast</span>
+                </span>
+                <span class="scan-step-arrow" aria-hidden="true">›</span>
+                <span class="scan-step-pill" data-scan-step="extracting">
+                  <span class="scan-step-dot"></span>
+                  <span>Extract</span>
+                </span>
+                <span class="scan-step-arrow" aria-hidden="true">›</span>
+                <span class="scan-step-pill" data-scan-step="done">
+                  <span class="scan-step-dot"></span>
+                  <span>Done</span>
+                </span>
+              </div>
+
+              <div id="scan-visual-box" class="scan-visual-box">
+                <img id="scan-img-normal" class="scan-stage-img scan-img-normal" src="" alt="Uploaded slip photo" />
+                <img id="scan-img-contrast" class="scan-stage-img scan-img-contrast" src="" alt="High-contrast slip scan" />
+                <div class="scan-contrast-beam" aria-hidden="true"></div>
+                <div class="scan-extract-beam" aria-hidden="true"></div>
+                <div class="scan-viewfinder-corners" aria-hidden="true"></div>
+                <span id="scan-stage-pill" class="scan-stage-pill">Normal Photo</span>
+                <div id="scan-done-overlay" class="scan-done-overlay" hidden>
+                  <span class="scan-done-check-circle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span class="scan-done-title">Information Extracted</span>
+                  <span class="scan-done-sub">Choose your address below</span>
                 </div>
               </div>
-              <div id="mobile-scan-done-view" class="mobile-scan-done-view" hidden>
-                <span class="mobile-scan-check-circle">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </span>
-                <span class="mobile-scan-done-text">Information extracted</span>
+
+              <div class="scan-bar-row">
+                <span id="scan-bar-label" class="scan-bar-label">Preparing photo...</span>
+                <div class="scan-bar-track">
+                  <div id="scan-bar-fill" class="scan-bar-fill"></div>
+                </div>
               </div>
             </div>
 
@@ -754,9 +784,6 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <span id="single-multi-bin-text">Multiple bins detected in this image!</span>
               <button type="button" id="btn-open-detected-bulk" class="scan-mini-btn primary">Open All in Bulk Review</button>
             </div>
-
-            <!-- AI Verified Malaysia Address Candidates (1-tap swap) -->
-            <div id="single-scan-addr-chips" class="addr-guess-chips" hidden></div>
           </div>
 
           <!-- Who's Tong Category Selector (SKL Waste default vs Thirumal Vel Enterprise) -->
@@ -802,6 +829,36 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
               <div class="blur-dropdown-menu downward autocomplete-menu" id="location-suggestions-menu" role="listbox">
                 <!-- Populated live from strict Malaysia-only search -->
               </div>
+            </div>
+
+            <!-- Extracted Malaysia Address Choices (Always Visible & Tappable on Both Mobile & PC) -->
+            <div id="single-addr-picker-wrap" class="single-addr-picker-wrap" hidden>
+              <div class="single-addr-picker-head">
+                <span class="single-addr-picker-title" id="single-addr-picker-title">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  <span id="single-addr-picker-heading">Choose Extracted Address</span>
+                </span>
+                <div class="single-addr-picker-tools">
+                  <button type="button" id="btn-addr-inspect-photo" class="addr-tool-pill" hidden title="Inspect scanned photo">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <span>Photo</span>
+                  </button>
+                  <button type="button" id="btn-addr-rescan" class="addr-tool-pill" title="Scan another photo">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="23 4 23 10 17 10"></polyline>
+                      <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                    <span>Rescan</span>
+                  </button>
+                </div>
+              </div>
+              <div id="single-scan-addr-chips" class="addr-choice-list" role="radiogroup" aria-label="Extracted address choices"></div>
             </div>
 
             <!-- Interactive Clickable Malaysia Map Picker (Hidden by default; toggle in Special Settings) -->
@@ -8253,9 +8310,9 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     color: #ffffff;
   }
 
-  /* --- MOBILE-ONLY LOADING BAR -> CHECKMARK -> SMOOTH FADE --- */
+  /* --- VISUAL 4-STAGE SCAN PIPELINE (NORMAL -> CONTRAST WIPE -> EXTRACT -> DONE) --- */
   .single-ai-scan-box {
-    max-height: 420px;
+    max-height: 580px;
     transition:
       opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
@@ -8278,55 +8335,313 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     pointer-events: none;
   }
 
-  .mobile-scan-feedback {
+  .scan-pipeline-stage {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
-    padding: 0.2rem 0.1rem;
+    gap: 0.58rem;
+    padding: 0.1rem 0;
+    animation: scanStageFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .mobile-scan-feedback[hidden] {
+  .scan-pipeline-stage[hidden] {
     display: none;
   }
 
-  .mobile-scan-loading-view {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
+  @keyframes scanStageFadeIn {
+    0% { opacity: 0; transform: translateY(-4px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
-  .mobile-scan-loading-view[hidden] {
-    display: none;
-  }
-
-  .mobile-scan-label-row {
+  .scan-steps-rail {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.22rem;
+    padding: 0.25rem 0.32rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid #dcfce7;
   }
 
-  .mobile-scan-label {
-    font-size: 0.84rem;
+  .scan-step-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.46rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #64748b;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .scan-step-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 9999px;
+    background: #cbd5e1;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .scan-step-pill.is-active {
+    background: #dcfce7;
+    color: #14532d;
+  }
+
+  .scan-step-pill.is-active .scan-step-dot {
+    background: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.25);
+    animation: stepDotPulse 1.1s ease-in-out infinite;
+  }
+
+  .scan-step-pill.is-done {
+    color: #15803d;
+  }
+
+  .scan-step-pill.is-done .scan-step-dot {
+    background: #16a34a;
+  }
+
+  .scan-step-arrow {
+    color: #cbd5e1;
+    font-size: 0.85rem;
+    font-weight: 800;
+    line-height: 1;
+    user-select: none;
+  }
+
+  @keyframes stepDotPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.28); opacity: 0.75; }
+  }
+
+  .scan-visual-box {
+    position: relative;
+    width: 100%;
+    height: 168px;
+    border-radius: 13px;
+    overflow: hidden;
+    background: #0f172a;
+    border: 1.5px solid #bbf7d0;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  .scan-stage-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .scan-img-normal {
+    z-index: 1;
+    filter: saturate(1.04);
+  }
+
+  .scan-img-contrast {
+    z-index: 2;
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+    transition: clip-path 0.88s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.14s ease;
+  }
+
+  .scan-visual-box.is-contrast-ready .scan-img-contrast {
+    opacity: 1;
+  }
+
+  .scan-visual-box.is-contrast-revealed .scan-img-contrast {
+    opacity: 1;
+    clip-path: inset(0 0% 0 0);
+  }
+
+  /* Vertical glowing emerald laser bar wiping Normal -> High Contrast left-to-right */
+  .scan-contrast-beam {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0%;
+    width: 4px;
+    z-index: 4;
+    background: #4ade80;
+    box-shadow: 0 0 14px 4px rgba(74, 222, 128, 0.75), -26px 0 28px 6px rgba(34, 197, 94, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-2px);
+  }
+
+  .scan-visual-box.is-contrast-sweeping .scan-contrast-beam {
+    opacity: 1;
+    animation: contrastWipeSweep 0.88s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes contrastWipeSweep {
+    0% { left: 0%; opacity: 0.95; }
+    88% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+
+  /* Horizontal emerald OCR scanning ribbon during info extraction */
+  .scan-extract-beam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0%;
+    height: 36px;
+    z-index: 4;
+    background: linear-gradient(
+      180deg,
+      rgba(34, 197, 94, 0) 0%,
+      rgba(34, 197, 94, 0.28) 50%,
+      rgba(74, 222, 128, 0.85) 94%,
+      rgba(74, 222, 128, 0) 100%
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .scan-visual-box.is-extracting .scan-extract-beam {
+    opacity: 1;
+    animation: extractScanLoop 1.35s ease-in-out infinite alternate;
+  }
+
+  @keyframes extractScanLoop {
+    0% { top: -8%; }
+    100% { top: calc(100% - 28px); }
+  }
+
+  .scan-viewfinder-corners {
+    position: absolute;
+    inset: 9px;
+    z-index: 5;
+    pointer-events: none;
+    border-radius: 7px;
+    background:
+      linear-gradient(to right, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 0 0,
+      linear-gradient(to bottom, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 0 0,
+      linear-gradient(to left, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 100% 0,
+      linear-gradient(to bottom, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 100% 0,
+      linear-gradient(to right, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 0 100%,
+      linear-gradient(to top, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 0 100%,
+      linear-gradient(to left, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 100% 100%,
+      linear-gradient(to top, rgba(74, 222, 128, 0.85) 2px, transparent 2px) 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    opacity: 0.72;
+    transition: opacity 0.25s ease;
+  }
+
+  .scan-visual-box.is-done .scan-viewfinder-corners {
+    opacity: 0;
+  }
+
+  .scan-stage-pill {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 6;
+    padding: 0.22rem 0.62rem;
+    border-radius: 9999px;
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(6px);
+    color: #f8fafc;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    transition: background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  }
+
+  .scan-visual-box.is-done .scan-stage-pill {
+    opacity: 0;
+  }
+
+  .scan-done-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 7;
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    animation: checkPopIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scan-done-overlay[hidden] {
+    display: none;
+  }
+
+  .scan-done-check-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: #16a34a;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(22, 163, 74, 0.5);
+    animation: checkBounceIn 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .scan-done-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .scan-done-sub {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #bbf7d0;
+  }
+
+  @keyframes checkPopIn {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes checkBounceIn {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  .scan-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.32rem;
+  }
+
+  .scan-bar-label {
+    font-size: 0.78rem;
     font-weight: 800;
     color: #14532d;
   }
 
-  .mobile-scan-bar-track {
+  .scan-bar-track {
     width: 100%;
-    height: 8px;
+    height: 7px;
     border-radius: 9999px;
     background: #dcfce7;
     overflow: hidden;
   }
 
-  .mobile-scan-bar-fill {
+  .scan-bar-fill {
     height: 100%;
-    width: 12%;
+    width: 16%;
     border-radius: 9999px;
     background: linear-gradient(90deg, #15803d, #22c55e, #15803d);
     background-size: 200% 100%;
     animation: scanBarShimmer 1.3s linear infinite;
-    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 0.38s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @keyframes scanBarShimmer {
@@ -8334,49 +8649,253 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     100% { background-position: -200% 0; }
   }
 
-  .mobile-scan-done-view {
+  /* --- EXTRACTED 4-ADDRESS PICKER (ALWAYS VISIBLE BELOW LOCATION ON MOBILE & PC) --- */
+  .single-addr-picker-wrap {
+    margin-top: 0.55rem;
+    padding: 0.62rem 0.72rem;
+    border-radius: 12px;
+    border: 1.5px solid #bbf7d0;
+    background: #f0fdf4;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    padding: 0.25rem 0;
-    animation: checkPopIn 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-direction: column;
+    gap: 0.48rem;
+    animation: addrPickerReveal 0.36s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .mobile-scan-done-view[hidden] {
+  .single-addr-picker-wrap[hidden] {
     display: none;
   }
 
-  .mobile-scan-check-circle {
-    width: 28px;
-    height: 28px;
+  @keyframes addrPickerReveal {
+    0% { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .single-addr-picker-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .single-addr-picker-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.34rem;
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: #14532d;
+  }
+
+  .single-addr-picker-tools {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+  }
+
+  .addr-tool-pill {
+    height: 26px;
+    padding: 0 0.55rem;
     border-radius: 9999px;
-    background: #16a34a;
-    color: #ffffff;
+    border: 1px solid #bbf7d0;
+    background: #ffffff;
+    color: #15803d;
+    font-size: 0.7rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.14s ease, border-color 0.14s ease, transform 0.12s ease;
+  }
+
+  .addr-tool-pill:hover {
+    background: #dcfce7;
+    border-color: #16a34a;
+  }
+
+  .addr-tool-pill[hidden] {
+    display: none;
+  }
+
+  .addr-choice-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.42rem;
+  }
+
+  :global(.addr-choice-card) {
+    width: 100%;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    color: #1e293b;
+    border-radius: 10px;
+    padding: 0.52rem 0.65rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.48rem;
+    transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+    animation: addrChoiceStagger 0.32s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  :global(.addr-choice-card:nth-child(1)) { animation-delay: 0.03s; }
+  :global(.addr-choice-card:nth-child(2)) { animation-delay: 0.08s; }
+  :global(.addr-choice-card:nth-child(3)) { animation-delay: 0.13s; }
+  :global(.addr-choice-card:nth-child(4)) { animation-delay: 0.18s; }
+
+  @keyframes addrChoiceStagger {
+    0% { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  :global(.addr-choice-card:hover) {
+    border-color: #16a34a;
+    background: #f8fafc;
+  }
+
+  :global(.addr-choice-card:active) {
+    transform: scale(0.985);
+  }
+
+  :global(.addr-choice-card.active) {
+    border-color: #15803d;
+    background: #dcfce7;
+    color: #14532d;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.16);
+  }
+
+  :global(.addr-choice-num) {
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.68rem;
+    font-weight: 800;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
 
-  .mobile-scan-done-text {
-    font-size: 0.88rem;
-    font-weight: 800;
-    color: #15803d;
+  :global(.addr-choice-card.active .addr-choice-num) {
+    background: #16a34a;
+    color: #ffffff;
   }
 
-  @keyframes checkPopIn {
-    0% { opacity: 0; transform: scale(0.84); }
-    100% { opacity: 1; transform: scale(1); }
+  :global(.addr-choice-text) {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
   }
 
-  :global([data-theme="dark"]) .mobile-scan-label,
-  :global([data-theme="dark"]) .mobile-scan-done-text {
+  @media (max-width: 680px) {
+    .scan-visual-box {
+      height: 152px;
+    }
+
+    .scan-step-pill {
+      padding: 0.18rem 0.38rem;
+      font-size: 0.67rem;
+    }
+
+    .addr-choice-list {
+      grid-template-columns: 1fr;
+    }
+
+    :global(.addr-choice-card) {
+      padding: 0.6rem 0.72rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  :global([data-theme="dark"]) .scan-steps-rail {
+    background: #1e1f22;
+    border-color: rgba(35, 165, 90, 0.35);
+  }
+
+  :global([data-theme="dark"]) .scan-step-pill {
+    color: #949ba4;
+  }
+
+  :global([data-theme="dark"]) .scan-step-dot {
+    background: #4e5058;
+  }
+
+  :global([data-theme="dark"]) .scan-step-pill.is-active {
+    background: rgba(35, 165, 90, 0.22);
     color: #6ee7a0;
   }
 
-  :global([data-theme="dark"]) .mobile-scan-bar-track {
+  :global([data-theme="dark"]) .scan-step-pill.is-done {
+    color: #6ee7a0;
+  }
+
+  :global([data-theme="dark"]) .scan-step-arrow {
+    color: #4e5058;
+  }
+
+  :global([data-theme="dark"]) .scan-visual-box {
+    border-color: rgba(35, 165, 90, 0.45);
+  }
+
+  :global([data-theme="dark"]) .scan-bar-label,
+  :global([data-theme="dark"]) .single-addr-picker-title {
+    color: #6ee7a0;
+  }
+
+  :global([data-theme="dark"]) .scan-bar-track {
     background: rgba(35, 165, 90, 0.2);
+  }
+
+  :global([data-theme="dark"]) .single-addr-picker-wrap {
+    background: rgba(35, 165, 90, 0.09);
+    border-color: rgba(35, 165, 90, 0.4);
+  }
+
+  :global([data-theme="dark"]) .addr-tool-pill {
+    background: #1e1f22;
+    border-color: rgba(35, 165, 90, 0.45);
+    color: #6ee7a0;
+  }
+
+  :global([data-theme="dark"]) .addr-tool-pill:hover {
+    background: rgba(35, 165, 90, 0.22);
+  }
+
+  :global([data-theme="dark"]) :global(.addr-choice-card) {
+    background: #1e1f22;
+    border-color: #3f4147;
+    color: #f2f3f5;
+  }
+
+  :global([data-theme="dark"]) :global(.addr-choice-card:hover) {
+    border-color: #23a55a;
+    background: #26282d;
+  }
+
+  :global([data-theme="dark"]) :global(.addr-choice-card.active) {
+    background: rgba(35, 165, 90, 0.2);
+    border-color: #23a55a;
+    color: #ecfdf5;
+  }
+
+  :global([data-theme="dark"]) :global(.addr-choice-num) {
+    background: #2b2d31;
+    color: #b5bac1;
+  }
+
+  :global([data-theme="dark"]) :global(.addr-choice-card.active .addr-choice-num) {
+    background: #23a55a;
+    color: #ffffff;
   }
 
   :global(.bulk-badge.tiviya) {
@@ -8516,7 +9035,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     recordLearnedScanExample,
     seedKnownLocationsFromRecords,
     type VisionProvider,
-    type ExtractedBinDraft
+    type ExtractedBinDraft,
+    type ScanStageEvent
   } from '../../utils/roroImageScanner';
 
   const currentUser = getCurrentUser();
@@ -10641,6 +11161,7 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   }
 
   function closeModal() {
+    resetSingleScanUI();
     closeDatePickers();
     closeAutocomplete();
     confirmDiscardModal.hidden = true;
@@ -11702,10 +12223,19 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   const singleScanThumbBtn = document.getElementById('single-scan-thumb-btn') as HTMLButtonElement | null;
   const singleScanThumbImg = document.getElementById('single-scan-thumb-img') as HTMLImageElement | null;
   const singleScanIdleRow = document.getElementById('single-scan-idle-row') as HTMLElement | null;
-  const mobileScanFeedback = document.getElementById('mobile-scan-feedback') as HTMLElement | null;
-  const mobileScanLoadingView = document.getElementById('mobile-scan-loading-view') as HTMLElement | null;
-  const mobileScanBarFill = document.getElementById('mobile-scan-bar-fill') as HTMLElement | null;
-  const mobileScanDoneView = document.getElementById('mobile-scan-done-view') as HTMLElement | null;
+  const scanPipelineStage = document.getElementById('scan-pipeline-stage') as HTMLElement | null;
+  const scanStepsRail = document.getElementById('scan-steps-rail') as HTMLElement | null;
+  const scanVisualBox = document.getElementById('scan-visual-box') as HTMLElement | null;
+  const scanImgNormal = document.getElementById('scan-img-normal') as HTMLImageElement | null;
+  const scanImgContrast = document.getElementById('scan-img-contrast') as HTMLImageElement | null;
+  const scanStagePill = document.getElementById('scan-stage-pill') as HTMLElement | null;
+  const scanDoneOverlay = document.getElementById('scan-done-overlay') as HTMLElement | null;
+  const scanBarLabel = document.getElementById('scan-bar-label') as HTMLElement | null;
+  const scanBarFill = document.getElementById('scan-bar-fill') as HTMLElement | null;
+  const singleAddrPickerWrap = document.getElementById('single-addr-picker-wrap') as HTMLElement | null;
+  const singleAddrPickerHeading = document.getElementById('single-addr-picker-heading') as HTMLElement | null;
+  const btnAddrInspectPhoto = document.getElementById('btn-addr-inspect-photo') as HTMLButtonElement | null;
+  const btnAddrRescan = document.getElementById('btn-addr-rescan') as HTMLButtonElement | null;
   const singleAddrChips = document.getElementById('single-scan-addr-chips') as HTMLElement | null;
   const singleMultiBinBar = document.getElementById('single-multi-bin-bar') as HTMLElement | null;
   const singleMultiBinText = document.getElementById('single-multi-bin-text') as HTMLElement | null;
@@ -11752,6 +12282,8 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
   let pendingMultiBinDrafts: BulkDraftItem[] = [];
   let mobileBarInterval: number | null = null;
   let mobileFadeTimer: number | null = null;
+  let scanStageTimers: number[] = [];
+  let activeScanRunId = 0;
 
   function openScanLightbox(enhancedUrl: string, originalUrl?: string) {
     if (!scanLightbox || !scanLightboxImg || !enhancedUrl) return;
@@ -11805,9 +12337,43 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       window.clearTimeout(mobileFadeTimer);
       mobileFadeTimer = null;
     }
+    for (const tid of scanStageTimers) {
+      window.clearTimeout(tid);
+    }
+    scanStageTimers = [];
+  }
+
+  function setScanStepsRailState(activeStage: 'normal' | 'contrast' | 'extracting' | 'done') {
+    if (!scanStepsRail) return;
+    const order: Array<'normal' | 'contrast' | 'extracting' | 'done'> = ['normal', 'contrast', 'extracting', 'done'];
+    const activeIdx = order.indexOf(activeStage);
+    scanStepsRail.querySelectorAll<HTMLElement>('[data-scan-step]').forEach((pill) => {
+      const stepKey = pill.getAttribute('data-scan-step') as 'normal' | 'contrast' | 'extracting' | 'done';
+      const idx = order.indexOf(stepKey);
+      pill.classList.toggle('is-active', idx === activeIdx && activeStage !== 'done');
+      pill.classList.toggle('is-done', idx < activeIdx || (activeStage === 'done' && idx <= activeIdx));
+    });
+  }
+
+  function resetScanVisualBox() {
+    if (!scanVisualBox) return;
+    scanVisualBox.classList.remove(
+      'is-contrast-ready',
+      'is-contrast-sweeping',
+      'is-contrast-revealed',
+      'is-extracting',
+      'is-done'
+    );
+    if (scanDoneOverlay) scanDoneOverlay.hidden = true;
+    if (scanStagePill) scanStagePill.textContent = 'Normal Photo';
+    if (scanBarLabel) scanBarLabel.textContent = 'Preparing photo...';
+    if (scanBarFill) scanBarFill.style.width = '14%';
+    if (scanImgNormal) scanImgNormal.src = '';
+    if (scanImgContrast) scanImgContrast.src = '';
   }
 
   function resetSingleScanUI() {
+    activeScanRunId += 1;
     clearMobileScanTimers();
     lastSingleEnhancedUrl = '';
     lastSingleOriginalUrl = '';
@@ -11818,16 +12384,13 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       singleScanBox.classList.remove('is-scanning', 'is-mobile-fading');
     }
     if (singleScanIdleRow) singleScanIdleRow.hidden = false;
-    if (mobileScanFeedback) mobileScanFeedback.hidden = true;
-    if (mobileScanLoadingView) mobileScanLoadingView.hidden = false;
-    if (mobileScanDoneView) mobileScanDoneView.hidden = true;
-    if (mobileScanBarFill) mobileScanBarFill.style.width = '12%';
+    if (scanPipelineStage) scanPipelineStage.hidden = true;
+    resetScanVisualBox();
     if (singleScanThumbBtn) singleScanThumbBtn.hidden = true;
     if (singleScanThumbImg) singleScanThumbImg.src = '';
-    if (singleAddrChips) {
-      singleAddrChips.hidden = true;
-      singleAddrChips.innerHTML = '';
-    }
+    if (singleAddrPickerWrap) singleAddrPickerWrap.hidden = true;
+    if (btnAddrInspectPhoto) btnAddrInspectPhoto.hidden = true;
+    if (singleAddrChips) singleAddrChips.innerHTML = '';
     if (singleMultiBinBar) singleMultiBinBar.hidden = true;
     if (singleScanFile) singleScanFile.value = '';
     if (singleScanCamera) singleScanCamera.value = '';
@@ -11895,21 +12458,30 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       placeMapPin(draft.gps_coords.lat, draft.gps_coords.lng, false);
     }
 
-    if (singleAddrChips) {
-      if (draft.address_candidates.length > 1) {
-        singleAddrChips.innerHTML = draft.address_candidates
+    // Always show extracted Malaysia address options right under Delivery Location (both Mobile & PC)
+    if (singleAddrChips && singleAddrPickerWrap) {
+      const choices = (draft.address_candidates || []).filter(Boolean).slice(0, 4);
+      if (choices.length > 0) {
+        if (singleAddrPickerHeading) {
+          singleAddrPickerHeading.textContent =
+            choices.length > 1
+              ? `Choose Extracted Address (${choices.length})`
+              : 'Extracted Address';
+        }
+        singleAddrChips.innerHTML = choices
           .map(
             (cand, idx) => `
-              <button type="button" class="addr-chip-btn ${idx === 0 ? 'active' : ''}" data-single-addr-cand="${escapeHtml(cand)}">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>${escapeHtml(cand)}</span>
+              <button type="button" class="addr-choice-card ${idx === 0 ? 'active' : ''}" role="radio" aria-checked="${idx === 0 ? 'true' : 'false'}" data-single-addr-cand="${escapeHtml(cand)}">
+                <span class="addr-choice-num">${idx + 1}</span>
+                <span class="addr-choice-text">${escapeHtml(cand)}</span>
               </button>
             `
           )
           .join('');
-        singleAddrChips.hidden = false;
+        if (btnAddrInspectPhoto) btnAddrInspectPhoto.hidden = !lastSingleEnhancedUrl;
+        singleAddrPickerWrap.hidden = false;
       } else {
-        singleAddrChips.hidden = true;
+        singleAddrPickerWrap.hidden = true;
         singleAddrChips.innerHTML = '';
       }
     }
@@ -11922,9 +12494,35 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
     if (chosen) {
       locationInput.value = chosen;
       flashAutofilledElement(locationInput);
-      singleAddrChips.querySelectorAll('.addr-chip-btn').forEach((b) => b.classList.toggle('active', b === btn));
+      singleAddrChips.querySelectorAll('.addr-choice-card').forEach((b) => {
+        const isSelected = b === btn;
+        b.classList.toggle('active', isSelected);
+        b.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+      });
     }
   });
+
+  btnAddrInspectPhoto?.addEventListener('click', () => {
+    openScanLightbox(lastSingleEnhancedUrl, lastSingleOriginalUrl);
+  });
+
+  btnAddrRescan?.addEventListener('click', () => {
+    clearMobileScanTimers();
+    if (singleScanBox) {
+      singleScanBox.hidden = false;
+      singleScanBox.classList.remove('is-mobile-fading', 'is-scanning');
+    }
+    if (scanPipelineStage) scanPipelineStage.hidden = true;
+    if (singleScanIdleRow) singleScanIdleRow.hidden = false;
+    singleScanBox?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  function sleepMs(ms: number): Promise<void> {
+    return new Promise((resolve) => {
+      const tid = window.setTimeout(resolve, ms);
+      scanStageTimers.push(tid);
+    });
+  }
 
   async function handleSingleImageScan(file: File) {
     if (!file || !file.type.startsWith('image/')) {
@@ -11932,28 +12530,18 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       return;
     }
 
+    const runId = ++activeScanRunId;
     clearMobileScanTimers();
     modalFormError.hidden = true;
-    singleScanBox?.classList.remove('is-mobile-fading');
-    singleScanBox?.classList.add('is-scanning');
+    if (singleScanBox) {
+      singleScanBox.hidden = false;
+      singleScanBox.classList.remove('is-mobile-fading');
+      singleScanBox.classList.add('is-scanning');
+    }
+    if (singleAddrPickerWrap) singleAddrPickerWrap.hidden = true;
+    if (singleMultiBinBar) singleMultiBinBar.hidden = true;
 
     const isMobileViewport = window.innerWidth <= 900;
-
-    // Mobile-only sleek loading bar ("Extracting information...") -> Checkmark -> Smooth Fade!
-    if (isMobileViewport && mobileScanFeedback && mobileScanLoadingView && mobileScanDoneView && mobileScanBarFill) {
-      if (singleScanIdleRow) singleScanIdleRow.hidden = true;
-      if (singleAddrChips) singleAddrChips.hidden = true;
-      mobileScanFeedback.hidden = false;
-      mobileScanLoadingView.hidden = false;
-      mobileScanDoneView.hidden = true;
-      let pct = 16;
-      mobileScanBarFill.style.width = `${pct}%`;
-      mobileBarInterval = window.setInterval(() => {
-        pct = Math.min(88, pct + Math.max(3, Math.round((90 - pct) * 0.22)));
-        mobileScanBarFill.style.width = `${pct}%`;
-      }, 240);
-    }
-
     const previewObjectUrl = URL.createObjectURL(file);
     lastSingleEnhancedUrl = previewObjectUrl;
     lastSingleOriginalUrl = previewObjectUrl;
@@ -11962,16 +12550,111 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
       singleScanThumbBtn.hidden = false;
     }
 
+    // STAGE 1: Show Normal Photo immediately inside the animated visual viewport (Mobile & PC!)
+    if (singleScanIdleRow) singleScanIdleRow.hidden = true;
+    if (scanPipelineStage) scanPipelineStage.hidden = false;
+    resetScanVisualBox();
+    setScanStepsRailState('normal');
+    if (scanImgNormal) scanImgNormal.src = previewObjectUrl;
+    if (scanStagePill) scanStagePill.textContent = 'Normal Photo';
+    if (scanBarLabel) scanBarLabel.textContent = 'Loading normal photo...';
+    if (scanBarFill) scanBarFill.style.width = '18%';
+
+    let contrastAnimationDone: Promise<void> | null = null;
+    let contrastStarted = false;
+
+    const triggerContrastThenExtract = (origUrl: string, enhUrl: string) => {
+      if (contrastStarted || runId !== activeScanRunId) return;
+      contrastStarted = true;
+      lastSingleOriginalUrl = origUrl || previewObjectUrl;
+      lastSingleEnhancedUrl = enhUrl || previewObjectUrl;
+
+      contrastAnimationDone = (async () => {
+        // Show the auto-upright normal green slip briefly so user sees Normal -> Contrast clearly
+        if (scanImgNormal && origUrl) scanImgNormal.src = origUrl;
+        if (scanImgContrast && enhUrl) scanImgContrast.src = enhUrl;
+        await sleepMs(340);
+        if (runId !== activeScanRunId) return;
+
+        // STAGE 2: Smooth left-to-right glowing laser sweep turning Normal Image -> High-Contrast Image
+        setScanStepsRailState('contrast');
+        if (scanStagePill) scanStagePill.textContent = 'High Contrast';
+        if (scanBarLabel) scanBarLabel.textContent = 'Converting to high contrast...';
+        if (scanBarFill) scanBarFill.style.width = '50%';
+        if (scanVisualBox) {
+          scanVisualBox.classList.add('is-contrast-ready');
+          void scanVisualBox.offsetWidth;
+          scanVisualBox.classList.add('is-contrast-sweeping', 'is-contrast-revealed');
+        }
+
+        await sleepMs(900);
+        if (runId !== activeScanRunId) return;
+
+        // STAGE 3: Extracting Information (horizontal OCR reading beam over crisp black-on-white scan)
+        setScanStepsRailState('extracting');
+        if (scanStagePill) scanStagePill.textContent = 'Extracting Info...';
+        if (scanBarLabel) scanBarLabel.textContent = 'Extracting information...';
+        if (scanVisualBox) {
+          scanVisualBox.classList.remove('is-contrast-sweeping');
+          scanVisualBox.classList.add('is-extracting');
+        }
+        let pct = 58;
+        if (scanBarFill) scanBarFill.style.width = `${pct}%`;
+        mobileBarInterval = window.setInterval(() => {
+          pct = Math.min(92, pct + Math.max(2, Math.round((94 - pct) * 0.2)));
+          if (scanBarFill) scanBarFill.style.width = `${pct}%`;
+        }, 220);
+
+        await sleepMs(450);
+      })();
+    };
+
     try {
       const res = await scanRoroImage(file, {
         forceOwner: currentUser.username === 'tiviya' ? OWNER_THIRUMAL : undefined,
-        auto10Days: specialSettings.enableAuto10Days
+        auto10Days: specialSettings.enableAuto10Days,
+        onStage: (evt: ScanStageEvent) => {
+          if (runId !== activeScanRunId) return;
+          if (evt.stage === 'contrast' && evt.enhancedDataUrl) {
+            triggerContrastThenExtract(evt.originalUprightDataUrl || previewObjectUrl, evt.enhancedDataUrl);
+          }
+        }
       });
 
+      if (runId !== activeScanRunId) return;
+
       const first = res.bins[0];
+      if (!contrastStarted && first) {
+        triggerContrastThenExtract(
+          first.originalUprightDataUrl || previewObjectUrl,
+          first.enhancedDataUrl || previewObjectUrl
+        );
+      }
+
+      // Let Normal -> Contrast -> Extracting animation finish smoothly before showing Done!
+      if (contrastAnimationDone) {
+        await contrastAnimationDone;
+      }
+      if (runId !== activeScanRunId) return;
+
+      if (mobileBarInterval) {
+        window.clearInterval(mobileBarInterval);
+        mobileBarInterval = null;
+      }
+
+      // STAGE 4: Done ✓ -> Reveal Checkmark -> Autofill & Show 4 Address Choices!
+      setScanStepsRailState('done');
+      if (scanBarFill) scanBarFill.style.width = '100%';
+      if (scanBarLabel) scanBarLabel.textContent = 'Done! Choose your address below';
+      if (scanVisualBox) {
+        scanVisualBox.classList.remove('is-extracting', 'is-contrast-sweeping');
+        scanVisualBox.classList.add('is-contrast-revealed', 'is-done');
+      }
+      if (scanDoneOverlay) scanDoneOverlay.hidden = false;
+
       if (first) {
-        lastSingleEnhancedUrl = first.enhancedDataUrl || previewObjectUrl;
-        lastSingleOriginalUrl = first.originalUprightDataUrl || previewObjectUrl;
+        lastSingleEnhancedUrl = first.enhancedDataUrl || lastSingleEnhancedUrl;
+        lastSingleOriginalUrl = first.originalUprightDataUrl || lastSingleOriginalUrl;
         lastSingleScanRawLocation = first.raw_location || first.location || '';
         if (singleScanThumbImg) singleScanThumbImg.src = first.thumbnailDataUrl || lastSingleEnhancedUrl;
         applyDraftToSingleModal(first);
@@ -11989,35 +12672,42 @@ import SystemRoroLayout from '../../layouts/SystemRoroLayout.astro';
         singleMultiBinBar.hidden = true;
       }
 
-      if (isMobileViewport && mobileScanFeedback && mobileScanLoadingView && mobileScanDoneView && mobileScanBarFill) {
-        clearMobileScanTimers();
-        mobileScanBarFill.style.width = '100%';
-        mobileFadeTimer = window.setTimeout(() => {
-          mobileScanLoadingView.hidden = true;
-          mobileScanDoneView.hidden = false;
-          // Smoothly fade out after displaying the green checkmark (mobile only)
-          mobileFadeTimer = window.setTimeout(() => {
-            if (singleMultiBinBar?.hidden) {
-              singleScanBox?.classList.add('is-mobile-fading');
-              mobileFadeTimer = window.setTimeout(() => {
-                if (singleScanBox) singleScanBox.hidden = true;
-              }, 460);
-            } else {
-              mobileScanFeedback.hidden = true;
-              if (singleScanIdleRow) singleScanIdleRow.hidden = false;
-            }
-          }, 950);
-        }, 220);
-      } else {
-        showToast('Information extracted');
-      }
+      // Hold the crisp Done ✓ overlay briefly, then fade cleanly and focus the 4 address choices
+      mobileFadeTimer = window.setTimeout(() => {
+        if (runId !== activeScanRunId) return;
+        if (isMobileViewport) {
+          if (singleMultiBinBar?.hidden) {
+            singleScanBox?.classList.add('is-mobile-fading');
+            mobileFadeTimer = window.setTimeout(() => {
+              if (runId !== activeScanRunId) return;
+              if (singleScanBox) singleScanBox.hidden = true;
+              if (singleAddrPickerWrap && !singleAddrPickerWrap.hidden) {
+                singleAddrPickerWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            }, 460);
+          } else {
+            if (scanPipelineStage) scanPipelineStage.hidden = true;
+            if (singleScanIdleRow) singleScanIdleRow.hidden = false;
+          }
+        } else {
+          // Desktop: return scan header to sleek compact bar while keeping all 4 address options right below Location
+          if (scanPipelineStage) scanPipelineStage.hidden = true;
+          if (singleScanIdleRow) singleScanIdleRow.hidden = false;
+          if (singleAddrPickerWrap && !singleAddrPickerWrap.hidden) {
+            singleAddrPickerWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }, 950);
     } catch {
+      if (runId !== activeScanRunId) return;
       clearMobileScanTimers();
-      if (mobileScanFeedback) mobileScanFeedback.hidden = true;
+      if (scanPipelineStage) scanPipelineStage.hidden = true;
       if (singleScanIdleRow) singleScanIdleRow.hidden = false;
       showToast('Could not read image — please fill fields manually');
     } finally {
-      singleScanBox?.classList.remove('is-scanning');
+      if (runId === activeScanRunId) {
+        singleScanBox?.classList.remove('is-scanning');
+      }
     }
   }
 
